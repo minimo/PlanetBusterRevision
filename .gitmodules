@@ -1,0 +1,4 @@
+[submodule "phina.js"]
+	path = phina.js
+	url = https://github.com/minimo/phina.js
+	branch = minimo
