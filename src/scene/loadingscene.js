@@ -11,7 +11,7 @@ phina.define("pbr.LoadingScene", {
 
     init: function(param) {
         this.superInit({
-            assets: pbr.Application.assets[param],
+            assets: pbr.Application.assets[param.assetType],
             width: SC_W,
             height: SC_H,
             lie: false,

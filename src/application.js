@@ -67,7 +67,7 @@ phina.define("pbr.Application", {
         this.volumeBGM = 1;
         this.volumeSE = 1;
 
-        this.replaceScene(pbr.LoadingScene("common"));
+        this.replaceScene(pbr.SceneFlow());
     },
 
     _onLoadAssets: function() {
