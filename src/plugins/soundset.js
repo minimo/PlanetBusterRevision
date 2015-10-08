@@ -33,6 +33,7 @@ phina.define("phina.extension.SoundSet", {
     add: function(name, url) {
         if (name === undefined) return null;
         url = url || null;
+        if (this.find(name)) return true;
 
         var e = phina.extension.SoundElement(name);
         if (!e.media) return false;
