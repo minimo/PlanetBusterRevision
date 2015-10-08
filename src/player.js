@@ -17,8 +17,8 @@ var KEYBOARD_MOVE = {
     315: { x:  0.7, y:  0.7 },
 };
 
-tm.define("phinaApp.Player", {
-    superClass: "tm.display.Sprite",
+tm.define("pbr.Player", {
+    superClass: "phina.display.Sprite",
     layer: LAYER_PLAYER,
 
     //当り判定サイズ

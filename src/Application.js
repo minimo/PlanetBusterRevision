@@ -5,14 +5,39 @@
  *  This Program is MIT license.
  */
 
-//namespace phinaApp
-phinaApp = {};
+//namespace pbr(PlanetBusterRevision)
+pbr = {};
 
-phina.define("phinaApp.Application", {
+phina.define("pbr.Application", {
     superClass: "phina.display.CanvasApp",
 
 	_static: {
         version: "0.0.1",
+        assets: {
+            "common": {
+                image: {
+                    "tex1":     "assets/images/tex1.png",
+                    "tex2":     "assets/images/tex2.png",
+                    "tex_boss1":"assets/images/tex_boss1.png",
+                    "gunship":  "assets/images/gunship1.png",
+                    "effect":   "assets/images/effect.png",
+                },
+                sound: {
+                    "warning":  "assets/sounds/bgm_warning.mp3",
+                },
+                font: {
+                    "UbuntuMono":   "fonts/UbuntuMono-Bold.ttf",
+                    "Orbitron":     "fonts/Orbitron-Regular.ttf",
+                }
+            },
+            "stage1": {
+                image: {
+                },
+                sound: {
+                    "stage1":   "assets/sounds/expsy.mp3",
+                },
+            },
+        },
     },
 
     _member: {
@@ -25,9 +50,15 @@ phina.define("phinaApp.Application", {
         backgroundColor: 'rgba(0, 0, 0, 1)',
     },
 
-    init: function(param) {
-        this.superInit(param);
+    init: function() {
+        this.superInit({
+            query: '#world',
+            width: SC_W,
+            height: SC_H,
+        });
         this.$extend(this._member);
+
+        this.fps = 60;
 
         //設定情報の読み込み
         this.loadConfig();
@@ -35,6 +66,8 @@ phina.define("phinaApp.Application", {
         this.soundset = phina.extension.SoundSet();
         this.volumeBGM = 1;
         this.volumeSE = 1;
+
+        this.replaceScene(pbr.LoadingScene("common"));
     },
 
     _onLoadAssets: function() {

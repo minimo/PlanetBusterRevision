@@ -24,7 +24,6 @@ phina.define("phina.extension.SoundSet", {
     },
 
     readAsset: function() {
-//      this.image = phina.asset.AssetManager.get('sound', image);
         for (var key in phina.asset.AssetManager.assets.sound) {
             var obj = phina.asset.AssetManager.get("sound", key);
             if (obj instanceof phina.asset.Sound) this.add(key);

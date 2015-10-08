@@ -27,12 +27,6 @@ var clamp = function(x, min, max) {
     return (x<min)?min:((x>max)?max:x);
 };
 
-//乱数発生器
-if (MersenneTwister) {
-    mt = new MersenneTwister();
-    rand = function(min, max) { return mt.nextInt(min, max); };    //乱数発生
-}
-
 //タイトル無しダイアログ
 var AdvanceAlert = function(str) {
     var tmpFrame = document.createElement('iframe');

@@ -12,20 +12,11 @@
 DEBUG = false;
 
 //スクリーンサイズ
-SC_W = 320;
-SC_H = 640;
+SC_W = 480;
+SC_H = 320;
 
 window.onload = function() {
-    var loader = phina.asset.AssetLoader();
-    loader.load(assets["IPL"]).then(function() {
-        app = phinaApp.Application({
-            query: '#world',
-            width: SC_W,
-            height: SC_H,
-        });
-        app._onLoadAssets();
-        app.replaceScene(phinaApp.MainScene());
-        app.enableStats();
-        app.run();
-    });
+    var app = pbr.Application();
+    app.run();
+    app.enableStats();
 };

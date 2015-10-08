@@ -6,10 +6,17 @@
  */
 
 //アセットロード用シーン
-phina.define("phinaApp.LoadingScene", {
-    superClass: 'phina.display.CanvasScene',
+phina.define("pbr.LoadingScene", {
+    superClass: 'phina.game.LoadingScene',
 
-    init: function() {
+    init: function(param) {
+        this.superInit({
+            assets: pbr.Application.assets[param],
+            width: SC_W,
+            height: SC_H,
+            lie: false,
+            exitType: "auto",
+        });
     },
 
     update: function(app) {
