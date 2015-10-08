@@ -1,0 +1,14 @@
+{
+  "files": [
+    "plugins/soundset.js",
+
+    "benri.js",
+    "application.js",
+
+    "main.js",
+    "player.js",
+
+    "scene/loadingscene.js",
+    "scene/titlescene.js",
+  ]
+}
