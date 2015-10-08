@@ -41,19 +41,22 @@ phina.define("pbr.LoadingScene", {
                     className: 'phina.ui.Gauge',
                     arguments: {
                         value: 0,
-                        width: this.width,
-                        height: 12,
-                        color: '#aaa',
+                        width: this.width*0.5,
+                        height: 5,
+                        color: 'black',
                         stroke: false,
-                        gaugeColor: 'hsla(200, 100%, 80%, 0.8)',
+                        gaugeColor: 'blue',
                         padding: 0,
                     },
                     x: this.gridX.center(),
-                    y: 0,
+                    y: SC_H*0.5+20,
                     originY: 0,
                 }
             }
         });
+        this.gauge.update = function(e) {
+            this.gaugeColor = 'hsla({0}, 100%, 50%, 0.8)'.format(e.ticker.frame*5);
+        }
 
         var loader = phina.asset.AssetLoader();
         if (options.lie) {
