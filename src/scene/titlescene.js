@@ -14,7 +14,7 @@ phina.define("pbr.TitleScene", {
         labelParam: {fontFamily: "Orbitron", align: "left", baseline: "middle", fontSize: 20},
     },
 
-    init: function(stageNumber) {
+    init: function() {
         this.superInit();
         this.$extend(this._member);
 
@@ -22,13 +22,14 @@ phina.define("pbr.TitleScene", {
             text: "PlanetBuster",
             fill: "white",
             stroke: true,
-            strokeColor: 'blue',
-            strokeWidth: 3,
+            strokeColor: "black",
+            strokeWidth: 2,
 
             fontFamily: "Orbitron",
             align: "center",
             baseline: "middle",
-            fontSize: 20
+            fontSize: 32,
+            fontWeight: '',
         };
         var label = phina.display.Label(labelParam)
             .addChildTo(this)

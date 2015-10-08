@@ -22,14 +22,13 @@ phina.define("pbr.LoadingScene", {
         var labelParam = {
             text: "Loading",
             fill: "white",
-            stroke: true,
-            strokeColor: 'black',
-            strokeWidth: 3,
+            stroke: "blue",
+            strokeWidth: 2,
 
             fontFamily: "Orbitron",
             align: "center",
             baseline: "middle",
-            fontSize: 20
+            fontSize: 30
         };
         phina.display.Label(labelParam)
             .addChildTo(this)
