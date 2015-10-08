@@ -18,7 +18,19 @@ phina.define("pbr.TitleScene", {
         this.superInit();
         this.$extend(this._member);
 
-        var label = phina.display.Label({text: "PlanetBuster", fontFamily: "Orbitron", align: "left", baseline: "middle", fontSize: 20})
+        var labelParam = {
+            text: "PlanetBuster",
+            fill: "white",
+            stroke: true,
+            strokeColor: 'blue',
+            strokeWidth: 3,
+
+            fontFamily: "Orbitron",
+            align: "center",
+            baseline: "middle",
+            fontSize: 20
+        };
+        var label = phina.display.Label(labelParam)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
     },
