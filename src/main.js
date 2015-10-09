@@ -15,7 +15,7 @@ VIEW_COLLISION = false;
 
 //スクリーンサイズ
 SC_W = 480;
-SC_H = 320;
+SC_H = 480;
 SC_OFFSET_X = 0;
 SC_OFFSET_Y = 0;
 

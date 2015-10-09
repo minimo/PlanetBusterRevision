@@ -47,6 +47,15 @@ phina.define("pbr.Player", {
             .setFrameIndex(4)
             .setScale(0.66);
 
+        //ビット
+        this.bits = [];
+        this.bits[0] = pbr.PlayerBit(0).addChildTo(this);
+        this.bits[1] = pbr.PlayerBit(1).addChildTo(this);
+        this.bits[2] = pbr.PlayerBit(2).addChildTo(this);
+        this.bits[3] = pbr.PlayerBit(3).addChildTo(this);
+
+        this.openBit(0);
+
         //当り判定設定
         this.boundingType = "circle";
         this.radius = 2;
@@ -95,7 +104,7 @@ phina.define("pbr.Player", {
             this.y = Math.clamp(this.y, 16, SC_H-16);
 
             //ショット投入
-            if (app.ticker.frame % this.shotInterval == 0) this.enterShot();
+            if (this.shotON && app.ticker.frame % this.shotInterval == 0) this.enterShot();
         }
 
         //機体ロール
@@ -138,6 +147,41 @@ phina.define("pbr.Player", {
 
     //ビット展開
     openBit: function(type) {
+        var color = 0;
+        switch (type) {
+            case 0:
+                //赤（前方集中型）
+                this.bits[0].tweener.clear().to({ x:  5, y:-32, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-40,0,500,"easeInOutSine").moveBy( 40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[0]));
+                this.bits[1].tweener.clear().to({ x: -5, y:-32, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 40,0,500,"easeInOutSine").moveBy(-40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[1]));
+                this.bits[2].tweener.clear().to({ x: 20, y:-24, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-50,0,500,"easeInOutSine").moveBy( 50,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[2]));
+                this.bits[3].tweener.clear().to({ x:-20, y:-24, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 50,0,500,"easeInOutSine").moveBy(-50,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[3]));
+                color = 0;
+                break;
+            case 1:
+                //緑（方向変更型）
+                this.bits[0].tweener.clear().to({ x: 48, y:0, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[1].tweener.clear().to({ x:-48, y:0, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[2].tweener.clear().to({ x: 12, y:40, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[3].tweener.clear().to({ x:-12, y:40, rotation:0, alpha:1}, 300).setLoop(false);
+                color = 80;
+                break;
+            case 2:
+                //青（広範囲型）
+                this.bits[0].tweener.clear().to({ x: 36, y:16, rotation:  5, alpha:1}, 300).setLoop(false);
+                this.bits[1].tweener.clear().to({ x:-36, y:16, rotation: -5, alpha:1}, 300).setLoop(false);
+                this.bits[2].tweener.clear().to({ x: 60, y:24, rotation: 10, alpha:1}, 300).setLoop(false);
+                this.bits[3].tweener.clear().to({ x:-60, y:24, rotation:-10, alpha:1}, 300).setLoop(false);
+                color = 200;
+                break;
+            default:
+                //クローズ
+                this.bits[0].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
+                this.bits[1].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
+                this.bits[2].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
+                this.bits[3].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
+                color = 60;
+                break;
+        }
     },
 
     //プレイヤー投入時演出
