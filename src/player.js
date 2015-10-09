@@ -57,7 +57,7 @@ phina.define("pbr.Player", {
         return this;
     },
 
-    update: function() {
+    update: function(app) {
         if (this.control) {
             //マウス操作
             var p = app.mouse;
@@ -95,7 +95,7 @@ phina.define("pbr.Player", {
             this.y = Math.clamp(this.y, 16, SC_H-16);
 
             //ショット投入
-            if (app.ticker.frame % 3 == 0) this.enterShot();
+            if (app.ticker.frame % this.shotInterval == 0) this.enterShot();
         }
 
         //機体ロール

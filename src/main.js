@@ -43,11 +43,8 @@ var KEYBOARD_MOVE = {
     315: { x:  0.7, y:  0.7 },
 };
 
-//インスタンス
-var app;
-
 window.onload = function() {
-    app = pbr.Application();
+    var app = pbr.Application();
     app.run();
     app.enableStats();
 };

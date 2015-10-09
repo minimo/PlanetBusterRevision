@@ -70,6 +70,9 @@ phina.define("pbr.MainScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
+        this.pointer = pbr.PlayerPointer().addChildTo(this);
+        this.pointer.player = this.player;
+
         //スコア表示
         var that = this;
         this.scoreLabel = phina.display.Label({text:"SCORE:"}.$safe(this.scorelabelParam))
