@@ -42,6 +42,11 @@ phina.define("pbr.Player", {
         this.superInit();
         this.$extend(this._member);
 
+        this.sprite = phina.display.Sprite("gunship", 48, 48)
+            .addChildTo(this)
+            .setFrameIndex(4)
+            .setScale(0.6);
+
         //当り判定設定
         this.boundingType = "circle";
         this.radius = 2;
@@ -70,7 +75,7 @@ phina.define("pbr.Player", {
             if (this.rollcount < 0) this.rollcount = 0;
             if (this.rollcount > 100) this.rollcount = 100;
         }
-        this.setFrameIndex(this.indecies[Math.clamp(~~(this.rollcount/10),0, 9)]);
+        this.sprite.setFrameIndex(this.indecies[Math.clamp(~~(this.rollcount/10),0, 9)]);
 
         this.bx = this.x;
         this.by = this.y;

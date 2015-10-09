@@ -15,7 +15,7 @@ phina.define("pbr.MainScene", {
         bgm: null,
 
         //自機コントロール可能フラグ
-        control: false,
+        control: true,
 
         //ラベル用パラメータ
         labelParam: {
@@ -66,11 +66,10 @@ phina.define("pbr.MainScene", {
         }
 
         //プレイヤー準備        
-/*
         this.player = pbr.Player()
             .addChildTo(this)
-            .setPosition(PN_OFFX, PN_OFFY);
-*/
+            .setPosition(SC_W*0.5, SC_H*0.5);
+
         //スコア表示
         var that = this;
         this.scoreLabel = phina.display.Label({text:"SCORE:"}.$safe(this.scorelabelParam))
@@ -91,7 +90,7 @@ phina.define("pbr.MainScene", {
         if (this.control) {
             var player = this.player;
             //マウス操作
-            var p = app.pointing;
+            var p = app.mouse;
             if (p.getPointing()) {
                 var pt = this.parentScene.pointer;
                 this.x += (pt.x - this.x)/this.touchSpeed;
@@ -109,8 +108,8 @@ phina.define("pbr.MainScene", {
             var angle = kb.getKeyAngle();
             if (angle !== null) {
                 var m = KEYBOARD_MOVE[angle];
-                this.x += m.x*this.speed;
-                this.y += m.y*this.speed;
+                this.player.x += m.x*this.player.speed;
+                this.player.y += m.y*this.player.speed;
             }
             if (!this.mouseON) this.shotON = app.keyboard.getKey("Z");
 
