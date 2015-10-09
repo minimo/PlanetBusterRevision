@@ -9,12 +9,15 @@ phina.define("pbr.MainScene", {
     superClass: 'phina.display.CanvasScene',
 
     _member: {
+        score: 0,
+
         //再生中BGM
         bgm: null,
 
         //自機コントロール可能フラグ
-        control: true,
+        control: false,
 
+        //ラベル用パラメータ
         labelParam: {
             fill: "white",
             stroke: true,
@@ -57,20 +60,22 @@ phina.define("pbr.MainScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
 
         //レイヤー準備
-        this.lowerLayer = phina.display.CanvasElement().addChildTo(this);
-        this.panelLayer = phina.display.CanvasElement().addChildTo(this);
-        this.playerLayer = phina.display.CanvasElement().addChildTo(this);
-        this.itemLayer = phina.display.CanvasElement().addChildTo(this);
+        this.base = phina.display.CanvasElement().addChildTo(this).setPosition(SC_OFFSET_X, 0);
+        this.layers = [];
+        for (var i = 0; i < LAYER_SYSTEM+1; i++) {
+            this.layers[i] = phina.display.CanvasElement().addChildTo(this.base);
+        }
 
         //プレイヤー準備        
+/*
         this.player = pbr.Player()
             .addChildTo(this.playerLayer)
             .setPosition(PN_OFFX, PN_OFFY);
         this.player.visible = false;
-
+*/
         //スコア表示
         var that = this;
-        var lb = this.scoreLabel = phina.display.Label("得点:", this.scorelabelParam)
+        var lb = this.scoreLabel = phina.display.Label("SCORE:", this.scorelabelParam)
             .addChildTo(this)
             .setPosition(8, 32);
         lb.update = function() {
@@ -120,9 +125,6 @@ phina.define("pbr.MainScene", {
             //移動範囲の制限
             this.x = Math.clamp(this.x, 16, SC_W-16);
             this.y = Math.clamp(this.y, 16, SC_H-16);
-
-            //ショット
-            if (this.shotON && this.time % this.shotInterval == 0) this.enterShot();
         }
     },
 

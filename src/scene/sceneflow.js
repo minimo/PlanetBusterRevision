@@ -11,8 +11,7 @@ phina.define("pbr.SceneFlow", {
     init: function() {
         this.superInit({
             startLabel: "load",
-            scenes: [
-            {
+            scenes: [{
                 label: "load",
                 className: "pbr.LoadingScene",
                 arguments: {
@@ -22,7 +21,12 @@ phina.define("pbr.SceneFlow", {
             },{
                 label: "title",
                 className: "pbr.TitleScene",
-            },],
+                nextLabel: "main",
+            },{
+                label: "main",
+                className: "pbr.MainScene",
+                nextLabel: "title",
+            }],
         });
     }
 });

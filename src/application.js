@@ -59,6 +59,8 @@ phina.define("pbr.Application", {
         this.$extend(this._member);
 
         this.fps = 60;
+        this.canvas.context.imageSmoothingEnabled = true;
+        this.domElement.style.imageRendering = "pixelated";
 
         //設定情報の読み込み
         this.loadConfig();

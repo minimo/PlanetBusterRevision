@@ -43,15 +43,16 @@ phina.define("pbr.TitleScene", {
     },
 
     //タッチorクリック開始処理
-    ontouchstart: function(e) {
+    onpointstart: function(e) {
     },
 
     //タッチorクリック移動処理
-    ontouchmove: function(e) {
+    onpointmove: function(e) {
     },
 
     //タッチorクリック終了処理
-    ontouchend: function(e) {
+    onpointend: function(e) {
+        this.app.popScene();
     },
 });
 
