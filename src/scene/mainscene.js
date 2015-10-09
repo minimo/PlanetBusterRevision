@@ -87,43 +87,6 @@ phina.define("pbr.MainScene", {
     },
     
     update: function(app) {
-        if (this.control) {
-            var player = this.player;
-            //マウス操作
-            var p = app.mouse;
-            if (p.getPointing()) {
-                var pt = this.parentScene.pointer;
-                this.x += (pt.x - this.x)/this.touchSpeed;
-                this.y += (pt.y - this.y)/this.touchSpeed;
-
-                this.mouseON = true;
-                this.shotON = true;
-            } else {
-                this.mouseON = false;
-                this.shotON = false;
-            }
-
-            //キーボード操作
-            var kb = app.keyboard;
-            var angle = kb.getKeyAngle();
-            if (angle !== null) {
-                var m = KEYBOARD_MOVE[angle];
-                this.player.x += m.x*this.player.speed;
-                this.player.y += m.y*this.player.speed;
-            }
-            if (!this.mouseON) this.shotON = app.keyboard.getKey("Z");
-
-            //ショットタイプ変更（テスト用）
-            if (app.keyboard.getKey("X") && this.time > this.changeInterval) {
-                this.type = (this.type+1)%3;
-                this.openBit(this.type);
-                this.changeInterval = this.time+30;
-            }
-
-            //移動範囲の制限
-            this.x = Math.clamp(this.x, 16, SC_W-16);
-            this.y = Math.clamp(this.y, 16, SC_H-16);
-        }
     },
 
     //ステージ初期化
