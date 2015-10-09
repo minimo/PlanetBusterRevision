@@ -11,27 +11,25 @@ phina.define("pbr.TitleScene", {
     
     _member: {
         //ラベル用パラメータ
-        labelParam: {fontFamily: "Orbitron", align: "left", baseline: "middle", fontSize: 20},
-    },
-
-    init: function() {
-        this.superInit();
-        this.$extend(this._member);
-
-        var labelParam = {
-            text: "PlanetBuster",
+        labelParam: {
+            text: "",
             fill: "white",
-            stroke: true,
-            strokeColor: "blue",
+            stroke: "blue",
             strokeWidth: 2,
 
             fontFamily: "Orbitron",
             align: "center",
             baseline: "middle",
             fontSize: 32,
-            fontWeight: '',
-        };
-        var label = phina.display.Label(labelParam)
+            fontWeight: ''
+        },
+    },
+
+    init: function() {
+        this.superInit();
+        this.$extend(this._member);
+
+        var label = phina.display.Label({text: "PlanetBuster"}.$safe(this.labelParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
