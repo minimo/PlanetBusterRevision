@@ -54,7 +54,7 @@ phina.define("pbr.LoadingScene", {
             }
         });
         this.gauge.update = function(e) {
-            this.gaugeColor = 'hsla({0}, 100%, 50%, 0.8)'.format(e.ticker.frame*5);
+            this.gaugeColor = 'hsla({0}, 100%, 50%, 0.8)'.format(e.ticker.frame*3);
         }
 
         var loader = phina.asset.AssetLoader();
@@ -72,6 +72,7 @@ phina.define("pbr.LoadingScene", {
         }
         this.gauge.onfull = function() {
             if (options.exitType === 'auto') {
+                this.app._onLoadAssets();
                 this.app.popScene();
             }
         }.bind(this);
