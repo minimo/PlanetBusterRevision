@@ -20,6 +20,8 @@ phina.define("pbr.Application", {
                     "tex2":     "assets/images/tex2.png",
                     "tex_boss1":"assets/images/tex_boss1.png",
                     "gunship":  "assets/images/gunship1.png",
+                    "shot1":    "assets/images/shot1.png",
+                    "shot2":    "assets/images/shot2.png",
                     "effect":   "assets/images/effect.png",
                 },
                 sound: {

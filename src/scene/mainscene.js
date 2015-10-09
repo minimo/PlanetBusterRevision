@@ -108,4 +108,13 @@ phina.define("pbr.MainScene", {
     //タッチorクリック終了処理
     onpointend: function(e) {
     },
+
+    //addChildオーバーライド
+    addChild: function(child) {
+        if (child.layer === undefined) {
+            return this.superClass.prototype.addChild.apply(this, arguments);
+        }
+        child.parentScene = this;
+        return this.layers[child.layer].addChild(child);
+    },
 });

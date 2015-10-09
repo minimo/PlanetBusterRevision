@@ -15,7 +15,7 @@ phina.define("pbr.Player", {
         height: 2,
 
         control: true,  //操作可能フラグ
-        shotON: false,  //ショットフラグ
+        shotON: true,  //ショットフラグ
         mouseON: false, //マウス操作中フラグ
 
         isCollision: false, //当り判定有効フラグ
@@ -45,7 +45,7 @@ phina.define("pbr.Player", {
         this.sprite = phina.display.Sprite("gunship", 48, 48)
             .addChildTo(this)
             .setFrameIndex(4)
-            .setScale(0.6);
+            .setScale(0.66);
 
         //当り判定設定
         this.boundingType = "circle";
@@ -93,6 +93,9 @@ phina.define("pbr.Player", {
             //移動範囲の制限
             this.x = Math.clamp(this.x, 16, SC_W-16);
             this.y = Math.clamp(this.y, 16, SC_H-16);
+
+            //ショット投入
+            if (app.ticker.frame % 3 == 0) this.enterShot();
         }
 
         //機体ロール
@@ -126,6 +129,11 @@ phina.define("pbr.Player", {
 
     //ショット発射
     enterShot: function() {
+        var shotPower = this.shotPower;
+        //自機から
+        pbr.Shot( 1, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x+10, this.y-8);
+        pbr.Shot( 0, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x   , this.y-16);
+        pbr.Shot(-1, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x-10, this.y-8);
     },
 
     //ビット展開
