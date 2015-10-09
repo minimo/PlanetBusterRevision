@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.MainScene", {
-    superClass: 'phina.display.CanvasScene',
+    superClass: "phina.display.CanvasScene",
 
     _member: {
         score: 0,
@@ -20,26 +20,25 @@ phina.define("pbr.MainScene", {
         //ラベル用パラメータ
         labelParam: {
             fill: "white",
-            stroke: true,
-            strokeColor: 'black',
-            strokeWidth: 3,
+            stroke: "blue",
+            strokeWidth: 2,
 
             fontFamily: "Orbitron",
             align: "center",
             baseline: "middle",
-            fontSize: 20
+            fontSize: 32,
+            fontWeight: ''
         },
         scorelabelParam: {
             fill: "white",
-            stroke: true,
-            strokeColor: 'black',
-            strokeWidth: 3,
+            stroke: "black",
+            strokeWidth: 1,
 
-            fontFamily: "Orbitron",
-            align: "center",
+            fontFamily: "UbuntuMono",
+            align: "left",
             baseline: "middle",
             fontSize: 20,
-            align: "left",
+            fontWeight: ''
         },
     },
 
@@ -60,32 +59,32 @@ phina.define("pbr.MainScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
 
         //レイヤー準備
-        this.base = phina.display.CanvasElement().addChildTo(this).setPosition(SC_OFFSET_X, 0);
+        this.base = phina.display.Layer().addChildTo(this).setPosition(SC_OFFSET_X, 0);
         this.layers = [];
         for (var i = 0; i < LAYER_SYSTEM+1; i++) {
-            this.layers[i] = phina.display.CanvasElement().addChildTo(this.base);
+            this.layers[i] = phina.display.Layer().addChildTo(this.base);
         }
 
         //プレイヤー準備        
 /*
         this.player = pbr.Player()
-            .addChildTo(this.playerLayer)
+            .addChildTo(this)
             .setPosition(PN_OFFX, PN_OFFY);
-        this.player.visible = false;
 */
         //スコア表示
         var that = this;
-        var lb = this.scoreLabel = phina.display.Label("SCORE:", this.scorelabelParam)
+        this.scoreLabel = phina.display.Label({text:"SCORE:"}.$safe(this.scorelabelParam))
             .addChildTo(this)
             .setPosition(8, 32);
-        lb.update = function() {
-            this.text = "得点:"+that.score;
+        this.scoreLabel.update = function() {
+            this.text = "SCORE "+that.score;
         }
 
         //目隠し
         this.mask = phina.display.RectangleShape(param)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
+        this.mask.alpha = 0;
     },
     
     update: function(app) {
