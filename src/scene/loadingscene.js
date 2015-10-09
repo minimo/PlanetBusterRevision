@@ -7,7 +7,7 @@
 
 //アセットロード用シーン
 phina.define("pbr.LoadingScene", {
-    superClass: 'phina.display.CanvasScene',
+    superClass: "phina.display.CanvasScene",
 
     init: function(options) {
         var _default = {

@@ -7,7 +7,7 @@
  */
 
 phina.define("pbr.TitleScene", {
-    superClass: phina.app.Scene,
+    superClass: "phina.display.CanvasScene",
     
     _member: {
         //ラベル用パラメータ
@@ -22,7 +22,7 @@ phina.define("pbr.TitleScene", {
             text: "PlanetBuster",
             fill: "white",
             stroke: true,
-            strokeColor: "black",
+            strokeColor: "blue",
             strokeWidth: 2,
 
             fontFamily: "Orbitron",
@@ -34,9 +34,12 @@ phina.define("pbr.TitleScene", {
         var label = phina.display.Label(labelParam)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
+
+        this.time = 0;
     },
     
     update: function() {
+        this.time++;
     },
 
     //タッチorクリック開始処理
