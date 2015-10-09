@@ -70,6 +70,13 @@ phina.define("pbr.Application", {
         this.replaceScene(pbr.SceneFlow());
     },
 
+    update: function() {
+        this.mouse.update();
+        this.touch.update();
+        this.touchList.update();
+        this.keyboard.update();
+    },
+
     _onLoadAssets: function() {
         this.soundset.readAsset();
     },
