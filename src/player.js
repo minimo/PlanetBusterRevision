@@ -71,9 +71,14 @@ phina.define("pbr.Player", {
             //マウス操作
             var p = app.mouse;
             if (p.getPointing()) {
+/*
                 var pt = this.parentScene.pointer;
                 this.x += (pt.x - this.x)/this.touchSpeed;
                 this.y += (pt.y - this.y)/this.touchSpeed;
+*/
+                var pt = p.deltaPosition;
+                this.x += pt.x;
+                this.y += pt.y;
 
                 this.mouseON = true;
                 this.shotON = true;
