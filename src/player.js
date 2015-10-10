@@ -44,8 +44,7 @@ phina.define("pbr.Player", {
 
         this.sprite = phina.display.Sprite("gunship", 48, 48)
             .addChildTo(this)
-            .setFrameIndex(4)
-            .setScale(0.66);
+            .setFrameIndex(4);
 
         //ビット
         this.bits = [];

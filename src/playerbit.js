@@ -18,7 +18,7 @@ phina.define("pbr.PlayerBit", {
         this.superInit("bit", 32, 32);
         this.$extend(this._member);
 
-        this.setScale(0.5);
+        this.setScale(0.8);
         this.index = 0;
         this.id = id;
 
