@@ -1,16 +1,16 @@
 /*
  *  Button.js
- *  2014/06/24
+ *  2015/10/10
  *  @auther minimo  
  *  This Program is MIT license.
  *
  */
 
-tm.extension = tm.extension || {};
+phina.extension = phina.extension || {};
 
 //通常のボタン
-tm.define("tm.extension.Button", {
-    superClass: tm.display.CanvasElement,
+phina.define("phina.extension.Button", {
+    superClass: "phina.display.CanvasElement",
 
     //描画スタイル設定
     DEFAULT_STYLE: {
@@ -195,8 +195,8 @@ tm.define("tm.extension.Button", {
 });
 
 //角丸ボタン
-tm.define("tm.extension.RoundButton", {
-    superClass: tm.extension.Button,
+tm.define("phina.extension.RoundButton", {
+    superClass: "phina.extension.Button",
 
     init: function(width, height, text, style) {
         this.superInit(width, height, text, style);
@@ -250,8 +250,8 @@ tm.define("tm.extension.RoundButton", {
 });
 
 //トグルボタン
-tm.define("tm.extension.ToggleButton", {
-    superClass: tm.display.CanvasElement,
+tm.define("phina.extension.ToggleButton", {
+    superClass: "phina.display.CanvasElement",
 
     //描画スタイル設定
     DEFAULT_STYLE: {
@@ -480,7 +480,7 @@ tm.define("tm.extension.ToggleButton", {
         }
     },
 });
-tm.extension.ToggleButton.prototype.accessor("toggleON", {
+phina.extension.ToggleButton.prototype.accessor("toggleON", {
     "set": function(b) {
         this._toggleON = b;
 
@@ -510,8 +510,8 @@ tm.extension.ToggleButton.prototype.accessor("toggleON", {
 });
 
 //スライドボタン
-tm.define("tm.extension.SlideButton", {
-    superClass: tm.display.CanvasElement,
+phina.define("phina.extension.SlideButton", {
+    superClass: "phina.display.CanvasElement",
 
     //描画スタイル設定
     DEFAULT_STYLE: {
@@ -600,7 +600,7 @@ tm.define("tm.extension.SlideButton", {
     },
 });
 
-tm.extension.SlideButton.prototype.accessor("slideON", {
+phina.extension.SlideButton.prototype.accessor("slideON", {
     "set": function(b) {
         this._slideON = b;
 
