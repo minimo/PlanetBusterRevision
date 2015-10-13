@@ -60,5 +60,22 @@ phina.define("pbr.Shot", {
         if (this.x<-20 || this.x>SC_W+20 || this.y<-20 || this.y>SC_H+20) {
             this.remove();
         }
+
+        //敵との当り判定チェック
+        for (var i = 0; i < 3; i++) {
+            var layer = this.parentScene.layers[pbr.checkLayers[i]];
+            layer.children.each(function(a) {
+                if (a === app.player) return;
+                if (this.parent && a.isCollision && a.isHitElement(this)) {
+                    a.damage(this.power);
+                    this.vanish();
+                    this.remove();
+                    return;
+                }
+            }.bind(this));
+        }
+    },
+
+    vanish: function() {
     },
 });

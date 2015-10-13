@@ -4,7 +4,6 @@
  *  @auther minimo  
  *  This Program is MIT license.
  */
-pbr.checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT, LAYER_OBJECT_LOWER];
 
 phina.define("pbr.Bullet", {
     superClass: "phina.display.Sprite",
