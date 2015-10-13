@@ -11,6 +11,9 @@ phina.define("pbr.MainScene", {
     _member: {
         score: 0,
 
+        //現在ステージ番号
+        nowStage: 1,
+
         //再生中BGM
         bgm: null,
 
@@ -42,7 +45,9 @@ phina.define("pbr.MainScene", {
         },
     },
 
-    init: function() {
+    init: function(stageNumber) {
+        stageNumber = stageNumber || 1;
+
         this.superInit();
         this.$extend(this._member);
 
@@ -82,6 +87,10 @@ phina.define("pbr.MainScene", {
             this.text = "SCORE "+that.score;
         }
 
+        //ステージ初期化
+        this.nowStage = stageNumber;
+        this.initStage();
+
         //目隠し
         this.mask = phina.display.RectangleShape(param)
             .addChildTo(this)
@@ -94,7 +103,36 @@ phina.define("pbr.MainScene", {
 
     //ステージ初期化
     initStage: function() {
+        if (this.ground) this.ground.remove();
+        switch (this.nowStage) {
+            case 1:
+                this.stage = pbr.Stage1(this, app.player);
+                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                break;
+            case 2:
+                this.stage = pbr.Stage1(this, app.player);
+                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                break;
+            case 3:
+                this.stage = pbr.Stage1(this, app.player);
+                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                break;
+        }
+        this.time = 0;
+        this.timeVanish = 0;
+        this.enemyCount = 0;
+        this.enemyKill = 0;
+        this.stageMiss = 0;
+
+        //ステージ番号表示
+        param = {text: "STAGE "+this.nowStage, fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 800, outlineWidth: 2};
+        var m1 = phina.display.Label(param, 50)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+        m1.alpha = 0;
+        m1.tweener.wait(500).fadeIn(250).wait(1000).fadeOut(250).call(function(){this.remove()}.bind(m1));
     },
+
 
     //ステージ再スタート
     restartStage: function() {
