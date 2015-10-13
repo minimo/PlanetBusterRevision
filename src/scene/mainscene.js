@@ -100,11 +100,12 @@ phina.define("pbr.MainScene", {
         var event = this.stage.get(this.time);
         if (event) {
             if (typeof(event.value) === 'function') {
-                event.value.call(this);
+                event.value.call(this, app);
             } else {
                 this.enterEnemyUnit(event.value);
             }
         }
+        this.time++;
     },
 
     //ステージ初期化
@@ -113,15 +114,15 @@ phina.define("pbr.MainScene", {
         switch (this.nowStage) {
             case 1:
                 this.stage = pbr.Stage1(this, this.player);
-//                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
                 break;
             case 2:
                 this.stage = pbr.Stage1(this, this.player);
-//                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
                 break;
             case 3:
                 this.stage = pbr.Stage1(this, this.player);
-//                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
                 break;
         }
         this.time = 0;

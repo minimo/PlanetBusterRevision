@@ -18,6 +18,7 @@ phina.define("pbr.Ground", {
 
     init: function() {
         this.superInit();
+        this.$safe(this._member);
         this.mapBase = phina.display.CanvasElement().setPosition(0, 0).addChildTo(this);
     },
 

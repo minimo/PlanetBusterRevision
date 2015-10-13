@@ -14,18 +14,12 @@ phina.define("pbr.Stage1", {
         this.superInit(parent, player);
 
         //初期化処理
-        this.add(1, function() {
-/*
-            this.ground.map.alpha = 0;
-            this.ground.tweener.clear().to({scaleX:0.2, scaleY:0.2, speed:1.0, alpha:0}, 1, "easeInOutQuad");
-*/
+        this.add(1, function(app) {
+            this.ground.tweener.clear().to({scaleX:0.2, scaleY:0.2, speed:1.0, alpha:1}, 1, "easeInOutQuad");
             app.playBGM("stage1", true);
         });
-        this.add(60, function() {
-/*
+        this.add(60, function(app) {
             this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:2.0}, 5000, "easeInOutCubic");
-            this.ground.map.tweener.clear().to({alpha:1}, 2000, "easeInOutQuad");
-*/
         });
 
         this.add( 120, "ToyBox-p-right");
@@ -71,20 +65,6 @@ phina.define("pbr.Stage1Ground", {
         this.position.y = SC_H/2;
 
         this.map = phina.display.Sprite("map1g").addChildTo(this.mapBase);
-        this.map2 = phina.display.Sprite("map1g")
-            .addChildTo(this.mapBase)
-            .setPosition(-320,0);
-        this.map3 = phina.display.Sprite("map1g")
-            .addChildTo(this.mapBase)
-            .setPosition(320,0);
-        this.map4 = phina.display.Sprite("map1g")
-            .addChildTo(this.mapBase)
-            .setPosition(-640,0);
-        this.map5 = phina.display.Sprite("map1g")
-            .addChildTo(this.mapBase)
-            .setPosition(640,0);
-//        this.map = phina.display.MapSprite("map1").addChildTo(this.mapBase);
-        this.map.alpha = 0;
     },
 });
 
