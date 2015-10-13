@@ -887,7 +887,7 @@
   Array.prototype.method("random", function(min, max) {
     min = min || 0;
     max = max || this.length-1;
-    return this[ phina.util.Random.randint(min, max) ];
+    return this[ Math.randint(min, max) ];
   });
   
   /**
@@ -897,7 +897,7 @@
   Array.prototype.method("pickup", function(min, max) {
     min = min || 0;
     max = max || this.length-1;
-    return this[ phina.util.Random.randint(min, max) ];
+    return this[ Math.randint(min, max) ];
   });
   
   /**
@@ -907,7 +907,7 @@
   Array.prototype.method("lot", function(min, max) {
     min = min || 0;
     max = max || this.length-1;
-    return this[ phina.util.Random.randint(min, max) ];
+    return this[ Math.randint(min, max) ];
   });
   
   /**
@@ -1021,7 +1021,7 @@
    */
   Array.prototype.method("shuffle", function() {
     for (var i=0,len=this.length; i<len; ++i) {
-      var j = phina.util.Random.randint(0, len-1);
+      var j = Math.randint(0, len-1);
       
       if (i != j) {
         this.swap(i, j);
@@ -1185,35 +1185,19 @@
   });
   
   /**
-   * @method rand
-   * ランダムな値を指定された範囲内で生成
-   * 非推奨 -> randint をお使いください
-   */
-  Math.method("rand", function(min, max) {
-    return window.Math.floor( Math.random()*(max-min+1) ) + min;
-  });
-  /**
    * @method randint
    * ランダムな値を指定された範囲内で生成
    */
   Math.method("randint", function(min, max) {
-    return window.Math.floor( Math.random()*(max-min+1) ) + min;
+    return Math.floor( Math.random()*(max-min+1) ) + min;
   });
   
-  /**
-   * @method randf
-   * ランダムな値を指定された範囲内で生成
-   * 非推奨 -> randint をお使いください
-   */
-  Math.method("randf", function(min, max) {
-    return window.Math.random()*(max-min)+min;
-  });
   /**
    * @method randfloat
    * ランダムな値を指定された範囲内で生成
    */
   Math.method("randfloat", function(min, max) {
-    return window.Math.random()*(max-min)+min;
+    return Math.random()*(max-min)+min;
   });
   
   /**
@@ -3392,6 +3376,13 @@ phina.namespace(function() {
     },
   });
 
+  Math.method("randint", function(min, max) {
+    return phina.util.Random.randint(min, max);
+  });
+  Math.method("randfloat", function(min, max) {
+    return phina.util.Random.randfloat(min, max);
+  });
+
 });
 
 
@@ -4333,7 +4324,7 @@ phina.namespace(function() {
      * タッチしているかを判定
      */
     getTouch: function() {
-      return this.touched != 0;
+      return this.now != 0;
     },
     
     /**
@@ -7743,6 +7734,10 @@ phina.namespace(function() {
 
     /** 表示フラグ */
     visible: true,
+    /** アルファ */
+    alpha: 1.0,
+    /** ブレンドモード */
+    blendMode: "source-over",
 
     /** 子供を 自分のCanvasRenderer で描画するか */
     renderChildBySelf: false,
@@ -7872,9 +7867,15 @@ phina.namespace(function() {
       var image = this.canvas.domElement;
       var w = image.width;
       var h = image.height;
+      
+      // var x = -this.width*this.originX - this.padding;
+      // var y = -this.height*this.originY - this.padding;
+      var x = -w*this.origin.x;
+      var y = -h*this.origin.y;
+
       canvas.context.drawImage(image,
         0, 0, w, h,
-        -w*this.origin.x, -h*this.origin.y, w, h
+        x, y, w, h
         );
     },
 
@@ -8301,7 +8302,6 @@ phina.namespace(function() {
 });
 
 
-
 phina.namespace(function() {
 
   /**
@@ -8322,6 +8322,11 @@ phina.namespace(function() {
       this.width = width || this.image.domElement.width;
       this.height = height || this.image.domElement.height;
       this._frameIndex = 0;
+
+      this._frameTrimX = 0;
+      this._frameTrimY = 0;
+      this._frameTrimW = this.width;
+      this._frameTrimH = this.height;
 
       this.srcRect = {
         x: 0,
@@ -8348,17 +8353,22 @@ phina.namespace(function() {
     },
 
     setFrameIndex: function(index, width, height) {
+      var sx = this._frameTrimX || 0;
+      var sy = this._frameTrimY || 0;
+      var sw = this._frameTrimW || (this.image.domElement.width-sx);
+      var sh = this._frameTrimH || (this.image.domElement.height-sy);
+
       var tw  = width || this.width;      // tw
       var th  = height || this.height;    // th
-      var row = ~~(this.image.domElement.width / tw);
-      var col = ~~(this.image.domElement.height / th);
+      var row = ~~(sw / tw);
+      var col = ~~(sh / th);
       var maxIndex = row*col;
       index = index%maxIndex;
       
       var x   = index%row;
       var y   = ~~(index/row);
-      this.srcRect.x = x*tw;
-      this.srcRect.y = y*th;
+      this.srcRect.x = sx+x*tw;
+      this.srcRect.y = sy+y*th;
       this.srcRect.width  = tw;
       this.srcRect.height = th;
 
@@ -8367,11 +8377,47 @@ phina.namespace(function() {
       return this;
     },
 
+    setFrameTrimming: function(x, y, width, height) {
+      this._frameTrimX = x || 0;
+      this._frameTrimY = y || 0;
+      this._frameTrimW = width || this.image.domElement.width - this._frameTrimX;
+      this._frameTrimH = height || this.image.domElement.height - this._frameTrimY;
+      return this;
+    },
+
     _accessor: {
       frameIndex: {
         get: function() {return this._frameIndex;},
         set: function(idx) {
           this.setFrameIndex(idx);
+          return this;
+        }
+      },
+      frameTrimX: {
+        get: function() {return this._frameTrimY;},
+        set: function(x) {
+          this._frameTrimX = x;
+          return this;
+        }
+      },
+      frameTrimY: {
+        get: function() {return this._frameTrimY;},
+        set: function(y) {
+          this._frameTrimY = y;
+          return this;
+        }
+      },
+      frameTrimW: {
+        get: function() {return this._frameTrimW;},
+        set: function(w) {
+          this._frameTrimW = w;
+          return this;
+        }
+      },
+      frameTrimH: {
+        get: function() {return this._frameTrimH;},
+        set: function(h) {
+          this._frameTrimH = h;
           return this;
         }
       },
@@ -8397,6 +8443,9 @@ phina.namespace(function() {
     init: function(options) {
       if (typeof arguments[0] === 'string') {
         options = { text: arguments[0], };
+        if (arguments[1] === 'object') {
+            options.$safe(arguments[1]);
+        }
       }
       else {
         options = arguments[0];
@@ -8735,6 +8784,7 @@ phina.namespace(function() {
       var context = this.canvas.context;
 
       context.globalAlpha = obj._worldAlpha;
+      context.globalCompositeOperation = obj.blendMode;
 
       if (obj._worldMatrix) {
         // 行列をセット
