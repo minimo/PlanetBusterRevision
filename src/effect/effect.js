@@ -46,26 +46,40 @@ phina.define("pbr.Effect.EffectBase", {
         ifGround: false,
 
         time: 0,
+
+        defaultOption: {
+            assetName: "effect",
+            width: 64,
+            height: 64,
+            interval: 2,
+            startIndex: 0,
+            maxIndex: 17,
+            delay: 0,
+            loop: false,
+            enterframe: null,
+        },
     },
 
-    init: function(tex, width, height, interval, startIndex, maxIndex, delay) {
-        this.superInit(tex, width, height);
+    init: function(option) {
+        option = option || {};
+        option.$safe(this.defaultOption)
+        this.superInit(option.assetName, option.width, option.height);
         this.$safe(this._member);
 
         //初期値セット
-        this.interval = interval || 4;
-        this.startIndex = startIndex || 0;
-        this.maxIndex = maxIndex || 8;
-        this.delay = delay || 0;
+        this.interval = option.interval;
+        this.startIndex = option.startIndex;
+        this.maxIndex = option.maxIndex;
+        this.delay = option.delay;
         if (this.delay < 0) this.delay *= -1;
+        this.loop = option.loop;
         this.time = -this.delay;
 
         this.index = this.startIndex;
         this.setFrameIndex(this.index);
 
-        this.parentScene = app.currentScene;
-
-        this.on("enterframe", this.defaultEnterFrame);
+        var enterframe = option.enterframe || this.defaultEnterFrame;
+        this.on("enterframe", enterframe);
     },
 
     defaultEnterFrame: function() {
@@ -98,14 +112,13 @@ phina.define("pbr.Effect.EffectBase", {
             }
         }
         //画面範囲外
-        if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
+        if (this.x < -32 || this.x > SC_W+32 || this.y < -32 || this.y > SC_H+32) {
             this.isRemove = true;
         }
 
         this.addVelocity();
         this.time++;
         if (this.isRemove) {
-            this.removeChildren();
             this.remove();
         }
     },
@@ -116,6 +129,7 @@ phina.define("pbr.Effect.EffectBase", {
         this.y += this.velocityY;
         this.velocityX *= this.velocityD;
         this.velocityY *= this.velocityD;
+        return this;
     },
 
     //加速度の設定
@@ -139,7 +153,15 @@ phina.define("pbr.Effect.Explode", {
     layer: LAYER_EFFECT_UPPER,
 
     init: function(delay) {
-        this.superInit("effect", 64, 64, 2, 0, 17, delay);
+        this.superInit({
+            assetName: "effect",
+            width: 64,
+            height: 64,
+            interval: 2,
+            startIndex: 0,
+            maxIndex: 17,
+            delay: delay,
+        });
     },
 });
 
@@ -149,8 +171,16 @@ phina.define("pbr.Effect.ExplodeSmall", {
     layer: LAYER_EFFECT_UPPER,
 
     init: function(delay) {
+        this.superInit({
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 4,
+            startIndex: 8,
+            maxIndex: 15,
+            delay: delay,
+        });
         this.setFrameTrimming(256, 256, 128, 32);
-        this.superInit("effect", 16, 16, 4, 8, 15, delay);
     },
 });
 
@@ -160,8 +190,16 @@ phina.define("pbr.Effect.ExplodeSmall2", {
     layer: LAYER_EFFECT_UPPER,
 
     init: function(delay) {
+        this.superInit({
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 4,
+            startIndex 0,
+            maxIndex: 7,
+            delay: delay,
+        });
         this.setFrameTrimming(256, 256, 128, 32);
-        this.superInit("effect", 16, 16, 4, 0, 7, delay);
     },
 });
 
@@ -171,8 +209,16 @@ phina.define("pbr.Effect.ExplodeLarge", {
     layer: LAYER_EFFECT_UPPER,
 
     init: function(delay) {
+        this.superInit({
+            assetName: "effect",
+            width 48,
+            height: 48,
+            interval: 4,
+            startIndex 0,
+            maxIndex: 7,
+            delay: delay,
+        });
         this.setFrameTrimming(0, 192, 192, 96);
-        this.superInit("effect", 48, 48, 4, 0, 7, delay);
     },
 });
 
@@ -182,10 +228,18 @@ phina.define("pbr.Effect.ExplodeGround", {
     layer: LAYER_EFFECT_LOWER,
 
     init: function(delay) {
+        this.superInit({
+            assetName: "effect",
+            width: 32,
+            height 48,
+            interval 4,:
+            startIndex 0,
+            maxIndex: 7,
+            delay: delay,
+        });
         this.setFrameTrimming(256, 192, 256, 48);
-        this.superInit("effect", 32, 48, 4, 0, 7, delay);
-        isGround = true;
 
+        isGround = true;
         this.groundX = this.parentScene.ground.x;
         this.groundY = this.parentScene.ground.y;
     },
@@ -201,12 +255,28 @@ phina.define("pbr.Effect.Debri", {
         num = num || 0;
         num = Math.clamp(num, 0, 3);
         if (num == 0) {
+            this.superInit({
+                assetName: "effect",
+                width: 8,
+                height: 8,
+                interval: 2,
+                startIndex: 0,
+                maxIndex: 8,
+                delay: delay,
+            });
             this.setFrameTrimming(192, 128, 64, 48);
-            this.superInit("effect", 8, 8, 2, 0, 8, delay);
         } else {
             num--;
+            this.superInit({
+                assetName: "effect",
+                width: 16,
+                height: 16,
+                interval: 4,
+                startIndex: num*8,
+                maxIndex: (num+1)*8-1,
+                delay: delay,
+            });
             this.setFrameTrimming(384, 128, 128, 48);
-            this.superInit("effect", 16, 16, 4, num*8, (num+1)*8-1, delay);
         }
     },
 });
@@ -217,8 +287,16 @@ phina.define("pbr.Effect.ExplodePlayer", {
     layer: LAYER_EFFECT_UPPER,
 
     init: function(delay) {
+        this.superInit({
+            assetName: "effect",
+            width: 48,
+            height: 48,
+            interval: 4,
+            startIndex 0,
+            maxIndex: 7,
+            delay: delay,
+        });
         this.setFrameTrimming(0, 288, 384, 48);
-        this.superInit("effect", 48, 48, 4, 0, 7, delay);
     },
 });
 
@@ -228,7 +306,14 @@ phina.define("pbr.Effect.ShotImpact", {
     layer: LAYER_EFFECT_UPPER,
 
     init: function() {
+        this.superInit({
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 2,
+            startIndex: 0,
+            maxIndex: 7,
+        });
         this.setFrameTrimming(256, 240, 128, 16);
-        this.superInit("effect", 16, 16, 2, 0, 7);
     },
 });
