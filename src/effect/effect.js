@@ -195,7 +195,7 @@ phina.define("pbr.Effect.ExplodeSmall2", {
             width: 16,
             height: 16,
             interval: 4,
-            startIndex 0,
+            startIndex: 0,
             maxIndex: 7,
             delay: delay,
         });
@@ -211,10 +211,10 @@ phina.define("pbr.Effect.ExplodeLarge", {
     init: function(delay) {
         this.superInit({
             assetName: "effect",
-            width 48,
+            width: 48,
             height: 48,
             interval: 4,
-            startIndex 0,
+            startIndex: 0,
             maxIndex: 7,
             delay: delay,
         });
@@ -231,9 +231,9 @@ phina.define("pbr.Effect.ExplodeGround", {
         this.superInit({
             assetName: "effect",
             width: 32,
-            height 48,
-            interval 4,:
-            startIndex 0,
+            height: 48,
+            interval: 4,
+            startIndex: 0,
             maxIndex: 7,
             delay: delay,
         });
@@ -292,7 +292,7 @@ phina.define("pbr.Effect.ExplodePlayer", {
             width: 48,
             height: 48,
             interval: 4,
-            startIndex 0,
+            startIndex: 0,
             maxIndex: 7,
             delay: delay,
         });
