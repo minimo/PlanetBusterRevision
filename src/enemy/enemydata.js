@@ -42,8 +42,8 @@ pbr.enemyData['Hornet'] = {
     setup: function(enterParam) {
         this.phase = 0;
         this.roter = phina.display.Sprite("tex1", 32, 32).addChildTo(this);
-        this.roter.setFrameIndex(32);
         this.roter.index = 32;
+        this.roter.setFrameIndex(32);
 
         //行動パターン分岐
         this.pattern = enterParam;
@@ -53,7 +53,7 @@ pbr.enemyData['Hornet'] = {
                 this.tweener.moveBy(0, 300, 2000, "easeOutQuart").wait(1000).moveBy(0, -300, 2000).call(function(){this.remove();}.bind(this));
                 break;
             case 2:
-                this.moveTo(app.player, 5, true);
+                this.moveTo(this.parentScene.player, 5, true);
                 break;
             case 3:
                 this.tweener.moveBy(0, 300, 2000, "easeOutQuart").wait(1000).call(function(){this.phase++;}.bind(this));
@@ -75,7 +75,7 @@ pbr.enemyData['Hornet'] = {
 
         if (this.pattern == 3) {
             if (this.phase == 1) {
-                this.moveTo(app.player, 5, true);
+                this.moveTo(this.parentScene.player, 5, true);
                 this.phase++;
             }
             if (this.phase == 2) {
@@ -327,10 +327,9 @@ pbr.enemyData['Fragarach'] = {
     },
 
     algorithm: function() {
-
         //ターゲットの方向を向く
-        var ax = this.x - app.player.x;
-        var ay = this.y - app.player.y;
+        var ax = this.x - this.parentScene.player.x;
+        var ay = this.y - this.parentScene.player.y;
         var rad = Math.atan2(ay, ax);
         var deg = ~~(rad * toDeg);
         this.turret.rotation = deg + 90;

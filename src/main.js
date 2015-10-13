@@ -32,6 +32,22 @@ LAYER_OBJECT_LOWER = 2;     //オブジェクト下位
 LAYER_EFFECT_LOWER = 1;     //エフェクト下位
 LAYER_BACKGROUND = 0;       //バックグラウンド
 
+//敵タイプ定数
+ENEMY_SMALL = 0;
+ENEMY_MIDDLE = 1;
+ENEMY_LARGE = 2;
+ENEMY_MBOSS = 3;
+ENEMY_BOSS = 4;
+ENEMY_ITEM = 9;
+
+//爆発タイプ定数
+EXPLODE_SMALL = 0;
+EXPLODE_MIDDLE = 1;
+EXPLODE_LARGE = 2;
+EXPLODE_GROUND = 3;
+EXPLODE_MBOSS = 4;
+EXPLODE_BOSS = 5;
+
 var KEYBOARD_MOVE = {
       0: { x:  1.0, y:  0.0 },
      45: { x:  0.7, y: -0.7 },
@@ -43,8 +59,11 @@ var KEYBOARD_MOVE = {
     315: { x:  0.7, y:  0.7 },
 };
 
+//インスタンス
+var app;
+
 window.onload = function() {
-    var app = pbr.Application();
+    app = pbr.Application();
     app.run();
     app.enableStats();
 };

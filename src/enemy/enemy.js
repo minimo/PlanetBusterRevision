@@ -146,7 +146,7 @@ phina.define("pbr.Enemy", {
         //bulletML起動
         var bulletMLparams = {
             rank: this.parentScene.rank,
-            target: app.player,
+            target: this.parentScene.player,
             createNewBullet: function(runner, attr) {
                 if (!this.isAttack) return;
                 pbr.Bullet(runner, attr, this.id).addChildTo(this.parentScene);
@@ -166,7 +166,7 @@ phina.define("pbr.Enemy", {
     setup: function(enterParam) {
     },
 
-    update: function() {
+    update: function(app) {
         if (this.isDead) return;
 
         //地上物現座標調整
@@ -180,7 +180,7 @@ phina.define("pbr.Enemy", {
         }
 
         //行動アルゴリズム
-        this.algorithm();
+        this.algorithm(app);
 
         //スクリーン内入った判定
         if (this.isOnScreen) {
@@ -193,7 +193,7 @@ phina.define("pbr.Enemy", {
         }
 
         //自機との当り判定チェック
-        var player = app.player;
+        var player = this.parentScene.player;
         if (this.isCollision && !this.isGround && player.isCollision && this.isHitElement(player)) {
             player.damage();
         }
@@ -209,7 +209,7 @@ phina.define("pbr.Enemy", {
 
         //地上敵で自機に近い場合は弾を撃たない
         if (this.isGround && !this.isBoss) {
-            if (distanceSq(this, app.player) < 4096)
+            if (distanceSq(this, this.parentScene.player) < 4096)
                 this.isAttack = false;
             else
                 this.isAttack = true;
@@ -358,7 +358,7 @@ phina.define("pbr.Enemy", {
 
     //指定ターゲットの方向を向く
     lookAt: function(target) {
-        target = target || app.player;
+        target = target || this.parentScene.player;
 
         //ターゲットの方向を向く
         var ax = this.x - target.x;
@@ -370,7 +370,7 @@ phina.define("pbr.Enemy", {
 
     //指定ターゲットの方向に進む
     moveTo: function(target, speed, look) {
-        target = target || app.player;
+        target = target || this.parentScene.player;
         speed = speed || 5;
 
         //ターゲットの方向を計算
@@ -388,6 +388,6 @@ phina.define("pbr.Enemy", {
     },
 
     release: function() {
-        this.removeChildren();
+//        this.removeChildren();
     },
 });
