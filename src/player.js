@@ -44,7 +44,8 @@ phina.define("pbr.Player", {
 
         this.sprite = phina.display.Sprite("gunship", 48, 48)
             .addChildTo(this)
-            .setFrameIndex(4);
+            .setFrameIndex(4)
+            .setScale(0.66);
 
         //ビット
         this.bits = [];
@@ -155,26 +156,26 @@ phina.define("pbr.Player", {
         switch (type) {
             case 0:
                 //赤（前方集中型）
-                this.bits[0].tweener.clear().to({ x:  5, y:-32, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-40,0,500,"easeInOutSine").moveBy( 40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[0]));
-                this.bits[1].tweener.clear().to({ x: -5, y:-32, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 40,0,500,"easeInOutSine").moveBy(-40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[1]));
-                this.bits[2].tweener.clear().to({ x: 20, y:-24, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-50,0,500,"easeInOutSine").moveBy( 50,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[2]));
-                this.bits[3].tweener.clear().to({ x:-20, y:-24, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 50,0,500,"easeInOutSine").moveBy(-50,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[3]));
+                this.bits[0].tweener.clear().to({ x:  5, y:-32, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-30,0,500,"easeInOutSine").moveBy( 30,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[0]));
+                this.bits[1].tweener.clear().to({ x: -5, y:-32, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 30,0,500,"easeInOutSine").moveBy(-30,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[1]));
+                this.bits[2].tweener.clear().to({ x: 15, y:-24, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-40,0,500,"easeInOutSine").moveBy( 40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[2]));
+                this.bits[3].tweener.clear().to({ x:-15, y:-24, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 40,0,500,"easeInOutSine").moveBy(-40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[3]));
                 color = 0;
                 break;
             case 1:
                 //緑（方向変更型）
-                this.bits[0].tweener.clear().to({ x: 48, y:0, rotation:0, alpha:1}, 300).setLoop(false);
-                this.bits[1].tweener.clear().to({ x:-48, y:0, rotation:0, alpha:1}, 300).setLoop(false);
-                this.bits[2].tweener.clear().to({ x: 12, y:40, rotation:0, alpha:1}, 300).setLoop(false);
-                this.bits[3].tweener.clear().to({ x:-12, y:40, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[0].tweener.clear().to({ x: 35, y:0, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[1].tweener.clear().to({ x:-35, y:0, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[2].tweener.clear().to({ x: 10, y:30, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[3].tweener.clear().to({ x:-10, y:30, rotation:0, alpha:1}, 300).setLoop(false);
                 color = 80;
                 break;
             case 2:
                 //青（広範囲型）
-                this.bits[0].tweener.clear().to({ x: 36, y:16, rotation:  5, alpha:1}, 300).setLoop(false);
-                this.bits[1].tweener.clear().to({ x:-36, y:16, rotation: -5, alpha:1}, 300).setLoop(false);
-                this.bits[2].tweener.clear().to({ x: 60, y:24, rotation: 10, alpha:1}, 300).setLoop(false);
-                this.bits[3].tweener.clear().to({ x:-60, y:24, rotation:-10, alpha:1}, 300).setLoop(false);
+                this.bits[0].tweener.clear().to({ x: 30, y:16, rotation:  5, alpha:1}, 300).setLoop(false);
+                this.bits[1].tweener.clear().to({ x:-30, y:16, rotation: -5, alpha:1}, 300).setLoop(false);
+                this.bits[2].tweener.clear().to({ x: 50, y:24, rotation: 10, alpha:1}, 300).setLoop(false);
+                this.bits[3].tweener.clear().to({ x:-50, y:24, rotation:-10, alpha:1}, 300).setLoop(false);
                 color = 200;
                 break;
             default:
