@@ -90,7 +90,7 @@ phina.define("phina.extension.Button", {
                 strokeStyle: style.shadowColor,
                 lineWidth: style.lineWidth
             };
-            this.shadow = tm.display.RectangleShape(shadowStyle)
+            this.shadow = phina.display.RectangleShape(shadowStyle)
                 .addChildTo(this)
                 .setPosition(this.downX, this.downY);
             this.shadow.blendMode = "source-over";
@@ -103,7 +103,7 @@ phina.define("phina.extension.Button", {
             strokeStyle: style.lineColor,
             lineWidth: style.lineWidth
         };
-        this.button = tm.display.RectangleShape(buttonStyle)
+        this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
         if (style.flat) this.button.setAlpha(this.alphaOFF);
 
@@ -111,7 +111,7 @@ phina.define("phina.extension.Button", {
         var parent = this.button;
         if (style.flat) parent = this;
         this.labelParam.fontFamily = style.fontFamily;
-        this.label = tm.display.OutlineLabel(this.text, style.fontSize)
+        this.label = phina.display.OutlineLabel(this.text, style.fontSize)
             .addChildTo(parent)
             .setParam(this.labelParam);
     },
@@ -173,7 +173,7 @@ phina.define("phina.extension.Button", {
 
         this.push = true;
         this.buttonPushStart(e);
-        var e = tm.event.Event("push");
+        var e = phina.event.Event("push");
         this.dispatchEvent(e);
     },
     ontouchmove: function(e) {
@@ -188,14 +188,14 @@ phina.define("phina.extension.Button", {
             this.push = false;
             this.buttonPushEnd(e);
 
-            var e = tm.event.Event("pushed");
+            var e = phina.event.Event("pushed");
             this.dispatchEvent(e);
         }
     },
 });
 
 //角丸ボタン
-tm.define("phina.extension.RoundButton", {
+phina.define("phina.extension.RoundButton", {
     superClass: "phina.extension.Button",
 
     init: function(width, height, text, style) {
@@ -224,7 +224,7 @@ tm.define("phina.extension.RoundButton", {
             lineWidth: style.lineWidth,
             radius: style.radius,
         };
-        this.shadow = tm.display.RoundRectangleShape(shadowStyle)
+        this.shadow = phina.display.RoundRectangleShape(shadowStyle)
             .addChildTo(this)
             .setPosition(this.downX, this.downY);
         this.shadow.blendMode = "source-over";
@@ -238,19 +238,19 @@ tm.define("phina.extension.RoundButton", {
             lineWidth: style.lineWidth,
             radius: style.radius,
         };
-        this.button = tm.display.RoundRectangleShape(buttonStyle)
+        this.button = phina.display.RoundRectangleShape(buttonStyle)
             .addChildTo(this);
 
         //ボタンラベル
         this.labelParam.fontFamily = style.fontFamily;
-        this.label = tm.display.OutlineLabel(this.text, style.fontSize)
+        this.label = phina.display.OutlineLabel(this.text, style.fontSize)
             .addChildTo(this.button)
             .setParam(this.labelParam);
     },
 });
 
 //トグルボタン
-tm.define("phina.extension.ToggleButton", {
+phina.define("phina.extension.ToggleButton", {
     superClass: "phina.display.CanvasElement",
 
     //描画スタイル設定
@@ -336,7 +336,7 @@ tm.define("phina.extension.ToggleButton", {
                 strokeStyle: style.shadowColor,
                 lineWidth: style.lineWidth
             };
-            this.shadow = tm.display.RectangleShape(shadowStyle)
+            this.shadow = phina.display.RectangleShape(shadowStyle)
                 .addChildTo(this)
                 .setPosition(this.downX, this.downY);
             this.shadow.blendMode = "source-over";
@@ -350,7 +350,7 @@ tm.define("phina.extension.ToggleButton", {
             strokeStyle: style.lineColor,
             lineWidth: style.lineWidth
         };
-        this.button = tm.display.RectangleShape(buttonStyle)
+        this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
         if (style.flat) this.button.setAlpha(this.alphaOFF);
 
@@ -358,7 +358,7 @@ tm.define("phina.extension.ToggleButton", {
         var parent = this.button;
         if (style.flat) parent = this;
         this.labelParam.fontFamily = style.fontFamily;
-        this.label = tm.display.OutlineLabel(this.text, style.fontSize)
+        this.label = phina.display.OutlineLabel(this.text, style.fontSize)
             .addChildTo(parent)
             .setParam(this.labelParam);
     },
@@ -450,7 +450,7 @@ tm.define("phina.extension.ToggleButton", {
                 }
             }
             this.label.text = this.text;
-            var e = tm.event.Event("pushed");
+            var e = phina.event.Event("pushed");
             this.dispatchEvent(e);
         }
     },
@@ -460,7 +460,7 @@ tm.define("phina.extension.ToggleButton", {
 
         this.push = true;
         this.buttonPushStart(e);
-        var e = tm.event.Event("push");
+        var e = phina.event.Event("push");
         this.dispatchEvent(e);
     },
     ontouchmove: function(e) {
@@ -475,7 +475,7 @@ tm.define("phina.extension.ToggleButton", {
             this.push = false;
             this.buttonPushEnd(e);
 
-            var e = tm.event.Event("pushed");
+            var e = phina.event.Event("pushed");
             this.dispatchEvent(e);
         }
     },
@@ -559,7 +559,7 @@ phina.define("phina.extension.SlideButton", {
             if (this._slideON) {
             } else {
             }
-            var e = tm.event.Event("slide");
+            var e = phina.event.Event("slide");
             this.dispatchEvent(e);
         });
     },
@@ -584,7 +584,7 @@ phina.define("phina.extension.SlideButton", {
             strokeStyle: style.offColor,
             lineWidth:  style.lineWidth
         };
-        this.button = tm.display.RectangleShape(buttonStyle)
+        this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
 
         //ボタン本体
@@ -595,7 +595,7 @@ phina.define("phina.extension.SlideButton", {
             strokeStyle: style.lineColor,
             lineWidth: style.lineWidth
         };
-        this.button = tm.display.RectangleShape(buttonStyle)
+        this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
     },
 });

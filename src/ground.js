@@ -5,7 +5,7 @@
  *  This Program is MIT license.
  */
 
-tm.define("pb3.Ground", {
+phina.define("pbr.Ground", {
     superClass: "phina.display.CanvasElement",
     layer: LAYER_BACKGROUND,    //所属レイヤー
 

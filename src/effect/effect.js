@@ -7,7 +7,7 @@
 pbr.Effect = [];
 
 //汎用エフェクト
-tm.define("pbr.Effect.EffectBase", {
+phina.define("pbr.Effect.EffectBase", {
     superClass: "phina.display.Sprite",
     layer: LAYER_EFFECT_UPPER,
 
@@ -134,7 +134,7 @@ tm.define("pbr.Effect.EffectBase", {
 });
 
 //爆発エフェクト（標準）
-tm.define("pbr.Effect.Explode", {
+phina.define("pbr.Effect.Explode", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 
@@ -144,7 +144,7 @@ tm.define("pbr.Effect.Explode", {
 });
 
 //爆発エフェクト（小）
-tm.define("pbr.Effect.ExplodeSmall", {
+phina.define("pbr.Effect.ExplodeSmall", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 
@@ -155,7 +155,7 @@ tm.define("pbr.Effect.ExplodeSmall", {
 });
 
 //爆発エフェクト（極小）
-tm.define("pbr.Effect.ExplodeSmall2", {
+phina.define("pbr.Effect.ExplodeSmall2", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 
@@ -166,7 +166,7 @@ tm.define("pbr.Effect.ExplodeSmall2", {
 });
 
 //爆発エフェクト（大）
-tm.define("pbr.Effect.ExplodeLarge", {
+phina.define("pbr.Effect.ExplodeLarge", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 
@@ -177,7 +177,7 @@ tm.define("pbr.Effect.ExplodeLarge", {
 });
 
 //爆発エフェクト（地上）
-tm.define("pbr.Effect.ExplodeGround", {
+phina.define("pbr.Effect.ExplodeGround", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_LOWER,
 
@@ -193,7 +193,7 @@ tm.define("pbr.Effect.ExplodeGround", {
 
 //破片
 //num:0=小  1-3=中
-tm.define("pbr.Effect.Debri", {
+phina.define("pbr.Effect.Debri", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 
@@ -212,7 +212,7 @@ tm.define("pbr.Effect.Debri", {
 });
 
 //爆発エフェクト（プレイヤー）
-tm.define("pbr.Effect.ExplodePlayer", {
+phina.define("pbr.Effect.ExplodePlayer", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 
@@ -223,7 +223,7 @@ tm.define("pbr.Effect.ExplodePlayer", {
 });
 
 //ショット着弾エフェクト
-tm.define("pbr.Effect.ShotImpact", {
+phina.define("pbr.Effect.ShotImpact", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 

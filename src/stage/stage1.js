@@ -67,16 +67,16 @@ tm.define("pbr.Stage1Ground", {
         this.position.y = SC_H/2;
 
         this.map = tm.display.Sprite("map1g").addChildTo(this.mapBase);
-        this.map2 = tm.display.Sprite("map1g")
+        this.map2 = phina.display.Sprite("map1g")
             .addChildTo(this.mapBase)
             .setPosition(-320,0);
-        this.map3 = tm.display.Sprite("map1g")
+        this.map3 = phina.display.Sprite("map1g")
             .addChildTo(this.mapBase)
             .setPosition(320,0);
-        this.map4 = tm.display.Sprite("map1g")
+        this.map4 = phina.display.Sprite("map1g")
             .addChildTo(this.mapBase)
             .setPosition(-640,0);
-        this.map5 = tm.display.Sprite("map1g")
+        this.map5 = phina.display.Sprite("map1g")
             .addChildTo(this.mapBase)
             .setPosition(640,0);
 //        this.map = tm.display.MapSprite("map1").addChildTo(this.mapBase);

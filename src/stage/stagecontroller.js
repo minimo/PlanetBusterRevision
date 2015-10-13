@@ -7,7 +7,7 @@
 (function() {
 
 //ステージ制御
-tm.define("pbr.StageController", {
+phina.define("pbr.StageController", {
 
     _member: {
         parentScene: null,

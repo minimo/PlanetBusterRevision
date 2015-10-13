@@ -96,12 +96,12 @@ pbr.enemyData['Golyat'] = {
         this.isGround = true;
 
         //ボディカバー
-        this.cover = tm.display.Sprite("boss1", 32, 32)
+        this.cover = phina.display.Sprite("boss1", 32, 32)
             .addChildTo(this)
             .setPosition(0, 0)
             .setFrameTrimming(382, 0, 32, 32);
 
-        this.core = tm.display.Sprite("boss1", 32, 32)
+        this.core = phina.display.Sprite("boss1", 32, 32)
             .addChildTo(this)
             .setPosition(0, 0)
             .setFrameTrimming(0, 0, 32, 32);

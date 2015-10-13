@@ -41,7 +41,7 @@ pbr.enemyData['Hornet'] = {
 
     setup: function(enterParam) {
         this.phase = 0;
-        this.roter = tm.display.Sprite("tex1", 32, 32).addChildTo(this);
+        this.roter = phina.display.Sprite("tex1", 32, 32).addChildTo(this);
         this.roter.setFrameIndex(32);
         this.roter.index = 32;
 
@@ -122,7 +122,7 @@ pbr.enemyData['MudDauber'] = {
         this.index = this.texIndex;
         this.phase = 0;
 
-        this.roter = tm.display.Sprite("tex1", 114, 48).addChildTo(this);
+        this.roter = phina.display.Sprite("tex1", 114, 48).addChildTo(this);
         this.roter.setFrameTrimming(288, 128, 228, 96);
         this.roter.setFrameIndex(0);
         this.roter.index = 0;
@@ -239,7 +239,7 @@ pbr.enemyData['MournBlade'] = {
         this.index = this.texIndex;
         this.phase = 0;
 
-        this.roter = tm.display.Sprite("tex1", 114, 48).addChildTo(this);
+        this.roter = phina.display.Sprite("tex1", 114, 48).addChildTo(this);
         this.roter.setFrameTrimming(96, 128, 192, 104);
         this.roter.setFrameIndex(0);
         this.roter.index = 0;
@@ -321,7 +321,7 @@ pbr.enemyData['Fragarach'] = {
                 break;
         }
 
-        this.turret = tm.display.Sprite("tex1", 32, 32).addChildTo(this);
+        this.turret = phina.display.Sprite("tex1", 32, 32).addChildTo(this);
         this.turret.setFrameTrimming(192, 32, 32, 32);
         this.turret.setFrameIndex(0);
     },

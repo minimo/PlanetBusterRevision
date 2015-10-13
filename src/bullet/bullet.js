@@ -50,7 +50,7 @@ phina.define("pbr.Bullet", {
             case "BEM": type = 2; size = 1.0; index =16; break;
             case "THIN":type = 2; size = 1.0; index =24; this.rolling = false; this.rotation = this.runner.direction*toDeg-90; break;
         }
-        tm.display.Sprite("bullet"+type, 24, 24).addChildTo(this).setFrameIndex(index).setScale(size);
+        phina.display.Sprite("bullet"+type, 24, 24).addChildTo(this).setFrameIndex(index).setScale(size);
 
         this.on("enterframe", function(){
             if (this.rolling) this.rotation += this.rollAngle;
@@ -83,8 +83,8 @@ phina.define("pbr.Bullet", {
     },
 });
 
-tm.define("pb3.ShotBullet", {
-    superClass: "tm.display.Sprite",
+phina.define("pb3.ShotBullet", {
+    superClass: "phina.display.Sprite",
     layer: LAYER_SHOT,
     parentScene: null,
     player: null,
@@ -155,5 +155,3 @@ tm.define("pb3.ShotBullet", {
     },
 });
 
-
-})();
