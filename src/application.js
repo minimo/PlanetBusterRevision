@@ -24,6 +24,7 @@ phina.define("pbr.Application", {
                     "shot1":    "assets/images/shot1.png",
                     "shot2":    "assets/images/shot2.png",
                     "effect":   "assets/images/effect.png",
+                    "map1g":    "assets/maps/map1.png",
                 },
                 sound: {
                     "warning":  "assets/sounds/bgm_warning.mp3",

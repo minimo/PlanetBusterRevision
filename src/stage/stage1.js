@@ -7,7 +7,7 @@
 (function() {
 
 //ステージ１
-tm.define("pbr.Stage1", {
+phina.define("pbr.Stage1", {
     superClass: "pbr.StageController",
 
     init: function(parent, player) {
@@ -58,7 +58,7 @@ tm.define("pbr.Stage1", {
 });
 
 //ステージ１地形管理
-tm.define("pbr.Stage1Ground", {
+phina.define("pbr.Stage1Ground", {
     superClass: "pbr.Ground",
 
     init: function() {
@@ -66,7 +66,7 @@ tm.define("pbr.Stage1Ground", {
         this.position.x = SC_W/2;
         this.position.y = SC_H/2;
 
-        this.map = tm.display.Sprite("map1g").addChildTo(this.mapBase);
+        this.map = phina.display.Sprite("map1g").addChildTo(this.mapBase);
         this.map2 = phina.display.Sprite("map1g")
             .addChildTo(this.mapBase)
             .setPosition(-320,0);
@@ -79,7 +79,7 @@ tm.define("pbr.Stage1Ground", {
         this.map5 = phina.display.Sprite("map1g")
             .addChildTo(this.mapBase)
             .setPosition(640,0);
-//        this.map = tm.display.MapSprite("map1").addChildTo(this.mapBase);
+//        this.map = phina.display.MapSprite("map1").addChildTo(this.mapBase);
         this.map.alpha = 0;
     },
 });
