@@ -74,84 +74,12 @@ phina.define("pbr.Bullet", {
 
         //リムーブ時
         this.on("removed", function(){
-            if (this.isVanishEffect) pb3.Effect.BulletVanish(this).addChildTo(app.currentScene);
+            if (this.isVanishEffect) pbr.Effect.BulletVanish(this).addChildTo(app.currentScene);
             this.removeChildren();
         }.bind(this));
 
         this.beforeX = this.x;
         this.beforeY = this.y;
-    },
-});
-
-phina.define("pb3.ShotBullet", {
-    superClass: "phina.display.Sprite",
-    layer: LAYER_SHOT,
-    parentScene: null,
-    player: null,
-
-    speed: 15,
-    power: 1,
-    defaultSpeed: 15,
-    defaultPower: 1,
-
-    init: function(rotation, power, type) {
-        if (type == 0) {
-            this.superInit("shot1", 16, 16);
-            this.setScale(2);
-        } else {
-            this.superInit("shot2", 16, 32);
-            this.scaleX = 1.5;
-        }
-
-        this.rotation = rotation || 0;
-        this.speed = this.defaultSpeed;
-        this.power = power || this.defaultPower;
-
-        this.alpha = 0.8;
-        this.blendMode = "lighter";
-
-        rotation-=90;
-        this.vx = Math.cos(rotation*toRad) * this.speed;
-        this.vy = Math.sin(rotation*toRad) * this.speed;
-
-        //当り判定設定
-        this.boundingType = "circle";
-        if (type == 0) {
-            this.radius = 6;
-        } else {
-            this.radius = 12;
-        }
-
-        this.beforeX = this.x;
-        this.beforeY = this.y;
-    },
-    update: function() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x<-20 || this.x>SC_W+20 || this.y<-20 || this.y>SC_H+20) {
-            this.remove();
-        }
-
-        //敵との当り判定チェック
-        for (var i = 0; i < 3; i++) {
-            var layer = this.parentScene.layers[pb3.checkLayers[i]];
-            layer.children.each(function(a) {
-                if (a === app.player) return;
-                if (this.parent && a.isCollision && a.isHitElement(this)) {
-                    a.damage(this.power);
-                    this.vanish();
-                    this.remove();
-                    return;
-                }
-            }.bind(this));
-        }
-    },
-
-    vanish: function() {
-        pb3.Effect.ShotImpact().addChildTo(this.parentScene).setPosition(this.x, this.y);
-        pb3.Effect.enterDebrisSmall(this.parentScene, this.x, this.y, 1);
-        this.removeChildren();
     },
 });
 

@@ -389,7 +389,7 @@ pbr.enemyData['Brionac'] = {
 /*
  *  大型ミサイル「ミスティルテイン」
  */
-pb3.enemyData['Mistilteinn'] = {
+pbr.enemyData['Mistilteinn'] = {
     //使用弾幕パターン
     bulletPattern: "nop",
 
@@ -478,7 +478,7 @@ pbr.enemyData['ToyBox'] = {
     },
 
     dead: function() {
-        pb3.Item(this.kind).addChildTo(this.parentScene).setPosition(this.x, this.y);
+//        pbr.Item(this.kind).addChildTo(this.parentScene).setPosition(this.x, this.y);
         this.defaultDead();
     },
 }

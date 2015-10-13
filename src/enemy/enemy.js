@@ -60,7 +60,7 @@ phina.define("pbr.Enemy", {
         this.enterParam = param; //EnemyUnitからの投入時パラメータ
 
         this.name = name;
-        var d = this.data = pb3.enemyData[name];
+        var d = this.data = pbr.enemyData[name];
         if (!d) return false;
 
         this.bulletPattern = d.bulletPattern;
@@ -149,7 +149,7 @@ phina.define("pbr.Enemy", {
             target: app.player,
             createNewBullet: function(runner, attr) {
                 if (!this.isAttack) return;
-                pb3.Bullet(runner, attr, this.id).addChildTo(this.parentScene);
+                pbr.Bullet(runner, attr, this.id).addChildTo(this.parentScene);
             }.bind(this)
         };
         this.startDanmaku(pbr.bulletPattern[this.nowBulletPattern], bulletMLparams);
@@ -266,7 +266,7 @@ phina.define("pbr.Enemy", {
             var w = this.width/2,         h = this.height/2;
             var x = this.x+rand(-w, w),   y = this.y+rand(-h, h);
             var vx = this.x-this.beforeX, vy = this.y-this.beforeY;
-            pb3.Effect.enterExplode(this.parentScene, x, y, vx, vy);
+            pbr.Effect.enterExplode(this.parentScene, x, y, vx, vy);
         }
     },
 
@@ -292,7 +292,7 @@ phina.define("pbr.Enemy", {
         var vx = this.x-this.beforeX;
         var vy = this.y-this.beforeY;
         if (this.data.explodeType == EXPLODE_SMALL) {
-            pb3.Effect.enterExplode(this.parentScene, this.x, this.y, vx, vy);
+            pbr.Effect.enterExplode(this.parentScene, this.x, this.y, vx, vy);
             app.playSE("explodeSmall");
         }
         if (this.data.explodeType == EXPLODE_MIDDLE ||
@@ -302,12 +302,12 @@ phina.define("pbr.Enemy", {
                 var x = this.x+rand(-this.width, this.width);
                 var y = this.y+rand(-this.height, this.height);
                 var delay = rand(0, 30);
-                pb3.Effect.enterExplode(this.parentScene, x, y, vx, vy, delay);
+                pbr.Effect.enterExplode(this.parentScene, x, y, vx, vy, delay);
             }
             app.playSE("explodeLarge");
         }
         if (this.data.explodeType == EXPLODE_GROUND) {
-            pb3.Effect.enterExplodeGround(this.parentScene, this.x, this.y, vx, vy);
+            pbr.Effect.enterExplodeGround(this.parentScene, this.x, this.y, vx, vy);
             app.playSE("explodeSmall");
         }
 
@@ -337,7 +337,7 @@ phina.define("pbr.Enemy", {
         for (var i = 0; i < 10; i++) {
             var x = rand(0, this.width)-this.width/2;
             var y = rand(0, this.height)-this.height/2;
-            pb3.Effect.enterExplodeSmall(this.parentScene, x, y, vx, vy);
+            pbr.Effect.enterExplodeSmall(this.parentScene, x, y, vx, vy);
         }
         app.playSE("explodeLarge");
 
