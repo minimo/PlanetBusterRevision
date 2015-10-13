@@ -8325,8 +8325,8 @@ phina.namespace(function() {
 
       this._frameTrimX = 0;
       this._frameTrimY = 0;
-      this._frameTrimW = this.width;
-      this._frameTrimH = this.height;
+      this._frameTrimW = this.image.domElement.width;
+      this._frameTrimH = this.image.domElement.height;
 
       this.srcRect = {
         x: 0,
