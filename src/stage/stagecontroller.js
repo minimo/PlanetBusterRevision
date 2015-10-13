@@ -23,6 +23,8 @@ phina.define("pbr.StageController", {
 
         this.parentScene = scene;
         this.seq = [];
+
+        this.player = player;
     },
 
     add: function(time, value, flag) {

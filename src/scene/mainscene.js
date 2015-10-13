@@ -45,9 +45,7 @@ phina.define("pbr.MainScene", {
         },
     },
 
-    init: function(stageNumber) {
-        stageNumber = stageNumber || 1;
-
+    init: function() {
         this.superInit();
         this.$extend(this._member);
 
@@ -88,7 +86,6 @@ phina.define("pbr.MainScene", {
         }
 
         //ステージ初期化
-        this.nowStage = stageNumber;
         this.initStage();
 
         //目隠し
@@ -99,6 +96,15 @@ phina.define("pbr.MainScene", {
     },
     
     update: function(app) {
+        //ステージ進行
+        var event = this.stage.get(this.time);
+        if (event) {
+            if (typeof(event.value) === 'function') {
+                event.value.call(this);
+            } else {
+                this.enterEnemyUnit(event.value);
+            }
+        }
     },
 
     //ステージ初期化
@@ -106,16 +112,16 @@ phina.define("pbr.MainScene", {
         if (this.ground) this.ground.remove();
         switch (this.nowStage) {
             case 1:
-                this.stage = pbr.Stage1(this, app.player);
-                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.stage = pbr.Stage1(this, this.player);
+//                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
                 break;
             case 2:
-                this.stage = pbr.Stage1(this, app.player);
-                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.stage = pbr.Stage1(this, this.player);
+//                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
                 break;
             case 3:
-                this.stage = pbr.Stage1(this, app.player);
-                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.stage = pbr.Stage1(this, this.player);
+//                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
                 break;
         }
         this.time = 0;
@@ -125,7 +131,7 @@ phina.define("pbr.MainScene", {
         this.stageMiss = 0;
 
         //ステージ番号表示
-        param = {text: "STAGE "+this.nowStage, fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 800, outlineWidth: 2};
+        param = {text: "STAGE "+this.nowStage, fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 800, outlineWidth: 2};
         var m1 = phina.display.Label(param, 50)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
@@ -136,6 +142,10 @@ phina.define("pbr.MainScene", {
 
     //ステージ再スタート
     restartStage: function() {
+    },
+
+    //敵ユニット単位の投入
+    enterEnemyUnit: function(name) {
     },
 
     //タッチorクリック開始処理
