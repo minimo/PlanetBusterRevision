@@ -190,43 +190,41 @@ phina.define("pbr.Player", {
 
     //プレイヤー投入時演出
     startup: function() {
+        this.x = SC_W/2;
+        this.y = SC_H+128;
+        this.tweener.clear()
+            .wait(2000)
+            .to({x: SC_W/2, y: SC_H-128}, 2000, "easeOutQuint")
+            .call(function(){
+                this.shotON = true;
+                this.control = true;
+                this.isCollision = true;
+                this.timeMuteki = 180;
+            }.bind(this));
+
+        this.shotON = false;
+        this.control = false;
+        this.isCollision = false;
+
+        this.parentScene.timeVanish = 300;
     },
 
     //ステージ開始時演出
     stageStartup: function() {
+        this.x = SC_W/2;
+        this.y = SC_H+128;
+        this.tweener.clear()
+            .to({x: SC_W/2, y: SC_H/2+32}, 1000, "easeOutCubic")
+            .to({x: SC_W/2, y: SC_H-64  }, 1000)
+            .call(function(){
+                this.shotON = true;
+                this.control = true;
+                this.isCollision = true;
+                this.timeMuteki = 180;
+            }.bind(this));
+
+        this.shotON = false;
+        this.control = false;
+        this.isCollision = false;
     },
 });
-
-//プレイヤー操作用ポインタ
-phina.define("pbr.PlayerPointer", {
-    superClass: "phina.display.Shape",
-    layer: LAYER_OBJECT_LOWER,
-
-    init: function() {
-        this.superInit({width:32, height:32});
-        this.canvas.lineWidth = 3;
-        this.canvas.globalCompositeOperation = "lighter";
-        this.canvas.strokeStyle = "rgb(255, 255, 255)";
-        this.canvas.strokeArc(16, 16, 8, Math.PI*2, 0, true);
-    },
-
-    update: function() {
-        var p = app.pointing;
-        if (app.player.control && p.getPointing()) {
-            if (~~(this.x) == ~~(app.player.x) && ~~(this.y) == ~~(app.player.y)) {
-                this.alpha = 0;
-            } else {
-                this.alpha = 0.5;
-            }
-            this.x += (p.position.x - p.prevPosition.x);
-            this.y += (p.position.y - p.prevPosition.y);
-            this.x = Math.clamp(this.x, 16, SC_W-16);
-            this.y = Math.clamp(this.y, 16, SC_H-16);
-        } else {
-            this.x = app.player.x;
-            this.y = app.player.y;
-            this.alpha = 0;
-        }
-    },
-});
-
