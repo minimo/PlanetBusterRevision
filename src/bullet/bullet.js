@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.Bullet", {
-    superClass: "phina.display.Sprite",
+    superClass: "phina.display.CanvasElement",
     layer: LAYER_BULLET,
 
     _member: {
@@ -23,7 +23,8 @@ phina.define("pbr.Bullet", {
     },
 
     init: function(runner, param, id) {
-        this.superInit(runner);
+        this.superInit();
+        this.$extend(this._member);
 
         //当り判定設定
         this.boundingType = "circle";
@@ -33,7 +34,6 @@ phina.define("pbr.Bullet", {
         this.id = id || -1;
 
         //弾種別グラフィック
-//        this.removeChildren();
         var type = 1, size = 1, index = 0;
         switch (param.type) {
             case "RS":  type = 1; size = 0.6; index = 0; break;
@@ -55,9 +55,10 @@ phina.define("pbr.Bullet", {
             if (this.rolling) this.rotation += this.rollAngle;
 
             //自機との当り判定チェック
-            if (app.player.isCollision) {
-                if (this.isHitElement(app.player) ) {
-                    app.player.damage();
+            var player = this.parentScene.player;
+            if (player.isCollision) {
+                if (this.isHitElement(player) ) {
+                    player.damage();
                     this.isVanish = true;
                 }
             }
@@ -73,8 +74,7 @@ phina.define("pbr.Bullet", {
 
         //リムーブ時
         this.on("removed", function(){
-            if (this.isVanishEffect) pbr.Effect.BulletVanish(this).addChildTo(app.currentScene);
-            this.removeChildren();
+            if (this.isVanishEffect) pbr.Effect.BulletVanish(this).addChildTo(this.parentScene);
         }.bind(this));
 
         this.beforeX = this.x;

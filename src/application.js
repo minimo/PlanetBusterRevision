@@ -19,6 +19,8 @@ phina.define("pbr.Application", {
                     "tex1":     "assets/images/tex1.png",
                     "tex2":     "assets/images/tex2.png",
                     "tex_boss1":"assets/images/tex_boss1.png",
+                    "bullet1":  "assets/images/bullet1.png",
+                    "bullet2":  "assets/images/bullet2.png",
                     "gunship":  "assets/images/gunship1.png",
                     "bit":      "assets/images/bit1.png",                    
                     "shot1":    "assets/images/shot1.png",
