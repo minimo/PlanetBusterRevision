@@ -77,5 +77,7 @@ phina.define("pbr.Shot", {
     },
 
     vanish: function() {
+        pbr.Effect.ShotImpact().addChildTo(this.parentScene).setPosition(this.x, this.y);
+        pbr.Effect.enterDebrisSmall(this.parentScene, this.x, this.y, 1);
     },
 });
