@@ -272,6 +272,7 @@ phina.define("pbr.Enemy", {
 
     //色を赤or白くする
     changeColor: function(color) {
+/*
         if (!this.texName) return;
         if (color === undefined) {
             color = "";
@@ -280,6 +281,7 @@ phina.define("pbr.Enemy", {
         }
         this.body.setImage(this.texName+color, this.texWidth, this.texHeight);
         this.body.setFrameIndex(this.texIndex);
+*/
     },
 
     //通常破壊パターン
@@ -287,7 +289,7 @@ phina.define("pbr.Enemy", {
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
-        this.stopDanmaku();
+//        this.stopDanmaku();
 
         var vx = this.x-this.beforeX;
         var vy = this.y-this.beforeY;

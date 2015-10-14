@@ -170,6 +170,10 @@ phina.define("pbr.MainScene", {
         return pbr.Enemy(name, x, y, this.enemyID-1, param).addChildTo(this);
     },
 
+    //敵弾一括消去
+    eraseBullet: function() {
+    },
+
     //タッチorクリック開始処理
     onpointstart: function(e) {
     },

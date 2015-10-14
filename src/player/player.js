@@ -59,7 +59,6 @@ phina.define("pbr.Player", {
         //当り判定設定
         this.boundingType = "circle";
         this.radius = 2;
-        this.checkHierarchy = true;
 
         this.time = 0;
         this.changeInterval = 0;
