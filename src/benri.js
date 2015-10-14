@@ -27,6 +27,12 @@ var clamp = function(x, min, max) {
     return (x<min)?min:((x>max)?max:x);
 };
 
+//乱数生成
+var prand = phina.util.Random();
+var rand = function(min, max) {
+    return prand.randint(min, max);
+}
+
 //タイトル無しダイアログ
 var AdvanceAlert = function(str) {
     var tmpFrame = document.createElement('iframe');
