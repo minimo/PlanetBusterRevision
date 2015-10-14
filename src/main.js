@@ -67,3 +67,21 @@ window.onload = function() {
     app.run();
     app.enableStats();
 };
+
+//エレメント同士の接触判定
+phina.display.CanvasElement.prototype.isHitElement = function(elm) {
+    if (this.boundingType == 'rect') {
+        if (elm.boundingType == 'rect') {
+            return phina.collision.testRectRect(this, elm);
+        } else {
+            return phina.collision.testRectCircle(this, elm);
+        }
+    } else {
+        if (elm.boundingType == 'rect') {
+            return phina.collision.testRectRect(this, elm);
+        } else {
+            return phina.collision.testCircleRect(this, elm);
+        }
+    }
+}
+
