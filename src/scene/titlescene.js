@@ -11,7 +11,7 @@ phina.define("pbr.TitleScene", {
     
     _member: {
         //ラベル用パラメータ
-        labelParam: {
+        titleParam: {
             text: "",
             fill: "white",
             stroke: "blue",
@@ -23,20 +23,41 @@ phina.define("pbr.TitleScene", {
             fontSize: 32,
             fontWeight: ''
         },
+        msgParam: {
+            text: "",
+            fill: "white",
+            stroke: false,
+            strokeWidth: 2,
+
+            fontFamily: "Orbitron",
+            align: "center",
+            baseline: "middle",
+            fontSize: 15,
+            fontWeight: ''
+        },
     },
 
     init: function() {
         this.superInit();
         this.$extend(this._member);
 
-        var label = phina.display.Label({text: "PlanetBuster"}.$safe(this.labelParam))
+        phina.display.Label({text: "PlanetBuster"}.$safe(this.titleParam))
             .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.5);
+            .setPosition(SC_W*0.5, SC_H*0.4);
+
+        phina.display.Label({text: "Press[Z]key or touch"}.$safe(this.msgParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.6);
 
         this.time = 0;
     },
     
-    update: function() {
+    update: function(app) {
+        //キーボード操作
+        var kb = this.app.keyboard;
+        if (this.time > 30 && app.keyboard.getKey("Z")) {
+            this.app.popScene();
+        }
         this.time++;
     },
 
