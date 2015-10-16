@@ -476,9 +476,11 @@ pbr.enemyData['ToyBox'] = {
     algorithm: function() {
     },
 
+/*
     dead: function() {
-//        pbr.Item(this.kind).addChildTo(this.parentScene).setPosition(this.x, this.y);
+        pbr.Item(this.kind).addChildTo(this.parentScene).setPosition(this.x, this.y);
         this.defaultDead();
     },
+*/
 }
 

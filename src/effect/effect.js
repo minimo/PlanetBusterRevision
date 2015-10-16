@@ -61,10 +61,10 @@ phina.define("pbr.Effect.EffectBase", {
     },
 
     init: function(option) {
+        this.$safe(this._member);
         option = option || {};
         option.$safe(this.defaultOption)
         this.superInit(option.assetName, option.width, option.height);
-        this.$safe(this._member);
 
         //初期値セット
         this.interval = option.interval;
