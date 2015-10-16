@@ -119,6 +119,7 @@ phina.define("pbr.Effect.EffectBase", {
         this.addVelocity();
         this.time++;
         if (this.isRemove) {
+            this.removeChildren();
             this.remove();
         }
     },
