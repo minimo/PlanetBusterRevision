@@ -58,7 +58,9 @@ phina.define("pbr.Shot", {
         this.y += this.vy;
 
         if (this.x<-20 || this.x>SC_W+20 || this.y<-20 || this.y>SC_H+20) {
+            this.removeChildren();
             this.remove();
+            return;
         }
 
         //敵との当り判定チェック
@@ -69,6 +71,7 @@ phina.define("pbr.Shot", {
                 if (this.parent && a.isCollision && a.isHitElement(this)) {
                     a.damage(this.power);
                     this.vanish();
+                    this.removeChildren();
                     this.remove();
                     return;
                 }

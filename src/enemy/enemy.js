@@ -390,6 +390,6 @@ phina.define("pbr.Enemy", {
     },
 
     release: function() {
-//        this.removeChildren();
+        this.removeChildren();
     },
 });

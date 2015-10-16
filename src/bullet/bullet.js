@@ -75,6 +75,7 @@ phina.define("pbr.Bullet", {
         //リムーブ時
         this.on("removed", function(){
             if (this.isVanishEffect) pbr.Effect.BulletVanish(this).addChildTo(this.parentScene);
+            this.removeChildren();
         }.bind(this));
 
         this.beforeX = this.x;
