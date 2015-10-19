@@ -62,8 +62,7 @@ phina.define("pbr.Effect.EffectBase", {
 
     init: function(option) {
         this.$safe(this._member);
-        option = option || {};
-        option.$safe(this.defaultOption)
+        option = (options || {}).$safe(this.defaultOption);
         this.superInit(option.assetName, option.width, option.height);
 
         //初期値セット
