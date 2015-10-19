@@ -207,6 +207,7 @@ phina.define("pbr.Player", {
         this.isCollision = false;
 
         this.parentScene.timeVanish = 300;
+        return this;
     },
 
     //ステージ開始時演出
@@ -214,8 +215,8 @@ phina.define("pbr.Player", {
         this.x = SC_W/2;
         this.y = SC_H+128;
         this.tweener.clear()
-            .to({x: SC_W/2, y: SC_H/2+32}, 1000, "easeOutCubic")
-            .to({x: SC_W/2, y: SC_H-64  }, 1000)
+            .to({x: SC_W/2, y: SC_H/2+32}, 1500, "easeOutCubic")
+            .to({x: SC_W/2, y: SC_H-64  }, 2000)
             .call(function(){
                 this.shotON = true;
                 this.control = true;
@@ -226,5 +227,6 @@ phina.define("pbr.Player", {
         this.shotON = false;
         this.control = false;
         this.isCollision = false;
+        return this;
     },
 });

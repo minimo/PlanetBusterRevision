@@ -71,7 +71,8 @@ phina.define("pbr.MainScene", {
         //プレイヤー準備        
         this.player = pbr.Player()
             .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.5);
+            .setPosition(SC_W*0.5, SC_H*0.5)
+            .stageStartup();
 
 //        this.pointer = pbr.PlayerPointer().addChildTo(this);
 //        this.pointer.player = this.player;
