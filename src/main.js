@@ -18,6 +18,8 @@ SC_W = 320;
 SC_H = 480;
 SC_OFFSET_X = 0;
 SC_OFFSET_Y = 0;
+SC_W_C = SC_W*0.5;   //CENTER
+SC_H_C = SC_H*0.5;
 
 //レイヤー区分
 LAYER_SYSTEM = 10;          //システム表示
