@@ -5,41 +5,27 @@
  *  This Program is MIT license.
  */
 
+phina.namespace(function() {
+
+var root = bulletml.Root;
+
 phina.define('phina.accessory.BullerMLRunner', {
     superClass: 'phina.accessory.Accessory',
 
-    init: function() {
-    },
-
-    update: function() {
-    },
-
-    start: function(root, config) {
+    init: function(config) {
         config = (config || {}).$safe(bulletml.runner.DEFAULT_CONFIG);
-
-        var runner = root.createRunner(config);
-        runner.x = this.x;
-        runner.y = this.y;
-        var enterframeListener = function() {
-            runner.x = this.x;
-            runner.y = this.y;
-            runner.update();
-            this.setPosition(runner.x, runner.y);
-        };
-        enterframeListener.isDanmaku = true;
-        this.on("enterframe", enterframeListener);
+        this.runner = root.createRunner(config);
+        this.runner.x = this.x;
+        this.runner.y = this.y;
     },
 
-    stop: function() {
-        if (this.hasEventListener("enterframe")) {
-            var copied = this._listeners["enterframe"].clone();
-            for (var i = 0; i < copied.length; i++) {
-                if (copied[i].isDanmaku) {
-                    this.off("enterframe", copied[i]);
-                }
-            }
-        }
+    update: function(app) {
+        this.runner.x = this.x;
+        this.runner.y = this.y;
+        this.runner.update();
+        this.setPosition(this.runner.x, this.runner.y);
     },
 };
 
+});
 

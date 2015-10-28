@@ -27,7 +27,7 @@ phina.define("phina.bulletml.Bullet", {
         this.fromJSON({
             children: {
                 body: {
-                    type: "tm.display.CircleShape",
+                    type: "phina.display.CircleShape",
                     init: [{
                         width:10,
                         height:10,
