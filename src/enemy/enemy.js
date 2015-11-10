@@ -142,18 +142,6 @@ phina.define("pbr.Enemy", {
             this.nowBulletPattern = this.bulletPattern;
         }
 
-/*
-        //bulletML起動
-        var bulletMLparams = {
-            rank: this.parentScene.rank,
-            target: this.parentScene.player,
-            createNewBullet: function(runner, attr) {
-                if (!this.isAttack) return;
-                pbr.Bullet(runner, attr, this.id).addChildTo(this.parentScene);
-            }.bind(this)
-        };
-        this.startDanmaku(pbr.bulletPattern[this.nowBulletPattern], bulletMLparams);
-*/
         //当り判定設定
         this.boundingType = "rect";
 
@@ -220,7 +208,25 @@ phina.define("pbr.Enemy", {
         this.time++;
     },
 
+    //アルゴリズム
     algorithm: function() {
+    },
+
+    //弾発射
+    onfire: function(param) {
+        param.$safe({
+            direction: 0,   //射出角度
+            velocity:  1,   //弾速
+            type: 0,        //弾種
+        });
+
+        var param = {
+            id: this.id,
+            vx: Math.cos(param.direction) * param.velocity,
+            vy: Math.sin(param.direction) * param.velocity,
+            type: "RS",
+        };
+        pbr.Bullet(param).addChildTo(this.parentScene);
     },
 
     damage: function(power, force) {
