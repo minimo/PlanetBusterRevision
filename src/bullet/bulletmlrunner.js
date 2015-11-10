@@ -7,14 +7,12 @@
 
 phina.namespace(function() {
 
-var root = bulletml.Root;
-
 phina.define('phina.accessory.BullerMLRunner', {
     superClass: 'phina.accessory.Accessory',
 
     init: function(config) {
         config = (config || {}).$safe(bulletml.runner.DEFAULT_CONFIG);
-        this.runner = root.createRunner(config);
+        this.runner = bulletml.Root.createRunner(config);
         this.runner.x = this.x;
         this.runner.y = this.y;
     },
@@ -22,7 +20,6 @@ phina.define('phina.accessory.BullerMLRunner', {
     update: function(app) {
         this.runner.x = this.x;
         this.runner.y = this.y;
-        this.runner.update();
         this.setPosition(this.runner.x, this.runner.y);
     },
 };
