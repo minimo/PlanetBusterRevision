@@ -13,6 +13,9 @@ phina.define("pbr.Bullet", {
         param: null,
         id: -1,
 
+        vx: 0,
+        vy: 1,
+
         isVanish: false,
         isVanishEffect: true,
 
@@ -22,7 +25,7 @@ phina.define("pbr.Bullet", {
         player: null,
     },
 
-    init: function(runner, param, id) {
+    init: function(param) {
         this.superInit();
         this.$extend(this._member);
 
@@ -30,8 +33,16 @@ phina.define("pbr.Bullet", {
         this.boundingType = "circle";
         this.radius = 2;
 
-        this.param = param;
-        this.id = id || -1;
+        param = param.$safe({
+            id: -1,
+            vx: 0,
+            vy: 1,
+            type: "RS",
+        });
+
+        this.id = param.id;
+        this.vx = param.vx;
+        this.vy = param.vy;
 
         //弾種別グラフィック
         var type = 1, size = 1, index = 0;
@@ -53,6 +64,9 @@ phina.define("pbr.Bullet", {
 
         this.on("enterframe", function(){
             if (this.rolling) this.rotation += this.rollAngle;
+
+            this.x += this.vx;
+            this.y += this.vy;
 
             //自機との当り判定チェック
             var player = this.parentScene.player;
