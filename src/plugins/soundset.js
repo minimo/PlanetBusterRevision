@@ -159,7 +159,7 @@ phina.define("phina.extension.SoundElement", {
     playClone: function() {
         if (!this.media) return this;
         this.media.loop = false;
-        this.media.clone().play();
+        this.media.play();
         return this;
     },
 
