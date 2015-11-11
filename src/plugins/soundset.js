@@ -113,7 +113,7 @@ phina.define("phina.extension.SoundSet", {
         if (media) {
             var vol = this.volumeSE * media.volume;
             media.setVolume(vol);
-            media.playClone();
+            media.play();
         } else {
             if (this.add(name)) this.playSE(name);
         }
@@ -152,13 +152,6 @@ phina.define("phina.extension.SoundElement", {
     play: function(loop) {
         if (!this.media) return this;
         this.media.loop = loop;
-        this.media.play();
-        return this;
-    },
-
-    playClone: function() {
-        if (!this.media) return this;
-        this.media.loop = false;
         this.media.play();
         return this;
     },
