@@ -80,9 +80,9 @@ phina.display.CanvasElement.prototype.isHitElement = function(elm) {
         }
     } else {
         if (elm.boundingType == 'rect') {
-            return phina.collision.testRectRect(this, elm);
+            return phina.collision.testCiecleRect(this, elm);
         } else {
-            return phina.collision.testCircleRect(this, elm);
+            return phina.collision.testCircleCircle(this, elm);
         }
     }
 }
