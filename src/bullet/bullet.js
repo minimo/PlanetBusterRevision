@@ -16,9 +16,6 @@ phina.define("pbr.Bullet", {
         vx: 0,
         vy: 1,
 
-        isVanish: false,
-        isVanishEffect: true,
-
         rollAngle: 5,
         rolling: true,
     },
@@ -41,22 +38,20 @@ phina.define("pbr.Bullet", {
             if (player.isCollision) {
                 if (this.isHitElement(player) ) {
                     player.damage();
-                    this.isVanish = true;
+                    this.remove();
+                    return;
                 }
             }
 
             //画面範囲外
             if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
-                this.isVanish = true;
-                this.isVanishEffect = false;
+                this.remove();
+                return;
             }
-
-            if (this.isVanish) this.remove();
-        }.bind(this) );
+        }.bind(this));
 
         //リムーブ時
         this.on("removed", function(){
-            if (this.isVanishEffect) pbr.Effect.BulletVanish(this).addChildTo(this.parentScene);
             this.bulletLayer.pool.push(this);
         }.bind(this));
     },
@@ -109,6 +104,7 @@ phina.define("pbr.Bullet", {
     },
 
     erace: function() {
+        pbr.Effect.BulletVanish(this).addChildTo(this.parentScene);
     },
 });
 
