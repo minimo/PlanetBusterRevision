@@ -25,42 +25,9 @@ phina.define("pbr.Bullet", {
         player: null,
     },
 
-    init: function(param) {
+    init: function() {
         this.superInit();
         this.$extend(this._member);
-
-        //当り判定設定
-        this.boundingType = "circle";
-        this.radius = 2;
-
-        param = param.$safe({
-            id: -1,
-            vx: 0,
-            vy: 1,
-            type: "RS",
-        });
-
-        this.id = param.id;
-        this.vx = param.vx;
-        this.vy = param.vy;
-
-        //弾種別グラフィック
-        var type = 1, size = 1, index = 0;
-        switch (param.type) {
-            case "RS":  type = 1; size = 0.6; index = 0; break;
-            case "BS":  type = 1; size = 0.6; index = 1; break;
-            case "RM":  type = 1; size = 0.8; index = 0; break;
-            case "BM":  type = 1; size = 0.8; index = 1; break;
-            case "RL":  type = 1; size = 1.0; index = 0; break;
-            case "BL":  type = 1; size = 1.0; index = 1; break;
-
-            case "RES": type = 2; size = 0.6; index = 0; break;
-            case "BES": type = 2; size = 0.6; index =16; break;
-            case "REM": type = 2; size = 1.0; index = 0; break;
-            case "BEM": type = 2; size = 1.0; index =16; break;
-            case "THIN":type = 2; size = 1.0; index =24; this.rolling = false; this.rotation = this.runner.direction*toDeg-90; break;
-        }
-        phina.display.Sprite("bullet"+type, 24, 24).addChildTo(this).setFrameIndex(index).setScale(size);
 
         this.on("enterframe", function(){
             if (this.rolling) this.rotation += this.rollAngle;
@@ -94,6 +61,45 @@ phina.define("pbr.Bullet", {
 
         this.beforeX = this.x;
         this.beforeY = this.y;
+    },
+
+    setup: function(param) {
+        param = param.$safe({
+            id: -1,
+            direction: 180,
+            velocity: 1,
+            type: "RS",
+        });
+
+        //当り判定設定
+        this.boundingType = "circle";
+        this.radius = 2;
+
+        this.id = param.id;
+        this.vx = Math.cos(param.direction) * param.velocity;
+        this.vy = Math.sin(param.direction) * param.velocity;
+
+        //弾種別グラフィック
+        var type = 1, size = 1, index = 0;
+        switch (param.type) {
+            case "RS":  type = 1; size = 0.6; index = 0; break;
+            case "BS":  type = 1; size = 0.6; index = 1; break;
+            case "RM":  type = 1; size = 0.8; index = 0; break;
+            case "BM":  type = 1; size = 0.8; index = 1; break;
+            case "RL":  type = 1; size = 1.0; index = 0; break;
+            case "BL":  type = 1; size = 1.0; index = 1; break;
+
+            case "RES": type = 2; size = 0.6; index = 0; break;
+            case "BES": type = 2; size = 0.6; index =16; break;
+            case "REM": type = 2; size = 1.0; index = 0; break;
+            case "BEM": type = 2; size = 1.0; index =16; break;
+            case "THIN":type = 2; size = 1.0; index =24; this.rolling = false; this.rotation = this.runner.direction*toDeg-90; break;
+        }
+        phina.display.Sprite("bullet"+type, 24, 24)
+            .addChildTo(this)
+            .setFrameIndex(index)
+            .setScale(size);
+        return this;
     },
 });
 

@@ -214,19 +214,6 @@ phina.define("pbr.Enemy", {
 
     //弾発射
     onfire: function(param) {
-        param.$safe({
-            direction: 0,   //射出角度
-            velocity:  1,   //弾速
-            type: 0,        //弾種
-        });
-
-        var param = {
-            id: this.id,
-            vx: Math.cos(param.direction) * param.velocity,
-            vy: Math.sin(param.direction) * param.velocity,
-            type: "RS",
-        };
-        pbr.Bullet(param).addChildTo(this.parentScene);
     },
 
     damage: function(power, force) {
