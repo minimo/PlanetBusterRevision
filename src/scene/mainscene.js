@@ -65,7 +65,11 @@ phina.define("pbr.MainScene", {
         this.base = phina.display.Layer().addChildTo(this).setPosition(SC_OFFSET_X, 0);
         this.layers = [];
         for (var i = 0; i < LAYER_SYSTEM+1; i++) {
-            this.layers[i] = phina.display.Layer().addChildTo(this.base);
+            if (i == LAYER_BULLET) {
+                this.layers[i] = pbr.BulletLayer().addChildTo(this.base);
+            } else {
+                this.layers[i] = phina.display.Layer().addChildTo(this.base);
+            }
         }
 
         //プレイヤー準備        

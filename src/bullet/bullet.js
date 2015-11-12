@@ -21,13 +21,14 @@ phina.define("pbr.Bullet", {
 
         rollAngle: 5,
         rolling: true,
-
-        player: null,
     },
 
     init: function() {
         this.superInit();
         this.$extend(this._member);
+
+        this.boundingType = "circle";
+        this.radius = 2;
 
         this.on("enterframe", function(){
             if (this.rolling) this.rotation += this.rollAngle;
@@ -56,20 +57,22 @@ phina.define("pbr.Bullet", {
         //リムーブ時
         this.on("removed", function(){
             if (this.isVanishEffect) pbr.Effect.BulletVanish(this).addChildTo(this.parentScene);
-            this.removeChildren();
+            this.bulletLayer.pool.push(this);
         }.bind(this));
-
-        this.beforeX = this.x;
-        this.beforeY = this.y;
     },
 
     setup: function(param) {
         param = param.$safe({
             id: -1,
+            x: SC_W*0.5,
+            y: SC_H*0.5,
             direction: 180,
             velocity: 1,
             type: "RS",
         });
+
+        this.x = param.x;
+        this.y = param.y;
 
         //当り判定設定
         this.boundingType = "circle";
@@ -78,6 +81,8 @@ phina.define("pbr.Bullet", {
         this.id = param.id;
         this.vx = Math.cos(param.direction) * param.velocity;
         this.vy = Math.sin(param.direction) * param.velocity;
+
+        this.direction = param.direction;
 
         //弾種別グラフィック
         var type = 1, size = 1, index = 0;
@@ -93,13 +98,17 @@ phina.define("pbr.Bullet", {
             case "BES": type = 2; size = 0.6; index =16; break;
             case "REM": type = 2; size = 1.0; index = 0; break;
             case "BEM": type = 2; size = 1.0; index =16; break;
-            case "THIN":type = 2; size = 1.0; index =24; this.rolling = false; this.rotation = this.runner.direction*toDeg-90; break;
+            case "THIN":type = 2; size = 1.0; index =24; this.rolling = false; this.rotation = this.direction*toDeg-90; break;
         }
-        phina.display.Sprite("bullet"+type, 24, 24)
+        if (this.sprite) this.sprite.remove();
+        this.sprite = phina.display.Sprite("bullet"+type, 24, 24)
             .addChildTo(this)
             .setFrameIndex(index)
             .setScale(size);
         return this;
+    },
+
+    erace: function() {
     },
 });
 
