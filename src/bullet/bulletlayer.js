@@ -25,6 +25,7 @@ phina.define("pbr.BulletLayer", {
         });
     },
 
+    //弾投入
     enterBullet: function(param) {
         var b = this.pool.shift();
         if (!b) {
@@ -41,10 +42,20 @@ phina.define("pbr.BulletLayer", {
         var list = this.children.slice();
         var len = list.length
         var b;
-        for (var i = 0; i < len; i++) {
-            b = list[i];
-            b.erase();
-            b.remove();
+        if (all) {
+            for (var i = 0; i < len; i++) {
+                b = list[i];
+                b.erase();
+                b.remove();
+            }
+        } else {
+            for (var i = 0; i < len; i++) {
+                b = list[i];
+                if (id == b.id) {
+                    b.erase();
+                    b.remove();
+                }
+            }
         }
     },
 });
