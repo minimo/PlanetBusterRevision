@@ -49,6 +49,9 @@ phina.define("pbr.Enemy", {
         //相対地上座標
         groundX: 0,
         groundY: 0,
+
+        //実行タスクキュー
+        task: null,
     },
 
     init: function(name, x, y, id, param) {
@@ -170,6 +173,19 @@ phina.define("pbr.Enemy", {
         //行動アルゴリズム
         this.algorithm(app);
 
+        //タスク処理
+        if (this.task) {
+            var t = this.task.shift();
+            if (t) {
+                if (typeof(t) === 'function') {
+                    t.call(this, app);
+                } else {
+                    this.fire(t);
+                }
+            }
+            if (this.task.length == 0) this.task = null;
+        }
+
         //スクリーン内入った判定
         if (this.isOnScreen) {
             if (this.x < -100 || this.x > SC_W+100 || this.y < -100 || this.y > SC_H+100) {
@@ -213,7 +229,7 @@ phina.define("pbr.Enemy", {
     },
 
     //弾発射
-    onfire: function(param) {
+    fire: function(param) {
     },
 
     damage: function(power, force) {
