@@ -59,25 +59,22 @@ phina.define("pbr.Bullet", {
     setup: function(param) {
         param = param.$safe({
             id: -1,
+            type: "RS",
             x: SC_W*0.5,
             y: SC_H*0.5,
-            direction: 180,
-            velocity: 1,
-            type: "RS",
+            vx: 0,
+            vy: 1,
         });
 
+        this.id = param.id;
         this.x = param.x;
         this.y = param.y;
+        this.vx = param.vx;
+        this.vy = param.vy;
 
         //当り判定設定
         this.boundingType = "circle";
         this.radius = 2;
-
-        this.id = param.id;
-        this.vx = Math.cos(param.direction) * param.velocity;
-        this.vy = Math.sin(param.direction) * param.velocity;
-
-        this.direction = param.direction;
 
         //弾種別グラフィック
         var type = 1, size = 1, index = 0;
@@ -93,7 +90,11 @@ phina.define("pbr.Bullet", {
             case "BES": type = 2; size = 0.6; index =16; break;
             case "REM": type = 2; size = 1.0; index = 0; break;
             case "BEM": type = 2; size = 1.0; index =16; break;
-            case "THIN":type = 2; size = 1.0; index =24; this.rolling = false; this.rotation = this.direction*toDeg-90; break;
+            case "THIN":
+                type = 2; size = 1.0; index =24; 
+                this.rolling = false;
+                this.rotation = this.angle*toDeg-90;
+                break;
         }
         if (this.sprite) this.sprite.remove();
         this.sprite = phina.display.Sprite("bullet"+type, 24, 24)
