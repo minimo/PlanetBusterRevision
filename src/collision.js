@@ -7,7 +7,7 @@ phina.collision = phina.collision || {};
 (function() {
 
     /**
-     * @class tm.collision
+     * @class phina.collision
      * 衝突判定
      */
     phina.collision;
@@ -17,7 +17,7 @@ phina.collision = phina.collision || {};
      * 円同士の衝突判定
      */
     phina.collision.testCircleCircle = function(circle0, circle1) {
-        var distanceSquared = tm.geom.Vector2.distanceSquared(circle0, circle1);
+        var distanceSquared = phina.geom.Vector2.distanceSquared(circle0, circle1);
         return distanceSquared <= Math.pow(circle0.radius + circle1.radius, 2);
     };
     
