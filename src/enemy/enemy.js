@@ -228,10 +228,6 @@ phina.define("pbr.Enemy", {
     algorithm: function() {
     },
 
-    //弾発射
-    fire: function(param) {
-    },
-
     damage: function(power, force) {
         if (this.isMuteki || this.isDead) return;
         this.def -= power;
