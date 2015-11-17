@@ -50,13 +50,18 @@ pbr.enemyData['Hornet'] = {
         this.bulletPattern = "Hornet"+enterParam;
         switch (enterParam) {
             case 1:
-                this.tweener.moveBy(0, 300, 2000, "easeOutQuart").wait(1000).moveBy(0, -300, 2000).call(function(){this.remove();}.bind(this));
+                this.tweener.moveBy(0, 300, 2000, "easeOutQuart")
+                    .wait(1000)
+                    .moveBy(0, -300, 2000)
+                    .call(function(){this.remove();}.bind(this));
                 break;
             case 2:
                 this.moveTo(this.parentScene.player, 5, true);
                 break;
             case 3:
-                this.tweener.moveBy(0, 300, 2000, "easeOutQuart").wait(1000).call(function(){this.phase++;}.bind(this));
+                this.tweener.moveBy(0, 300, 2000, "easeOutQuart")
+                    .wait(1000)
+                    .call(function(){this.phase++;}.bind(this));
                 break;
         }
     },
@@ -71,14 +76,6 @@ pbr.enemyData['Hornet'] = {
         if (this.pattern == 2) {
             this.x += this.vx;
             this.y += this.vy;
-/*
-            pbr.BulletUtility.Ain({
-                id: this.id,
-                type: "RS",
-                size: 1,
-                taget: this.player
-            });
-*/
         }
 
         if (this.pattern == 3) {
