@@ -71,6 +71,14 @@ pbr.enemyData['Hornet'] = {
         if (this.pattern == 2) {
             this.x += this.vx;
             this.y += this.vy;
+/*
+            pbr.BulletUtility.Ain({
+                id: this.id,
+                type: "RS",
+                size: 1,
+                taget: this.player
+            });
+*/
         }
 
         if (this.pattern == 3) {
