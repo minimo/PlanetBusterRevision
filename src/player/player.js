@@ -49,11 +49,9 @@ phina.define("pbr.Player", {
 
         //ビット
         this.bits = [];
-        this.bits[0] = pbr.PlayerBit(0).addChildTo(this);
-        this.bits[1] = pbr.PlayerBit(1).addChildTo(this);
-        this.bits[2] = pbr.PlayerBit(2).addChildTo(this);
-        this.bits[3] = pbr.PlayerBit(3).addChildTo(this);
-
+        for (var i = 0; i < 4; i++) {
+            this.bits[i] = pbr.PlayerBit(i).addChildTo(this);
+        }
         this.openBit(0);
 
         //当り判定設定
@@ -142,13 +140,11 @@ phina.define("pbr.Player", {
 
     //ショット発射
     enterShot: function() {
-        var shotPower = this.shotPower;
         //自機から
-        pbr.Shot( 1, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x+10, this.y-8);
-        pbr.Shot( 0, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x   , this.y-16);
-        pbr.Shot(-1, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x-10, this.y-8);
-
-        var sc = this.parentScene.shotLayer;
+        var ly = this.parentScene.shotLayer;
+        ly.enterShot(this.x+10, this.y-8, {type: 0, rotation: 1, power: this.shotPower});
+        ly.enterShot(this.x   , this.y-16,{type: 0, rotation: 0, power: this.shotPower});
+        ly.enterShot(this.x-10, this.y-8, {type: 0, rotation:-1, power: this.shotPower});
     },
 
     //ビット展開

@@ -26,13 +26,13 @@ phina.define("pbr.ShotLayer", {
     },
 
     //弾投入
-    enterShot: function(rotation, power, type) {
+    enterShot: function(x, y, option) {
         var b = this.pool.shift();
         if (!b) {
             console.warn("Shot empty!!");
             return null;
         }
-        b.setup(param).addChildTo(this);
+        b.setup(option).addChildTo(this).setPosition(x, y);
         return b;
     },
 

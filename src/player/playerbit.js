@@ -45,9 +45,8 @@ phina.define("pbr.PlayerBit", {
             if (this.time % player.shotInterval == 0) {
                 var x = this.x + player.x;
                 var y = this.y + player.y;
-                pbr.Shot(this.rotation, player.shotPower)
-                    .addChildTo(player.parentScene)
-                    .setPosition(x, y-4);
+                var sl = player.parentScene.shotLayer;
+                sl.enterShot(x, y-4, {type: 1, rotation: this.rotation, power: player.shotPower});
             }
         }
 
