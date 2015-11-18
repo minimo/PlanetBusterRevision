@@ -5,7 +5,9 @@
  *  This Program is MIT license.
  */
 
-pbr.checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT, LAYER_OBJECT_LOWER];
+phina.namespace(function() {
+
+var checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT, LAYER_OBJECT_LOWER];
 
 phina.define("pbr.Shot", {
     superClass: "phina.display.Sprite",
@@ -30,7 +32,15 @@ phina.define("pbr.Shot", {
             this.scaleX = 1.5;
         }
         this.$extend(this._member);
+        this.setup(rotation, power, type);
 
+        //リムーブ時
+        this.on("removed", function(){
+//            this.shotLayer.pool.push(this);
+        }.bind(this));
+    },
+
+    setup: function(rotation, power, type) {
         this.rotation = rotation || 0;
         this.speed = this.defaultSpeed;
         this.power = power || this.defaultPower;
@@ -52,35 +62,36 @@ phina.define("pbr.Shot", {
 
         this.beforeX = this.x;
         this.beforeY = this.y;
-    },
-    update: function() {
-        this.x += this.vx;
-        this.y += this.vy;
 
-        if (this.x<-20 || this.x>SC_W+20 || this.y<-20 || this.y>SC_H+20) {
-            this.removeChildren();
-            this.remove();
-            return;
-        }
+        this.on("enterframe", function(){
+            this.x += this.vx;
+            this.y += this.vy;
 
-        //敵との当り判定チェック
-        for (var i = 0; i < 3; i++) {
-            var layer = this.parentScene.layers[pbr.checkLayers[i]];
-            layer.children.each(function(a) {
-                if (a === app.player) return;
-                if (this.parent && a.isCollision && a.isHitElement(this)) {
-                    a.damage(this.power);
-                    this.vanish();
-                    this.removeChildren();
-                    this.remove();
-                    return;
-                }
-            }.bind(this));
-        }
+            if (this.x<-20 || this.x>SC_W+20 || this.y<-20 || this.y>SC_H+20) {
+                this.remove();
+                return;
+            }
+
+            //敵との当り判定チェック
+            for (var i = 0; i < 3; i++) {
+                var layer = this.parentScene.layers[checkLayers[i]];
+                layer.children.each(function(a) {
+                    if (a === app.player) return;
+                    if (this.parent && a.isCollision && a.isHitElement(this)) {
+                        a.damage(this.power);
+                        this.vanish();
+                        this.remove();
+                        return;
+                    }
+                }.bind(this));
+            }
+        });
     },
 
     vanish: function() {
         pbr.Effect.ShotImpact().addChildTo(this.parentScene).setPosition(this.x, this.y);
         pbr.Effect.enterDebrisSmall(this.parentScene, this.x, this.y, 1);
     },
+});
+
 });

@@ -68,6 +68,9 @@ phina.define("pbr.MainScene", {
             if (i == LAYER_BULLET) {
                 this.layers[i] = pbr.BulletLayer().addChildTo(this.base);
                 this.layers[i].parentScene = this;
+            } else  if (i == LAYER_SHOT) {
+                this.layers[i] = pbr.ShotLayer().addChildTo(this.base);
+                this.layers[i].parentScene = this;
             } else {
                 this.layers[i] = phina.display.Layer().addChildTo(this.base);
             }
