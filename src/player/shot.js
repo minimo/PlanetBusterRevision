@@ -23,6 +23,13 @@ phina.define("pbr.Shot", {
         defaultPower: 1,
     },
 
+    DEFAULT_PARAM: {
+        type: 0,
+        rotation: 0,
+        power: 1,
+        velocity: 15,
+    },
+
     init: function(rotation, power, type) {
         if (type == 0) {
             this.superInit("shot1", 16, 16);
@@ -40,7 +47,8 @@ phina.define("pbr.Shot", {
         }.bind(this));
     },
 
-    setup: function(rotation, power, type) {
+    setup: function(param) {
+        
         this.rotation = rotation || 0;
         this.speed = this.defaultSpeed;
         this.power = power || this.defaultPower;
@@ -73,8 +81,9 @@ phina.define("pbr.Shot", {
             }
 
             //敵との当り判定チェック
+            var parentScene = this.shotlayer.parentScene;
             for (var i = 0; i < 3; i++) {
-                var layer = this.parentScene.layers[checkLayers[i]];
+                var layer = parentScene.layers[checkLayers[i]];
                 layer.children.each(function(a) {
                     if (a === app.player) return;
                     if (this.parent && a.isCollision && a.isHitElement(this)) {

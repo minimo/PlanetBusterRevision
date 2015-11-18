@@ -147,6 +147,8 @@ phina.define("pbr.Player", {
         pbr.Shot( 1, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x+10, this.y-8);
         pbr.Shot( 0, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x   , this.y-16);
         pbr.Shot(-1, shotPower, 0).addChildTo(this.parentScene).setPosition(this.x-10, this.y-8);
+
+        var sc = this.parentScene.shotLayer;
     },
 
     //ビット展開

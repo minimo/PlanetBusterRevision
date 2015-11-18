@@ -65,18 +65,22 @@ phina.define("pbr.MainScene", {
         this.base = phina.display.Layer().addChildTo(this).setPosition(SC_OFFSET_X, 0);
         this.layers = [];
         for (var i = 0; i < LAYER_SYSTEM+1; i++) {
-            if (i == LAYER_BULLET) {
-                this.layers[i] = pbr.BulletLayer().addChildTo(this.base);
-                this.layers[i].parentScene = this;
-            } else  if (i == LAYER_SHOT) {
-                this.layers[i] = pbr.ShotLayer().addChildTo(this.base);
-                this.layers[i].parentScene = this;
-            } else {
-                this.layers[i] = phina.display.Layer().addChildTo(this.base);
+            switch (i) {
+                case LAYER_BULLET:
+                    this.layers[i] = pbr.BulletLayer().addChildTo(this.base);
+                    this.bulletLayer = this.layers[i];
+                    break;
+                case LAYER_SHOT:
+                    this.layers[i] = pbr.ShotLayer().addChildTo(this.base);
+                    this.shotLayer = this.layers[i];
+                    break;
+                default:
+                    this.layers[i] = phina.display.Layer().addChildTo(this.base);
             }
+            this.layers[i].parentScene = this;
         }
 
-        //プレイヤー準備        
+        //プレイヤー準備
         this.player = pbr.Player()
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
