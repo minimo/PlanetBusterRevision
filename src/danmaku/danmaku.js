@@ -7,7 +7,7 @@
 
 phina.namespace(function() {
 
-pbr.danmaku = ps.danmaku || {};
+pbr.danmaku = pbr.danmaku || {};
 
 var action = bulletml.dsl.action;
 var actionRef = bulletml.dsl.actionRef;
@@ -85,16 +85,16 @@ var basic = function(s, dir) {
     ]),
   });
 };
-ps.danmaku.basic = basic(1, 0);
-ps.danmaku.basicR1 = basic(1, -5);
-ps.danmaku.basicL1 = basic(1, +5);
-ps.danmaku.basicR2 = basic(1, -15);
-ps.danmaku.basicL2 = basic(1, +15);
-ps.danmaku.basicF = basic(1.2, 0);
-ps.danmaku.basicFR1 = basic(1.2, -5);
-ps.danmaku.basicFL1 = basic(1.2, +5);
-ps.danmaku.basicFR2 = basic(1.2, -15);
-ps.danmaku.basicFL2 = basic(1.2, +15);
+pbr.danmaku.basic = basic(1, 0);
+pbr.danmaku.basicR1 = basic(1, -5);
+pbr.danmaku.basicL1 = basic(1, +5);
+pbr.danmaku.basicR2 = basic(1, -15);
+pbr.danmaku.basicL2 = basic(1, +15);
+pbr.danmaku.basicF = basic(1.2, 0);
+pbr.danmaku.basicFR1 = basic(1.2, -5);
+pbr.danmaku.basicFL1 = basic(1.2, +5);
+pbr.danmaku.basicFR2 = basic(1.2, -15);
+pbr.danmaku.basicFL2 = basic(1.2, +15);
 
 // ザコヘリ3way
 var basic3way = function(dir) {
@@ -114,11 +114,11 @@ var basic3way = function(dir) {
     ]),
   });
 };
-ps.danmaku.basic3way = basic3way(0);
-ps.danmaku.basic3wayR1 = basic3way(-5);
-ps.danmaku.basic3wayL1 = basic3way(+5);
-ps.danmaku.basic3wayR2 = basic3way(-15);
-ps.danmaku.basic3wayL2 = basic3way(+15);
+pbr.danmaku.basic3way = basic3way(0);
+pbr.danmaku.basic3wayR1 = basic3way(-5);
+pbr.danmaku.basic3wayL1 = basic3way(+5);
+pbr.danmaku.basic3wayR2 = basic3way(-15);
+pbr.danmaku.basic3wayL2 = basic3way(+15);
 
 // ザコ戦車用
 var forward = function(s, dir) {
@@ -138,16 +138,16 @@ var forward = function(s, dir) {
     ]),
   });
 };
-ps.danmaku.forward = forward(1, 0);
-ps.danmaku.forwardR1 = forward(1, -5);
-ps.danmaku.forwardL1 = forward(1, +5);
-ps.danmaku.forwardR2 = forward(1, -15);
-ps.danmaku.forwardL2 = forward(1, +15);
-ps.danmaku.forwardF = forward(1.2, 0);
-ps.danmaku.forwardFR1 = forward(1.2, -5);
-ps.danmaku.forwardFL1 = forward(1.2, +5);
-ps.danmaku.forwardFR2 = forward(1.2, -15);
-ps.danmaku.forwardFL2 = forward(1.2, +15);
+pbr.danmaku.forward = forward(1, 0);
+pbr.danmaku.forwardR1 = forward(1, -5);
+pbr.danmaku.forwardL1 = forward(1, +5);
+pbr.danmaku.forwardR2 = forward(1, -15);
+pbr.danmaku.forwardL2 = forward(1, +15);
+pbr.danmaku.forwardF = forward(1.2, 0);
+pbr.danmaku.forwardFR1 = forward(1.2, -5);
+pbr.danmaku.forwardFL1 = forward(1.2, +5);
+pbr.danmaku.forwardFR2 = forward(1.2, -15);
+pbr.danmaku.forwardFL2 = forward(1.2, +15);
 
 // ザコ戦車3way
 var forward3way = function(s, dir) {
@@ -170,16 +170,16 @@ var forward3way = function(s, dir) {
     ]),
   });
 };
-ps.danmaku.forward3way = forward3way(1, 0);
-ps.danmaku.forward3wayR1 = forward3way(1, -5);
-ps.danmaku.forward3wayL1 = forward3way(1, +5);
-ps.danmaku.forward3wayR2 = forward3way(1, -15);
-ps.danmaku.forward3wayL2 = forward3way(1, +15);
-ps.danmaku.forward3wayF = forward3way(1.2, 0);
-ps.danmaku.forward3wayFR1 = forward3way(1.2, -5);
-ps.danmaku.forward3wayFL1 = forward3way(1.2, +5);
-ps.danmaku.forward3wayFR2 = forward3way(1.2, -15);
-ps.danmaku.forward3wayFL2 = forward3way(1.2, +15);
+pbr.danmaku.forward3way = forward3way(1, 0);
+pbr.danmaku.forward3wayR1 = forward3way(1, -5);
+pbr.danmaku.forward3wayL1 = forward3way(1, +5);
+pbr.danmaku.forward3wayR2 = forward3way(1, -15);
+pbr.danmaku.forward3wayL2 = forward3way(1, +15);
+pbr.danmaku.forward3wayF = forward3way(1.2, 0);
+pbr.danmaku.forward3wayFR1 = forward3way(1.2, -5);
+pbr.danmaku.forward3wayFL1 = forward3way(1.2, +5);
+pbr.danmaku.forward3wayFR2 = forward3way(1.2, -15);
+pbr.danmaku.forward3wayFL2 = forward3way(1.2, +15);
 
 });
 
