@@ -10,7 +10,7 @@ phina.namespace(function() {
 var checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT, LAYER_OBJECT_LOWER];
 
 phina.define("pbr.Shot", {
-    superClass: "phina.display.Sprite",
+    superClass: "phina.display.CanvasElement",
 
     DEFAULT_PARAM: {
         type: 0,
@@ -20,8 +20,12 @@ phina.define("pbr.Shot", {
     },
 
     init: function() {
-        this.superInit("shot", 16, 32);
-        this.setFrameIndex(0);
+        this.superInit();
+        this.boundingType = "circle";
+        this.radius = 6
+
+        this.sprite = phina.display.Sprite("shot", 16, 32).addChildTo(this);
+        this.sprite.frameIndex = 0;
 
         this.on("enterframe", function(){
             this.x += this.vx;
@@ -57,11 +61,11 @@ phina.define("pbr.Shot", {
     setup: function(param) {
         param = param.$safe(this.DEFAULT_PARAM);
         if (param.type == 0) {
-            this.frameIndex = 0;
-//            this.setScale(2);
+            this.sprite.frameIndex = 0;
+            this.sprite.setScale(2);
         } else {
-            this.frameIndex = 1;
-//            this.setScale(1.5, 1.0);
+            this.sprite.frameIndex = 1;
+            this.sprite.setScale(1.0, 1.0);
         }
 
         this.rotation = param.rotation;
@@ -76,15 +80,19 @@ phina.define("pbr.Shot", {
         this.vy = Math.sin(rot*toRad)*this.velocity;
 
         //当り判定設定
-        this.boundingType = "circle";
         if (param.type == 0) {
-            this.radius = 6;
+            this.radius = 8;
         } else {
-            this.radius = 12;
+            this.radius = 16;
         }
 
         this.beforeX = this.x;
         this.beforeY = this.y;
+
+        if (this.width != 16) {
+            return this;
+        }
+
         return this;
     },
 

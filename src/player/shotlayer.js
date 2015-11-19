@@ -9,7 +9,7 @@ phina.define("pbr.ShotLayer", {
     superClass: "phina.display.CanvasElement",
 
     _member: {
-        max: 256,
+        max: 64,
         pool : null,
     },
 
