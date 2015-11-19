@@ -13,6 +13,8 @@ phina.define("pbr.Bullet", {
         param: null,
         id: -1,
 
+        runner: null,
+
         vx: 0,
         vy: 1,
 
@@ -36,25 +38,32 @@ phina.define("pbr.Bullet", {
         this.boundingType = "circle";
         this.radius = 2;
 
-        this.on("enterframe", function(){
+        this.on("enterframe", function(app){
             if (this.rolling) this.rotation += this.rollAngle;
+            var runner = this.runner;
+            if (runner) {
+                var bx = this.x;
+                var by = this.y;
+                runner.x = bx;
+                runner.y = by;
+                runner.update();
+                var dx = runner.x - bx;
+                var dy = runner.y - by;
 
-            this.x += this.vx;
-            this.y += this.vy;
-
-            //画面範囲外
-            if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
-                this.remove();
-                return;
-            }
-
-            //自機との当り判定チェック
-            var player = this.bulletLayer.parentScene.player;
-            if (player.isCollision) {
-                if (this.isHitElement(player) ) {
-                    player.damage();
+                //画面範囲外
+                if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
                     this.remove();
                     return;
+                }
+
+                //自機との当り判定チェック
+                var player = this.bulletLayer.parentScene.player;
+                if (player.isCollision) {
+                    if (this.isHitElement(player) ) {
+                        player.damage();
+                        this.remove();
+                        return;
+                    }
                 }
             }
         }.bind(this));
@@ -65,22 +74,17 @@ phina.define("pbr.Bullet", {
         }.bind(this));
     },
 
-    setup: function(param) {
+    setup: function(runner, spec) {
         param.$safe(this.DEFAULT_PARAM);
 
-        this.id = param.id;
-        this.x = param.x;
-        this.y = param.y;
-        this.vx = param.vx;
-        this.vy = param.vy;
-
-        //当り判定設定
-        this.boundingType = "circle";
-        this.radius = 2;
+        this.id = 0;
+        this.x = runner.x;
+        this.y = runner.y;
+        this.runner = runner;
 
         //弾種別グラフィック
         var type = 1, size = 1, index = 0;
-        switch (param.type) {
+        switch (spec.type) {
             case "RS":  type = 1; size = 0.6; index = 0; break;
             case "BS":  type = 1; size = 0.6; index = 1; break;
             case "RM":  type = 1; size = 0.8; index = 0; break;
@@ -98,6 +102,7 @@ phina.define("pbr.Bullet", {
                 this.rotation = this.angle*toDeg-90;
                 break;
         }
+
         if (this.sprite) this.sprite.remove();
         this.sprite = phina.display.Sprite("bullet"+type, 24, 24)
             .addChildTo(this)

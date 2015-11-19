@@ -81,13 +81,17 @@ phina.define("pbr.MainScene", {
         }
 
         //プレイヤー準備
-        this.player = pbr.Player()
+        var player = this.player = pbr.Player()
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
             .stageStartup();
+        player.shotLayer = this.shotLayer;
 
 //        this.pointer = pbr.PlayerPointer().addChildTo(this);
 //        this.pointer.player = this.player;
+
+        //弾幕設定クラス
+        pbr.BulletConfig.setup(player, this.bulletLayer);
 
         //スコア表示
         var that = this;

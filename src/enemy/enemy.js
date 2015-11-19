@@ -160,6 +160,12 @@ phina.define("pbr.Enemy", {
     update: function(app) {
         if (this.isDead) return;
 
+        if (this.runner) {
+            this.runner.x = this.position.x;
+            this.runner.y = this.position.y;
+            this.runner.update();
+        }
+
         //地上物現座標調整
         if (this.isGround) {
             var x = this.groundX-this.parentScene.ground.x;
@@ -352,6 +358,15 @@ phina.define("pbr.Enemy", {
         this.parentScene.eraseBullet();
 
         this.remove();
+    },
+
+    //BulletML起動
+    startDanmaku: function(danmakuName) {
+        if (danmakuName) this.danmakuName = danmakuName;
+        this.runner = pbr.danmaku[this.danmakuName].createRunner(pbr.BulletConfig);
+        this.runner.onNotify = function(eventType, event) {
+            this.flare("bullet" + eventType, event);
+        }.bind(this);
     },
 
     //親機のセット

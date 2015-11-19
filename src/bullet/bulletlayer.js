@@ -26,13 +26,13 @@ phina.define("pbr.BulletLayer", {
     },
 
     //弾投入
-    enterBullet: function(param) {
+    enterBullet: function(runner, spec) {
         var b = this.pool.shift();
         if (!b) {
             console.warn("Bullet empty!!");
             return null;
         }
-        b.setup(param).addChildTo(this);
+        b.setup(runner, spec).addChildTo(this);
         return b;
     },
 
