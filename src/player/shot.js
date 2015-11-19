@@ -67,7 +67,7 @@ phina.define("pbr.Shot", {
             this.sprite.setScale(2);
         } else {
             this.sprite.frameIndex = 1;
-            this.sprite.setScale(1.0, 1.0);
+            this.sprite.setScale(1.5, 1.0);
         }
 
         this.rotation = param.rotation;
