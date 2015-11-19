@@ -42,6 +42,12 @@ phina.define("pbr.Bullet", {
             this.x += this.vx;
             this.y += this.vy;
 
+            //画面範囲外
+            if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
+                this.remove();
+                return;
+            }
+
             //自機との当り判定チェック
             var player = this.bulletLayer.parentScene.player;
             if (player.isCollision) {
@@ -50,12 +56,6 @@ phina.define("pbr.Bullet", {
                     this.remove();
                     return;
                 }
-            }
-
-            //画面範囲外
-            if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
-                this.remove();
-                return;
             }
         }.bind(this));
 
