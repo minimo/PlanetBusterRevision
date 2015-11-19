@@ -26,6 +26,8 @@ phina.define("pbr.Shot", {
 
         this.sprite = phina.display.Sprite("shot", 16, 32).addChildTo(this);
         this.sprite.frameIndex = 0;
+        this.sprite.alpha = 0.8;
+        this.sprite.blendMode = "lighter";
 
         this.on("enterframe", function(){
             this.x += this.vx;
@@ -59,7 +61,7 @@ phina.define("pbr.Shot", {
     },
 
     setup: function(param) {
-        param = param.$safe(this.DEFAULT_PARAM);
+        param.$safe(this.DEFAULT_PARAM);
         if (param.type == 0) {
             this.sprite.frameIndex = 0;
             this.sprite.setScale(2);
@@ -71,9 +73,6 @@ phina.define("pbr.Shot", {
         this.rotation = param.rotation;
         this.velocity = param.velocity;
         this.power = param.power;
-
-        this.alpha = 0.8;
-        this.blendMode = "lighter";
 
         var rot = param.rotation-90;
         this.vx = Math.cos(rot*toRad)*this.velocity;
@@ -88,10 +87,6 @@ phina.define("pbr.Shot", {
 
         this.beforeX = this.x;
         this.beforeY = this.y;
-
-        if (this.width != 16) {
-            return this;
-        }
 
         return this;
     },

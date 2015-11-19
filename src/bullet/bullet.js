@@ -20,6 +20,15 @@ phina.define("pbr.Bullet", {
         rolling: true,
     },
 
+    DEFAULT_PARAM: {
+        id: -1,
+        type: "RS",
+        x: SC_W*0.5,
+        y: SC_H*0.5,
+        vx: 0,
+        vy: 1,
+    },
+
     init: function() {
         this.superInit();
         this.$extend(this._member);
@@ -57,14 +66,7 @@ phina.define("pbr.Bullet", {
     },
 
     setup: function(param) {
-        param = param.$safe({
-            id: -1,
-            type: "RS",
-            x: SC_W*0.5,
-            y: SC_H*0.5,
-            vx: 0,
-            vy: 1,
-        });
+        param.$safe(this.DEFAULT_PARAM);
 
         this.id = param.id;
         this.x = param.x;
