@@ -27,8 +27,7 @@ phina.define("pbr.Enemy", {
         name: null,
         def: 0,
         defMax: 0,
-        bulletPattern: null,
-        nowBulletPattern: null,
+        danmakuName: null,
         id: -1,
         enterParam: null,
 
@@ -66,9 +65,12 @@ phina.define("pbr.Enemy", {
         var d = this.data = pbr.enemyData[name];
         if (!d) return false;
 
-        this.bulletPattern = d.bulletPattern;
-        this.def = this.defMax = d.def;
+        //弾幕定義
+        this.danmakuName = d.danmakuName;
+        this.startDanmaku(this.danmakuName);
 
+        //基本仕様コピー
+        this.def = this.defMax = d.def;
         this.width = d.width || 32;
         this.height = d.height || 32;
         this.layer = d.layer || LAYER_OBJECT;
@@ -137,13 +139,6 @@ phina.define("pbr.Enemy", {
         this.setup(param);
         this.groundX = this.parentScene.ground.x;
         this.groundY = this.parentScene.ground.y;
-
-        //弾幕定義
-        if (this.bulletPattern instanceof Array) {
-            this.nowBulletPattern = this.bulletPattern[0];
-        } else {
-            this.nowBulletPattern = this.bulletPattern;
-        }
 
         //当り判定設定
         this.boundingType = "rect";
@@ -300,7 +295,7 @@ phina.define("pbr.Enemy", {
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
-//        this.stopDanmaku();
+        this.stopDanmaku();
 
         var vx = this.x-this.beforeX;
         var vy = this.y-this.beforeY;
@@ -362,11 +357,14 @@ phina.define("pbr.Enemy", {
 
     //BulletML起動
     startDanmaku: function(danmakuName) {
-        if (danmakuName) this.danmakuName = danmakuName;
-        this.runner = pbr.danmaku[this.danmakuName].createRunner(pbr.BulletConfig);
+        this.runner = pbr.danmaku[danmakuName].createRunner(pbr.BulletConfig);
         this.runner.onNotify = function(eventType, event) {
             this.flare("bullet" + eventType, event);
         }.bind(this);
+    },
+
+    //BulletML停止
+    stopDanmaku: function() {
     },
 
     //親機のセット

@@ -31,6 +31,10 @@ phina.define("pbr.Bullet", {
         vy: 1,
     },
 
+    _static: {
+        globalSpeedRate: 1.0,
+    },
+
     init: function() {
         this.superInit();
         this.$extend(this._member);
@@ -49,6 +53,8 @@ phina.define("pbr.Bullet", {
                 runner.update();
                 var dx = runner.x - bx;
                 var dy = runner.y - by;
+                this.x += dx * pbr.Bullet.globalSpeedRate;
+                this.y += dy * pbr.Bullet.globalSpeedRate;
 
                 //画面範囲外
                 if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {

@@ -70,7 +70,7 @@ var DM = bullet({
   dummy: true
 });
 
-// ƒUƒRƒwƒŠ—p
+// ã‚¶ã‚³ãƒ˜ãƒªç”¨
 var basic = function(s, dir) {
   return new bulletml.Root({
     top: action([

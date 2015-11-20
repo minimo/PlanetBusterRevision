@@ -11,8 +11,8 @@ pbr.enemyData = pbr.enemyData || [];
  *  攻撃ヘリ「ホーネット」
  */
 pbr.enemyData['Hornet'] = {
-    //使用弾幕パターン
-    bulletPattern: "Hornet",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  16,
@@ -95,8 +95,8 @@ pbr.enemyData['Hornet'] = {
  *  中型攻撃ヘリ「ジガバチ」
  */
 pbr.enemyData['MudDauber'] = {
-    //使用弾幕パターン
-    bulletPattern: "MudDauber",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  60,
@@ -163,8 +163,8 @@ pbr.enemyData['MudDauber'] = {
  *  中型爆撃機「ビッグウィング」
  */
 pbr.enemyData['BigWing'] = {
-    //使用弾幕パターン
-    bulletPattern: "BigWing",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  80,
@@ -208,8 +208,8 @@ pbr.enemyData['BigWing'] = {
  *  飛空挺「モーンブレイド」
  */
 pbr.enemyData['MournBlade'] = {
-    //使用弾幕パターン
-    bulletPattern: "MournBlade",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  128,
@@ -279,8 +279,8 @@ pbr.enemyData['MournBlade'] = {
  *  中型戦車「フラガラッハ」
  */
 pbr.enemyData['Fragarach'] = {
-    //使用弾幕パターン
-    bulletPattern: "Fragarach",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  48,
@@ -352,8 +352,8 @@ pbr.enemyData['Fragarach'] = {
  *  砲台「ブリュナーク」
  */
 pbr.enemyData['Brionac'] = {
-    //使用弾幕パターン
-    bulletPattern: "Brionac",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  64,
@@ -394,8 +394,8 @@ pbr.enemyData['Brionac'] = {
  *  大型ミサイル「ミスティルテイン」
  */
 pbr.enemyData['Mistilteinn'] = {
-    //使用弾幕パターン
-    bulletPattern: "nop",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  64,
@@ -440,8 +440,8 @@ pbr.enemyData['Mistilteinn'] = {
  *  中型輸送機「トイボックス」
  */
 pbr.enemyData['ToyBox'] = {
-    //使用弾幕パターン
-    bulletPattern: "ToyBox",
+    //使用弾幕名
+    danmakuName: "basic",
 
     //当り判定サイズ
     width:  30,
