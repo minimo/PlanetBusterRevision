@@ -108,14 +108,27 @@ pbr.danmaku.basic3wayL2 = basic3way(+15);
 
 //中型攻撃ヘリ MudDauber
 pbr.danmaku.MudDauber = new bulletml.Root({
-    top: action([
-        interval(10),
+    top0: action([
+        interval(30),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(-7)),
+            fire(DM, spd(1), direction(-10)),
             repeat("$burst + 1", [
-                fire(RS, spdSeq(0), direction(0, "sequence")),
-                fire(RS, spdSeq(0), direction(7, "sequence")),
-                fire(RS, spdSeq(0), direction(7, "sequence")),
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
+                fire(DM, spdSeq(0.05), direction(-14, "sequence")),
+            ]),
+            interval(50),
+        ]),
+    ]),
+    top1: action([
+        interval(30),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(-10)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
                 fire(DM, spdSeq(0.05), direction(-14, "sequence")),
             ]),
             interval(50),
