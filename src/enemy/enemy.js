@@ -66,8 +66,10 @@ phina.define("pbr.Enemy", {
         if (!d) return false;
 
         //弾幕定義
-        this.danmakuName = d.danmakuName;
-        this.startDanmaku(this.danmakuName);
+        if (d.danmakuName) {
+            this.danmakuName = d.danmakuName;
+            this.startDanmaku(this.danmakuName);
+        }
 
         //基本仕様コピー
         this.def = this.defMax = d.def;

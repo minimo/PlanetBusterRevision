@@ -42,45 +42,31 @@ var spdSeq = function(v) {
   return speed("{0} * (1.0 + $speedRank * 2.0)".format(v), "sequence");
 };
 
-var R0 = bullet({
-  type: 4
-});
-var R1 = bullet({
-  type: 5
-});
-var R2 = bullet({
-  type: 6
-});
-var R3 = bullet({
-  type: 7
-});
-var B4 = bullet({
-  type: 8
-});
-var B5 = bullet({
-  type: 9
-});
-var R4 = bullet({
-  type: 10
-});
-var R5 = bullet({
-  type: 11
-});
-var DM = bullet({
-  dummy: true
-});
+var RS  = bullet({ type: "RS"  });
+var RM  = bullet({ type: "RM"  });
+var RL  = bullet({ type: "RL"  });
+var RES = bullet({ type: "RES" });
+var REM = bullet({ type: "REM" });
+
+var BS  = bullet({ type: "BS"  });
+var BM  = bullet({ type: "BM"  });
+var BL  = bullet({ type: "BL"  });
+var BES = bullet({ type: "BES" });
+var BEM = bullet({ type: "BEM" });
+
+var DM  = bullet({ dummy: true });
 
 // ザコヘリ用
 var basic = function(s, dir) {
   return new bulletml.Root({
     top: action([
-      interval(10),
+      interval(60),
       repeat(Infinity, [
         fire(DM, spd(s), direction(dir)),
         repeat("$burst + 1", [
-          fire(R2, spdSeq(0.15), direction(0, "sequence")),
+          fire(RS, spdSeq(0.15), direction(0, "sequence")),
         ]),
-        interval(50),
+        interval(60),
       ]),
     ]),
   });

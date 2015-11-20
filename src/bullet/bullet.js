@@ -63,12 +63,14 @@ phina.define("pbr.Bullet", {
                 }
 
                 //自機との当り判定チェック
-                var player = this.bulletLayer.parentScene.player;
-                if (player.isCollision) {
-                    if (this.isHitElement(player) ) {
-                        player.damage();
-                        this.remove();
-                        return;
+                if (!this.dummy) {
+                    var player = this.bulletLayer.parentScene.player;
+                    if (player.isCollision) {
+                        if (this.isHitElement(player) ) {
+                            player.damage();
+                            this.remove();
+                            return;
+                        }
                     }
                 }
             }
@@ -88,32 +90,36 @@ phina.define("pbr.Bullet", {
         this.y = runner.y;
         this.runner = runner;
 
-        //弾種別グラフィック
-        var type = 1, size = 1, index = 0;
-        switch (spec.type) {
-            case "RS":  type = 1; size = 0.6; index = 0; break;
-            case "BS":  type = 1; size = 0.6; index = 1; break;
-            case "RM":  type = 1; size = 0.8; index = 0; break;
-            case "BM":  type = 1; size = 0.8; index = 1; break;
-            case "RL":  type = 1; size = 1.0; index = 0; break;
-            case "BL":  type = 1; size = 1.0; index = 1; break;
-
-            case "RES": type = 2; size = 0.6; index = 0; break;
-            case "BES": type = 2; size = 0.6; index =16; break;
-            case "REM": type = 2; size = 1.0; index = 0; break;
-            case "BEM": type = 2; size = 1.0; index =16; break;
-            case "THIN":
-                type = 2; size = 1.0; index =24; 
-                this.rolling = false;
-                this.rotation = this.angle*toDeg-90;
-                break;
-        }
-
         if (this.sprite) this.sprite.remove();
-        this.sprite = phina.display.Sprite("bullet"+type, 24, 24)
-            .addChildTo(this)
-            .setFrameIndex(index)
-            .setScale(size);
+
+        if (spec.dummy) {
+            this.dummy = true;
+        } else {
+            //弾種別グラフィック
+            var type = 1, size = 1, index = 0;
+            switch (spec.type) {
+                case "RS":  type = 1; size = 0.6; index = 0; break;
+                case "BS":  type = 1; size = 0.6; index = 1; break;
+                case "RM":  type = 1; size = 0.8; index = 0; break;
+                case "BM":  type = 1; size = 0.8; index = 1; break;
+                case "RL":  type = 1; size = 1.0; index = 0; break;
+                case "BL":  type = 1; size = 1.0; index = 1; break;
+                case "RES": type = 2; size = 0.6; index = 0; break;
+                case "BES": type = 2; size = 0.6; index =16; break;
+                case "REM": type = 2; size = 1.0; index = 0; break;
+                case "BEM": type = 2; size = 1.0; index =16; break;
+                case "THIN":
+                    type = 2; size = 1.0; index =24; 
+                    this.rolling = false;
+                    this.rotation = this.angle*toDeg-90;
+                    break;
+            }
+            this.sprite = phina.display.Sprite("bullet"+type, 24, 24)
+                .addChildTo(this)
+                .setFrameIndex(index)
+                .setScale(size);
+            this.dummy = false;
+        }
         return this;
     },
 
