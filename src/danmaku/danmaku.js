@@ -82,5 +82,46 @@ pbr.danmaku.basicFL1 = basic(1.2, +5);
 pbr.danmaku.basicFR2 = basic(1.2, -15);
 pbr.danmaku.basicFL2 = basic(1.2, +15);
 
+// ザコヘリ3way
+var basic3way = function(dir) {
+    return new bulletml.Root({
+        top: action([
+            interval(10),
+            repeat(Infinity, [
+                fire(DM, spd(1), direction(dir - 7)),
+                repeat("$burst + 1", [
+                    fire(RS, spdSeq(0), direction(0, "sequence")),
+                    fire(RS, spdSeq(0), direction(7, "sequence")),
+                    fire(RS, spdSeq(0), direction(7, "sequence")),
+                    fire(DM, spdSeq(0.05), direction(-14, "sequence")),
+                ]),
+                interval(50),
+            ]),
+        ]),
+    });
+};
+pbr.danmaku.basic3way = basic3way(0);
+pbr.danmaku.basic3wayR1 = basic3way(-5);
+pbr.danmaku.basic3wayL1 = basic3way(+5);
+pbr.danmaku.basic3wayR2 = basic3way(-15);
+pbr.danmaku.basic3wayL2 = basic3way(+15);
+
+//中型攻撃ヘリ MudDauber
+pbr.danmaku.MudDauber = new bulletml.Root({
+    top: action([
+        interval(10),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(-7)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction(0, "sequence")),
+                fire(RS, spdSeq(0), direction(7, "sequence")),
+                fire(RS, spdSeq(0), direction(7, "sequence")),
+                fire(DM, spdSeq(0.05), direction(-14, "sequence")),
+            ]),
+            interval(50),
+        ]),
+    ]),
+});
+
 });
 

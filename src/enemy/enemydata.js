@@ -96,7 +96,7 @@ pbr.enemyData['Hornet'] = {
  */
 pbr.enemyData['MudDauber'] = {
     //使用弾幕名
-    danmakuName: "basic",
+    danmakuName: "MudDauber",
 
     //当り判定サイズ
     width:  60,
