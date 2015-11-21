@@ -56,7 +56,6 @@ var BEM = bullet({ type: "BEM" });
 
 var DM  = bullet({ dummy: true });
 
-// ザコヘリ用
 var basic = function(s, dir) {
   return new bulletml.Root({
     top: action([
@@ -82,7 +81,6 @@ pbr.danmaku.basicFL1 = basic(1.2, +5);
 pbr.danmaku.basicFR2 = basic(1.2, -15);
 pbr.danmaku.basicFL2 = basic(1.2, +15);
 
-// ザコヘリ3way
 var basic3way = function(dir) {
     return new bulletml.Root({
         top: action([
