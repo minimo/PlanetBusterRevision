@@ -50,7 +50,7 @@ phina.namespace(function() {
 
         _static: {
             defaults: {
-                imageURL: 'http://cdn.rawgit.com/phi-jp/phina.js/develop/logo.png',
+                imageURL: 'assets/images/logo.png',
             },
         },
     });
