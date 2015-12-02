@@ -56,7 +56,7 @@ phina.define("pbr.TitleScene", {
         //キーボード操作
         var kb = this.app.keyboard;
         if (this.time > 30 && app.keyboard.getKey("Z")) {
-            this.app.pushScene(pbr.TitleMenu());
+            this.exit();
         }
         this.time++;
     },
@@ -71,7 +71,7 @@ phina.define("pbr.TitleScene", {
 
     //タッチorクリック終了処理
     onpointend: function(e) {
-//        this.app.popScene();
+        this.exit();
     },
 });
 

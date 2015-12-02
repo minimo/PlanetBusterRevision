@@ -25,7 +25,7 @@ phina.namespace(function() {
         },
 
         _init: function() {
-            this.sprite = phina.display.Sprite(this.texture).addChildTo(this).setScale(0.5);
+            this.sprite = phina.display.Sprite(this.texture).addChildTo(this).setScale(0.3);
 
             this.sprite.setPosition(this.gridX.center(), this.gridY.center());
             this.sprite.alpha = 0;
@@ -44,7 +44,7 @@ phina.namespace(function() {
                 }, this);
         },
 
-        onpointend: function() {
+        onpointstart: function() {
             if (!this.lock) this.exit();
         },
 

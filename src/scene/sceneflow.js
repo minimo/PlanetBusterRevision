@@ -21,7 +21,7 @@ phina.define("pbr.SceneFlow", {
                 arguments: {
                     assetType: "common"
                 },
-                nextLabel: "main",
+                nextLabel: "title",
             },{
                 label: "title",
                 className: "pbr.TitleScene",
