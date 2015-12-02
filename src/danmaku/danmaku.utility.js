@@ -1,5 +1,5 @@
 /*
- *  bulletml.utility.js
+ *  danmaku.utility.js
  *  2015/12/01
  *  @auther minimo  
  *  This Program is MIT license.
