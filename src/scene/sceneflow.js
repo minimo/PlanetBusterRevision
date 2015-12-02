@@ -10,8 +10,12 @@ phina.define("pbr.SceneFlow", {
 
     init: function() {
         this.superInit({
-            startLabel: "load",
+            startLabel: "splash",
             scenes: [{
+                label: "splash",
+                className: "pbr.SplashScene",
+                nextLabel: "load",
+            },{
                 label: "load",
                 className: "pbr.LoadingScene",
                 arguments: {
