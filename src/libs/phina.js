@@ -1,3 +1,11 @@
+/* 
+ * phina.js 0.1.0
+ * phina.js is a game library in javascript
+ * MIT Licensed
+ * 
+ * Copyright (C) 2015 phi, http://phinajs.com
+ */
+
 /*
  *
  */
@@ -98,6 +106,31 @@
     return this;
   });
 
+  /**
+   * @method  $get
+   * パス指定で値を取得
+   */
+  Object.prototype.method('$get', function(key) {
+    return key.split('.').reduce(function(t, v) {
+      return t && t[v];
+    }, this);
+  });
+
+  /**
+   * @method  $set
+   * パス指定で値を設定
+   */
+  Object.prototype.method('$set', function(key, value) {
+    key.split('.').reduce(function(t, v, i, arr) {
+      if (i === (arr.length-1)) {
+        t[v] = value;
+      }
+      else {
+        if (!t[v]) t[v] = {};
+        return t[v];
+      }
+    }, this);
+  });
 
   /**
    * @method  $has
@@ -453,6 +486,18 @@
    * タンジェント
    */
   Number.prototype.method("tan", function() { return Math.tan(this) });
+
+  /**
+   * @method toDegree
+   * to degree
+   */
+  Number.prototype.method("toDegree", function() { return (this*Math.RAD_TO_DEG); });
+
+  /**
+   * @method toRadian
+   * to degree
+   */
+  Number.prototype.method("toRadian", function() { return this*Math.DEG_TO_RAD; });
 
 })();
 
@@ -1119,6 +1164,119 @@
 
 })();
 
+/*
+ * date.js
+ */
+
+(function() {
+  
+  /**
+   * @class   global.Date
+   * Date(日付)の拡張
+   */
+  
+  var MONTH = [
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  
+  var WEEK = [
+    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+  ];
+  
+  /**
+   * @method  format
+   * 日付フォーマットに合わせた文字列を返す
+   */
+  Date.prototype.method('format', function(pattern) {
+    /*
+    var str = '{y}/{m}/{d}'.format({
+      y: this.getYear()+1900,
+      m: this.getMonth()+1,
+      d: this.getDate(),
+    });
+    
+    return str;
+    */
+    
+    var year    = this.getFullYear();
+    var month   = this.getMonth();
+    var date    = this.getDate();
+    var day     = this.getDay();
+    var hours   = this.getHours();
+    var minutes = this.getMinutes();
+    var seconds = this.getSeconds();
+    var millseconds = this.getMilliseconds();
+    var str = '';
+    
+    for (var i=0,len=pattern.length; i<len; ++i) {
+      var ch = pattern.charAt(i);
+      var temp = '';
+      switch(ch) {
+        // 日
+        case 'd': temp = date.padding(2, '0'); break;
+        case 'D': temp = WEEK[day].substr(0, 3); break;
+        case 'j': temp = date; break;
+        case 'l': temp = WEEK[day]; break;
+        // case 'N': temp = ; break;
+        // case 'S': temp = ; break;
+        // case 'w': temp = ; break;
+        // case 'z': temp = ; break;
+        
+        // 月
+        case 'F': temp = MONTH[month]; break;
+        case 'm': temp = (month+1).padding(2, '0'); break;
+        case 'M': temp = MONTH[month].substr(0, 3); break;
+        case 'n': temp = (month+1); break;
+        // case 't': temp = (month+1); break;
+        
+        // 年
+        // case 'L': temp = ; break;
+        // case 'o': temp = ; break;
+        case 'Y': temp = year; break;
+        case 'y': temp = year.toString().substr(2, 2); break;
+        
+        
+        // 時間
+        // case "a": temp = ; break;
+        // case "A": temp = ; break;
+        // case "B": temp = ; break;
+        // case "g": temp = ; break;
+        case "G": temp = hours; break;
+        // case "h": temp = ; break;
+        case "H": temp = hours.padding(2, '0'); break;
+        case "i": temp = minutes.padding(2, '0'); break;
+        case "s": temp = seconds.padding(2, '0'); break;
+        case "S": temp = millseconds.padding(3, '0'); break;
+        
+        default : temp = ch; break;
+      }
+      str += temp;
+    }
+    return str;
+  });
+
+
+  Date.prototype.method('calculateAge', function(birthday, when) {
+    // birthday
+    if (typeof birthday === 'string') {
+      birthday = new Date(birthday);
+    }
+    // when
+    if (!when) {
+      when = new Date();
+    }
+    else if (typeof when === 'string') {
+      when = new Date(when);
+    }
+
+    var bn = new Date(birthday.getTime()).setFullYear(256);
+    var wn = new Date(when.getTime()).setFullYear(256);
+    var step = (wn < bn) ? 1 : 0;
+
+    return (when.getFullYear() - birthday.getFullYear()) - step;
+  });
+  
+})();
 
 /*
  * math.js
@@ -1230,7 +1388,7 @@ var phina = phina || {};
   /**
    * バージョン
    */
-  phina.VERSION = '0.0.1';
+  phina.VERSION = '0.1.0';
 
   phina.method('isNode', function() {
     return (typeof module !== 'undefined');
@@ -1470,19 +1628,37 @@ phina.namespace(function() {
    */
   phina.define('phina.geom.Vector2', {
 
+    /** x座標 */
+    x: 0,
+    /** y座標 */
+    y: 0,
+
+    /**
+     * @constructor
+     */
     init: function(x, y) {
       this.x = x;
       this.y = y;
     },
 
+    /**
+     * 複製
+     */
     clone: function() {
       return phina.geom.Vector2(this.x, this.y);
     },
 
+    /**
+     * 等しいかどうかをチェック
+     * @return {Boolean}
+     */
     equals: function(v) {
       return (this.x === v.x && this.y === v.y);
     },
 
+    /**
+     * セッター
+     */
     set: function(x, y) {
       this.x = x;
       this.y = y;
@@ -1558,6 +1734,7 @@ phina.namespace(function() {
      * 長さを取得
      * ### memo
      * magnitude って名前の方が良いかも. 検討中.
+     * @return {Number}
      */
     length: function() {
       return Math.sqrt(this.x*this.x + this.y*this.y);
@@ -1567,6 +1744,7 @@ phina.namespace(function() {
      * 2乗された長さを取得
      * C# の名前を引用
      * or lengthSquare or lengthSqrt
+     * @return {Number}
      */
     lengthSquared: function() {
       return this.x*this.x + this.y*this.y;
@@ -1603,20 +1781,196 @@ phina.namespace(function() {
      * 正規化
      */
     normalize: function() {
-      return this.div(this.length());
+      this.div(this.length());
+      return this;
+    },
+
+    /**
+     * 文字列に変換
+     * @return {String}
+     */
+    toString: function() {
+      return "{x:{x}, y:{y}}".format(this);
+    },
+
+    /**
+     * 角度に変換
+     * @return {Number}
+     */
+    toAngle: function() {
+      var rad = Math.atan2(this.y, this.x);
+      return (rad + Math.PI*2)%(Math.PI*2);
+    },
+
+    /**
+     * 角度(degree)と長さでベクトルをセット
+     */
+    fromAngle: function(rad, len) {
+      len = len || 1;
+      this.x = Math.cos(rad)*len;
+      this.y = Math.sin(rad)*len;
+      
+      return this;
     },
 
     _accessor: {
     },
 
     _static: {
+      /**
+       * @method
+       * @static
+       * min
+       */
+      min: function(a, b) {
+        return phina.geom.Vector2(
+          (a.x < b.x) ? a.x : b.x,
+          (a.y < b.y) ? a.y : b.y
+          );
+      },
+
+      /**
+       * @method
+       * @static
+       * max
+       */
+      max: function(a, b) {
+        return phina.geom.Vector2(
+          (a.x > b.x) ? a.x : b.x,
+          (a.y > b.y) ? a.y : b.y
+          );
+      },
+
+      /**
+       * @method
+       * @static
+       * 加算
+       */
+      add: function(lhs, rhs) {
+        return phina.geom.Vector2(lhs.x+rhs.x, lhs.y+rhs.y);
+      },
+      
+      /**
+       * @method
+       * @static
+       * 減算
+       */
+      sub: function(lhs, rhs) {
+        return phina.geom.Vector2(lhs.x-rhs.x, lhs.y-rhs.y);
+      },
+      
+      /**
+       * @method
+       * @static
+       * 乗算
+       */
+      mul: function(v, n) {
+        return phina.geom.Vector2(v.x*n, v.y*n);
+      },
+      
+      /**
+       * @method
+       * @static
+       * 割算
+       */
+      div: function(v, n) {
+        return phina.geom.Vector2(v.x/n, v.y/n);
+      },
+      
+      /**
+       * @method
+       * @static
+       * 反転
+       */
+      negate: function(v) {
+        return phina.geom.Vector2(-v.x, -v.y);
+      },
+      
+      /**
+       * @method
+       * @static
+       * 内積.
+       * 投影ベクトルを求めたり, 類似度に使ったり.
+       */
+      dot: function(lhs, rhs) {
+        return lhs.x * rhs.x + lhs.y * rhs.y;
+      },
+      
+      /**
+       * @method
+       * @static
+       * 外積
+       */
+      cross: function(lhs, rhs) {
+        return (lhs.x*rhs.y) - (lhs.y*rhs.x);
+      },
+      
+      /**
+       * @method
+       * @static
+       * ２点間の距離を返す
+       */
+      distance: function(lhs, rhs) {
+        return Math.sqrt( Math.pow(lhs.x-rhs.x, 2) + Math.pow(lhs.y-rhs.y, 2) );
+      },
+
       distanceSquared: function(lhs, rhs) {
         return Math.pow(lhs.x-rhs.x, 2) + Math.pow(lhs.y-rhs.y, 2);
       },
-    },
 
-    _defined: function() {
+
+      /**
+       * @method
+       * @static
+       * マンハッタン距離
+       */
+      manhattanDistance: function(lhs, rhs) {
+        return Math.abs(lhs.x-rhs.x) + Math.abs(lhs.y-rhs.y);
+      },
       
+      /**
+       * @method
+       * @static
+       * 反射ベクトル
+       */
+      reflect: function(v, normal) {
+        var len = phina.geom.Vector2.dot(v, normal);
+        var temp= phina.geom.Vector2.mul(normal, 2*len);
+        
+        return phina.geom.sub(v, temp);
+      },
+
+      /**
+       * @method
+       * @static
+       * 補間.
+       * 0.5 で lhs と rhs の中間ベクトルを求めることができます.
+       */
+      lerp: function(lhs, rhs, t) {
+        // TODO: 
+        return phina.geom.Vector2(
+          lhs.x + (rhs.x-lhs.x)*t,
+          lhs.y + (rhs.y-lhs.y)*t
+        );
+      },
+      
+      
+      /**
+       * @method
+       * @static
+       * 補間
+       */
+      slerp: function(lhs, rhs, t) {
+          // TODO:
+          // cos...
+      },
+
+      random: function(len, min, max) {
+        min = min || 0;
+        max = max || 360;
+        len = len || 1;
+        return phina.geom.Vector2().setDegree(Math.randf(min, max), len);
+      },
     },
 
   });
@@ -2228,6 +2582,22 @@ phina.namespace(function() {
       return this;
     },
   });
+
+
+  // 別名のメソッドを定義
+  (function() {
+    var methodMap = {
+      addEventListener: 'on',
+      removeEventListener: 'off',
+      clearEventListener: 'clear',
+      hasEventListener: 'has',
+      dispatchEvent: 'fire',
+      dispatchEventByType: 'flare',
+    };
+    methodMap.forIn(function(old, name) {
+      phina.util.EventDispatcher.prototype.method(old, phina.util.EventDispatcher.prototype[name]);
+    });
+  })();
 
 });
 
@@ -3336,6 +3706,15 @@ phina.namespace(function() {
     randbool: function() {
       return this.randint(0, 1) === 1;
     },
+    randarray: function(len, min, max) {
+      len = len || 100;
+      min = min || 0;
+      max = max || 100;
+
+      return (len).map(function() {
+        return this.randint(min, max);
+      }, this);
+    },
 
     _accessor: {
       seed: {
@@ -3370,6 +3749,15 @@ phina.namespace(function() {
       },
       randbool: function() {
         return this.randint(0, 1) === 1;
+      },
+      randarray: function(len, min, max) {
+        len = len || 100;
+        min = min || 0;
+        max = max || 100;
+
+        return (len).map(function() {
+          return this.randint(min, max);
+        }, this);
       },
 
       xor32: function(seed) {
@@ -3803,6 +4191,15 @@ phina.namespace(function() {
     },
 
     _load: function(r) {
+      if (/^data:/.test(this.src)) {
+        this._loadFromURIScheme(r);
+      }
+      else {
+        this._loadFromFile(r);
+      }
+    },
+
+    _loadFromFile: function(r) {
       var self = this;
 
       var xml = new XMLHttpRequest();
@@ -3828,6 +4225,34 @@ phina.namespace(function() {
 
       xml.responseType = 'arraybuffer';
       xml.send(null);
+    },
+
+    _loadFromURIScheme: function(r) {
+      var byteString = '';
+      if (this.src.split(',')[0].indexOf('base64') >= 0) {
+        byteString = atob(this.src.split(',')[1]);
+      }
+      else {
+        byteString = unescape(this.src.split(',')[1]);
+      }
+
+      var self = this;
+      var len = byteString.length;
+      var buffer = new Uint8Array(len);
+
+      for (var i=0; i<len; ++i) {
+        buffer[i] = byteString.charCodeAt(i);
+      }
+
+      // webaudio 用に変換
+      this.context.decodeAudioData(buffer.buffer, function(buffer) {
+        self.loadFromBuffer(buffer);
+        r(self);
+      }, function() {
+        console.warn("音声ファイルのデコードに失敗しました。(" + src + ")");
+        self.loaded = true;
+        r(self);
+      });
     },
 
     _accessor: {
@@ -5654,7 +6079,9 @@ phina.namespace(function() {
 
       if (obj._touchFlags[p.id]===true && p.getPointingEnd()) {
         obj._touchFlags[p.id] = false;
-        obj.flare('pointend');
+        obj.flare('pointend', {
+          pointer: p,
+        });
 
         if (obj._overFlags[p.id]) {
           obj._overFlags[p.id] = false;
@@ -6935,6 +7362,112 @@ phina.namespace(function() {
       this._draggable = phina.accessory.Draggable().attachTo(this);
     }
     return this._draggable;
+  });
+  
+});
+
+
+
+phina.namespace(function() {
+
+  /**
+   * @class phina.accessory.Flickable
+   * Flickable
+   */
+  phina.define('phina.accessory.Flickable', {
+    superClass: 'phina.accessory.Accessory',
+
+    /**
+     * @constructor
+     */
+    init: function(target) {
+      this.superInit(target);
+
+      this.initialPosition = phina.geom.Vector2(0, 0);
+      var self = this;
+
+      this.friction = 1.0;
+      this.velocity = phina.geom.Vector2(0, 0);
+      this.vertical = true;
+      this.horizontal = true;
+
+      this.on('attached', function() {
+        this.target.setInteractive(true);
+
+        this.target.on('pointstart', function(e) {
+          self.initialPosition.set(this.x, this.y);
+          self.velocity.set(0, 0);
+        });
+        this.target.on('pointmove', function(e) {
+          if (self.horizontal) {
+            this.x += e.pointer.dx;
+          }
+          if (self.vertical) {
+            this.y += e.pointer.dy;
+          }
+        });
+
+        this.target.on('pointend', function(e) {
+          var dp = e.pointer.deltaPosition;
+
+          if (dp.lengthSquared() > 10) {
+            self.velocity.x = dp.x;
+            self.velocity.y = dp.y;
+
+            self.flare('flickstart', {
+              direction: dp.clone().normalize(),
+            });
+          }
+          else {
+            self.cancel();
+          }
+
+          // self.flare('flick');
+          // self.flare('flickend');
+        });
+      });
+    },
+
+    update: function() {
+      if (!this.target) return ;
+
+      this.velocity.x *= this.friction;
+      this.velocity.y *= this.friction;
+
+      if (this.horizontal) {
+        this.target.position.x += this.velocity.x;
+      }
+      if (this.vertical) {
+        this.target.position.y += this.velocity.y;
+      }
+    },
+
+    cancel: function() {
+      this.target.x = this.initialPosition.x;
+      this.target.y = this.initialPosition.y;
+      this.velocity.set(0, 0);
+
+      // TODO: 
+      // this.setInteractive(false);
+      // this.tweener.clear()
+      //     .move(this.initialX, this.initialY, 500, "easeOutElastic")
+      //     .call(function () {
+      //         this.setInteractive(true);
+      //         this.fire(tm.event.Event("backend"));
+      //     }.bind(this));
+    },
+
+    enable: function() {
+      this._enable = true;
+    },
+
+  });
+
+  phina.app.Element.prototype.getter('flickable', function() {
+    if (!this._flickable) {
+      this._flickable = phina.accessory.Flickable().attachTo(this);
+    }
+    return this._flickable;
   });
   
 });
@@ -8744,7 +9277,7 @@ phina.namespace(function() {
         backgroundColor: 'transparent',
 
         fill: 'black',
-        stroke: '#222',
+        stroke: null,
         strokeWidth: 2,
 
         // 
@@ -9237,7 +9770,7 @@ phina.namespace(function() {
      * @constructor
      */
     init: function(options) {
-      options.$safe({
+      options = (options || {}).$safe({
         width: 640,
         height: 960,
         columns: 12,
@@ -10100,7 +10633,7 @@ phina.namespace(function() {
               value: 0,
               width: this.width,
               height: 12,
-              color: '#aaa',
+              fill: '#aaa',
               stroke: false,
               gaugeColor: 'hsla(200, 100%, 80%, 0.8)',
               padding: 0,
