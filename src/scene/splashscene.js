@@ -13,7 +13,7 @@ phina.namespace(function() {
         init: function() {
             this.superInit({width: SC_W, height: SC_H});
 
-            this.lock = true;
+            this.unlock = false;
             this.loadcomplete = false;
 
             //preload asset
@@ -43,7 +43,7 @@ phina.namespace(function() {
                 .clear()
                 .to({alpha:1}, 500, 'easeOutCubic')
                 .call(function() {
-                    this.lock = false;
+                    this.unlock = true;
                 }, this)
                 .wait(1000)
                 .to({alpha:0}, 500, 'easeOutCubic')
@@ -54,7 +54,7 @@ phina.namespace(function() {
         },
 
         onpointstart: function() {
-            if (!this.lock && this.loadcomplete) this.exit();
+            if (this.unlock && this.loadcomplete) this.exit();
         },
 
         _static: {
