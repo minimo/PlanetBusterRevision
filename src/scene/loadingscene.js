@@ -73,7 +73,7 @@ phina.define("pbr.LoadingScene", {
         this.gauge.onfull = function() {
             if (options.exitType === 'auto') {
                 this.app._onLoadAssets();
-                this.app.popScene();
+                this.exit();
             }
         }.bind(this);
 

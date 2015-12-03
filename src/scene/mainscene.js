@@ -11,8 +11,8 @@ phina.define("pbr.MainScene", {
     _member: {
         score: 0,
 
-        //現在ステージ番号
-        nowStage: 1,
+        //現在ステージＩＤ
+        stageId: 1,
 
         //再生中BGM
         bgm: null,
@@ -45,9 +45,12 @@ phina.define("pbr.MainScene", {
         },
     },
 
-    init: function() {
+    init: function(option) {
         this.superInit();
         this.$extend(this._member);
+
+        option = (option || {}).$safe({stageId: 1});
+        this.stageId = option.stageId;
 
         //バックグラウンド
         var param = {
@@ -128,7 +131,7 @@ phina.define("pbr.MainScene", {
     //ステージ初期化
     initStage: function() {
         if (this.ground) this.ground.remove();
-        switch (this.nowStage) {
+        switch (this.stageId) {
             case 1:
                 this.stage = pbr.Stage1(this, this.player);
                 this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
@@ -149,7 +152,7 @@ phina.define("pbr.MainScene", {
         this.stageMiss = 0;
 
         //ステージ番号表示
-        param = {text: "STAGE "+this.nowStage, fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 800, outlineWidth: 2};
+        param = {text: "STAGE "+this.stageId, fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 800, outlineWidth: 2};
         var m1 = phina.display.Label(param, 50)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)

@@ -5,6 +5,7 @@
  *  This Program is MIT license.
  *
  */
+
 phina.define("pbr.SceneFlow", {
     superClass: "phina.game.ManagerScene",
 
@@ -25,11 +26,35 @@ phina.define("pbr.SceneFlow", {
             },{
                 label: "title",
                 className: "pbr.TitleScene",
-                nextLabel: "main",
+                nextLabel: "arcade",
             },{
-                label: "main",
-                className: "pbr.MainScene",
+                label: "arcade",
+                className: "pbr.ArcadeMode",
                 nextLabel: "title",
+            }],
+        });
+    }
+});
+
+phina.define("pbr.ArcadeMode", {
+    superClass: "phina.game.ManagerScene",
+
+    init: function() {
+        this.superInit({
+            startLabel: "stage1load",
+            scenes: [{
+                label: "stage1load",
+                className: "pbr.LoadingScene",
+                arguments: {
+                    assetType: "stage1"
+                },
+                nextLabel: "stage1",
+            },{
+                label: "stage1",
+                className: "pbr.MainScene",
+                arguments: {
+                    stageId: 1,
+                },
             }],
         });
     }
