@@ -13,21 +13,30 @@ phina.namespace(function() {
         init: function() {
             this.superInit({width: SC_W, height: SC_H});
 
-            var defaults = phina.game.SplashScene.defaults;
-
             this.lock = true;
+            this.loadcomplete = false;
 
+            //preload asset
+            var assets = pbr.Application.assets["preload"];
+            var loader = phina.asset.AssetLoader();
+            loader.load(assets);
+            loader.on('load', function(e) {
+                this.loadcomplete = true;
+            }.bind(this));
+
+            //logo
             var texture = phina.asset.Texture();
-            texture.load(defaults.imageURL).then(function() {
+            texture.load(pbr.SplashScene.logo).then(function() {
                 this._init();
             }.bind(this));
             this.texture = texture;
         },
 
         _init: function() {
-            this.sprite = phina.display.Sprite(this.texture).addChildTo(this).setScale(0.3);
-
-            this.sprite.setPosition(this.gridX.center(), this.gridY.center());
+            this.sprite = phina.display.Sprite(this.texture)
+                .addChildTo(this)
+                .setPosition(this.gridX.center(), this.gridY.center())
+                .setScale(0.3);
             this.sprite.alpha = 0;
 
             this.sprite.tweener
@@ -45,13 +54,11 @@ phina.namespace(function() {
         },
 
         onpointstart: function() {
-            if (!this.lock) this.exit();
+            if (!this.lock && this.loadcomplete) this.exit();
         },
 
         _static: {
-            defaults: {
-                imageURL: 'assets/images/logo.png',
-            },
+            logo: "assets/images/logo.png",
         },
     });
 });

@@ -14,6 +14,12 @@ phina.define("pbr.Application", {
 	_static: {
         version: "0.0.1",
         assets: {
+            "preload": {
+                font: {
+                    "UbuntuMono":   "fonts/UbuntuMono-Bold.ttf",
+                    "Orbitron": "fonts/Orbitron-Regular.ttf",
+                }
+            },
             "common": {
                 image: {
                     "tex1":     "assets/images/tex1.png",
@@ -37,10 +43,6 @@ phina.define("pbr.Application", {
                     "explodeLarge":  "assets/sounds/sen_ge_hasai01.mp3", 
                     "explodePlayer": "assets/sounds/ta_ta_zuban_d01.mp3", 
                 },
-                font: {
-                    "UbuntuMono":   "fonts/UbuntuMono-Bold.ttf",
-                    "Orbitron":     "fonts/Orbitron-Regular.ttf",
-                }
             },
             "stage1": {
                 image: {
