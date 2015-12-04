@@ -9,16 +9,25 @@
 phina.define("pbr.LoadingScene", {
     superClass: "phina.display.CanvasScene",
 
-    init: function(options) {
-        var _default = {
+    init: function(options, assetType) {
+        options.assetType = options.assetType || "common";
+        options = (options||{}).$safe({
             asset: pbr.Application.assets[options.assetType],
             width: SC_W,
             height: SC_H,
             lie: false,
             exitType: "auto",
-        };
-        options = (options||{}).$safe(_default);
+        });
         this.superInit(options);
+
+        //ロードする物が無い場合スキップ
+        this.forceExit = false;
+        var asset = options.asset;
+        if (!asset.$has("sound") && !asset.$has("image") && !asset.$has("font") && !asset.$has("spritesheet") && !asset.$has("script")) {
+            this.forceExit = true;
+            return;
+        }
+
         var labelParam = {
             text: "Loading",
             fill: "white",
@@ -79,4 +88,7 @@ phina.define("pbr.LoadingScene", {
 
         loader.load(options.asset);
     },
+    update: function() {
+        if (this.forceExit) this.exit();
+    },    
 });

@@ -16,6 +16,8 @@ phina.define("pbr.Application", {
         assets: {
             "preload": {
                 sound: {
+                    "stage1":   "assets/sounds/expsy.mp3",
+
                     "warning":  "assets/sounds/bgm_warning.mp3",
                     "powerup":       "assets/sounds/ta_ta_suraido01.mp3",
                     "explodeSmall":  "assets/sounds/sen_ge_taihou03.mp3", 
@@ -42,9 +44,6 @@ phina.define("pbr.Application", {
                 },
             },
             "stage1": {
-                sound: {
-                    "stage1":   "assets/sounds/expsy.mp3",
-                },
             },
         },
     },
