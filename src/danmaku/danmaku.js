@@ -107,7 +107,7 @@ pbr.danmaku.basic3wayL2 = basic3way(+15);
 //中型攻撃ヘリ MudDauber
 pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
-        interval(30),
+        interval(60),
         repeat(Infinity, [
             fire(DM, spd(1), direction(-10)),
             repeat("$burst + 1", [
@@ -116,11 +116,11 @@ pbr.danmaku.MudDauber = new bulletml.Root({
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
                 fire(DM, spdSeq(0.05), direction(-20, "sequence")),
             ]),
-            interval(50),
+            interval(60),
         ]),
     ]),
     top1: action([
-        interval(30),
+        interval(60),
         repeat(Infinity, [
             fire(DM, spd(1), direction(-10)),
             repeat("$burst + 1", [
@@ -129,7 +129,22 @@ pbr.danmaku.MudDauber = new bulletml.Root({
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
                 fire(DM, spdSeq(0.05), direction(-20, "sequence")),
             ]),
-            interval(50),
+            interval(60),
+        ]),
+    ]),
+});
+
+ //中型爆撃機「ビッグウィング」
+ pbr.danmaku.BigWing = new bulletml.Root({
+    top0: action([
+        interval(60),
+        repeat(Infinity, [
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction( 0, "absolute"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "absolute"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "absolute"), offsetX(-32)),
+            ]),
+            interval(60),
         ]),
     ]),
 });
