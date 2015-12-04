@@ -43,6 +43,10 @@ phina.define("pbr.MainScene", {
             fontSize: 20,
             fontWeight: ''
         },
+
+        stageName: {
+            1: "Operation PLANET_BUSTER",
+        },
     },
 
     init: function(option) {
