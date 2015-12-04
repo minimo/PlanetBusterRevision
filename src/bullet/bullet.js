@@ -10,7 +10,6 @@ phina.define("pbr.Bullet", {
     layer: LAYER_BULLET,
 
     _member: {
-        param: null,
         id: -1,
 
         runner: null,
@@ -83,8 +82,6 @@ phina.define("pbr.Bullet", {
     },
 
     setup: function(runner, spec) {
-        param.$safe(this.DEFAULT_PARAM);
-
         this.id = 0;
         this.x = runner.x;
         this.y = runner.y;
