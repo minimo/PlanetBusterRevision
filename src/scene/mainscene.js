@@ -156,12 +156,32 @@ phina.define("pbr.MainScene", {
         this.stageMiss = 0;
 
         //ステージ番号表示
-        param = {text: "STAGE "+this.stageId, fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 800, outlineWidth: 2};
+        var param = {text: "STAGE "+this.stageId, fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 600, outlineWidth: 2};
         var m1 = phina.display.Label(param, 50)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
         m1.alpha = 0;
-        m1.tweener.wait(500).fadeIn(250).wait(1000).fadeOut(250).call(function(){this.remove()}.bind(m1));
+        m1.tweener.wait(500).fadeIn(250).wait(2600).fadeOut(250).call(function(){this.remove()}.bind(m1));
+
+        //ステージ名表示
+        var name = this.stageName[this.stageId];
+        var param = {text: "_", fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontSize: 16, fontWeight: 200, outlineWidth: 2};
+        var m2 = phina.display.Label(param, 50)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.55)
+        m2.alpha = 0;
+        m2.col = 0;
+        m2.max = name.length;
+        m2.tweener
+            .wait(500)
+            .fadeIn(100)
+            .to({col: m2.max}, 1000)
+            .wait(1750)
+            .fadeOut(250)
+            .call(function(){this.remove()}.bind(m2));
+        m2.update = function() {
+            this.text = name.substring(0, ~~this.col)+"_";
+        }
     },
 
 
