@@ -26,7 +26,6 @@ phina.define("pbr.SceneFlow", {
             },{
                 label: "title",
                 className: "pbr.TitleScene",
-                nextLabel: "arcade",
             },{
                 label: "arcade",
                 className: "pbr.ArcadeMode",

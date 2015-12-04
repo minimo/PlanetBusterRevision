@@ -146,7 +146,7 @@ phina.define("pbr.MenuDialog", {
         //キーボード操作
         var kb = this.app.keyboard;
         if (this.time > 30 && app.keyboard.getKey("X")) {
-            this.app.popScene();
+            this.exit("arcade");
         }
         this.time++;
     },
@@ -161,7 +161,7 @@ phina.define("pbr.MenuDialog", {
 
     //タッチorクリック終了処理
     onpointend: function(e) {
-        this.app.popScene();
+        this.exit("arcade");
     },
 });
 
