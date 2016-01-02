@@ -136,6 +136,8 @@ phina.define("pbr.Player", {
 
     //被弾処理
     damage: function() {
+        var parentScene = this.parentScene;
+        pbr.Effect.ExplodePlayer().addChildTo(parentScene).setPosition(this.x, this.y);
     },
 
     //ショット発射
