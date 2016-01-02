@@ -129,6 +129,13 @@ phina.define("pbr.MainScene", {
                 this.enterEnemyUnit(event.value);
             }
         }
+
+        var kb = app.keyboard;
+        if (app.keyboard.getKey("C")) {
+            this.eraseBullet();
+        }
+
+
         this.time++;
     },
 
@@ -216,6 +223,7 @@ phina.define("pbr.MainScene", {
 
     //敵弾一括消去
     eraseBullet: function() {
+        this.bulletLayer.erase();
     },
 
     //タッチorクリック開始処理

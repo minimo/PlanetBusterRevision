@@ -120,10 +120,11 @@ phina.define("pbr.Bullet", {
         return this;
     },
 
-    erace: function() {
+    erase: function() {
         pbr.Effect.BulletVanish(this)
-            .addChildTo(this.parentScene)
-            .setPosition(this.x, this.y);
+            .addChildTo(this.bulletLayer)
+            .setPosition(this.x, this.y)
+            .setVelocity(this.vx, this.vy);
     },
 });
 

@@ -37,10 +37,10 @@ phina.define("pbr.BulletLayer", {
     },
 
     //射出IDに合致する弾を消去（未指定時全消去）
-    erace: function(id) {
+    erase: function(id) {
         var all = (id === undefined? true: false);
         var list = this.children.slice();
-        var len = list.length
+        var len = list.length;
         var b;
         if (all) {
             for (var i = 0; i < len; i++) {
