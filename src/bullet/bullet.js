@@ -121,7 +121,9 @@ phina.define("pbr.Bullet", {
     },
 
     erace: function() {
-        pbr.Effect.BulletVanish(this).addChildTo(this.parentScene);
+        pbr.Effect.BulletVanish(this)
+            .addChildTo(this.parentScene)
+            .setPosition(this.x, this.y);
     },
 });
 
