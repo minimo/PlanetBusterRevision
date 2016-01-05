@@ -57,6 +57,7 @@ phina.define("pbr.Effect.EffectBase", {
             delay: 0,
             loop: false,
             enterframe: null,
+            isGround: false,
         },
     },
 
@@ -73,6 +74,7 @@ phina.define("pbr.Effect.EffectBase", {
         if (this.delay < 0) this.delay *= -1;
         this.loop = option.loop;
         this.time = -this.delay;
+        if (this.isGround) this.layer = LAYER_EFFECT_LOWER;
 
         this.index = this.startIndex;
         this.setFrameIndex(this.index);
