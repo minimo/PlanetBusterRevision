@@ -326,14 +326,13 @@ phina.define("pbr.Effect.BulletVanish", {
 
     init: function() {
         this.superInit({
-            assetName: "effect",
-            width: 48,
-            height: 48,
+            assetName: "bullet1",
+            width: 16,
+            height: 16,
             interval: 4,
             startIndex: 0,
             maxIndex: 7,
         });
-        this.setFrameTrimming(0, 288, 384, 48);
-        this.setScale(0.3);
+        this.setFrameTrimming(0, 32, 128, 48);
     },
 });
