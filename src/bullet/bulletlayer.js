@@ -45,13 +45,15 @@ phina.define("pbr.BulletLayer", {
         if (all) {
             for (var i = 0; i < len; i++) {
                 b = list[i];
-                b.erase();
-                b.remove();
+                if (b instanceof pbr.Bullet) {
+                    b.erase();
+                    b.remove();
+                }
             }
         } else {
             for (var i = 0; i < len; i++) {
                 b = list[i];
-                if (id == b.id) {
+                if (b instanceof pbr.Bullet && id == b.id) {
                     b.erase();
                     b.remove();
                 }

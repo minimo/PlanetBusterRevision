@@ -50,10 +50,10 @@ phina.define("pbr.Bullet", {
                 runner.x = bx;
                 runner.y = by;
                 runner.update();
-                var dx = runner.x - bx;
-                var dy = runner.y - by;
-                this.x += dx * pbr.Bullet.globalSpeedRate;
-                this.y += dy * pbr.Bullet.globalSpeedRate;
+                this.vx = (runner.x - bx) * pbr.Bullet.globalSpeedRate;
+                this.vy = (runner.y - by) * pbr.Bullet.globalSpeedRate;
+                this.x += this.vx;
+                this.y += this.vy;
 
                 //画面範囲外
                 if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
@@ -121,10 +121,10 @@ phina.define("pbr.Bullet", {
     },
 
     erase: function() {
-        pbr.Effect.BulletVanish(this)
+        pbr.Effect.BulletVanish()
             .addChildTo(this.bulletLayer)
             .setPosition(this.x, this.y)
-            .setVelocity(this.vx, this.vy);
+            .setVelocity(this.vx, this.vy, 0.95);
     },
 });
 

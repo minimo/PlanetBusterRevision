@@ -134,6 +134,7 @@ phina.define("pbr.Effect.EffectBase", {
 
     //加速度の設定
     setVelocity: function(x, y, decay) {
+        decay = decay || 1;
         this.velocityX = x;
         this.velocityY = y;
         this.velocityD = decay;
@@ -323,7 +324,7 @@ phina.define("pbr.Effect.BulletVanish", {
     superClass: "pbr.Effect.EffectBase",
     layer: LAYER_EFFECT_UPPER,
 
-    init: function(delay) {
+    init: function() {
         this.superInit({
             assetName: "effect",
             width: 48,
@@ -331,8 +332,8 @@ phina.define("pbr.Effect.BulletVanish", {
             interval: 4,
             startIndex: 0,
             maxIndex: 7,
-            delay: delay,
         });
         this.setFrameTrimming(0, 288, 384, 48);
+        this.setScale(0.3);
     },
 });
