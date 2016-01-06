@@ -34,9 +34,11 @@ phina.define("pbr.Effect.EffectBase", {
         isRemove: false,
 
         //加速度
-        velocityX: 0,   //Ｘ座標方向
-        velocityY: 0,   //Ｙ座標方向
-        velocityD: 0,   //減衰率
+        velocity: {
+            x: 0,       //Ｘ座標方向
+            y: 0,       //Ｙ座標方向
+            decay: 1.0, //減衰率
+        },
 
         //相対地上座標
         groundX: 0,
@@ -149,19 +151,19 @@ phina.define("pbr.Effect.EffectBase", {
 
     //現在の座標に加速度を加算
     addVelocity: function() {
-        this.x += this.velocityX;
-        this.y += this.velocityY;
-        this.velocityX *= this.velocityD;
-        this.velocityY *= this.velocityD;
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.velocity.x *= this.velocity.decay;
+        this.velocity.y *= this.velocity.decay;
         return this;
     },
 
     //加速度の設定
     setVelocity: function(x, y, decay) {
         decay = decay || 1;
-        this.velocityX = x;
-        this.velocityY = y;
-        this.velocityD = decay;
+        this.velocity.x = x;
+        this.velocity.y = y;
+        this.velocity.decay = decay;
         return this;
     },
 
