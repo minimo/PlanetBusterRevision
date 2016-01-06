@@ -58,13 +58,33 @@ phina.define("pbr.Effect.EffectBase", {
             loop: false,
             enterframe: null,
             isGround: false,
+            trimming: null,
         },
     },
 
-    init: function(option) {
+    init: function() {
         this.$safe(this._member);
         option = (option || {}).$safe(this.defaultOption);
         this.superInit(option.assetName, option.width, option.height);
+
+        this.on("enterframe", this.defaultEnterframe);
+
+        //リムーブ時
+        this.on("removed", function(){
+            this.effectLayer.pool.push(this);
+        }.bind(this));
+    },
+
+    setup: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        if (this.assetName != option.assetName) {
+            this.setImage(phina.assetManager.asset('image', option.assetName));
+            this.width = option.width;
+            this.height = option.height;
+        }
+
+        this.setPosition(option.position.x, option.position.y);
+        this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay );
 
         //初期値セット
         this.interval = option.interval;
@@ -74,16 +94,18 @@ phina.define("pbr.Effect.EffectBase", {
         if (this.delay < 0) this.delay *= -1;
         this.loop = option.loop;
         this.time = -this.delay;
-        if (this.isGround) this.layer = LAYER_EFFECT_LOWER;
+
+        //トリミング設定
+        var tr = option.trimming || {x:0, y: 0, width: this.image.width, height: this.image.height};
+        this.setFrameTrimming(tr.x, tr.y, tr.width, tr.height);
 
         this.index = this.startIndex;
         this.setFrameIndex(this.index);
 
-        var enterframe = option.enterframe || this.defaultEnterFrame;
-        this.on("enterframe", enterframe);
+        return this;
     },
 
-    defaultEnterFrame: function() {
+    defaultEnterframe: function() {
         if (this.time < 0) {
             this.visible = false;
             this.time++;
