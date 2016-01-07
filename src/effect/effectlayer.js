@@ -158,4 +158,19 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: vx, y: vy, decay: 0.95},
         });
     },
+
+    //プレイヤー被弾
+    enterExplodePlayer: function(x, y) {
+        this.enter({
+            assetName: "effect",
+            width: 48,
+            height: 48,
+            interval: 4,
+            startIndex: 0,
+            maxIndex: 7,
+            trimming: {x: 0, y: 288, width: 384, height: 48},
+            position: {x: x, y: y},
+            velocity: {x: 0, y: 0, decay: 1},
+        });
+    },
 });
