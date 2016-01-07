@@ -92,9 +92,9 @@ phina.define("pbr.Shot", {
     },
 
     vanish: function() {
-        var parentScene = this.shotLayer.parentScene;
-        pbr.Effect.ShotImpact().addChildTo(parentScene).setPosition(this.x, this.y);
-        pbr.Effect.enterDebrisSmall(parentScene, this.x, this.y, 1);
+        var layer = this.shotLayer.parentScene.effectLayerUpper;
+        layer.enterShotImpact(this.x, this.y);
+        layer.enterDebriSmall(this.x, this.y, 1);
     },
 });
 

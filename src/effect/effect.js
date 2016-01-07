@@ -61,13 +61,14 @@ phina.define("pbr.Effect.EffectBase", {
             enterframe: null,
             isGround: false,
             trimming: null,
+            position: {x: SC_W, y: SC_H},
+            velocity: {x: 0, y: 0, decay: 1.0},
         },
     },
 
     init: function() {
         this.$safe(this._member);
-        option = (option || {}).$safe(this.defaultOption);
-        this.superInit(option.assetName, option.width, option.height);
+        this.superInit("effect");
 
         this.on("enterframe", this.defaultEnterframe);
 
@@ -80,13 +81,13 @@ phina.define("pbr.Effect.EffectBase", {
     setup: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         if (this.assetName != option.assetName) {
-            this.setImage(phina.assetManager.asset('image', option.assetName));
-            this.width = option.width;
-            this.height = option.height;
+            this.image = phina.asset.AssetManager.get('image', option.assetName)
         }
+        this.width = option.width;
+        this.height = option.height;
 
         this.setPosition(option.position.x, option.position.y);
-        this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay );
+        this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay);
 
         //初期値セット
         this.interval = option.interval;
@@ -96,7 +97,7 @@ phina.define("pbr.Effect.EffectBase", {
         if (this.delay < 0) this.delay *= -1;
         this.loop = option.loop;
         this.time = -this.delay;
-
+        
         //トリミング設定
         var tr = option.trimming || {x:0, y: 0, width: this.image.width, height: this.image.height};
         this.setFrameTrimming(tr.x, tr.y, tr.width, tr.height);

@@ -8,10 +8,11 @@
 phina.define("pbr.EffectLayer", {
     superClass: "phina.display.CanvasElement",
 
-    init: function(max) {
+    init: function(option) {
+        option = (option || {}).$safe({size: 64});
         this.superInit();
         this.pool = null;
-        this.max = max || 256;
+        this.max = option.size;
 
         var self = this;
         this.pool = Array.range(0, this.max).map(function() {
@@ -58,17 +59,18 @@ phina.define("pbr.EffectLayer", {
             var vx2 = Math.cos(rad) * v;
             var vy2 = Math.sin(rad) * v;
             var delay2 = delay+rand(0, 10);
-            var pattern = 0;
-            if (i > val-2) pattern = rand(1, 3);
+            var size = 0;
+            if (i > val-2) size = rand(1, 3);
+            this.enterDebri(size, x, y, vx2, vy2, delay2);
         }
     },
 
     //破片
-    enterDebri: function(num, x, y, vx, vy, delay) {
-        num = num || 0;
+    enterDebri: function(size, x, y, vx, vy, delay) {
+        size = size || 0;
+        size = Math.clamp(size, 0, 3);
         delay = delay || 0;
-        num = Math.clamp(num, 0, 3);
-        if (num == 0) {
+        if (size == 0) {
             this.enter({
                 assetName: "effect",
                 width: 8,
@@ -77,28 +79,56 @@ phina.define("pbr.EffectLayer", {
                 startIndex: 0,
                 maxIndex: 8,
                 delay: delay,
-                trimming: {x: 192, y: 128, wisth: 64, height: 48},
+                trimming: {x: 192, y: 128, width: 64, height: 48},
                 position: {x: x, y: y},
-                velocity: {x: vx, y: vy, decay: decay},
+                velocity: {x: vx, y: vy, decay: 0.9},
             });
         } else {
-            num--;
+            size--;
             this.enter({
                 assetName: "effect",
                 width: 16,
                 height: 16,
                 interval: 4,
-                startIndex: num*8,
-                maxIndex: (num+1)*8-1,
+                startIndex: size*8,
+                maxIndex: (size+1)*8-1,
                 delay: delay,
-                trimming: {x: 384, y: 128, wisth: 128, height: 48},
+                trimming: {x: 384, y: 128, width: 128, height: 48},
                 position: {x: x, y: y},
-                velocity: {x: vx, y: vy, decay: decay},
+                velocity: {x: vx, y: vy, decay: 0.9},
             });
         }
     },
 
+    //小破片
+    enterDebriSmall: function(x, y, num, delay) {
+        num = num || 5;
+        delay = delay || 0;
+        for (var i = 0; i < num; i++) {
+            var rad = Math.randint(0, 359) * toRad;
+            var v = Math.randint(5, 10);
+            var vx = Math.cos(rad) * v;
+            var vy = Math.sin(rad) * v;
+            var delay = delay+rand(0, 10);
+            this.enter({
+                assetName: "effect",
+                width: 8,
+                height: 8,
+                interval: 2,
+                startIndex: 0,
+                maxIndex: 8,
+                delay: delay,
+                trimming: {x: 192, y: 128, width: 64, height: 48},
+                position: {x: x, y: y},
+                velocity: {x: vx, y: vy, decay: 0.9},
+            });
+        }
+    },
+
+    //ショット着弾
     enterShotImpact: function(x, y, vx, vy) {
+        vx = vx || 0;
+        vy = vy || 0;
         this.enter({
             assetName: "effect",
             width: 16,
@@ -106,9 +136,26 @@ phina.define("pbr.EffectLayer", {
             interval: 2,
             startIndex: 0,
             maxIndex: 7,
-            trimming: {x: 256, y: 240, wisth: 128, height: 16},
+            trimming: {x: 256, y: 240, width: 128, height: 16},
             position: {x: x, y: y},
-            velocity: {x: vx, y: vy, decay: decay},
+            velocity: {x: vx, y: vy, decay: 0.9},
+        });
+    },
+
+    //敵弾消失
+    enterBulletVanish: function(x, y, vx, vy) {
+        vx = vx || 0;
+        vy = vy || 0;
+        this.enter({
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 4,
+            startIndex: 0,
+            maxIndex: 7,
+            trimming: {x: 0, y: 336, width: 128, height: 48},
+            position: {x: x, y: y},
+            velocity: {x: vx, y: vy, decay: 0.95},
         });
     },
 });

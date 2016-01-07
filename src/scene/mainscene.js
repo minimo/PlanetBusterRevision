@@ -81,6 +81,14 @@ phina.define("pbr.MainScene", {
                     this.layers[i] = pbr.ShotLayer().addChildTo(this.base);
                     this.shotLayer = this.layers[i];
                     break;
+                case LAYER_EFFECT_UPPER:
+                    this.layers[i] = pbr.EffectLayer({size: 256}).addChildTo(this.base);
+                    this.effectLayerUpper = this.layers[i];
+                    break;
+                case LAYER_EFFECT_LOWER:
+                    this.layers[i] = pbr.EffectLayer({size: 256}).addChildTo(this.base);
+                    this.effectLayerLower = this.layers[i];
+                    break;
                 default:
                     this.layers[i] = phina.display.Layer().addChildTo(this.base);
             }
