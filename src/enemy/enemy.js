@@ -274,9 +274,8 @@ phina.define("pbr.Enemy", {
             var w = this.width/2,         h = this.height/2;
             var x = this.x+rand(-w, w),   y = this.y+rand(-h, h);
             var vx = this.x-this.beforeX, vy = this.y-this.beforeY;
-//            pbr.Effect.enterExplode(this.parentScene, x, y, vx, vy);
             var layer = this.parentScene.effectLayerUpper;
-            layer.enterExplode(x, y, vx, vy);
+            pbr.Effect.enterExplode(layer, x, y, vx, vy);
         }
     },
 
@@ -301,11 +300,13 @@ phina.define("pbr.Enemy", {
         this.tweener.clear();
         this.stopDanmaku();
 
-        var layer = this.parentScene.effectLayerUpper;
+        var upper = this.parentScene.effectLayerUpper;
+        var lower = this.parentScene.effectLayerLower;
+
         var vx = this.x-this.beforeX;
         var vy = this.y-this.beforeY;
         if (this.data.explodeType == EXPLODE_SMALL) {
-            layer.enterExplode(this.x, this.y, vx, vy);
+            pbr.Effect.enterExplode(upper, this.x, this.y, vx, vy);
             app.playSE("explodeSmall");
         }
         if (this.data.explodeType == EXPLODE_MIDDLE ||
@@ -315,12 +316,13 @@ phina.define("pbr.Enemy", {
                 var x = this.x+rand(-this.width, this.width);
                 var y = this.y+rand(-this.height, this.height);
                 var delay = rand(0, 30);
-                layer.enterExplode(x, y, vx, vy, delay);
+                pbr.Effect.enterExplode(upper, x, y, vx, vy, delay);
             }
             app.playSE("explodeLarge");
         }
         if (this.data.explodeType == EXPLODE_GROUND) {
-            layer.enterExplode(this.x, this.y, vx, vy);
+            var lower = this.parentScene.effectLayerLower;
+            pbr.Effect.enterExplodeGround(lower, this.x, this.y, vx, vy);
             app.playSE("explodeSmall");
         }
 
@@ -345,12 +347,13 @@ phina.define("pbr.Enemy", {
             if (this.alpha < 0.02) this.remove();
         }.bind(this));
 
+        var layer = this.parentScene.effectLayerUpper;
         var vx = this.x-this.beforeX;
         var vy = this.y-this.beforeY;
         for (var i = 0; i < 10; i++) {
             var x = rand(0, this.width)-this.width/2;
             var y = rand(0, this.height)-this.height/2;
-            pbr.Effect.enterExplodeSmall(this.parentScene, x, y, vx, vy);
+            pbr.Effect.enterExplodeSmall(layer, x, y, vx, vy);
         }
         app.playSE("explodeLarge");
 

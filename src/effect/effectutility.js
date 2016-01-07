@@ -6,11 +6,12 @@
  */
 
 //爆発エフェクト投入（標準）
-pbr.Effect.enterExplode = function(parentScene, x, y, vx, vy, delay) {
+pbr.Effect.enterExplode = function(layer, x, y, vx, vy, delay) {
     vx = vx || 0;
     vy = vy || 0;
     delay = delay || 0;
-    pbr.Effect.Explode(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0);
+//    pbr.Effect.Explode(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0);
+    layer.enterExplode(x, y, vx, vy, delay);
 
     var val = rand(5, 10);
     for (var i = 0; i < val; i++) {
@@ -19,18 +20,20 @@ pbr.Effect.enterExplode = function(parentScene, x, y, vx, vy, delay) {
         var vx2 = Math.cos(rad) * v;
         var vy2 = Math.sin(rad) * v;
         var delay2 = delay+rand(0, 10);
-        var pattern = 0;
-        if (i > val-2) pattern = rand(1, 3);
-        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        var size = 0;
+        if (i > val-2) size = rand(1, 3);
+//        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        layer.enterDebri(size, x, y, vx2, vy2, delay2);
     }
 }
 
 //爆発エフェクト投入（小）
-pbr.Effect.enterExplodeSmall = function(parentScene, x, y, vx, vy, delay) {
+pbr.Effect.enterExplodeSmall = function(layer, x, y, vx, vy, delay) {
     vx = vx || 0;
     vy = vy || 0;
     delay = delay || 0;
-    pbr.Effect.Explode(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0);
+//    pbr.Effect.Explode(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0);
+    layer.enterExplode(x, y, vx, vy, delay);
 
     var val = rand(3, 10);
     for (var i = 0; i < val; i++) {
@@ -39,18 +42,20 @@ pbr.Effect.enterExplodeSmall = function(parentScene, x, y, vx, vy, delay) {
         var vx2 = Math.cos(rad) * v;
         var vy2 = Math.sin(rad) * v;
         var delay2 = delay+rand(0, 10);
-        var pattern = 0;
-        if (i > val-2) pattern = rand(1, 3);
-        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        var size = 0;
+        if (i > val-2) size = rand(1, 3);
+//        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        layer.enterDebri(size, x, y, vx2, vy2, delay2);
     }
 }
 
 //爆発エフェクト投入（大）
-pbr.Effect.enterExplodeLarge = function(parentScene, x, y, vx, vy, delay) {
+pbr.Effect.enterExplodeLarge = function(layer, x, y, vx, vy, delay) {
     vx = vx || 0;
     vy = vy || 0;
     delay = delay || 0;
-    pbr.Effect.ExplodeLarge(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0);
+//    pbr.Effect.ExplodeLarge(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0);
+    layer.enterExplodeLarge(x, y, vx, vy, delay);
 
     var val = rand(10, 20);
     for (var i = 0; i < val; i++) {
@@ -59,17 +64,18 @@ pbr.Effect.enterExplodeLarge = function(parentScene, x, y, vx, vy, delay) {
         var vx2 = Math.cos(rad) * v;
         var vy2 = Math.sin(rad) * v;
         var delay2 = delay+rand(0, 10);
-        var pattern = rand(0, 3);
-        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        var size = rand(0, 3);
+//        pbr.Effect.Debri(size, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        layer.enterDebri(size, x, y, vx2, vy2, delay2);
     }
 }
 
 //爆発エフェクト投入（地上）
-pbr.Effect.enterExplodeGround = function(parentScene, x, y, vx, vy, delay) {
+pbr.Effect.enterExplodeGround = function(layer, x, y, vx, vy, delay) {
     vx = vx || 0;
     vy = vy || 0;
     delay = delay || 0;
-    pbr.Effect.ExplodeGround(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0).setScale(2.0);
+//    pbr.Effect.ExplodeGround(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0).setScale(2.0);
 
     var val = rand(5, 10);
     for (var i = 0; i < val; i++) {
@@ -78,13 +84,14 @@ pbr.Effect.enterExplodeGround = function(parentScene, x, y, vx, vy, delay) {
         var vx2 = Math.cos(rad) * v;
         var vy2 = Math.sin(rad) * v;
         var delay2 = delay+rand(0, 10);
-        var pattern = rand(0, 3);
-        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        var size = rand(0, 3);
+//        pbr.Effect.Debri(size, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        layer.enterDebri(size, x, y, vx2, vy2, delay2);
     }
 }
 
 //破片投入
-pbr.Effect.enterDebrisSmall = function(parentScene, x, y, num, delay) {
+pbr.Effect.enterDebrisSmall = function(layer, x, y, num, delay) {
     num = num || 5;
     delay = delay || 0;
     for (var i = 0; i < num; i++) {
@@ -93,8 +100,9 @@ pbr.Effect.enterDebrisSmall = function(parentScene, x, y, num, delay) {
         var vx2 = Math.cos(rad) * v;
         var vy2 = Math.sin(rad) * v;
         var delay2 = delay+rand(0, 10);
-        var pattern = 0;
-        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        var size = 0;
+//        pbr.Effect.Debri(pattern, delay2).addChildTo(parentScene).setPosition(x, y).setVelocity(vx2, vy2, 0.9);
+        layer.enterDebri(size, x, y, vx2, vy2, delay2);
     }
 }
 
