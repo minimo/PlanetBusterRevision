@@ -274,7 +274,9 @@ phina.define("pbr.Enemy", {
             var w = this.width/2,         h = this.height/2;
             var x = this.x+rand(-w, w),   y = this.y+rand(-h, h);
             var vx = this.x-this.beforeX, vy = this.y-this.beforeY;
-            pbr.Effect.enterExplode(this.parentScene, x, y, vx, vy);
+//            pbr.Effect.enterExplode(this.parentScene, x, y, vx, vy);
+            var layer = this.parentScene.effectLayerUpper;
+            layer.enterExplode(x, y, vx, vy);
         }
     },
 
@@ -299,10 +301,11 @@ phina.define("pbr.Enemy", {
         this.tweener.clear();
         this.stopDanmaku();
 
+        var layer = this.parentScene.effectLayerUpper;
         var vx = this.x-this.beforeX;
         var vy = this.y-this.beforeY;
         if (this.data.explodeType == EXPLODE_SMALL) {
-            pbr.Effect.enterExplode(this.parentScene, this.x, this.y, vx, vy);
+            layer.enterExplode(this.x, this.y, vx, vy);
             app.playSE("explodeSmall");
         }
         if (this.data.explodeType == EXPLODE_MIDDLE ||
@@ -312,12 +315,12 @@ phina.define("pbr.Enemy", {
                 var x = this.x+rand(-this.width, this.width);
                 var y = this.y+rand(-this.height, this.height);
                 var delay = rand(0, 30);
-                pbr.Effect.enterExplode(this.parentScene, x, y, vx, vy, delay);
+                layer.enterExplode(x, y, vx, vy, delay);
             }
             app.playSE("explodeLarge");
         }
         if (this.data.explodeType == EXPLODE_GROUND) {
-            pbr.Effect.enterExplodeGround(this.parentScene, this.x, this.y, vx, vy);
+            layer.enterExplode(this.x, this.y, vx, vy);
             app.playSE("explodeSmall");
         }
 

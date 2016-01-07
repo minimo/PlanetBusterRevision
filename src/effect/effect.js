@@ -61,7 +61,7 @@ phina.define("pbr.Effect.EffectBase", {
             enterframe: null,
             isGround: false,
             trimming: null,
-            position: {x: SC_W, y: SC_H},
+            position: {x: SC_W*0.5, y: SC_H*0.5},
             velocity: {x: 0, y: 0, decay: 1.0},
         },
     },
@@ -81,13 +81,11 @@ phina.define("pbr.Effect.EffectBase", {
     setup: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         if (this.assetName != option.assetName) {
-            this.image = phina.asset.AssetManager.get('image', option.assetName)
+            this.image = phina.asset.AssetManager.get('image', option.assetName);
+            this.assetName = option.assetName;
         }
         this.width = option.width;
         this.height = option.height;
-
-        this.setPosition(option.position.x, option.position.y);
-        this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay);
 
         //初期値セット
         this.interval = option.interval;
@@ -104,6 +102,10 @@ phina.define("pbr.Effect.EffectBase", {
 
         this.index = this.startIndex;
         this.setFrameIndex(this.index);
+
+        this.isRemove = false;
+        this.setPosition(option.position.x, option.position.y);
+        this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay);
 
         return this;
     },

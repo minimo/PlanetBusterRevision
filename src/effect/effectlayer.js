@@ -34,7 +34,7 @@ phina.define("pbr.EffectLayer", {
     },
 
 
-    //爆発エフェクト投入（標準）
+    //爆発（標準）
     enterExplode: function(x, y, vx, vy, delay) {
         vx = vx || 0;
         vy = vy || 0;
@@ -51,18 +51,91 @@ phina.define("pbr.EffectLayer", {
             position: {x: x, y: y},
             velocity: {x: vx, y: vy, decay: 0.9},
         });
+    },
 
-        var val = rand(5, 10);
-        for (var i = 0; i < val; i++) {
-            var rad = rand(0, 359) * toRad;
-            var v = rand(5, 10);
-            var vx2 = Math.cos(rad) * v;
-            var vy2 = Math.sin(rad) * v;
-            var delay2 = delay+rand(0, 10);
-            var size = 0;
-            if (i > val-2) size = rand(1, 3);
-            this.enterDebri(size, x, y, vx2, vy2, delay2);
-        }
+    //爆発（小）
+    enterExplodeSmall: function(x, y, vx, vy, delay) {
+        vx = vx || 0;
+        vy = vy || 0;
+        delay = delay || 0;
+
+        this.enter({
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 4,
+            startIndex: 8,
+            maxIndex: 15,
+            delay: delay,
+            trimming: {x: 256, y: 256, width: 128, height: 32},
+            position: {x: x, y: y},
+            velocity: {x: vx, y: vy, decay: 0.9},
+        });
+    },
+
+    //爆発（極小）
+    enterExplodeSmall2: function(x, y, vx, vy, delay) {
+        vx = vx || 0;
+        vy = vy || 0;
+        delay = delay || 0;
+
+        this.enter({
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 4,
+            startIndex: 0,
+            maxIndex: 7,
+            delay: delay,
+            trimming: {x: 256, y: 256, width: 128, height: 32},
+            position: {x: x, y: y},
+            velocity: {x: vx, y: vy, decay: 0.9},
+        });
+    },
+
+    //爆発（大）
+    enterExplodeLarge: function(x, y, vx, vy, delay) {
+        vx = vx || 0;
+        vy = vy || 0;
+        delay = delay || 0;
+
+        this.enter({
+            assetName: "effect",
+            width: 48,
+            height: 48,
+            interval: 4,
+            startIndex: 0,
+            maxIndex: 7,
+            delay: delay,
+            trimming: {x: 0, y: 192, width: 192, height: 96},
+            position: {x: x, y: y},
+            velocity: {x: vx, y: vy, decay: 0.9},
+        });
+    },
+
+    //爆発（地上）
+    enterExplodeGround: function(x, y, vx, vy, delay) {
+        vx = vx || 0;
+        vy = vy || 0;
+        delay = delay || 0;
+
+        this.enter({
+            assetName: "effect",
+            width: 32,
+            height: 48,
+            interval: 4,
+            startIndex: 0,
+            maxIndex: 7,
+            delay: delay,
+            trimming: {x: 256, y: 192, width: 256, height: 48},
+            position: {x: x, y: y},
+            velocity: {x: vx, y: vy, decay: 0.9},
+        });
+/*
+        isGround = true;
+        this.groundX = this.parentScene.ground.x;
+        this.groundY = this.parentScene.ground.y;
+*/
     },
 
     //破片
