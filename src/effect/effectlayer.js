@@ -178,8 +178,8 @@ phina.define("pbr.EffectLayer", {
         num = num || 5;
         delay = delay || 0;
         for (var i = 0; i < num; i++) {
-            var rad = Math.randint(0, 359) * toRad;
-            var v = Math.randint(5, 10);
+            var rad = rand(0, 359) * toRad;
+            var v = rand(5, 10);
             var vx = Math.cos(rad) * v;
             var vy = Math.sin(rad) * v;
             var delay = delay+rand(0, 10);
