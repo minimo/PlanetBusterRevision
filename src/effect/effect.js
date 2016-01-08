@@ -9,7 +9,6 @@ pbr.Effect = [];
 //汎用エフェクト
 phina.define("pbr.Effect.EffectBase", {
     superClass: "phina.display.Sprite",
-    layer: LAYER_EFFECT_UPPER,
 
     _member: {
         //インデックス更新間隔
@@ -62,12 +61,11 @@ phina.define("pbr.Effect.EffectBase", {
             isGround: false,
             trimming: null,
             position: {x: SC_W*0.5, y: SC_H*0.5},
-            velocity: {x: 0, y: 0, decay: 1.0},
+            velocity: {x: 0, y: 0, decay: 0},
         },
     },
 
     init: function() {
-        this.$safe(this._member);
         this.superInit("effect");
 
         this.on("enterframe", this.defaultEnterframe);
@@ -79,6 +77,7 @@ phina.define("pbr.Effect.EffectBase", {
     },
 
     setup: function(option) {
+        this.$extend(this._member);
         option = (option || {}).$safe(this.defaultOption);
         if (this.assetName != option.assetName) {
             this.image = phina.asset.AssetManager.get('image', option.assetName);
@@ -103,7 +102,6 @@ phina.define("pbr.Effect.EffectBase", {
         this.index = this.startIndex;
         this.setFrameIndex(this.index);
 
-        this.isRemove = false;
         this.setPosition(option.position.x, option.position.y);
         this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay);
 
@@ -154,8 +152,8 @@ phina.define("pbr.Effect.EffectBase", {
 
     //現在の座標に加速度を加算
     addVelocity: function() {
-        this.x += this.velocity.x;
-        this.y += this.velocity.y;
+        this.x += this.velocity.x*10;
+        this.y += this.velocity.y*10;
         this.velocity.x *= this.velocity.decay;
         this.velocity.y *= this.velocity.decay;
         return this;
@@ -167,7 +165,7 @@ phina.define("pbr.Effect.EffectBase", {
         this.velocity.x = x;
         this.velocity.y = y;
         this.velocity.decay = decay;
-        return this;
+        return this;        
     },
 
     //ループ設定

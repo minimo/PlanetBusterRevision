@@ -306,7 +306,11 @@ phina.define("pbr.Enemy", {
         var vx = this.x-this.beforeX;
         var vy = this.y-this.beforeY;
         if (this.data.explodeType == EXPLODE_SMALL) {
-            pbr.Effect.enterExplode(upper, this.x, this.y, vx, vy);
+            pbr.Effect.enterExplode(upper, {
+                position: {x: this.x, y: this.y},
+                velocity: {x: vx, y: vy, decay: 0.95},
+                delay: delay,
+            });
             app.playSE("explodeSmall");
         }
         if (this.data.explodeType == EXPLODE_MIDDLE ||
@@ -316,13 +320,21 @@ phina.define("pbr.Enemy", {
                 var x = this.x+rand(-this.width, this.width);
                 var y = this.y+rand(-this.height, this.height);
                 var delay = rand(0, 30);
-                pbr.Effect.enterExplode(upper, x, y, vx, vy, delay);
+                pbr.Effect.enterExplode(upper, {
+                    position: {x: this.x, y: this.y},
+                    velocity: {x: vx, y: vy, decay: 0.95},
+                    delay: delay,
+                });
             }
             app.playSE("explodeLarge");
         }
         if (this.data.explodeType == EXPLODE_GROUND) {
             var lower = this.parentScene.effectLayerLower;
-            pbr.Effect.enterExplodeGround(lower, this.x, this.y, vx, vy);
+            pbr.Effect.enterExplodeGround(lower, {
+                position: {x: this.x, y: this.y},
+                velocity: {x: vx, y: vy, decay: 0.95},
+                delay: delay,
+            });
             app.playSE("explodeSmall");
         }
 
@@ -353,7 +365,11 @@ phina.define("pbr.Enemy", {
         for (var i = 0; i < 10; i++) {
             var x = rand(0, this.width)-this.width/2;
             var y = rand(0, this.height)-this.height/2;
-            pbr.Effect.enterExplodeSmall(layer, x, y, vx, vy);
+            pbr.Effect.enterExplodeSmall(layer, {
+                position: {x: x, y: y},
+                velocity: {x: vx, y: vy, decay: 0.95},
+                delay: delay,
+            });
         }
         app.playSE("explodeLarge");
 

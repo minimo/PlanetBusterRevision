@@ -93,8 +93,13 @@ phina.define("pbr.Shot", {
 
     vanish: function() {
         var layer = this.shotLayer.parentScene.effectLayerUpper;
-        layer.enterShotImpact(this.x, this.y);
-        layer.enterDebriSmall(this.x, this.y, 1);
+        layer.enterShotImpact({
+            position:{x: this.x, y: this.y},
+        });
+        layer.enterDebriSmall({
+            num: 1,
+            position:{x: this.x, y: this.y},
+        });
     },
 });
 
