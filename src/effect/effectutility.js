@@ -14,7 +14,7 @@ pbr.Effect.defaultOption = {
 //爆発エフェクト投入（標準）
 pbr.Effect.enterExplode = function(layer, option) {
     option = (option || {}).$safe(pbr.Effect.defaultOption);
-    layer.enterExplode(option);
+//    layer.enterExplode(option);
 
     var val = rand(5, 10);
     for (var i = 0; i < val; i++) {

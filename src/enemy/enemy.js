@@ -271,11 +271,15 @@ phina.define("pbr.Enemy", {
         }
 
         if (this.time % 35 == 0) {
-            var w = this.width/2,         h = this.height/2;
-            var x = this.x+rand(-w, w),   y = this.y+rand(-h, h);
-            var vx = this.x-this.beforeX, vy = this.y-this.beforeY;
+            var w = this.width/2;
+            var h = this.height/2;
+            var x = this.x+rand(-w, w);
+            var y = this.y+rand(-h, h);
             var layer = this.parentScene.effectLayerUpper;
-            pbr.Effect.enterExplode(layer, x, y, vx, vy);
+            pbr.Effect.enterExplode(layer, {
+                position: {x: x, y: y},
+                delay: 0,
+            });
         }
     },
 

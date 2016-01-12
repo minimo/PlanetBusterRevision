@@ -152,8 +152,8 @@ phina.define("pbr.Effect.EffectBase", {
 
     //現在の座標に加速度を加算
     addVelocity: function() {
-        this.x += this.velocity.x*10;
-        this.y += this.velocity.y*10;
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
         this.velocity.x *= this.velocity.decay;
         this.velocity.y *= this.velocity.decay;
         return this;
