@@ -44,6 +44,7 @@ phina.define("pbr.EffectLayer", {
     enterExplode: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         this.enter({
+            name: "explode",
             assetName: "effect",
             width: 64,
             height: 64,
@@ -60,6 +61,7 @@ phina.define("pbr.EffectLayer", {
     enterExplodeSmall: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         this.enter({
+            name: "explodeSmall",
             assetName: "effect",
             width: 16,
             height: 16,
@@ -77,6 +79,7 @@ phina.define("pbr.EffectLayer", {
     enterExplodeSmall2: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         this.enter({
+            name: "explodeSmall2",
             assetName: "effect",
             width: 16,
             height: 16,
@@ -94,6 +97,7 @@ phina.define("pbr.EffectLayer", {
     enterExplodeLarge: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         this.enter({
+            name: "explodeLarge",
             assetName: "effect",
             width: 48,
             height: 48,
@@ -111,6 +115,7 @@ phina.define("pbr.EffectLayer", {
     enterExplodeGround: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         this.enter({
+            name: "explodeGround",
             assetName: "effect",
             width: 32,
             height: 48,
@@ -136,6 +141,7 @@ phina.define("pbr.EffectLayer", {
         size = Math.clamp(size, 0, 3);
         if (size == 0) {
             this.enter({
+                name: "debri",
                 assetName: "effect",
                 width: 8,
                 height: 8,
@@ -150,6 +156,7 @@ phina.define("pbr.EffectLayer", {
         } else {
             size--;
             this.enter({
+                name: "debri",
                 assetName: "effect",
                 width: 16,
                 height: 16,
@@ -175,6 +182,7 @@ phina.define("pbr.EffectLayer", {
             var vy = Math.sin(rad) * v;
             var delay = delay+rand(0, 10);
             this.enter({
+                name: "debri",
                 assetName: "effect",
                 width: 8,
                 height: 8,
@@ -193,6 +201,7 @@ phina.define("pbr.EffectLayer", {
     enterShotImpact: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         this.enter({
+            name: "shotImpact",
             assetName: "effect",
             width: 16,
             height: 16,
@@ -210,6 +219,7 @@ phina.define("pbr.EffectLayer", {
     enterBulletVanish: function(option) {
         option = (option || {}).$safe(this.defaultOption);
         this.enter({
+            name: "bulletVanish",
             assetName: "effect",
             width: 16,
             height: 16,
@@ -226,7 +236,8 @@ phina.define("pbr.EffectLayer", {
     //プレイヤー被弾
     enterExplodePlayer: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
+            name: "explodePlayer",
             assetName: "effect",
             width: 48,
             height: 48,
