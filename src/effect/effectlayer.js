@@ -43,7 +43,7 @@ phina.define("pbr.EffectLayer", {
     //爆発（標準）
     enterExplode: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
             name: "explode",
             assetName: "effect",
             width: 64,
@@ -55,12 +55,13 @@ phina.define("pbr.EffectLayer", {
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
         });
+        return e;
     },
 
     //爆発（小）
     enterExplodeSmall: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
             name: "explodeSmall",
             assetName: "effect",
             width: 16,
@@ -73,12 +74,13 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
             trimming: {x: 256, y: 256, width: 128, height: 32},
         });
+        return e;
     },
 
     //爆発（極小）
     enterExplodeSmall2: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
             name: "explodeSmall2",
             assetName: "effect",
             width: 16,
@@ -91,12 +93,13 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
             trimming: {x: 256, y: 256, width: 128, height: 32},
         });
+        return e;
     },
 
     //爆発（大）
     enterExplodeLarge: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
             name: "explodeLarge",
             assetName: "effect",
             width: 48,
@@ -109,12 +112,13 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
             trimming: {x: 0, y: 192, width: 192, height: 96},
         });
+        return e;
     },
 
     //爆発（地上）
     enterExplodeGround: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
             name: "explodeGround",
             assetName: "effect",
             width: 32,
@@ -127,11 +131,10 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
             trimming: {x: 256, y: 192, width: 256, height: 48},
         });
-/*
-        isGround = true;
-        this.groundX = this.parentScene.ground.x;
-        this.groundY = this.parentScene.ground.y;
-*/
+        e.isGround = true;
+        e.groundX = this.parentScene.ground.x;
+        e.groundY = this.parentScene.ground.y;
+        return e;
     },
 
     //破片
@@ -140,7 +143,7 @@ phina.define("pbr.EffectLayer", {
         size = option.size || 0;
         size = Math.clamp(size, 0, 3);
         if (size == 0) {
-            this.enter({
+            var e = this.enter({
                 name: "debri",
                 assetName: "effect",
                 width: 8,
@@ -153,9 +156,10 @@ phina.define("pbr.EffectLayer", {
                 velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
                 trimming: {x: 192, y: 128, width: 64, height: 48},
             });
+            return e;
         } else {
             size--;
-            this.enter({
+            var e = this.enter({
                 name: "debri",
                 assetName: "effect",
                 width: 16,
@@ -168,39 +172,33 @@ phina.define("pbr.EffectLayer", {
                 velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
                 trimming: {x: 384, y: 128, width: 128, height: 48},
             });
+            return e;
         }
     },
 
     //小破片
     enterDebriSmall: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        num = option.num || 5;
-        for (var i = 0; i < num; i++) {
-            var rad = rand(0, 359) * toRad;
-            var v = rand(5, 10);
-            var vx = Math.cos(rad) * v;
-            var vy = Math.sin(rad) * v;
-            var delay = delay+rand(0, 10);
-            this.enter({
-                name: "debri",
-                assetName: "effect",
-                width: 8,
-                height: 8,
-                interval: 2,
-                startIndex: 0,
-                maxIndex: 8,
-                delay: option.delay,
-                position: {x: option.position.x, y: option.position.y},
-                velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-                trimming: {x: 192, y: 128, width: 64, height: 48},
-            });
-        }
+        var e = this.enter({
+            name: "debri",
+            assetName: "effect",
+            width: 8,
+            height: 8,
+            interval: 2,
+            startIndex: 0,
+            maxIndex: 8,
+            delay: option.delay,
+            position: {x: option.position.x, y: option.position.y},
+            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            trimming: {x: 192, y: 128, width: 64, height: 48},
+        });
+        return e;
     },
 
     //ショット着弾
     enterShotImpact: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
             name: "shotImpact",
             assetName: "effect",
             width: 16,
@@ -213,12 +211,13 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
             trimming: {x: 256, y: 240, width: 128, height: 16},
         });
+        return e;
     },
 
     //敵弾消失
     enterBulletVanish: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        this.enter({
+        var e = this.enter({
             name: "bulletVanish",
             assetName: "effect",
             width: 16,
@@ -231,6 +230,7 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
             trimming: {x: 0, y: 336, width: 128, height: 48},
         });
+        return e;
     },
 
     //プレイヤー被弾
@@ -249,5 +249,6 @@ phina.define("pbr.EffectLayer", {
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
             trimming: {x: 0, y: 288, width: 384, height: 48},
         });
+        return e;
     },
 });

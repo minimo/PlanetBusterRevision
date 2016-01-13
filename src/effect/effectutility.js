@@ -14,7 +14,7 @@ pbr.Effect.defaultOption = {
 //爆発エフェクト投入（標準）
 pbr.Effect.enterExplode = function(layer, option) {
     option = (option || {}).$safe(pbr.Effect.defaultOption);
-//    layer.enterExplode(option);
+    layer.enterExplode(option);
 
     var val = rand(5, 10);
     for (var i = 0; i < val; i++) {
@@ -28,7 +28,7 @@ pbr.Effect.enterExplode = function(layer, option) {
         layer.enterDebri({
             size: size,
             position: {x: option.position.x, y: option.position.y},
-            velocity: {x: vx2, y: vy2, decay:0.95},
+            velocity: {x: vx2, y: vy2, decay:0.9},
             delay: delay2
         });
     }
@@ -51,7 +51,7 @@ pbr.Effect.enterExplodeSmall = function(layer, option) {
         layer.enterDebri({
             size: size,
             position: {x: option.position.x, y: option.position.y},
-            velocity: {x: vx2, y: vy2, decay:0.95},
+            velocity: {x: vx2, y: vy2, decay:0.9},
             delay: delay2
         });
     }
@@ -73,7 +73,7 @@ pbr.Effect.enterExplodeLarge = function(layer, option) {
         layer.enterDebri({
             size: size,
             position: {x: option.position.x, y: option.position.y},
-            velocity: {x: vx2, y: vy2, decay:0.95},
+            velocity: {x: vx2, y: vy2, decay:0.9},
             delay: delay2
         });
     }
@@ -95,14 +95,14 @@ pbr.Effect.enterExplodeGround = function(layer, option) {
         layer.enterDebri({
             size: size,
             position: {x: option.position.x, y: option.position.y},
-            velocity: {x: vx2, y: vy2, decay:0.95},
+            velocity: {x: vx2, y: vy2, decay:0.9},
             delay: delay2
         });
     }
 }
 
 //破片投入
-pbr.Effect.enterDebrisSmall = function(layer, option) {
+pbr.Effect.enterDebris = function(layer, option) {
     option = (option || {}).$safe(pbr.Effect.defaultOption);
     num = num || 5;
     for (var i = 0; i < num; i++) {
@@ -114,7 +114,26 @@ pbr.Effect.enterDebrisSmall = function(layer, option) {
         layer.enterDebri({
             size: 0,
             position: {x: option.position.x, y: option.position.y},
-            velocity: {x: vx2, y: vy2, decay:0.95},
+            velocity: {x: vx2, y: vy2, decay:0.9},
+            delay: delay2
+        });
+    }
+}
+
+//小破片投入
+pbr.Effect.enterDebrisSmall = function(layer, option) {
+    option = (option || {}).$safe(pbr.Effect.defaultOption);
+    num = option.num || 5;
+    for (var i = 0; i < num; i++) {
+        var rad = rand(0, 359) * toRad;
+        var v = rand(3, 5);
+        var vx2 = Math.cos(rad) * v;
+        var vy2 = Math.sin(rad) * v;
+        var delay2 = option.delay+rand(0, 10);
+        layer.enterDebri({
+            size: 0,
+            position: {x: option.position.x, y: option.position.y},
+            velocity: {x: vx2, y: vy2, decay:0.9},
             delay: delay2
         });
     }

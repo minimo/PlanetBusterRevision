@@ -96,8 +96,8 @@ phina.define("pbr.Shot", {
         layer.enterShotImpact({
             position:{x: this.x, y: this.y},
         });
-        layer.enterDebriSmall({
-            num: 1,
+        pbr.Effect.enterDebrisSmall(layer, {
+            num: 2,
             position:{x: this.x, y: this.y},
         });
     },
