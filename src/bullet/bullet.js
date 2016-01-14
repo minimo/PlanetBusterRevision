@@ -41,6 +41,10 @@ phina.define("pbr.Bullet", {
         this.boundingType = "circle";
         this.radius = 2;
 
+        //弾画像
+        this.sprite = phina.display.Sprite("bullet1", 24, 24).addChildTo(this);
+        this.spriteName = "";
+
         this.on("enterframe", function(app){
             if (this.rolling) this.rotation += this.rollAngle;
             var runner = this.runner;
@@ -87,10 +91,9 @@ phina.define("pbr.Bullet", {
         this.y = runner.y;
         this.runner = runner;
 
-        if (this.sprite) this.sprite.remove();
-
         if (spec.dummy) {
             this.dummy = true;
+            this.sprite.visible = false;
         } else {
             //弾種別グラフィック
             var type = 1, size = 1, index = 0;
@@ -111,11 +114,14 @@ phina.define("pbr.Bullet", {
                     this.rotation = this.angle*toDeg-90;
                     break;
             }
-            this.sprite = phina.display.Sprite("bullet"+type, 24, 24)
-                .addChildTo(this)
-                .setFrameIndex(index)
-                .setScale(size);
+            var spName = "bullet"+type;
+            if (this.spriteName != spName) {
+                this.sprite.image = phina.asset.AssetManager.get('image', spName);
+                this.spriteName = spName;
+            }
+            this.sprite.setFrameIndex(index).setScale(size);
             this.dummy = false;
+            this.sprite.visible = true;
         }
         return this;
     },
