@@ -47,6 +47,10 @@ pbr.enemyData['ThorHammer'] = {
     },
 
     algorithm: function() {
+        if (this.phase == 0) {
+            this.y += 2;
+            if (this.y == SC_H*0.3) this.phase++;
+        }
     },
 };
 
