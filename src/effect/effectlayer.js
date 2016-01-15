@@ -43,7 +43,7 @@ phina.define("pbr.EffectLayer", {
     //爆発（標準）
     enterExplode: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "explode",
             assetName: "effect",
             width: 64,
@@ -51,18 +51,15 @@ phina.define("pbr.EffectLayer", {
             interval: 2,
             startIndex: 0,
             maxIndex: 17,
-            delay: option.delay,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
-        });
+            rotation: option.rotation
+        }));
         return e;
     },
 
     //爆発（小）
     enterExplodeSmall: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "explodeSmall",
             assetName: "effect",
             width: 16,
@@ -70,19 +67,15 @@ phina.define("pbr.EffectLayer", {
             interval: 4,
             startIndex: 8,
             maxIndex: 15,
-            delay: option.delay,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 256, y: 256, width: 128, height: 32},
-        });
+        }));
         return e;
     },
 
     //爆発（極小）
     enterExplodeSmall2: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "explodeSmall2",
             assetName: "effect",
             width: 16,
@@ -90,19 +83,15 @@ phina.define("pbr.EffectLayer", {
             interval: 4,
             startIndex: 0,
             maxIndex: 7,
-            delay: option.delay,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 256, y: 256, width: 128, height: 32},
-        });
+        }));
         return e;
     },
 
     //爆発（大）
     enterExplodeLarge: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "explodeLarge",
             assetName: "effect",
             width: 48,
@@ -110,19 +99,15 @@ phina.define("pbr.EffectLayer", {
             interval: 4,
             startIndex: 0,
             maxIndex: 7,
-            delay: option.delay,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 0, y: 192, width: 192, height: 96},
-        });
+        }));
         return e;
     },
 
     //爆発（地上）
     enterExplodeGround: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "explodeGround",
             assetName: "effect",
             width: 32,
@@ -130,12 +115,8 @@ phina.define("pbr.EffectLayer", {
             interval: 4,
             startIndex: 0,
             maxIndex: 7,
-            delay: option.delay,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 256, y: 192, width: 256, height: 48},
-        });
+        }));
         e.isGround = true;
         e.groundX = this.parentScene.ground.x;
         e.groundY = this.parentScene.ground.y;
@@ -148,7 +129,7 @@ phina.define("pbr.EffectLayer", {
         size = option.size || 0;
         size = Math.clamp(size, 0, 3);
         if (size == 0) {
-            var e = this.enter({
+            var e = this.enter(option.$extend({
                 name: "debri",
                 assetName: "effect",
                 width: 8,
@@ -156,16 +137,12 @@ phina.define("pbr.EffectLayer", {
                 interval: 2,
                 startIndex: 0,
                 maxIndex: 8,
-                delay: option.delay,
-                position: {x: option.position.x, y: option.position.y},
-                velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-                rotation: option.rotation,
                 trimming: {x: 192, y: 128, width: 64, height: 48},
-            });
+            }));
             return e;
         } else {
             size--;
-            var e = this.enter({
+            var e = this.enter(option.$extend({
                 name: "debri",
                 assetName: "effect",
                 width: 16,
@@ -173,12 +150,8 @@ phina.define("pbr.EffectLayer", {
                 interval: 4,
                 startIndex: size*8,
                 maxIndex: (size+1)*8-1,
-                delay: option.delay,
-                position: {x: option.position.x, y: option.position.y},
-                velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-                rotation: option.rotation,
                 trimming: {x: 384, y: 128, width: 128, height: 48},
-            });
+            }));
             return e;
         }
     },
@@ -186,7 +159,7 @@ phina.define("pbr.EffectLayer", {
     //小破片
     enterDebriSmall: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "debri",
             assetName: "effect",
             width: 8,
@@ -194,19 +167,15 @@ phina.define("pbr.EffectLayer", {
             interval: 2,
             startIndex: 0,
             maxIndex: 8,
-            delay: option.delay,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 192, y: 128, width: 64, height: 48},
-        });
+        }));
         return e;
     },
 
     //ショット着弾
     enterShotImpact: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "shotImpact",
             assetName: "effect",
             width: 16,
@@ -214,19 +183,15 @@ phina.define("pbr.EffectLayer", {
             interval: 2,
             startIndex: 0,
             maxIndex: 7,
-            delay: 0,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 256, y: 240, width: 128, height: 16},
-        });
+        }));
         return e;
     },
 
     //敵弾消失
     enterBulletVanish: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "bulletVanish",
             assetName: "effect",
             width: 16,
@@ -234,19 +199,15 @@ phina.define("pbr.EffectLayer", {
             interval: 4,
             startIndex: 0,
             maxIndex: 7,
-            delay: 0,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 0, y: 336, width: 128, height: 48},
-        });
+        }));
         return e;
     },
 
     //プレイヤー被弾
     enterExplodePlayer: function(option) {
         option = (option || {}).$safe(this.defaultOption);
-        var e = this.enter({
+        var e = this.enter(option.$extend({
             name: "explodePlayer",
             assetName: "effect",
             width: 48,
@@ -254,12 +215,8 @@ phina.define("pbr.EffectLayer", {
             interval: 4,
             startIndex: 0,
             maxIndex: 7,
-            delay: 0,
-            position: {x: option.position.x, y: option.position.y},
-            velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
-            rotation: option.rotation,
             trimming: {x: 0, y: 288, width: 384, height: 48},
-        });
+        }));
         return e;
     },
 });
