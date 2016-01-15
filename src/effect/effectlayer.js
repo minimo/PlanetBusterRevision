@@ -54,6 +54,7 @@ phina.define("pbr.EffectLayer", {
             delay: option.delay,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
         });
         return e;
     },
@@ -72,6 +73,7 @@ phina.define("pbr.EffectLayer", {
             delay: option.delay,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 256, y: 256, width: 128, height: 32},
         });
         return e;
@@ -91,6 +93,7 @@ phina.define("pbr.EffectLayer", {
             delay: option.delay,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 256, y: 256, width: 128, height: 32},
         });
         return e;
@@ -110,6 +113,7 @@ phina.define("pbr.EffectLayer", {
             delay: option.delay,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 0, y: 192, width: 192, height: 96},
         });
         return e;
@@ -129,6 +133,7 @@ phina.define("pbr.EffectLayer", {
             delay: option.delay,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 256, y: 192, width: 256, height: 48},
         });
         e.isGround = true;
@@ -154,6 +159,7 @@ phina.define("pbr.EffectLayer", {
                 delay: option.delay,
                 position: {x: option.position.x, y: option.position.y},
                 velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+                rotation: option.rotation,
                 trimming: {x: 192, y: 128, width: 64, height: 48},
             });
             return e;
@@ -170,6 +176,7 @@ phina.define("pbr.EffectLayer", {
                 delay: option.delay,
                 position: {x: option.position.x, y: option.position.y},
                 velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+                rotation: option.rotation,
                 trimming: {x: 384, y: 128, width: 128, height: 48},
             });
             return e;
@@ -190,6 +197,7 @@ phina.define("pbr.EffectLayer", {
             delay: option.delay,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 192, y: 128, width: 64, height: 48},
         });
         return e;
@@ -209,6 +217,7 @@ phina.define("pbr.EffectLayer", {
             delay: 0,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 256, y: 240, width: 128, height: 16},
         });
         return e;
@@ -228,6 +237,7 @@ phina.define("pbr.EffectLayer", {
             delay: 0,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 0, y: 336, width: 128, height: 48},
         });
         return e;
@@ -247,6 +257,7 @@ phina.define("pbr.EffectLayer", {
             delay: 0,
             position: {x: option.position.x, y: option.position.y},
             velocity: {x: option.velocity.x, y: option.velocity.y, decay: option.velocity.decay},
+            rotation: option.rotation,
             trimming: {x: 0, y: 288, width: 384, height: 48},
         });
         return e;

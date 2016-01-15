@@ -60,6 +60,7 @@ phina.define("pbr.Effect.EffectBase", {
         trimming: null,
         position: {x: SC_W*0.5, y: SC_H*0.5},
         velocity: {x: 0, y: 0, decay: 0},
+        rotation: 0,
     },
 
     init: function() {
@@ -108,6 +109,7 @@ phina.define("pbr.Effect.EffectBase", {
 
         this.setPosition(option.position.x, option.position.y);
         this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay);
+        this.rotation = option.rotation;
 
         this.isRemove = false;
 
