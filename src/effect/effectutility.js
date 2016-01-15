@@ -117,7 +117,7 @@ pbr.Effect.enterExplodeGround = function(layer, option) {
 //破片投入
 pbr.Effect.enterDebris = function(layer, option) {
     option = (option || {}).$safe(pbr.Effect.defaultOption);
-    num = num || 5;
+    num = option.num || 5;
     for (var i = 0; i < num; i++) {
         var rad = rand(0, 359) * toRad;
         var v = rand(5, 10);
