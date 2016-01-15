@@ -92,7 +92,7 @@ pbr.Effect.enterExplodeLarge = function(layer, option) {
 //爆発エフェクト投入（地上）
 pbr.Effect.enterExplodeGround = function(layer, option) {
     option = (option || {}).$safe(pbr.Effect.defaultOption);
-    option.rotation = rand(0, 359);
+    option.rotation = 0;
     layer.enterExplodeGround(option);
 
     var val = rand(5, 10);
