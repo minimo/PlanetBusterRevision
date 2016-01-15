@@ -93,7 +93,7 @@ pbr.Effect.enterExplodeLarge = function(layer, option) {
 pbr.Effect.enterExplodeGround = function(layer, option) {
     option = (option || {}).$safe(pbr.Effect.defaultOption);
     option.rotation = rand(0, 359);
-//    pbr.Effect.ExplodeGround(delay).addChildTo(parentScene).setPosition(x, y).setVelocity(vx, vy, 0).setScale(2.0);
+    layer.enterExplodeGround(option);
 
     var val = rand(5, 10);
     for (var i = 0; i < val; i++) {
