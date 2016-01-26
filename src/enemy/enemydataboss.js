@@ -15,7 +15,7 @@ pbr.enemyData = pbr.enemyData || [];
  */
 pbr.enemyData['ThorHammer'] = {
     //使用弾幕パターン
-    bulletPattern: "ThorHammer",
+    danmakuName: "ThorHammer",
 
     //当り判定サイズ
     width:  98,
@@ -37,19 +37,29 @@ pbr.enemyData['ThorHammer'] = {
     explodeType: EXPLODE_MBOSS,
 
     //機体用テクスチャ情報
-    texName: "boss1",
+    texName: "tex_boss1",
     texWidth: 96,
     texHeight: 192,
     texIndex: 0,
 
     setup: function(enterParam) {
         this.phase = 0;
+        this.isCollision = false;
     },
 
     algorithm: function() {
         if (this.phase == 0) {
-            this.y += 2;
+            this.y -= 10;
+            if (this.y == -SC_H*0.4) {
+                this.phase++;
+                this.isCollision = true;
+            }
+        }
+        if (this.phase == 1) {
+            this.y += 1;
             if (this.y == SC_H*0.3) this.phase++;
+        }
+        if (this.phase == 2) {
         }
     },
 };

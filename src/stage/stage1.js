@@ -23,6 +23,7 @@ phina.define("pbr.Stage1", {
         });
 
         this.add( 120, "ToyBox-p-right");
+        this.add( 180, "ThorHammer");
 
         //Stage data
         this.add( 180, "Hornet1-left");

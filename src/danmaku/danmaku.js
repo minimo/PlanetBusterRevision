@@ -149,5 +149,35 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     ]),
 });
 
+//１面中ボス
+pbr.danmaku.TohrHammer = new bulletml.Root({
+    top0: action([
+        interval(120),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(-10)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
+                fire(DM, spdSeq(0.05), direction(-20, "sequence")),
+            ]),
+            interval(60),
+        ]),
+    ]),
+    top1: action([
+        interval(120),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(-10)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
+                fire(DM, spdSeq(0.05), direction(-20, "sequence")),
+            ]),
+            interval(60),
+        ]),
+    ]),
+});
+
 });
 
