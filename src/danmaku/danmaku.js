@@ -150,7 +150,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
 });
 
 //１面中ボス
-pbr.danmaku.TohrHammer = new bulletml.Root({
+pbr.danmaku.ThorHammer = new bulletml.Root({
     top0: action([
         interval(120),
         repeat(Infinity, [

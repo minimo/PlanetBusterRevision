@@ -22,7 +22,7 @@ phina.define("pbr.Enemy", {
         isGround: false,    //地上フラグ
         isEnemy: true,      //敵機判別
         isAttack: true,     //攻撃フラグ
-        isCrashDown: false,
+        isCrashDown: false, //墜落フラグ
 
         //キャラクタ情報
         name: null,
@@ -194,8 +194,10 @@ phina.define("pbr.Enemy", {
         //スクリーン内入った判定
         if (this.isOnScreen) {
             if (this.x < -100 || this.x > SC_W+100 || this.y < -100 || this.y > SC_H+100) {
-                this.remove();
-                this.isCollision = false;
+                if (!this.isBoss) {
+                    this.remove();
+                    this.isCollision = false;
+                }
             }
         } else {
             if (0 < this.x && this.x < SC_W && 0 < this.y && this.y < SC_H) this.isOnScreen = true;

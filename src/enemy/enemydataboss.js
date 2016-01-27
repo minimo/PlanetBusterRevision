@@ -45,19 +45,20 @@ pbr.enemyData['ThorHammer'] = {
     setup: function(enterParam) {
         this.phase = 0;
         this.isCollision = false;
+        this.isBoss = true;
     },
 
     algorithm: function() {
         if (this.phase == 0) {
-            this.y -= 10;
-            if (this.y == -SC_H*0.4) {
+            this.y -= 8;
+            if (this.y < -SC_H*0.4) {
                 this.phase++;
                 this.isCollision = true;
             }
         }
         if (this.phase == 1) {
             this.y += 1;
-            if (this.y == SC_H*0.3) this.phase++;
+            if (this.y > SC_H*0.3) this.phase++;
         }
         if (this.phase == 2) {
         }
