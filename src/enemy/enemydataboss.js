@@ -45,20 +45,26 @@ pbr.enemyData['ThorHammer'] = {
     setup: function(enterParam) {
         this.phase = 0;
         this.isCollision = false;
+        this.isGround = true;
         this.isBoss = true;
+        this.stopDanmaku();
     },
 
     algorithm: function() {
         if (this.phase == 0) {
             this.y -= 8;
-            if (this.y < -SC_H*0.4) {
+            if (this.y < -SC_H*0.5) {
                 this.phase++;
                 this.isCollision = true;
+                this.tweener.clear()
+                    .to({x:SC_W*0.5, y: SC_H*0.2}, 3000)
+                    .call(function(){
+                        this.phase++;
+                        this.resumeDanmaku();
+                    }.bind(this));
             }
         }
         if (this.phase == 1) {
-            this.y += 1;
-            if (this.y > SC_H*0.3) this.phase++;
         }
         if (this.phase == 2) {
         }
