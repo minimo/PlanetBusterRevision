@@ -397,6 +397,16 @@ phina.define("pbr.Enemy", {
 
     //BulletML停止
     stopDanmaku: function() {
+        if (this.runner) {
+            this.runner.stop = true;
+        }
+    },
+
+    //BulletML再開
+    resumeDanmaku: function() {
+        if (this.runner) {
+            this.runner.stop = false;
+        }
     },
 
     //親機のセット
