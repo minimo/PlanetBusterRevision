@@ -47,10 +47,6 @@ phina.define("pbr.Enemy", {
         beforeX: 0,
         beforeY: 0,
 
-        //相対地上座標
-        groundX: 0,
-        groundY: 0,
-
         //実行タスクキュー
         task: null,
     },
@@ -144,8 +140,6 @@ phina.define("pbr.Enemy", {
         //パラメータセットアップ
         this.parentScene = app.currentScene;
         this.setup(param);
-        this.groundX = this.parentScene.ground.x;
-        this.groundY = this.parentScene.ground.y;
 
         //当り判定設定
         this.boundingType = "rect";
@@ -170,12 +164,9 @@ phina.define("pbr.Enemy", {
 
         //地上物現座標調整
         if (this.isGround) {
-            var x = this.groundX-this.parentScene.ground.x;
-            var y = this.groundY-this.parentScene.ground.y;
-            this.x-=x;
-            this.y-=y;
-            this.groundX = this.parentScene.ground.x;
-            this.groundY = this.parentScene.ground.y;
+            var ground = this.parentScene.ground;
+            this.x += ground.deltaX;
+            this.y += ground.deltaY;
         }
 
         //行動アルゴリズム

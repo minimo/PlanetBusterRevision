@@ -12,6 +12,9 @@ phina.define("pbr.Ground", {
     _member: {
         belt: false,    //繰り返し地形フラグ
 
+        deltaX : 0,        
+        deltaY : 0,        
+
         direction: 0,
         speed: 1,
     },
@@ -24,11 +27,11 @@ phina.define("pbr.Ground", {
 
     update: function() {
         var rad = (this.direction+90)*toRad;
-        var vx = Math.cos(rad)*this.speed;
-        var vy = Math.sin(rad)*this.speed;
+        this.deltaX = Math.cos(rad)*this.speed;
+        this.deltaY = Math.sin(rad)*this.speed;
 
-        this.mapBase.x+=vx;
-        this.mapBase.y+=vy;
+        this.mapBase.x += this.deltaX;
+        this.mapBase.y += this.deltaY;
     },
 
     addLayer: function(name) {
