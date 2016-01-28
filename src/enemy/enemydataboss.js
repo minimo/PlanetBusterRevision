@@ -48,7 +48,7 @@ pbr.enemyData['ThorHammer'] = {
         this.isGround = true;
         this.stopDanmaku();
 
-//        this.turret = pbr.Enemy("ThorHammerTurret").addChildTo(this);
+        this.turret = pbr.Enemy("ThorHammerTurret").addChildTo(this);
     },
 
     algorithm: function() {
@@ -57,22 +57,19 @@ pbr.enemyData['ThorHammer'] = {
             if (this.y < -SC_H*0.5) {
                 this.phase++;
                 this.isCollision = true;
-/*
+                this.vy = 3;
                 this.tweener.clear()
-                    .to({x:SC_W*0.5, y: SC_H*0.2}, 3000)
+                    .to({vy: 0}, 5000)
                     .call(function(){
                         this.phase++;
                         this.resumeDanmaku();
                     }.bind(this));
-*/
+
             }
         }
         if (this.phase == 1) {
             this.y -= this.parentScene.ground.deltaY;
-            this.y += 2;
-            if (this.y > SC_H*0.2) {
-                this.phase++;
-            }
+            this.y += this.vy;
         }
         if (this.phase == 2) {
             this.y -= this.parentScene.ground.deltaY;
@@ -105,7 +102,7 @@ pbr.enemyData['ThorHammerTurret'] = {
     explodeType: EXPLODE_MBOSS,
 
     //機体用テクスチャ情報
-    texName: "boss1",
+    texName: "tex_boss1",
     texWidth: 32,
     texHeight: 32,
     texTrimX: 192,
