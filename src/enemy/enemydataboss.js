@@ -59,7 +59,7 @@ pbr.enemyData['ThorHammer'] = {
                 this.isCollision = true;
                 this.vy = 3;
                 this.tweener.clear()
-                    .to({vy: 0}, 5000)
+                    .to({vy: 0}, 2000)
                     .call(function(){
                         this.phase++;
                         this.resumeDanmaku();
