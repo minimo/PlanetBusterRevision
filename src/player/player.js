@@ -15,10 +15,11 @@ phina.define("pbr.Player", {
         height: 2,
 
         control: true,  //操作可能フラグ
-        shotON: true,  //ショットフラグ
+        shotON: true,   //ショットフラグ
         mouseON: false, //マウス操作中フラグ
 
         isCollision: false, //当り判定有効フラグ
+        isAfterburner: false,//アフターバーナー中
 
         timeMuteki: 0, //無敵フレーム残り時間
 
@@ -127,6 +128,10 @@ phina.define("pbr.Player", {
             if (this.rollcount > 100) this.rollcount = 100;
         }
         this.sprite.setFrameIndex(this.indecies[Math.clamp(~~(this.rollcount/10),0, 9)]);
+
+        //アフターバーナー描写
+        if (this.isAfterburner) {
+        }
 
         this.bx = this.x;
         this.by = this.y;
