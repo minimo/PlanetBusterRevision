@@ -46,8 +46,9 @@ pbr.enemyData['ThorHammer'] = {
         this.phase = 0;
         this.isCollision = false;
         this.isGround = true;
-        this.isBoss = true;
         this.stopDanmaku();
+
+//        this.turret = pbr.Enemy("ThorHammerTurret").addChildTo(this);
     },
 
     algorithm: function() {
@@ -56,18 +57,68 @@ pbr.enemyData['ThorHammer'] = {
             if (this.y < -SC_H*0.5) {
                 this.phase++;
                 this.isCollision = true;
+/*
                 this.tweener.clear()
                     .to({x:SC_W*0.5, y: SC_H*0.2}, 3000)
                     .call(function(){
                         this.phase++;
                         this.resumeDanmaku();
                     }.bind(this));
+*/
             }
         }
         if (this.phase == 1) {
+            this.y -= this.parentScene.ground.deltaY;
+            this.y += 2;
+            if (this.y > SC_H*0.2) {
+                this.phase++;
+            }
         }
         if (this.phase == 2) {
+            this.y -= this.parentScene.ground.deltaY;
         }
+    },
+};
+
+//砲台
+pbr.enemyData['ThorHammerTurret'] = {
+    //使用弾幕パターン
+    bulletPattern: "ThorHammerTurret",
+
+    //当り判定サイズ
+    width:  64,
+    height: 64,
+
+    //耐久力
+    def: 500,
+
+    //得点
+    point: 10000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT_LOWER,
+
+    //敵タイプ
+    type: ENEMY_BOSS,
+
+    //爆発タイプ
+    explodeType: EXPLODE_MBOSS,
+
+    //機体用テクスチャ情報
+    texName: "boss1",
+    texWidth: 32,
+    texHeight: 32,
+    texTrimX: 192,
+    texTrimY: 0,
+    texTrimWidth: 184,
+    texTrimHeight: 184,
+    texIndex: 0,
+
+    setup: function(enterParam) {
+    },
+
+    algorithm: function() {
+        this.lookAt();
     },
 };
 
