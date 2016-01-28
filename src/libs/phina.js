@@ -6,6 +6,9 @@
  * Copyright (C) 2015 phi, http://phinajs.com
  */
 
+
+'use strict';
+
 /*
  *
  */
@@ -1519,15 +1522,31 @@ phina.namespace(function() {
       _class.prototype = Object.create(params.superClass.prototype);
       params.init.owner = _class;
       _class.prototype.superInit = function() {
-        var caller = this.superInit.caller;
-        var subclass = caller.owner;
-        var superclass = subclass.prototype.superClass;
-        var superInit = superclass.prototype.init;
+        this.__counter = this.__counter || 0;
 
+        var superClass = this._hierarchies[this.__counter++];
+        var superInit = superClass.prototype.init;
         superInit.apply(this, arguments);
+
+        this.__counter = 0;
+      };
+      _class.prototype.superMethod = function() {
+        var args = Array.prototype.slice.call(arguments, 0);
+        var name = args.shift();
+        this.__counters = this.__counters || {};
+        this.__counters[name] = this.__counters[name] || 0;
+
+        var superClass = this._hierarchies[ this.__counters[name]++ ];
+        var superMethod = superClass.prototype[name];
+        var rst = superMethod.apply(this, args);
+
+        this.__counters[name] = 0;
+
+        return rst;
       };
       _class.prototype.constructor = _class;
     }
+
 
     // // 
     // params.forIn(function(key, value) {
@@ -1538,10 +1557,16 @@ phina.namespace(function() {
     //     _class.prototype[key] = value;
     //   }
     // });
+    // 継承
     _class.prototype.$extend(params);
 
-    // 
-    _class.prototype.selfClass = _class;
+    // 継承用
+    _class.prototype._hierarchies = [];
+    var _super = _class.prototype.superClass;
+    while(_super) {
+      _class.prototype._hierarchies.push(_super);
+      _super = _super.prototype.superClass;
+    }
 
     // accessor
     if (params._accessor) {
@@ -3201,10 +3226,11 @@ phina.namespace(function() {
 
       this.startTime = this.currentTime = (new Date()).getTime();
 
-      (function() {
+      var fn = function() {
         var delay = self.run();
-        setTimeout(arguments.callee, delay);
-      })();
+        setTimeout(fn, delay);
+      };
+      fn();
 
       return this;
     },
@@ -7049,7 +7075,7 @@ phina.namespace(function() {
           });
         }
         else {
-          if (key !== 'type') {
+          if (key !== 'type' && key !== 'className') {
             this[key] = value;
           }
         }
@@ -8980,6 +9006,44 @@ phina.namespace(function() {
       return this.beginPath().heart(x, y, radius, angle).stroke();
     },
 
+    /*
+     * http://stackoverflow.com/questions/14169234/the-relation-of-the-bezier-curve-and-ellipse
+     */
+    ellipse: function(x, y, w, h) {
+      var ctx = this.context;
+      var kappa = 0.5522848;
+
+      var ox = (w / 2) * kappa; // control point offset horizontal
+      var oy = (h / 2) * kappa; // control point offset vertical
+      var xe = x + w;           // x-end
+      var ye = y + h;           // y-end
+      var xm = x + w / 2;       // x-middle
+      var ym = y + h / 2;       // y-middle
+
+      ctx.moveTo(x, ym);
+      ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
+      ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
+      ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+      ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
+      // ctx.closePath();
+
+      return this;
+    },
+
+    fillEllipse: function(x, y, width, height) {
+      return this.beginPath().ellipse(x, y, width, height).fill();
+    },
+    strokeEllipse: function(x, y, width, height) {
+      return this.beginPath().ellipse(x, y, width, height).stroke();
+    },
+
+    /*
+     * 画像を描画
+     */
+    drawImage: function() {
+      this.context.drawImage.apply(this.context, arguments);
+    },
+
     /**
      * 行列をセット
      */
@@ -9028,6 +9092,22 @@ phina.namespace(function() {
     },
 
     /**
+     * 状態を保存
+     */
+    save: function() {
+      this.context.save();
+      return this;
+    },
+
+    /**
+     * 状態を復元
+     */
+    restore: function() {
+      this.context.restore();
+      return this;
+    },
+
+    /**
      * 画像として保存
      */
     saveAsImage: function(mime_type) {
@@ -9066,6 +9146,85 @@ phina.namespace(function() {
       strokeStyle: {
         "get": function()   { return this.context.strokeStyle; },
         "set": function(v)  { this.context.strokeStyle = v; }
+      },
+
+      globalAlpha: {
+        "get": function()   { return this.context.globalAlpha; },
+        "set": function(v)  { this.context.globalAlpha = v; }
+      },
+
+      globalCompositeOperation: {
+        "get": function()   { return this.context.globalCompositeOperation; },
+        "set": function(v)  { this.context.globalCompositeOperation = v; }
+      },
+
+      shadowBlur: {
+        "get": function()   { return this.context.shadowBlur; },
+        "set": function(v)  { this.context.shadowBlur = v; }
+      },
+
+      shadowColor: {
+        "get": function()   { return this.context.shadowColor; },
+        "set": function(v)  { this.context.shadowColor = v; }
+      },
+
+      shadowOffsetX: {
+        "get": function()   { return this.context.shadowOffsetX; },
+        "set": function(v)  { this.context.shadowOffsetX = v; }
+      },
+
+      shadowOffsetY: {
+        "get": function()   { return this.context.shadowOffsetY; },
+        "set": function(v)  { this.context.shadowOffsetY = v; }
+      },
+
+      lineCap: {
+        "get": function()   { return this.context.lineCap; },
+        "set": function(v)  { this.context.lineCap = v; }
+      },
+
+      lineJoin: {
+        "get": function()   { return this.context.lineJoin; },
+        "set": function(v)  { this.context.lineJoin = v; }
+      },
+
+      miterLimit: {
+        "get": function()   { return this.context.miterLimit; },
+        "set": function(v)  { this.context.miterLimit = v; }
+      },
+
+      lineWidth: {
+        "get": function()   { return this.context.lineWidth; },
+        "set": function(v)  { this.context.lineWidth = v; }
+      },
+
+      lineJoin: {
+        "get": function()   { return this.context.lineJoin; },
+        "set": function(v)  { this.context.lineJoin = v; }
+      },
+
+      font: {
+        "get": function()   { return this.context.font; },
+        "set": function(v)  { this.context.font = v; }
+      },
+
+      textAlign: {
+        "get": function()   { return this.context.textAlign; },
+        "set": function(v)  { this.context.textAlign = v; }
+      },
+
+      textBaseline: {
+        "get": function()   { return this.context.textBaseline; },
+        "set": function(v)  { this.context.textBaseline = v; }
+      },
+
+      imageSmoothingEnabled: {
+        "get": function()   { return this.context.imageSmoothingEnabled; },
+        "set": function(v)  {
+          this.context.imageSmoothingEnabled = v;
+          this.context.webkitImageSmoothingEnabled = v;
+          this.context.mozImageSmoothingEnabled = v;
+        }
       },
     },
 
@@ -9349,7 +9508,7 @@ phina.namespace(function() {
    * @class phina.display.Shape
    *
    */
-  phina.define('phina.display.Shape', {
+  var Shape = phina.define('phina.display.Shape', {
     superClass: 'phina.display.CanvasElement',
 
     init: function(options) {
@@ -9438,8 +9597,9 @@ phina.namespace(function() {
         });
       },
       watchRenderProperties: function(keys) {
+        var watchRenderProperty = this.watchRenderProperty || Shape.watchRenderProperty;
         keys.each(function(key) {
-          this.watchRenderProperty(key);
+          watchRenderProperty.call(this, key);
         }, this);
       },
     },
@@ -10321,6 +10481,17 @@ phina.namespace(function() {
       // 決定時の処理をオフにする(iPhone 時のちらつき対策)
       this.domElement.addEventListener("touchstart", function(e) { e.stop(); });
       this.domElement.addEventListener("touchmove", function(e) { e.stop(); });
+
+      // ウィンドウフォーカス時イベントリスナを登録
+      phina.global.addEventListener('focus', function() {
+        this.flare('focus');
+        this.currentScene.flare('focus');
+      }.bind(this), false);
+      // ウィンドウブラー時イベントリスナを登録
+      phina.global.addEventListener('blur', function() {
+        this.flare('blur');
+        this.currentScene.flare('blur');
+      }.bind(this), false);
     },
 
     update: function() {
@@ -11238,7 +11409,7 @@ phina.namespace(function() {
         this.gauge.value = 90;
 
         loader.onload = function() {
-          this.gauge.animationTime = 1*1000;
+          this.gauge.animationTime = 0;
           this.gauge.value = 100;
         }.bind(this);
       }
@@ -11265,7 +11436,7 @@ phina.namespace(function() {
 
         exitType: 'auto',
 
-        lie: true,
+        lie: false,
       },
     },
 
