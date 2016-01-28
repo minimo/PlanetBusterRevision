@@ -269,6 +269,7 @@ phina.define("pbr.Enemy", {
         }
 
         if (this.time % 35 == 0) {
+            var ground = this.parentScene.ground;
             var w = this.width/2;
             var h = this.height/2;
             var x = this.x+rand(-w, w);
@@ -276,6 +277,7 @@ phina.define("pbr.Enemy", {
             var layer = this.parentScene.effectLayerUpper;
             pbr.Effect.enterExplode(layer, {
                 position: {x: x, y: y},
+                velocity: {x: ground.deltaX, y: ground.deltaY, decay: 0.9},
                 delay: 0,
             });
         }
@@ -297,6 +299,7 @@ phina.define("pbr.Enemy", {
 
     //通常破壊パターン
     defaultDead: function() {
+        var ground = this.parentScene.ground;
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
@@ -305,8 +308,8 @@ phina.define("pbr.Enemy", {
         var upper = this.parentScene.effectLayerUpper;
         var lower = this.parentScene.effectLayerLower;
 
-        var vx = this.x-this.beforeX;
-        var vy = this.y-this.beforeY;
+        var vx = this.x-this.beforeX+ground.deltaX;
+        var vy = this.y-this.beforeY+ground.deltaY;
         if (this.data.explodeType == EXPLODE_SMALL) {
             pbr.Effect.enterExplode(upper, {
                 position: {x: this.x, y: this.y},

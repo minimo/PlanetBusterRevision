@@ -92,6 +92,7 @@ phina.define("pbr.Shot", {
     },
 
     vanish: function() {
+        var ground = this.shotLayer.parentScene.ground;
         var layer = this.shotLayer.parentScene.effectLayerUpper;
         layer.enterShotImpact({
             position:{x: this.x, y: this.y},
@@ -99,6 +100,7 @@ phina.define("pbr.Shot", {
         pbr.Effect.enterDebris(layer, {
             num: 2,
             position:{x: this.x, y: this.y},
+            velocity: {x: ground.deltaX, y: ground.deltaY, decay: 0.9},
         });
     },
 });
