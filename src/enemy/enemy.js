@@ -26,6 +26,7 @@ phina.define("pbr.Enemy", {
 
         //キャラクタ情報
         name: null,
+        type: -1,
         def: 0,
         defMax: 0,
         danmakuName: null,
@@ -73,6 +74,8 @@ phina.define("pbr.Enemy", {
         }
 
         //基本仕様コピー
+        this.type = d.type || ENEMY_SMALL;
+        if (this.type == ENEMY_MBOSS || this.type == ENEMY_BOSS) this.isBoss = true;
         this.def = this.defMax = d.def;
         this.width = d.width || 32;
         this.height = d.height || 32;
