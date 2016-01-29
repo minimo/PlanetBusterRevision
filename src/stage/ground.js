@@ -23,6 +23,8 @@ phina.define("pbr.Ground", {
         this.superInit();
         this.$safe(this._member);
         this.mapBase = phina.display.CanvasElement().setPosition(0, 0).addChildTo(this);
+        this.tweener.setUpdateType('fps');
+        this.mapBase.tweener.setUpdateType('fps');
     },
 
     update: function() {
