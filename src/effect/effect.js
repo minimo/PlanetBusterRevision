@@ -61,6 +61,8 @@ phina.define("pbr.Effect.EffectBase", {
         position: {x: SC_W*0.5, y: SC_H*0.5},
         velocity: {x: 0, y: 0, decay: 0},
         rotation: 0,
+        alpha: 1.0,
+        blendMode: "source-over",
     },
 
     init: function() {
@@ -99,7 +101,11 @@ phina.define("pbr.Effect.EffectBase", {
         if (this.delay < 0) this.delay *= -1;
         this.loop = option.loop;
         this.time = -this.delay;
-        
+
+        //αブレンド設定
+        this.alpha = option.alpha;
+        this.blendMode = option.blendMode;
+
         //トリミング設定
         var tr = option.trimming || {x:0, y: 0, width: this.image.width, height: this.image.height};
         this.setFrameTrimming(tr.x, tr.y, tr.width, tr.height);
