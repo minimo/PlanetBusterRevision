@@ -166,9 +166,7 @@ phina.define("pbr.Enemy", {
     },
 
     update: function(app) {
-        if (this.isDead) return;
-
-        if (this.runner) {
+        if (!this.isDead && this.runner) {
             this.runner.x = this.position.x;
             this.runner.y = this.position.y;
             this.runner.update();
