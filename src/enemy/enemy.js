@@ -56,6 +56,9 @@ phina.define("pbr.Enemy", {
         this.superInit();
         this.$extend(this._member);
 
+        //TweenerをFPSベースにする
+        this.tweener.setUpdateType('fps');
+
         this.setPosition(x, y);
         this.id = id || -1;
         this.enterParam = param; //EnemyUnitからの投入時パラメータ
@@ -84,7 +87,7 @@ phina.define("pbr.Enemy", {
         this.changeColor = d.changeColor || this.changeColor;
 
         //破壊パターン
-        if (this.type == TYPE_BOSS || this.type == TYPE_BOSS ){
+        if (this.type == ENEMY_BOSS || this.type == ENEMY_BOSS ){
             this.dead = d.dead || this.defaultDeadBoss;
         } else {
             this.dead = d.dead || this.defaultDead;

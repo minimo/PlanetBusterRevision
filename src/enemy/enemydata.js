@@ -50,16 +50,16 @@ pbr.enemyData['Hornet'] = {
         this.bulletPattern = "Hornet"+enterParam;
         switch (enterParam) {
             case 1:
-                this.tweener.moveBy(0, 300, 2000, "easeOutQuart")
+                this.tweener.moveBy(0, 300, 120, "easeOutQuart")
                     .wait(1000)
                     .moveBy(0, -300, 2000)
                     .call(function(){this.remove();}.bind(this));
                 break;
             case 2:
-                this.moveTo(this.parentScene.player, 5, true);
+                this.tweener.moveTo(this.parentScene.player, 5, true);
                 break;
             case 3:
-                this.tweener.moveBy(0, 300, 2000, "easeOutQuart")
+                this.tweener.moveBy(0, 300, 120, "easeOutQuart")
                     .wait(1000)
                     .call(function(){this.phase++;}.bind(this));
                 break;
@@ -135,10 +135,10 @@ pbr.enemyData['MudDauber'] = {
         //行動設定
         if (this.x < 0) {
             this.px = 1;
-            this.tweener.moveBy( SC_W*0.6, 0, 3000, "easeOutCubic").call(function(){this.phase++;}.bind(this));
+            this.tweener.moveBy( SC_W*0.6, 0, 180, "easeOutCubic").call(function(){this.phase++;}.bind(this));
         } else {
             this.px = -1;
-            this.tweener.moveBy(-SC_W*0.6, 0, 3000, "easeOutCubic").call(function(){this.phase++;}.bind(this));
+            this.tweener.moveBy(-SC_W*0.6, 0, 180, "easeOutCubic").call(function(){this.phase++;}.bind(this));
         }
     },
 
@@ -252,10 +252,10 @@ pbr.enemyData['MournBlade'] = {
         //行動設定
         if (this.x < 0) {
             this.px = 1;
-            this.tweener.moveBy( SC_W*0.6, 0, 3000, "easeOutCubic").moveBy( SC_W*1.0, 0, 5000, "easeOutCubic");
+            this.tweener.moveBy( SC_W*0.6, 0, 180, "easeOutCubic").moveBy( SC_W*1.0, 0, 5000, "easeOutCubic");
         } else {
             this.px = -1;
-            this.tweener.moveBy(-SC_W*0.6, 0, 3000, "easeOutCubic").moveBy(-SC_W*1.0, 0, 5000, "easeOutCubic");
+            this.tweener.moveBy(-SC_W*0.6, 0, 180, "easeOutCubic").moveBy(-SC_W*1.0, 0, 5000, "easeOutCubic");
         }
     },
 
@@ -475,7 +475,7 @@ pbr.enemyData['ToyBox'] = {
         if (enterParam == "power") this.kind = 0;
         if (enterParam == "bomb") this.kind = 1;
         if (enterParam == "1UP") this.kind = 2;
-        this.tweener.clear().moveBy(0, SC_H*0.5, 5000).wait(8000).moveBy(0, -SC_H, 10000);
+        this.tweener.clear().moveBy(0, SC_H*0.5, 300).wait(480).moveBy(0, -SC_H, 600);
     },
 
     algorithm: function() {
