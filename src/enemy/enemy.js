@@ -81,8 +81,14 @@ phina.define("pbr.Enemy", {
 
         this.setup = d.setup || this.setup;
         this.algorithm = d.algorithm || this.algorithm;
-        this.dead = d.dead || this.defaultDead;
         this.changeColor = d.changeColor || this.changeColor;
+
+        //破壊パターン
+        if (this.type == TYPE_BOSS || this.type == TYPE_BOSS ){
+            this.dead = d.dead || this.defaultDeadBoss;
+        } else {
+            this.dead = d.dead || this.defaultDead;
+        }
 
         //機体用スプライト
         if (d.texName) {
@@ -366,7 +372,7 @@ phina.define("pbr.Enemy", {
         }
     },
 
-    deadBoss: function() {
+    defaultDeadBoss: function() {
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
@@ -395,6 +401,7 @@ phina.define("pbr.Enemy", {
         this.parentScene.eraseBullet();
 
         this.remove();
+        this.parentScene.bossBattle = false;
     },
 
     //BulletML起動
