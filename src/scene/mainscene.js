@@ -86,7 +86,7 @@ phina.define("pbr.MainScene", {
                     this.effectLayerUpper = this.layers[i];
                     break;
                 case LAYER_EFFECT_LOWER:
-                    this.layers[i] = pbr.EffectLayer({size: 256}).addChildTo(this.base);
+                    this.layers[i] = pbr.EffectLayer({size: 128}).addChildTo(this.base);
                     this.effectLayerLower = this.layers[i];
                     break;
                 default:
@@ -142,7 +142,6 @@ phina.define("pbr.MainScene", {
         if (app.keyboard.getKey("C")) {
             this.eraseBullet();
         }
-
 
         this.time++;
     },
