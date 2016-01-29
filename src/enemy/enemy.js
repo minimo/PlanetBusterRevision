@@ -109,6 +109,8 @@ phina.define("pbr.Enemy", {
             this.body.renderRectangle({fillStyle: "rgba(255,255,0,1.0)", strokeStyle: "rgba(255,255,0,1.0)"});
             this.body.update = function() {this.rotation = -that.rotation;};
         }
+        this.body.alpha = 1.0;
+        this.body.blendMode = "source-over";
 
         if (VIEW_COLLISION) {
             this.col = phina.display.Shape({width:this.width, height:this.height}).addChildTo(this);
@@ -351,7 +353,17 @@ phina.define("pbr.Enemy", {
             this.parentScene.eraseBullet();
             this.parentScene.timeVanish = 60;
         }
-        this.remove();
+
+        //破壊時消去インターバル
+        if (this.data.explodeType == EXPLODE_SMALL) {
+            this.remove();
+        } else {
+            this.tweener.clear()
+                .to({alpha: 0}, 1000)
+                .call(function(){
+                    this.remove();
+                }.bind(this));
+        }
     },
 
     deadBoss: function() {
