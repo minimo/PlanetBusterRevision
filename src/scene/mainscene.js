@@ -133,16 +133,14 @@ phina.define("pbr.MainScene", {
     
     update: function(app) {
         //ステージ進行
-        if (!this.bossBattle) {
-            var event = this.stage.get(this.time);
-            if (event) {
-                if (typeof(event.value) === 'function') {
-                    event.value.call(this, app);
-                    if (event.boss) {
-                        this.bossBattle = true;
-                    }
-                } else {
-                    this.enterEnemyUnit(event.value);
+        var event = this.stage.get(this.time);
+        if (event) {
+            if (typeof(event.value) === 'function') {
+                event.value.call(this, app);
+            } else {
+                this.enterEnemyUnit(event.value);
+                if (event.option && event.option.boss) {
+                    this.bossBattle = true;
                 }
             }
         }
