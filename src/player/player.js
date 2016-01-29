@@ -43,6 +43,8 @@ phina.define("pbr.Player", {
         this.superInit();
         this.$extend(this._member);
 
+        this.tweener.setUpdateType('fps');
+
         this.sprite = phina.display.Sprite("gunship", 48, 48)
             .addChildTo(this)
             .setFrameIndex(4)
@@ -52,6 +54,7 @@ phina.define("pbr.Player", {
         this.bits = [];
         for (var i = 0; i < 4; i++) {
             this.bits[i] = pbr.PlayerBit(i).addChildTo(this);
+            this.bits[i].tweener.setUpdateType('fps');
         }
         this.openBit(0);
 
@@ -168,34 +171,34 @@ phina.define("pbr.Player", {
         switch (type) {
             case 0:
                 //赤（前方集中型）
-                this.bits[0].tweener.clear().to({ x:  5, y:-32, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-30,0,500,"easeInOutSine").moveBy( 30,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[0]));
-                this.bits[1].tweener.clear().to({ x: -5, y:-32, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 30,0,500,"easeInOutSine").moveBy(-30,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[1]));
-                this.bits[2].tweener.clear().to({ x: 15, y:-24, rotation: 2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy(-40,0,500,"easeInOutSine").moveBy( 40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[2]));
-                this.bits[3].tweener.clear().to({ x:-15, y:-24, rotation:-2, alpha:1}, 300).call(function(){this.tweener.clear().moveBy( 40,0,500,"easeInOutSine").moveBy(-40,0,500,"easeInOutSine").setLoop(true);}.bind(this.bits[3]));
+                this.bits[0].tweener.clear().to({ x:  5, y:-32, rotation: 2, alpha:1}, 15).call(function(){this.tweener.clear().moveBy(-30,0,30,"easeInOutSine").moveBy( 30,0,30,"easeInOutSine").setLoop(true);}.bind(this.bits[0]));
+                this.bits[1].tweener.clear().to({ x: -5, y:-32, rotation:-2, alpha:1}, 15).call(function(){this.tweener.clear().moveBy( 30,0,30,"easeInOutSine").moveBy(-30,0,30,"easeInOutSine").setLoop(true);}.bind(this.bits[1]));
+                this.bits[2].tweener.clear().to({ x: 15, y:-24, rotation: 2, alpha:1}, 15).call(function(){this.tweener.clear().moveBy(-40,0,30,"easeInOutSine").moveBy( 40,0,30,"easeInOutSine").setLoop(true);}.bind(this.bits[2]));
+                this.bits[3].tweener.clear().to({ x:-15, y:-24, rotation:-2, alpha:1}, 15).call(function(){this.tweener.clear().moveBy( 40,0,30,"easeInOutSine").moveBy(-40,0,30,"easeInOutSine").setLoop(true);}.bind(this.bits[3]));
                 color = 0;
                 break;
             case 1:
                 //緑（方向変更型）
-                this.bits[0].tweener.clear().to({ x: 35, y:0, rotation:0, alpha:1}, 300).setLoop(false);
-                this.bits[1].tweener.clear().to({ x:-35, y:0, rotation:0, alpha:1}, 300).setLoop(false);
-                this.bits[2].tweener.clear().to({ x: 10, y:30, rotation:0, alpha:1}, 300).setLoop(false);
-                this.bits[3].tweener.clear().to({ x:-10, y:30, rotation:0, alpha:1}, 300).setLoop(false);
+                this.bits[0].tweener.clear().to({ x: 35, y:0, rotation:0, alpha:1}, 15).setLoop(false);
+                this.bits[1].tweener.clear().to({ x:-35, y:0, rotation:0, alpha:1}, 15).setLoop(false);
+                this.bits[2].tweener.clear().to({ x: 10, y:30, rotation:0, alpha:1}, 15).setLoop(false);
+                this.bits[3].tweener.clear().to({ x:-10, y:30, rotation:0, alpha:1}, 15).setLoop(false);
                 color = 80;
                 break;
             case 2:
                 //青（広範囲型）
-                this.bits[0].tweener.clear().to({ x: 30, y:16, rotation:  5, alpha:1}, 300).setLoop(false);
-                this.bits[1].tweener.clear().to({ x:-30, y:16, rotation: -5, alpha:1}, 300).setLoop(false);
-                this.bits[2].tweener.clear().to({ x: 50, y:24, rotation: 10, alpha:1}, 300).setLoop(false);
-                this.bits[3].tweener.clear().to({ x:-50, y:24, rotation:-10, alpha:1}, 300).setLoop(false);
+                this.bits[0].tweener.clear().to({ x: 30, y:16, rotation:  5, alpha:1}, 15).setLoop(false);
+                this.bits[1].tweener.clear().to({ x:-30, y:16, rotation: -5, alpha:1}, 15).setLoop(false);
+                this.bits[2].tweener.clear().to({ x: 50, y:24, rotation: 10, alpha:1}, 15).setLoop(false);
+                this.bits[3].tweener.clear().to({ x:-50, y:24, rotation:-10, alpha:1}, 15).setLoop(false);
                 color = 200;
                 break;
             default:
                 //クローズ
-                this.bits[0].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
-                this.bits[1].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
-                this.bits[2].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
-                this.bits[3].tweener.clear().to({ x:0, y: 0, alpha:0}, 300);
+                this.bits[0].tweener.clear().to({ x:0, y: 0, alpha:0}, 15);
+                this.bits[1].tweener.clear().to({ x:0, y: 0, alpha:0}, 15);
+                this.bits[2].tweener.clear().to({ x:0, y: 0, alpha:0}, 15);
+                this.bits[3].tweener.clear().to({ x:0, y: 0, alpha:0}, 15);
                 color = 60;
                 break;
         }
@@ -207,7 +210,7 @@ phina.define("pbr.Player", {
         this.y = SC_H+128;
         this.tweener.clear()
             .wait(2000)
-            .to({x: SC_W/2, y: SC_H-128}, 2000, "easeOutQuint")
+            .to({x: SC_W/2, y: SC_H-128}, 120, "easeOutQuint")
             .call(function(){
                 this.shotON = true;
                 this.control = true;
@@ -228,8 +231,8 @@ phina.define("pbr.Player", {
         this.x = SC_W/2;
         this.y = SC_H+128;
         this.tweener.clear()
-            .to({x: SC_W/2, y: SC_H/2+32}, 1500, "easeOutCubic")
-            .to({x: SC_W/2, y: SC_H-64  }, 2000)
+            .to({x: SC_W/2, y: SC_H/2+32}, 90, "easeOutCubic")
+            .to({x: SC_W/2, y: SC_H-64  }, 120)
             .call(function(){
                 this.shotON = true;
                 this.control = true;

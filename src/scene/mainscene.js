@@ -182,7 +182,8 @@ phina.define("pbr.MainScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
         m1.alpha = 0;
-        m1.tweener.wait(500).fadeIn(250).wait(2600).fadeOut(250).call(function(){this.remove()}.bind(m1));
+        m1.tweener.setUpdateType('fps');
+        m1.tweener.wait(30).fadeIn(15).wait(171).fadeOut(15).call(function(){this.remove()}.bind(m1));
 
         //ステージ名表示
         var name = this.stageName[this.stageId];
@@ -193,12 +194,13 @@ phina.define("pbr.MainScene", {
         m2.alpha = 0;
         m2.col = 0;
         m2.max = name.length;
+        m2.tweener.setUpdateType('fps');
         m2.tweener
-            .wait(500)
-            .fadeIn(100)
-            .to({col: m2.max}, 1000)
-            .wait(1750)
-            .fadeOut(250)
+            .wait(30)
+            .fadeIn(6)
+            .to({col: m2.max}, 60)
+            .wait(120)
+            .fadeOut(15)
             .call(function(){this.remove()}.bind(m2));
         m2.update = function() {
             this.text = name.substring(0, ~~this.col)+"_";

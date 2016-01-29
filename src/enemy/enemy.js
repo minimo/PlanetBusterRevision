@@ -368,7 +368,7 @@ phina.define("pbr.Enemy", {
             this.remove();
         } else {
             this.tweener.clear()
-                .to({alpha: 0}, 1000)
+                .to({alpha: 0}, 60)
                 .call(function(){
                     this.remove();
                 }.bind(this));

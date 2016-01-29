@@ -59,7 +59,7 @@ pbr.enemyData['ThorHammer'] = {
                 this.isCollision = true;
                 this.vy = 3;
                 this.tweener.clear()
-                    .to({vy: 0}, 2000)
+                    .to({vy: 0}, 120)
                     .call(function(){
                         this.phase++;
                         this.resumeDanmaku();
@@ -177,7 +177,7 @@ pbr.enemyData['Golyat'] = {
 
         //登場パターン
         this.tweener.clear()
-            .move(SC_W*0.5, SC_H*-0.5, 3000, "easeOutSine")
+            .move(SC_W*0.5, SC_H*-0.5, 300, "easeOutSine")
             .call(function(){this.phase++;}.bind(this));
     },
 
