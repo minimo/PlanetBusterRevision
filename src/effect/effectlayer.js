@@ -219,4 +219,20 @@ phina.define("pbr.EffectLayer", {
         }));
         return e;
     },
+
+    //アフターバーナー
+    enterAfterburner: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        var e = this.enter(option.$extend({
+            name: "afterburner",
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 2,
+            startIndex: 0,
+            maxIndex: 7,
+            trimming: {x: 256, y: 240, width: 128, height: 16},
+        }));
+        return e;
+    },
 });

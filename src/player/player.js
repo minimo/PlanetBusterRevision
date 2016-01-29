@@ -18,8 +18,8 @@ phina.define("pbr.Player", {
         shotON: true,   //ショットフラグ
         mouseON: false, //マウス操作中フラグ
 
-        isCollision: false, //当り判定有効フラグ
-        isAfterburner: false,//アフターバーナー中
+        isCollision: false,     //当り判定有効フラグ
+        isAfterburner: false,   //アフターバーナー中
 
         timeMuteki: 0, //無敵フレーム残り時間
 
@@ -131,6 +131,14 @@ phina.define("pbr.Player", {
 
         //アフターバーナー描写
         if (this.isAfterburner) {
+            var ground = this.parentScene.ground;
+            var layer = this.parentScene.effectLayerUpper;
+            layer.enterAfterburner({
+                position: {x: this.x, y: this.y+16},
+                velocity: {x: ground.deltaX, y: ground.deltaY/2, decay: 0.99},
+                alpha: 0.7,
+                blendMode: "lighter",
+            });
         }
 
         this.bx = this.x;
