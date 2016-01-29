@@ -27,11 +27,11 @@ phina.define("pbr.StageController", {
         this.player = player;
     },
 
-    add: function(time, value, flag) {
+    add: function(time, value, option) {
         this.index += time;
         this.seq[this.index] = {
             value: value,
-            flag: flag,
+            option: option,
         }
     },
 

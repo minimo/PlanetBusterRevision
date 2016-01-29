@@ -23,7 +23,7 @@ phina.define("pbr.Stage1", {
         });
 
         this.add( 120, "ToyBox-p-right");
-        this.add( 180, "ThorHammer");
+        this.add( 180, "ThorHammer", {mboss: true});
         this.add( 90, function(app) {
             this.ground.tweener.clear().to({speed:10.0}, 2000, "easeInOutCubic");
             this.player.isAfterburner = true;

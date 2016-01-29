@@ -20,6 +20,10 @@ phina.define("pbr.MainScene", {
         //自機コントロール可能フラグ
         control: true,
 
+        //ボス戦闘中フラグ
+        bossBattle: false,
+        bossObject: null,
+
         //ラベル用パラメータ
         labelParam: {
             fill: "white",
@@ -129,12 +133,17 @@ phina.define("pbr.MainScene", {
     
     update: function(app) {
         //ステージ進行
-        var event = this.stage.get(this.time);
-        if (event) {
-            if (typeof(event.value) === 'function') {
-                event.value.call(this, app);
-            } else {
-                this.enterEnemyUnit(event.value);
+        if (!this.bossBattle) {
+            var event = this.stage.get(this.time);
+            if (event) {
+                if (typeof(event.value) === 'function') {
+                    event.value.call(this, app);
+                    if (event.boss) {
+                        this.bossBattle = true;
+                    }
+                } else {
+                    this.enterEnemyUnit(event.value);
+                }
             }
         }
 
@@ -197,7 +206,6 @@ phina.define("pbr.MainScene", {
             this.text = name.substring(0, ~~this.col)+"_";
         }
     },
-
 
     //ステージ再スタート
     restartStage: function() {
