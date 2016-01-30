@@ -45,6 +45,9 @@ pbr.enemyData['Hornet'] = {
         this.roter.index = 32;
         this.roter.setFrameIndex(32);
 
+        this.vx = 0;
+        this.vy = 0;
+
         //行動パターン分岐
         this.pattern = enterParam;
         this.bulletPattern = "Hornet"+enterParam;
@@ -56,7 +59,7 @@ pbr.enemyData['Hornet'] = {
                     .call(function(){this.remove();}.bind(this));
                 break;
             case 2:
-                this.tweener.moveTo(this.parentScene.player, 5, true);
+                this.moveTo(this.player, 5, true);
                 break;
             case 3:
                 this.tweener.moveBy(0, 300, 120, "easeOutQuart")
