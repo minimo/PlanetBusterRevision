@@ -51,8 +51,8 @@ pbr.enemyData['Hornet'] = {
         switch (enterParam) {
             case 1:
                 this.tweener.moveBy(0, 300, 120, "easeOutQuart")
-                    .wait(1000)
-                    .moveBy(0, -300, 2000)
+                    .wait(60)
+                    .moveBy(0, -300, 120)
                     .call(function(){this.remove();}.bind(this));
                 break;
             case 2:
