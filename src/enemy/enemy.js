@@ -43,6 +43,7 @@ phina.define("pbr.Enemy", {
 
         //基本情報
         data: null,
+        player: null,
 
         //前フレーム座標
         beforeX: 0,
@@ -151,6 +152,7 @@ phina.define("pbr.Enemy", {
 
         //パラメータセットアップ
         this.parentScene = app.currentScene;
+        this.player = this.parentScene.player;
         this.setup(param);
 
         //当り判定設定
@@ -208,7 +210,7 @@ phina.define("pbr.Enemy", {
         }
 
         //自機との当り判定チェック
-        var player = this.parentScene.player;
+        var player = this.player;
         if (this.isCollision && !this.isGround && player.isCollision && this.isHitElement(player)) {
             player.damage();
         }
@@ -438,7 +440,7 @@ phina.define("pbr.Enemy", {
 
     //指定ターゲットの方向を向く
     lookAt: function(target) {
-        target = target || this.parentScene.player;
+        target = target || this.player;
 
         //ターゲットの方向を向く
         var ax = this.x - target.x;
@@ -450,7 +452,7 @@ phina.define("pbr.Enemy", {
 
     //指定ターゲットの方向に進む
     moveTo: function(target, speed, look) {
-        target = target || this.parentScene.player;
+        target = target || this.player;
         speed = speed || 5;
 
         //ターゲットの方向を計算
