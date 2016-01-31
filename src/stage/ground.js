@@ -10,21 +10,44 @@ phina.define("pbr.Ground", {
     layer: LAYER_BACKGROUND,    //所属レイヤー
 
     _member: {
+        map: null,
         belt: false,    //繰り返し地形フラグ
-
-        deltaX : 0,        
-        deltaY : 0,        
 
         direction: 0,
         speed: 1,
+
+        deltaX : 0,        
+        deltaY : 0,        
     },
 
-    init: function() {
+    init: function(option) {
         this.superInit();
         this.$safe(this._member);
+        option = (option || {}).$safe({
+            asset: null,
+            belt: false,
+        });
+        this.belt = option.belt;
+
         this.mapBase = phina.display.CanvasElement().setPosition(0, 0).addChildTo(this);
         this.tweener.setUpdateType('fps');
         this.mapBase.tweener.setUpdateType('fps');
+
+        if (!this.belt) {
+            this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
+        } else {
+            this.map = [];
+            for (i = 0; i < 2; i++) {
+                this.map[i] = [];
+                for (var r = 0; r < 3; r++) {
+                    this.map[i][r] = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
+                    var w = this.map[i][r].width;
+                    var h = this.map[i][r].height;
+                    this.map[i][r].setPosition(w*r-w, h*-i);
+                }
+            }
+        }
+        this.map = phina.display.Sprite("map1g").addChildTo(this.mapBase);
     },
 
     update: function() {
