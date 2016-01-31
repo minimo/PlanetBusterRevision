@@ -48,32 +48,32 @@ pbr.enemyData['ThorHammer'] = {
         this.isGround = true;
         this.stopDanmaku();
 
+        //初速
+        this.vy = 5;
+
         this.turret = pbr.Enemy("ThorHammerTurret").addChildTo(this);
     },
 
     algorithm: function() {
         if (this.phase == 0) {
-            this.y -= 8;
             if (this.y < -SC_H*0.5) {
                 this.phase++;
+                this.vy = -5;
                 this.isCollision = true;
-                this.vy = 3;
                 this.tweener.clear()
-                    .to({vy: 0}, 120)
+                    .to({vy: 0}, 150)
                     .call(function(){
                         this.phase++;
                         this.resumeDanmaku();
                     }.bind(this));
-
             }
         }
         if (this.phase == 1) {
-            this.y -= this.parentScene.ground.deltaY;
-            this.y += this.vy;
         }
         if (this.phase == 2) {
-            this.y -= this.parentScene.ground.deltaY;
         }
+        this.y -= this.vy;
+        this.y -= this.parentScene.ground.deltaY;
     },
 };
 

@@ -19,17 +19,10 @@ phina.define("pbr.Stage1", {
             app.playBGM("stage1", true);
         });
         this.add(60, function(app) {
-            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:2.0}, 300, "easeInOutCubic");
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
         });
 
         this.add( 120, "ToyBox-p-right");
-        this.add( 180, "ThorHammer", {boss: true});
-        this.add( 90, function(app) {
-            this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
-            this.player.isAfterburner = true;
-        });
-
-        this.add( 600, function() {});
 
         //Stage data
         this.add( 180, "Hornet1-left");
@@ -59,6 +52,15 @@ phina.define("pbr.Stage1", {
         this.add( 120, "Hornet2-center");
 
         this.add( 120, "ToyBox-p-right");
+
+/*
+        this.add( 180, "ThorHammer", {boss: true});
+        this.add( 120, function(app) {
+            this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
+            this.player.isAfterburner = true;
+        });
+        this.add( 600, function() {});
+*/
     },
 });
 
