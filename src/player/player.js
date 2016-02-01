@@ -138,7 +138,7 @@ phina.define("pbr.Player", {
             var layer = this.parentScene.effectLayerUpper;
             layer.enterAfterburner({
                 position: {x: this.x, y: this.y+16},
-                velocity: {x: ground.deltaX, y: ground.deltaY/2, decay: 0.99},
+                velocity: {x: 0, y: ground.deltaY, decay: 0.99},
                 alpha: 0.7,
                 blendMode: "lighter",
             });
