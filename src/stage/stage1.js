@@ -17,9 +17,11 @@ phina.define("pbr.Stage1", {
         this.add(1, function(app) {
             this.ground.tweener.clear().to({scaleX:0.2, scaleY:0.2, speed:1.0, alpha:1}, 1, "easeInOutQuad");
             app.playBGM("stage1", true);
+            this.player.isAfterburner = true;
         });
         this.add(60, function(app) {
             this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
+            this.player.isAfterburner = false;
         });
 
         this.add( 120, "ToyBox-p-right");
@@ -68,12 +70,8 @@ phina.define("pbr.Stage1", {
 phina.define("pbr.Stage1Ground", {
     superClass: "pbr.Ground",
 
-    init: function() {
-        this.superInit();
-        this.position.x = SC_W/2;
-        this.position.y = SC_H/2;
-
-        this.map = phina.display.Sprite("map1g").addChildTo(this.mapBase);
+    init: function(option) {
+        this.superInit(option);
     },
 });
 
