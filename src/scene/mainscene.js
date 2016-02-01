@@ -159,8 +159,7 @@ phina.define("pbr.MainScene", {
         switch (this.stageId) {
             case 1:
                 this.stage = pbr.Stage1(this, this.player);
-                this.ground = pbr.Ground({asset: "map1g", belt: false}).addChildTo(this);
-//                this.ground = pbr.Stage1Ground().setPosition(0, 0).addChildTo(this);
+                this.ground = pbr.Stage1Ground({asset: "map1g", belt: true}).addChildTo(this);
                 break;
             case 2:
                 this.stage = pbr.Stage1(this, this.player);
