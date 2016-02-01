@@ -27,7 +27,11 @@ phina.define("pbr.Ground", {
             asset: null,
             belt: false,
         });
+        this.asset = option.asset;
         this.belt = option.belt;
+
+        this.position.x = SC_W/2;
+        this.position.y = SC_H/2;
 
         this.mapBase = phina.display.CanvasElement().setPosition(0, 0).addChildTo(this);
         this.tweener.setUpdateType('fps');
