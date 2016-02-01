@@ -33,7 +33,7 @@ phina.define("pbr.Ground", {
         this.position.x = SC_W/2;
         this.position.y = SC_H/2;
 
-        this.mapBase = phina.display.CanvasElement().setPosition(0, 0).addChildTo(this);
+        this.mapBase = phina.display.CanvasElement().setPosition(-SC_W/2, 0).addChildTo(this);
         this.tweener.setUpdateType('fps');
         this.mapBase.tweener.setUpdateType('fps');
 
@@ -41,17 +41,20 @@ phina.define("pbr.Ground", {
             this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
         } else {
             this.map = [];
-            for (i = 0; i < 2; i++) {
-                this.map[i] = [];
-                for (var r = 0; r < 3; r++) {
-                    this.map[i][r] = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
-                    var w = this.map[i][r].width;
-                    var h = this.map[i][r].height;
-                    this.map[i][r].setPosition(w*r-w, h*-i);
+            for (var x = 0; x < 3; x++) {
+                this.map[x] = [];
+                for (var y = 0; y < 2; y++) {
+                    this.map[x][y] = phina.display.Sprite(this.asset).addChildTo(this.mapBase).setOrigin(0, 0);
+                    var w = this.map[x][y].width;
+                    var h = this.map[x][y].height;
+                    this.map[x][y].mapX = x;
+                    this.map[x][y].mapY = y;
+                    this.map[x][y].setPosition(w*x-w, h*-y);
                 }
             }
+            this.mapW = this.map[0][0].width;
+            this.mapH = this.map[0][0].height;
         }
-        this.map = phina.display.Sprite("map1g").addChildTo(this.mapBase);
     },
 
     update: function() {
@@ -61,6 +64,10 @@ phina.define("pbr.Ground", {
 
         this.mapBase.x += this.deltaX;
         this.mapBase.y += this.deltaY;
+
+        //左端と右端の座標特定
+        for (var i = 0; i < 3; i++){
+        }
     },
 
     addLayer: function(name) {
