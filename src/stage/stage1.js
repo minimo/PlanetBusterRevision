@@ -42,12 +42,20 @@ phina.define("pbr.Stage1", {
         this.add(  20, "Hornet1-right");
         this.add( 120, "Hornet1-center");
 
+        this.add(120, function(app) {
+            this.ground.tweener.clear().to({scaleX:0.2, scaleY:0.2, speed:3.0}, 600, "easeInOutCubic");
+        });
+
         this.add(  90, "Hornet2-left");
         this.add( 120, "Hornet2-right");
         this.add( 120, "Hornet2-center");
 
         this.add(  30, "BigWing-left");
         this.add( 180, "BigWing-right");
+
+        this.add(120, function(app) {
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:1.0}, 600, "easeInOutCubic");
+        });
 
         this.add( 120, "Hornet2-left");
         this.add(  20, "Hornet2-right");
