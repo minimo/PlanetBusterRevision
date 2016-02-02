@@ -26,14 +26,18 @@ phina.define("pbr.Ground", {
         option = (option || {}).$safe({
             asset: null,
             belt: false,
+            beltW: 3,
+            beltH: 2,
         });
         this.asset = option.asset;
         this.belt = option.belt;
+        this.beltW = option.beltW;
+        this.beltH = option.beltH;
 
         this.position.x = SC_W/2;
         this.position.y = SC_H/2;
 
-        this.mapBase = phina.display.CanvasElement().setPosition(-SC_W/2, 0).addChildTo(this);
+        this.mapBase = phina.display.DisplayElement().setPosition(SC_W/2, SC_H/2).addChildTo(this);
         this.tweener.setUpdateType('fps');
         this.mapBase.tweener.setUpdateType('fps');
 
@@ -41,23 +45,26 @@ phina.define("pbr.Ground", {
             this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
         } else {
             this.map = [];
-            for (var x = 0; x < 3; x++) {
+            for (var x = 0; x < this.beltW; x++) {
                 this.map[x] = [];
-                for (var y = 0; y < 2; y++) {
+                for (var y = 0; y < this.beltH; y++) {
                     this.map[x][y] = phina.display.Sprite(this.asset).addChildTo(this.mapBase).setOrigin(0, 0);
                     var w = this.map[x][y].width;
                     var h = this.map[x][y].height;
+                    var offset = (this.beltW*w)/2;
                     this.map[x][y].mapX = x;
                     this.map[x][y].mapY = y;
-                    this.map[x][y].setPosition(w*x-w, h*-y);
+                    this.map[x][y].setPosition(w*x-offset, h*-(y+1));
                 }
             }
             this.mapW = this.map[0][0].width;
             this.mapH = this.map[0][0].height;
         }
+
+        this.on("enterframe", this.defaultEnterframe);
     },
 
-    update: function() {
+    defaultEnterframe: function() {
         var rad = (this.direction+90)*toRad;
         this.deltaX = Math.cos(rad)*this.speed;
         this.deltaY = Math.sin(rad)*this.speed;
