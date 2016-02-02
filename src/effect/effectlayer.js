@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.EffectLayer", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     //エフェクト投入時デフォルトオプション
     defaultOption: {

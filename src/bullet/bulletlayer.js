@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.BulletLayer", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     _member: {
         max: 256,

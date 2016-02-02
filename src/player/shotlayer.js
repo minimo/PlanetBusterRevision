@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.ShotLayer", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     _member: {
         max: 64,

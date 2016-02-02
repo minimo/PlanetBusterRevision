@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.Bullet", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
     layer: LAYER_BULLET,
 
     _member: {

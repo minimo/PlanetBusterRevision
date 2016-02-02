@@ -6,7 +6,7 @@ phina.bulletml = phina.bulletml || {};
 (function() {
 
 phina.define("phina.bulletml.Bullet", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     init: function(runner) {
         this.superInit();

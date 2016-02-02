@@ -8,7 +8,7 @@
 
 phina.namespace(function() {
     phina.define('pbr.SplashScene', {
-        superClass: 'phina.display.CanvasScene',
+        superClass: 'phina.display.DisplayScene',
 
         init: function() {
             this.superInit({width: SC_W, height: SC_H});

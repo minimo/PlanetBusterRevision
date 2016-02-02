@@ -10,7 +10,7 @@ phina.extension = phina.extension || {};
 
 //通常のボタン
 phina.define("phina.extension.Button", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     //描画スタイル設定
     DEFAULT_STYLE: {
@@ -251,7 +251,7 @@ phina.define("phina.extension.RoundButton", {
 
 //トグルボタン
 phina.define("phina.extension.ToggleButton", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     //描画スタイル設定
     DEFAULT_STYLE: {
@@ -511,7 +511,7 @@ phina.extension.ToggleButton.prototype.accessor("toggleON", {
 
 //スライドボタン
 phina.define("phina.extension.SlideButton", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     //描画スタイル設定
     DEFAULT_STYLE: {

@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.MainScene", {
-    superClass: "phina.display.CanvasScene",
+    superClass: "phina.display.DisplayScene",
 
     _member: {
         score: 0,

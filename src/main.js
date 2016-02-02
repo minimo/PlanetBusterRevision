@@ -71,7 +71,7 @@ window.onload = function() {
 };
 
 //エレメント同士の接触判定
-phina.display.CanvasElement.prototype.isHitElement = function(elm) {
+phina.display.DisplayElement.prototype.isHitElement = function(elm) {
     if (this.boundingType == 'rect') {
         if (elm.boundingType == 'rect') {
             return phina.collision.testRectRect(this, elm);

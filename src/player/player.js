@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.Player", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
     _member: {
         layer: LAYER_PLAYER,
 

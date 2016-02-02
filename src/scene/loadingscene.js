@@ -7,7 +7,7 @@
 
 //アセットロード用シーン
 phina.define("pbr.LoadingScene", {
-    superClass: "phina.display.CanvasScene",
+    superClass: "phina.display.DisplayScene",
 
     init: function(options, assetType) {
         options.assetType = options.assetType || "common";

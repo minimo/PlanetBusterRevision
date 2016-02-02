@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.Ground", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
     layer: LAYER_BACKGROUND,    //所属レイヤー
 
     _member: {

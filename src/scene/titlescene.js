@@ -7,7 +7,7 @@
  */
 
 phina.define("pbr.TitleScene", {
-    superClass: "phina.display.CanvasScene",
+    superClass: "phina.display.DisplayScene",
     
     _member: {
         //ラベル用パラメータ
@@ -77,7 +77,7 @@ phina.define("pbr.TitleScene", {
 
 
 phina.define("pbr.MenuDialog", {
-    superClass: "phina.display.CanvasScene",
+    superClass: "phina.display.DisplayScene",
     
     _member: {
         //ラベル用パラメータ

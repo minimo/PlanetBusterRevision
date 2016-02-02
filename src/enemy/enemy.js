@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.Enemy", {
-    superClass: "phina.display.CanvasElement",
+    superClass: "phina.display.DisplayElement",
 
     _member: {
         layer: LAYER_OBJECT,    //所属レイヤー

@@ -7,7 +7,7 @@
  */
 
 phina.define("pbr.ConfirmDialog", {
-    superClass: phina.app.CanvasScene,
+    superClass: phina.app.DisplayScene,
 
     answer: null,
 
@@ -83,7 +83,7 @@ var DEFALT_ALERTPARAM = {
 }
 
 phina.define("shotgun.AlertDialog", {
-    superClass: phina.app.CanvasScene,
+    superClass: phina.app.DisplayScene,
 
     //ラベル用フォントパラメータ
     labelParam: {fontFamily:"Yasashisa", align: "center", baseline:"middle", outlineWidth:2 },
