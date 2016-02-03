@@ -41,24 +41,8 @@ phina.define("pbr.Ground", {
         this.tweener.setUpdateType('fps');
         this.mapBase.tweener.setUpdateType('fps');
 
-        if (!this.belt) {
-            this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
-        } else {
-            this.map = [];
-            for (var x = 0; x < this.beltW; x++) {
-                this.map[x] = [];
-                for (var y = 0; y < this.beltH; y++) {
-                    this.map[x][y] = phina.display.Sprite(this.asset).addChildTo(this.mapBase).setOrigin(0, 0);
-                    var w = this.map[x][y].width;
-                    var h = this.map[x][y].height;
-                    var offset = (this.beltW*w)/2;
-                    this.map[x][y].mapX = x;
-                    this.map[x][y].mapY = y;
-                    this.map[x][y].setPosition(w*x-offset, h*-(y+1));
-                }
-            }
-            this.mapW = this.map[0][0].width;
-            this.mapH = this.map[0][0].height;
+        if (this.asset) {
+            this.setupMap();
         }
 
         this.on("enterframe", this.defaultEnterframe);
@@ -72,8 +56,38 @@ phina.define("pbr.Ground", {
         this.mapBase.x += this.deltaX;
         this.mapBase.y += this.deltaY;
 
-        //左端と右端の座標特定
-        for (var i = 0; i < 3; i++){
+        if (this.belt) {
+            //現座標特定
+            for (var x = 0; x < this.beltW; x++) {
+                for (var y = 0; y < this.beltH; y++) {
+                }
+            }
+        }
+    },
+
+    setupMap: function() {
+        if (!this.belt) {
+            this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
+            var w = this.map.width;
+            var h = this.map.height;
+            this.map.setPosition(0, 0);
+        } else {
+            this.map = [];
+            for (var x = 0; x < this.beltW; x++) {
+                this.map[x] = [];
+                for (var y = 0; y < this.beltH; y++) {
+                    this.map[x][y] = phina.display.Sprite(this.asset).addChildTo(this.mapBase).setOrigin(0, 0);
+                    var w = this.map[x][y].width;
+                    var h = this.map[x][y].height;
+                    var offsetW = (this.beltW*w)/2;
+                    var offsetH = h/2;
+                    this.map[x][y].mapX = x;
+                    this.map[x][y].mapY = y;
+                    this.map[x][y].setPosition(w*x-offsetW, h*-(y+1)+offsetH);
+                }
+            }
+            this.mapW = this.map[0][0].width;
+            this.mapH = this.map[0][0].height;
         }
     },
 
