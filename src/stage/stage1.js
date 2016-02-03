@@ -78,8 +78,11 @@ phina.define("pbr.Stage1", {
 phina.define("pbr.Stage1Ground", {
     superClass: "pbr.Ground",
 
-    init: function(option) {
-        this.superInit(option);
+    init: function() {
+        this.superInit({
+            asset: "map1g",
+            belt: false
+        });
     },
 });
 
