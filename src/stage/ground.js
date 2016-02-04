@@ -37,7 +37,7 @@ phina.define("pbr.Ground", {
         this.position.x = SC_W/2;
         this.position.y = SC_H/2;
 
-        this.mapBase = phina.display.DisplayElement().setPosition(SC_W/2, SC_H/2).addChildTo(this);
+        this.mapBase = phina.display.DisplayElement().setPosition(0, 0).addChildTo(this);
         this.tweener.setUpdateType('fps');
         this.mapBase.tweener.setUpdateType('fps');
 
@@ -55,19 +55,12 @@ phina.define("pbr.Ground", {
 
         this.mapBase.x += this.deltaX;
         this.mapBase.y += this.deltaY;
-
-        if (this.belt) {
-            //現座標特定
-            for (var x = 0; x < this.beltW; x++) {
-                for (var y = 0; y < this.beltH; y++) {
-                }
-            }
-        }
     },
 
     setupMap: function() {
         if (!this.belt) {
             this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
+            this.map.alpha = 0.5;
             var w = this.map.width;
             var h = this.map.height;
             this.map.setPosition(0, 0);
@@ -76,7 +69,7 @@ phina.define("pbr.Ground", {
             for (var x = 0; x < this.beltW; x++) {
                 this.map[x] = [];
                 for (var y = 0; y < this.beltH; y++) {
-                    this.map[x][y] = phina.display.Sprite(this.asset).addChildTo(this.mapBase).setOrigin(0, 0);
+                    this.map[x][y] = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
                     var w = this.map[x][y].width;
                     var h = this.map[x][y].height;
                     var offsetW = (this.beltW*w)/2;
@@ -119,5 +112,15 @@ phina.define("pbr.Ground", {
             "get": function() { return this.mapBase.y; },
             "set": function(y) { this.mapBase.x = y;}
         },
+/*
+        scaleX: {
+            "get": function() { return this.mapBase.scaleX; },
+            "set": function(x) { this.mapBase.scaleX = x;}
+        },
+        scaleY: {
+            "get": function() { return this.mapBase.scaleY; },
+            "set": function(y) { this.mapBase.scaleY = y;}
+        },
+*/
     }
 });
