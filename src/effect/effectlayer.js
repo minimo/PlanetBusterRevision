@@ -235,4 +235,20 @@ phina.define("pbr.EffectLayer", {
         }));
         return e;
     },
+
+    //スパーク
+    enterSpark: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        var e = this.enter(option.$extend({
+            name: "spark",
+            assetName: "effect",
+            width: 32,
+            height: 32,
+            interval: 4,
+            startIndex: 0,
+            maxIndex: 2,
+            trimming: {x: 0, y: 384, width: 64, height: 32},
+        }));
+        return e;
+    },
 });

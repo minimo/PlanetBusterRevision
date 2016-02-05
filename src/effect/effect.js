@@ -91,6 +91,7 @@ phina.define("pbr.Effect.EffectBase", {
         }
         this.width = option.width;
         this.height = option.height;
+        this.scaleX = this.scaleY = 1.0;
 
         //初期値セット
         this.name = option.name;
