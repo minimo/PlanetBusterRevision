@@ -62,6 +62,7 @@ phina.define("pbr.Effect.EffectBase", {
         velocity: {x: 0, y: 0, decay: 0},
         rotation: 0,
         alpha: 1.0,
+        scale: {x: 1.0, y: 1.0},
         blendMode: "source-over",
     },
 
@@ -91,7 +92,6 @@ phina.define("pbr.Effect.EffectBase", {
         }
         this.width = option.width;
         this.height = option.height;
-        this.scaleX = this.scaleY = 1.0;
 
         //初期値セット
         this.name = option.name;
@@ -117,6 +117,8 @@ phina.define("pbr.Effect.EffectBase", {
         this.setPosition(option.position.x, option.position.y);
         this.setVelocity(option.velocity.x, option.velocity.y, option.velocity.decay);
         this.rotation = option.rotation;
+        this.scaleX = option.scale.x;
+        this.scaleY = option.scale.y;
 
         this.isRemove = false;
 
