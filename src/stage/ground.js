@@ -13,8 +13,9 @@ phina.define("pbr.Ground", {
         map: null,
         belt: false,    //繰り返し地形フラグ
 
-        direction: 0,
-        speed: 1,
+        direction: 0,   //スクロール方向
+        speed: 1,       //スクロール速度
+        altitude: 1,    //高度
 
         deltaX : 0,        
         deltaY : 0,        
