@@ -156,3 +156,37 @@ pbr.Effect.enterDebrisSmall = function(layer, option) {
     }
 }
 
+//ボムエフェクト投入
+pbr.Effect.enterBomb = function(layer, option) {
+    option = (option || {}).$safe(pbr.Effect.defaultOption);
+
+    var x = option.position.x;
+    var y = option.position.y;
+    layer.enterBomb({
+        position: {x: x, y: y},
+        velocity: {x: 0, y: 0, decay: 1},
+    });
+	var rad = 0;
+	for( var i = 0; i < 40; i++ ){
+		var rad2 = rad;
+		var r = 5;
+		var bx = Math.sin(rad2)*i*r;
+		var by = Math.cos(rad2)*i*r;
+		var delay = 10*i;
+        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+		rad2+=1.57;
+		bx = Math.sin(rad2)*i*r;
+		by = Math.cos(rad2)*i*r;
+        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+		rad2+=1.57;
+		bx = Math.sin(rad2)*i*r;
+		by = Math.cos(rad2)*i*r;
+        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+		rad2+=1.57;
+		bx = Math.sin(rad2)*i*r;
+		by = Math.cos(rad2)*i*r;
+        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+		rad+=0.3;
+	}
+}
+

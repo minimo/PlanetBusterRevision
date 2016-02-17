@@ -149,6 +149,9 @@ phina.define("pbr.MainScene", {
         if (app.keyboard.getKey("C")) {
             this.eraseBullet();
         }
+        if (app.keyboard.getKey("B")) {
+            this.enterBomb();
+        }
 
         this.time++;
     },
@@ -234,6 +237,11 @@ phina.define("pbr.MainScene", {
         this.enemyID++;
         this.enemyCount++;
         return pbr.Enemy(name, x, y, this.enemyID-1, param).addChildTo(this);
+    },
+
+    enterBomb: function(x, y) {
+        var upper = this.effectLayerUpper;
+        pbr.Effect.enterBomb(this.effectLayerUpper, {x: x, y: y});
     },
 
     //敵弾一括消去

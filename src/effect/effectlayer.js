@@ -251,4 +251,19 @@ phina.define("pbr.EffectLayer", {
         }));
         return e;
     },
+
+    //ボム
+    enterBomb: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        var e = this.enter(option.$extend({
+            name: "bomb",
+            assetName: "bomb",
+            width: 96,
+            height: 96,
+            interval: 3,
+            startIndex: 0,
+            maxIndex: 16,
+        }));
+        return e;
+    },
 });
