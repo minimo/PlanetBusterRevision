@@ -13,7 +13,9 @@ phina.define("pbr.MainScene", {
         rank: 1,
 
         //ゲーム内情報
+        autoBomb: true,
         bombTime: 0,    //ボム効果継続残りフレーム数
+        bombStock: 2,
 
         //現在ステージＩＤ
         stageId: 1,
@@ -90,11 +92,11 @@ phina.define("pbr.MainScene", {
                     this.shotLayer = this.layers[i];
                     break;
                 case LAYER_EFFECT_UPPER:
-                    this.layers[i] = pbr.EffectLayer({size: 1536}).addChildTo(this.base);
+                    this.layers[i] = pbr.EffectLayer({size: 1024}).addChildTo(this.base);
                     this.effectLayerUpper = this.layers[i];
                     break;
                 case LAYER_EFFECT_LOWER:
-                    this.layers[i] = pbr.EffectLayer({size: 256}).addChildTo(this.base);
+                    this.layers[i] = pbr.EffectLayer({size: 1024}).addChildTo(this.base);
                     this.effectLayerLower = this.layers[i];
                     break;
                 default:
@@ -271,10 +273,10 @@ phina.define("pbr.MainScene", {
         this.bombTime = 120;
 
         this.eraseBullet();
-        var upper = this.effectLayerUpper;
+        var layer = this.effectLayerLower;
         var x = this.player.x;
         var y = this.player.y;
-        pbr.Effect.enterBomb(this.effectLayerUpper, {position: {x: x, y: y}});
+        pbr.Effect.enterBomb(layer, {position: {x: x, y: y}});
 
         this.addEnemyDamage(1000);
     },

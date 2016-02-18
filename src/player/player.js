@@ -152,6 +152,10 @@ phina.define("pbr.Player", {
 
     //被弾処理
     damage: function() {
+        if (this.parentScene.autoBomb && this.parentScene.bombStock > 0) {
+            this.parentScene.enterBomb();
+            return;
+        }
         var layer = this.parentScene.effectLayerUpper;
         layer.enterExplodePlayer({position: {x: this.x, y: this.y}});
     },
