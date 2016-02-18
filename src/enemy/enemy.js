@@ -311,6 +311,8 @@ phina.define("pbr.Enemy", {
 
     //通常破壊パターン
     defaultDead: function() {
+        this.parentScene.score += this.point;
+
         var ground = this.parentScene.ground;
         this.isCollision = false;
         this.isDead = true;

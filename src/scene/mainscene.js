@@ -10,6 +10,7 @@ phina.define("pbr.MainScene", {
 
     _member: {
         score: 0,
+        rank: 1,
 
         //現在ステージＩＤ
         stageId: 1,
@@ -116,10 +117,25 @@ phina.define("pbr.MainScene", {
         var that = this;
         this.scoreLabel = phina.display.Label({text:"SCORE:"}.$safe(this.scorelabelParam))
             .addChildTo(this)
-            .setPosition(8, 32);
+            .setPosition(10, 10);
+        this.scoreLabel.score = 0;
         this.scoreLabel.update = function() {
-            this.text = "SCORE "+that.score;
+            if (this.score < that.score) {
+                var s = ~~((that.score-this.score)/5);
+                if (s < 3) s=3;
+                this.score += s;
+                if (this.score > that.score)this.score = that.score;
+            }
+            this.text = "SCORE "+this.score;
         }
+
+        //ランク表示
+        this.rankLabel = phina.display.Label({text:"RANK:"}.$safe(this.scorelabelParam))
+            .addChildTo(this)
+            .setPosition(10, 30);
+        this.rankLabel.update = function() {
+            this.text = "RANK "+that.rank;
+        };
 
         //ステージ初期化
         this.initStage();
