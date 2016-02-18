@@ -165,6 +165,13 @@ pbr.Effect.enterBomb = function(layer, option) {
     layer.enterBomb({
         position: {x: x, y: y},
         velocity: {x: 0, y: 0, decay: 1},
+        scale: {x: 2.0, y: 2.0},
+    });
+    layer.enterBomb({
+        position: {x: x, y: y},
+        velocity: {x: 0, y: 0, decay: 1},
+        scale: {x: 2.0, y: 2.0},
+        delay: 30,
     });
 	var rad = 0;
 	for( var i = 0; i < 40; i++ ){
@@ -172,20 +179,20 @@ pbr.Effect.enterBomb = function(layer, option) {
 		var r = 5;
 		var bx = Math.sin(rad2)*i*r;
 		var by = Math.cos(rad2)*i*r;
-		var delay = 10*i;
-        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+		var delay = 2*i;
+        pbr.Effect.enterExplodeSmall(layer, {position: {x: x+bx, y: y+by}, delay: delay});
 		rad2+=1.57;
 		bx = Math.sin(rad2)*i*r;
 		by = Math.cos(rad2)*i*r;
-        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+        pbr.Effect.enterExplodeSmall(layer, {position: {x: x+bx, y: y+by}, delay: delay});
 		rad2+=1.57;
 		bx = Math.sin(rad2)*i*r;
 		by = Math.cos(rad2)*i*r;
-        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+        pbr.Effect.enterExplodeSmall(layer, {position: {x: x+bx, y: y+by}, delay: delay});
 		rad2+=1.57;
 		bx = Math.sin(rad2)*i*r;
 		by = Math.cos(rad2)*i*r;
-        pbr.Effect.enterExplodeSmall(layer, {x: x+bx, y: x+by, delay: delay});
+        pbr.Effect.enterExplodeSmall(layer, {position: {x: x+bx, y: y+by}, delay: delay});
 		rad+=0.3;
 	}
 }

@@ -86,7 +86,7 @@ phina.define("pbr.MainScene", {
                     this.shotLayer = this.layers[i];
                     break;
                 case LAYER_EFFECT_UPPER:
-                    this.layers[i] = pbr.EffectLayer({size: 1024}).addChildTo(this.base);
+                    this.layers[i] = pbr.EffectLayer({size: 1536}).addChildTo(this.base);
                     this.effectLayerUpper = this.layers[i];
                     break;
                 case LAYER_EFFECT_LOWER:
@@ -239,9 +239,13 @@ phina.define("pbr.MainScene", {
         return pbr.Enemy(name, x, y, this.enemyID-1, param).addChildTo(this);
     },
 
-    enterBomb: function(x, y) {
+    //ボム投入
+    enterBomb: function() {
         var upper = this.effectLayerUpper;
-        pbr.Effect.enterBomb(this.effectLayerUpper, {x: x, y: y});
+        var x = this.player.x;
+        var y = this.player.y;
+        pbr.Effect.enterBomb(this.effectLayerUpper, {position: {x: x, y: y}});
+        this.eraseBullet();
     },
 
     //敵弾一括消去
