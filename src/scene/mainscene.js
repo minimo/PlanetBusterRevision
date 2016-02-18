@@ -12,6 +12,9 @@ phina.define("pbr.MainScene", {
         score: 0,
         rank: 1,
 
+        //ゲーム内情報
+        bombTime: 0,    //ボム効果継続残りフレーム数
+
         //現在ステージＩＤ
         stageId: 1,
 
@@ -87,7 +90,7 @@ phina.define("pbr.MainScene", {
                     this.shotLayer = this.layers[i];
                     break;
                 case LAYER_EFFECT_UPPER:
-                    this.layers[i] = pbr.EffectLayer({size: 1024}).addChildTo(this.base);
+                    this.layers[i] = pbr.EffectLayer({size: 1536}).addChildTo(this.base);
                     this.effectLayerUpper = this.layers[i];
                     break;
                 case LAYER_EFFECT_LOWER:
@@ -159,6 +162,13 @@ phina.define("pbr.MainScene", {
                     this.bossBattle = true;
                 }
             }
+        }
+
+        //ボム効果
+        if (this.bombTime > 0) {
+            this.bombTime--;
+            this.eraseBullet();
+            this.addEnemyDamage(100);
         }
 
         var kb = app.keyboard;
@@ -257,11 +267,30 @@ phina.define("pbr.MainScene", {
 
     //ボム投入
     enterBomb: function() {
+        if (this.bombTime > 0) return;
+        this.bombTime = 120;
+
         this.eraseBullet();
         var upper = this.effectLayerUpper;
         var x = this.player.x;
         var y = this.player.y;
         pbr.Effect.enterBomb(this.effectLayerUpper, {position: {x: x, y: y}});
+
+        this.addEnemyDamage(1000);
+    },
+
+    //敵に一律ダメージ付加
+    addEnemyDamage: function(power) {
+        var checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT, LAYER_OBJECT_LOWER];
+
+        //敵との当り判定チェック
+        for (var i = 0; i < 3; i++) {
+            var layer = this.layers[checkLayers[i]];
+            layer.children.each(function(a) {
+                if (a === app.player) return;
+                a.damage(power);
+            }.bind(this));
+        }
     },
 
     //敵弾一括消去

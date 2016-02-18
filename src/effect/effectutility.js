@@ -165,18 +165,18 @@ pbr.Effect.enterBomb = function(layer, option) {
     layer.enterBomb({
         position: {x: x, y: y},
         velocity: {x: 0, y: 0, decay: 1},
-        scale: {x: 2.0, y: 2.0},
+        scale: {x: 3.0, y: 3.0},
     });
     layer.enterBomb({
         position: {x: x, y: y},
         velocity: {x: 0, y: 0, decay: 1},
-        scale: {x: 2.0, y: 2.0},
-        delay: 30,
+        scale: {x: 3.0, y: 3.0},
+        delay: 40,
     });
 	var rad = 0;
 	for( var i = 0; i < 40; i++ ){
 		var rad2 = rad;
-		var r = 5;
+		var r = 7;
 		var bx = Math.sin(rad2)*i*r;
 		var by = Math.cos(rad2)*i*r;
 		var delay = 2*i;
