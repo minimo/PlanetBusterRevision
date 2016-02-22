@@ -152,10 +152,16 @@ phina.define("pbr.Player", {
 
     //被弾処理
     damage: function() {
+        //無敵時間中はスルー
+        if (this.timeMuteki > 0 || this.parentScene.bombTime > 0) return;
+
+        //オートボム発動
         if (this.parentScene.autoBomb && this.parentScene.bombStock > 0) {
             this.parentScene.enterBomb();
             return;
         }
+
+        //被弾エフェクト表示
         var layer = this.parentScene.effectLayerUpper;
         layer.enterExplodePlayer({position: {x: this.x, y: this.y}});
     },

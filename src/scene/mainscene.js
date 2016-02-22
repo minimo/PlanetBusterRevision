@@ -270,7 +270,7 @@ phina.define("pbr.MainScene", {
     //ボム投入
     enterBomb: function() {
         if (this.bombTime > 0) return;
-        this.bombTime = 120;
+        this.bombTime = 90;
 
         this.eraseBullet();
         var layer = this.effectLayerLower;
