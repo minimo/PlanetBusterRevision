@@ -109,7 +109,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(-10)),
+            fire(DM, spd(1), direction(0), offsetX(-32)),
             repeat("$burst + 1", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
@@ -122,7 +122,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top1: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(-10)),
+            fire(DM, spd(1), direction(0), offsetX(32)),
             repeat("$burst + 1", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
@@ -139,10 +139,28 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
-            repeat("$burst + 1", [
-                fire(RS, spdSeq(0), direction( 0, "absolute"), offsetX(-32)),
-                fire(RS, spdSeq(0), direction(10, "absolute"), offsetX(-32)),
-                fire(RS, spdSeq(0), direction(10, "absolute"), offsetX(-32)),
+            repeat(4, [
+                repeat("$burst + 1", [
+                    fire(DM, spd(0.5),  direction(200, "absolute")),
+                    fire(RS, spdSeq(0), direction(  0, "sequence"), offsetX(-32), offsetY(16)),
+                    fire(RS, spdSeq(0), direction( 20, "sequence"), offsetX(-32), offsetY(16)),
+                    fire(RS, spdSeq(0), direction( 20, "sequence"), offsetX(-32), offsetY(16)),
+                ]),
+                repeat("$burst + 1", [
+                    fire(DM, spd(0.5),  direction(160, "absolute")),
+                    fire(RS, spdSeq(0), direction(  0, "sequence"), offsetX(32), offsetY(16)),
+                    fire(RS, spdSeq(0), direction(-20, "sequence"), offsetX(32), offsetY(16)),
+                    fire(RS, spdSeq(0), direction(-20, "sequence"), offsetX(32), offsetY(16)),
+                ]),
+                interval(10),
+            ]),
+            repeat(3, [
+                repeat("$burst + 1", [
+                    fire(DM, spd(0.5),  direction(200, "absolute")),
+                    fire(BS, spdSeq(0), direction(180, "absolute"), offsetX( 16), offsetY(16)),
+                    fire(BS, spdSeq(0), direction(180, "absolute"), offsetX(-16), offsetY(16)),
+                ]),
+                interval(20),
             ]),
             interval(60),
         ]),
