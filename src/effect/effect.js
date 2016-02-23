@@ -122,6 +122,9 @@ phina.define("pbr.Effect.EffectBase", {
 
         this.isRemove = false;
 
+        //Tweenerリセット
+        this.tweener.clear();
+
         return this;
     },
 

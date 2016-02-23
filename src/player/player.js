@@ -20,6 +20,7 @@ phina.define("pbr.Player", {
 
         isCollision: false,     //当り判定有効フラグ
         isAfterburner: false,   //アフターバーナー中
+        isAfterburnerBefore: false,
 
         timeMuteki: 0, //無敵フレーム残り時間
 
@@ -136,7 +137,21 @@ phina.define("pbr.Player", {
         if (this.isAfterburner) {
             var ground = this.parentScene.ground;
             var layer = this.parentScene.effectLayerUpper;
-            layer.enterAfterburner({
+            //着火
+            if (!this.isAfterburnerBefore) {
+                for (var i = 0; i < 50; i++) {
+                    var vx = Math.randint(-5, 5);
+                    var vy = Math.randint(1, 5);
+                    var d =  Math.randfloat(0.9, 0.99);
+                    var e = layer.enterAfterburner({
+                        position: {x: this.x, y: this.y+16},
+                        velocity: {x: vx, y: vy+ground.deltaY, decay: d},
+                        alpha: 0.7,
+                        blendMode: "lighter",
+                    });
+                }
+            }
+            var e = layer.enterAfterburner({
                 position: {x: this.x, y: this.y+16},
                 velocity: {x: 0, y: ground.deltaY, decay: 0.99},
                 alpha: 0.7,
@@ -148,6 +163,7 @@ phina.define("pbr.Player", {
         this.by = this.y;
         this.time++;
         this.timeMuteki--;
+        this.isAfterburnerBefore = this.isAfterburner;
     },
 
     //被弾処理
