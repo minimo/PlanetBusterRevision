@@ -24,6 +24,13 @@ phina.define("pbr.Stage1", {
             this.player.isAfterburner = false;
         });
 
+        this.add(300, function(app) {
+            this.ground.tweener.clear().to({speed:10.0}, 60, "easeInOutCubic");
+        });
+        this.add(30, function(app) {
+            this.player.isAfterburner = true;
+        });
+
         //Stage data
         this.add( 180, "Hornet1-left");
         this.add(  60, "Hornet1-right");
