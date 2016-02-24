@@ -157,6 +157,23 @@ phina.define("pbr.Player", {
                 alpha: 0.7,
                 blendMode: "lighter",
             });
+        } else {
+            //消火
+            if (this.isAfterburnerBefore) {
+                var ground = this.parentScene.ground;
+                var layer = this.parentScene.effectLayerUpper;
+                for (var i = 0; i < 10; i++) {
+                    var vx = Math.randint(-2, 2);
+                    var vy = Math.randint(1, 5);
+                    var d =  Math.randfloat(0.9, 0.99);
+                    var e = layer.enterAfterburner({
+                        position: {x: this.x, y: this.y+16},
+                        velocity: {x: vx, y: vy+ground.deltaY, decay: d},
+                        alpha: 0.7,
+                        blendMode: "lighter",
+                    });
+                }
+            }
         }
 
         this.bx = this.x;
