@@ -394,6 +394,7 @@ phina.define("pbr.Enemy", {
         for (var i = 0; i < 10; i++) {
             var x = rand(0, this.width)-this.width/2;
             var y = rand(0, this.height)-this.height/2;
+            var delay = rand(0, 30);
             pbr.Effect.enterExplodeSmall(layer, {
                 position: {x: x, y: y},
                 velocity: {x: vx, y: vy, decay: 0.95},
