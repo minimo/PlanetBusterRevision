@@ -60,6 +60,8 @@ phina.define("pbr.Enemy", {
         //TweenerをFPSベースにする
         this.tweener.setUpdateType('fps');
 
+        x = x || 0;
+        y = y || 0;
         this.setPosition(x, y);
         this.id = id || -1;
         this.enterParam = param; //EnemyUnitからの投入時パラメータ
