@@ -51,7 +51,11 @@ pbr.enemyData['ThorHammer'] = {
         //初速
         this.vy = 5;
 
-        this.turret = pbr.Enemy("ThorHammerTurret").addChildTo(this);
+        //砲台設置
+        this.turret = pbr.Enemy("ThorHammerTurret")
+            .addChildTo(this)
+            .setPosition(0, 0)
+            .setParentEnemy(this);
     },
 
     algorithm: function() {
@@ -99,7 +103,7 @@ pbr.enemyData['ThorHammerTurret'] = {
     type: ENEMY_BOSS,
 
     //爆発タイプ
-    explodeType: EXPLODE_MBOSS,
+    explodeType: EXPLODE_LARGE,
 
     //機体用テクスチャ情報
     texName: "tex_boss1",
@@ -110,6 +114,9 @@ pbr.enemyData['ThorHammerTurret'] = {
     texTrimWidth: 184,
     texTrimHeight: 184,
     texIndex: 0,
+
+    //特殊設定
+    isCollision: false, //当り判定無効
 
     setup: function(enterParam) {
     },
