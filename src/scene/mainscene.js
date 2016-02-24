@@ -250,7 +250,7 @@ phina.define("pbr.MainScene", {
         var len = unit.length;
         for (var i = 0; i < len; i++) {
             var e = unit[i];
-            var en = pbr.Enemy(e.name,e.x, e.y, this.enemyID, e.param).addChildTo(this);
+            var en = pbr.Enemy(e.name, e.x, e.y, this.enemyID, e.param).addChildTo(this);
             if (en.data.type == ENEMY_BOSS) {
                 this.bossGauge.setTarget(en);
                 this.systemBase.tweener.clear().moveBy(0, 32, 1000);

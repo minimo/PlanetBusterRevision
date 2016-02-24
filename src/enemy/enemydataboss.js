@@ -52,7 +52,7 @@ pbr.enemyData['ThorHammer'] = {
         this.vy = 5;
 
         //砲台設置
-        this.turret = pbr.Enemy("ThorHammerTurret")
+        this.turret = pbr.Enemy("ThorHammerTurret", 0, 0)
             .addChildTo(this)
             .setPosition(0, 0)
             .setParentEnemy(this);
@@ -84,7 +84,7 @@ pbr.enemyData['ThorHammer'] = {
 //砲台
 pbr.enemyData['ThorHammerTurret'] = {
     //使用弾幕パターン
-    bulletPattern: "ThorHammerTurret",
+    danmakuName: "ThorHammerTurret",
 
     //当り判定サイズ
     width:  64,
