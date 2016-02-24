@@ -319,6 +319,9 @@ phina.define("pbr.Enemy", {
         this.tweener.clear();
         this.stopDanmaku();
 
+        //爆発無しの場合以下処理は無し
+        if (this.data.explodeType == EXPLODE_NOTHING) return;
+
         var upper = this.parentScene.effectLayerUpper;
         var lower = this.parentScene.effectLayerLower;
 
