@@ -279,6 +279,7 @@ phina.define("pbr.MainScene", {
         pbr.Effect.enterBomb(layer, {position: {x: x, y: y}});
 
         this.addEnemyDamage(1000);
+        app.playSE("bomb");
     },
 
     //敵に一律ダメージ付加

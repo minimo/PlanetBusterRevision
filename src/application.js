@@ -16,17 +16,18 @@ phina.define("pbr.Application", {
         assets: {
             "preload": {
                 sound: {
-                    "stage1":   "assets/sounds/expsy.mp3",
+                    "stage1":        "assets/sounds/expsy.mp3",
 
-                    "warning":  "assets/sounds/bgm_warning.mp3",
+                    "warning":       "assets/sounds/bgm_warning.mp3",
                     "powerup":       "assets/sounds/ta_ta_suraido01.mp3",
                     "explodeSmall":  "assets/sounds/sen_ge_taihou03.mp3", 
                     "explodeLarge":  "assets/sounds/sen_ge_hasai01.mp3", 
                     "explodePlayer": "assets/sounds/ta_ta_zuban_d01.mp3", 
+                    "bomb":          "assets/sounds/bomb.mp3",
                 },
                 font: {
                     "UbuntuMono":   "fonts/UbuntuMono-Bold.ttf",
-                    "Orbitron": "fonts/Orbitron-Regular.ttf",
+                    "Orbitron":     "fonts/Orbitron-Regular.ttf",
                 }
             },
             "common": {
