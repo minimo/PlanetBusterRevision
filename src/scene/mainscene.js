@@ -80,6 +80,7 @@ phina.define("pbr.MainScene", {
 
         //レイヤー準備
         this.base = phina.display.Layer().addChildTo(this).setPosition(SC_OFFSET_X, 0);
+        this.base.renderChildBySelf = false;
         this.layers = [];
         for (var i = 0; i < LAYER_SYSTEM+1; i++) {
             switch (i) {
@@ -101,6 +102,8 @@ phina.define("pbr.MainScene", {
                     break;
                 default:
                     this.layers[i] = phina.display.Layer().addChildTo(this.base);
+                    this.layers[i].renderChildBySelf = false;
+
             }
             this.layers[i].parentScene = this;
         }
@@ -147,9 +150,8 @@ phina.define("pbr.MainScene", {
 
         //目隠し
         this.mask = phina.display.RectangleShape(param)
-            .addChildTo(this)
+//            .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
-        this.mask.alpha = 0;
     },
     
     update: function(app) {
