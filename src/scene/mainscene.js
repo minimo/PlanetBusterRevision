@@ -79,8 +79,7 @@ phina.define("pbr.MainScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
 
         //レイヤー準備
-        this.base = phina.display.Layer().addChildTo(this).setPosition(SC_OFFSET_X, 0);
-        this.base.renderChildBySelf = false;
+        this.base = phina.display.DisplayElement().addChildTo(this).setPosition(SC_OFFSET_X, 0);
         this.layers = [];
         for (var i = 0; i < LAYER_SYSTEM+1; i++) {
             switch (i) {
@@ -101,9 +100,7 @@ phina.define("pbr.MainScene", {
                     this.effectLayerLower = this.layers[i];
                     break;
                 default:
-                    this.layers[i] = phina.display.Layer().addChildTo(this.base);
-                    this.layers[i].renderChildBySelf = false;
-
+                    this.layers[i] = phina.display.DisplayElement().addChildTo(this.base);
             }
             this.layers[i].parentScene = this;
         }
