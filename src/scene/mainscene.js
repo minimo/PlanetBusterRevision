@@ -77,6 +77,8 @@ phina.define("pbr.MainScene", {
         this.bg = phina.display.RectangleShape(param)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
+        this.bg.tweener.setUpdateType('fps');
+
 
         //レイヤー準備
         this.base = phina.display.DisplayElement().addChildTo(this).setPosition(SC_OFFSET_X, 0);
@@ -147,8 +149,10 @@ phina.define("pbr.MainScene", {
 
         //目隠し
         this.mask = phina.display.RectangleShape(param)
-//            .addChildTo(this)
+            .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
+        this.mask.tweener.setUpdateType('fps');
+        this.mask.tweener.clear().fadeOut(20);
     },
     
     update: function(app) {
