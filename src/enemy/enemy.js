@@ -295,6 +295,7 @@ phina.define("pbr.Enemy", {
                 delay: 0,
             });
         }
+        return this;
     },
 
     //色を赤or白くする
@@ -380,6 +381,7 @@ phina.define("pbr.Enemy", {
                     this.remove();
                 }.bind(this));
         }
+        return this;
     },
 
     defaultDeadBoss: function() {
@@ -413,6 +415,7 @@ phina.define("pbr.Enemy", {
 
         this.remove();
         this.parentScene.bossBattle = false;
+        return this;
     },
 
     //BulletML起動
@@ -421,6 +424,7 @@ phina.define("pbr.Enemy", {
         this.runner.onNotify = function(eventType, event) {
             this.flare("bullet" + eventType, event);
         }.bind(this);
+        return this;
     },
 
     //BulletML停止
@@ -428,6 +432,7 @@ phina.define("pbr.Enemy", {
         if (this.runner) {
             this.runner.stop = true;
         }
+        return this;
     },
 
     //BulletML再開
@@ -435,11 +440,13 @@ phina.define("pbr.Enemy", {
         if (this.runner) {
             this.runner.stop = false;
         }
+        return this;
     },
 
     //親機のセット
     setParentEnemy: function(parent) {
         this.parentEnemy = parent;
+        return this;
     },
 
     //子機が破壊された場合に呼ばれるコールバック
@@ -456,6 +463,7 @@ phina.define("pbr.Enemy", {
         var rad = Math.atan2(ay, ax);
         var deg = ~~(rad * toDeg);
         this.rotation = deg + 90;
+        return this;
     },
 
     //指定ターゲットの方向に進む
@@ -475,9 +483,11 @@ phina.define("pbr.Enemy", {
         this.vy = Math.sin(rad+Math.PI)*speed;
         this.x += this.vx;
         this.y += this.vy;
+        return this;
     },
 
     release: function() {
         this.removeChildren();
+        return this;
     },
 });
