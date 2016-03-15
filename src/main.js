@@ -98,3 +98,15 @@ phina.app.Element.prototype.removeChildren = function(beginIndex) {
     }
     this.children = [];
 }
+
+//ターゲット方向を向く
+phina.display.DisplayElement.prototype.lookAt = function(target) {
+    target = target || {x: 0, y: 0};
+
+    var ax = this.x - target.x;
+    var ay = this.y - target.y;
+    var rad = Math.atan2(ay, ax);
+    var deg = ~~(rad * toDeg);
+    this.rotation = deg + 90;
+    return this;
+},
