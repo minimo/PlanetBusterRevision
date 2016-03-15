@@ -105,7 +105,7 @@ phina.define("pbr.Enemy", {
             this.body = phina.display.Sprite(d.texName, d.texWidth, d.texHeight).addChildTo(this);
 
             this.texTrimX = d.texTrimX || 0;
-            this.texTrimY = d.texTrimX || 0;
+            this.texTrimY = d.texTrimY || 0;
             this.texTrimWidth = d.texTrimWidth || this.body.image.width;
             this.texTrimHeight = d.texTrimHeight || this.body.image.height;
 
