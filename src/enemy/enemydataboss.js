@@ -50,12 +50,14 @@ pbr.enemyData['ThorHammer'] = {
 
         //初速
         this.vy = 5;
+    },
 
+    epuipment: function() {
         //砲台設置
         this.turret = pbr.Enemy("ThorHammerTurret")
-            .addChildTo(this)
+            .addChildTo(this.parentScene)
             .setParentEnemy(this)
-            .setPosition(0, -40);
+            .setPosition(0, 0);
     },
 
     algorithm: function() {
@@ -121,10 +123,9 @@ pbr.enemyData['ThorHammerTurret'] = {
     },
 
     algorithm: function() {
-        this.lookAt({
-            x: this.player.x-this.parentEnemy.x,
-            y: this.player.y-this.parentEnemy.y,
-        });
+        this.x = this.parentEnemy.x;
+        this.y = this.parentEnemy.y-40;
+        this.lookAt();
     },
 };
 

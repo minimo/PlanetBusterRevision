@@ -86,6 +86,7 @@ phina.define("pbr.Enemy", {
         this.point = d.point || 0;
 
         this.setup = d.setup || this.setup;
+        this.equipment = d.epuipment || this.equipment;
         this.algorithm = d.algorithm || this.algorithm;
         this.changeColor = d.changeColor || this.changeColor;
 
@@ -160,6 +161,9 @@ phina.define("pbr.Enemy", {
         //当り判定設定
         this.boundingType = "rect";
 
+        //add時
+        this.on('added', this.equipment);
+
         //remove時
         this.on('removed', this.release);
 
@@ -167,6 +171,9 @@ phina.define("pbr.Enemy", {
     },
 
     setup: function(enterParam) {
+    },
+
+    equipment: function(enterParam) {
     },
 
     update: function(app) {
