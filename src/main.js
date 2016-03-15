@@ -109,4 +109,4 @@ phina.display.DisplayElement.prototype.lookAt = function(target) {
     var deg = ~~(rad * toDeg);
     this.rotation = deg + 90;
     return this;
-},
+}
