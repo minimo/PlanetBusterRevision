@@ -208,9 +208,9 @@ pbr.danmaku.ThorHammerTurret = new bulletml.Root({
         repeat(Infinity, [
             fire(DM, spd(1), direction(-15)),
             repeat("$burst + 2", [
-                fire(BS, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(32)),
-                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(32)),
-                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(32)),
+                fire(BS, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
+                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
+                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
                 fire(DM, spdSeq(0.05), direction(-30, "sequence")),
                 interval(10),
             ]),

@@ -53,8 +53,9 @@ pbr.enemyData['ThorHammer'] = {
 
         //砲台設置
         this.turret = pbr.Enemy("ThorHammerTurret")
-            .addChildTo(this.parentScene)
-            .setParentEnemy(this);
+            .addChildTo(this)
+            .setParentEnemy(this)
+            .setPosition(0, -40);
     },
 
     algorithm: function() {
@@ -93,7 +94,7 @@ pbr.enemyData['ThorHammerTurret'] = {
     def: 500,
 
     //得点
-    point: 10000,
+    point: 0,
 
     //表示レイヤー番号
     layer: LAYER_OBJECT_LOWER,
@@ -106,30 +107,24 @@ pbr.enemyData['ThorHammerTurret'] = {
 
     //機体用テクスチャ情報
     texName: "tex_boss1",
-    texWidth: 96,
-    texHeight: 192,
+    texWidth: 32,
+    texHeight: 32,
+    texTrimX: 416,
+    texTrimY: 128,
+    texTrimWidth: 32,
+    texTrimHeight: 32,
     texIndex: 0,
-/*
-    texName: "tex_boss1",
-    texWidth: 184,
-    texHeight: 184,
-    texTrimX: 192,
-    texTrimY: 0,
-    texTrimWidth: 184,
-    texTrimHeight: 184,
-    texIndex: 0,
-*/
 
     setup: function(enterParam) {
         this.isCollision = false;
-        this.stopDanmaku();
+//        this.stopDanmaku();
     },
 
     algorithm: function() {
-        this.x = this.parentEnemy.x;
-        this.y = this.parentEnemy.y;
-
-        this.lookAt();
+        this.lookAt({
+            x: this.player.x-this.parentEnemy.x,
+            y: this.player.y-this.parentEnemy.y,
+        });
     },
 };
 
