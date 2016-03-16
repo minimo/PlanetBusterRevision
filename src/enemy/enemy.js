@@ -78,9 +78,6 @@ phina.define("pbr.Enemy", {
 
         //基本仕様コピー
         this.type = d.type || ENEMY_SMALL;
-        if (this.type == ENEMY_MBOSS
-            || this.type == ENEMY_BOSS
-            || this.type == ENEMY_BOSS_EQUIP) this.isBoss = true;
         this.def = this.defMax = d.def;
         this.width = d.width || 32;
         this.height = d.height || 32;
@@ -148,12 +145,14 @@ phina.define("pbr.Enemy", {
         this.isDead      = d.isDead      || this.isDead;
         this.isSelfCrash = d.isSelfCrash || this.isSelfCrash;
         this.isMuteki    = d.isMuteki    || this.isMuteki
-        this.isBoss      = d.isBoss      || this.isBoss;
         this.isOnScreen  = d.isOnScreen  || this.isOnScreen;
         this.isGround    = d.isGround    || this.isGround;
         this.isEnemy     = d.isEnemy     || this.isEnemy;
         this.isAttack    = d.isAttack    || this.isAttack;
         this.isCrashDown = d.isCrashDown || this.isCrashDown;
+        if (this.type == ENEMY_MBOSS
+            || this.type == ENEMY_BOSS
+            || this.type == ENEMY_BOSS_EQUIP) this.isBoss = true;
 
         //パラメータセットアップ
         this.parentScene = app.currentScene;
