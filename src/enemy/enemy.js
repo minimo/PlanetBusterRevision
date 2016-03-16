@@ -255,15 +255,13 @@ phina.define("pbr.Enemy", {
         this.def -= power;
         if (force) this.def = -1;
         if (this.def < 1) {
-            //破壊パターン投入
+            //ボスの場合はステージクリアを親シーンに通知
             if (this.data.type == ENEMY_BOSS) {
-                this.deadBoss();
-                //ボスの場合はステージクリアを親シーンに通知
                 this.parentScene.stageClear = true;
-            } else {
-                this.dead();
             }
-            this.parentScene.enemyKill++;
+
+            //破壊パターン投入
+            this.dead();
 
             //親機に破壊を通知
             if (this.parentEnemy) this.parentEnemy.deadChild(this);
@@ -271,6 +269,7 @@ phina.define("pbr.Enemy", {
             //スコア加算
             if (!this.isSelfCrash) app.score += this.data.point;
 
+            this.parentScene.enemyKill++;
             return true;
         }
 
