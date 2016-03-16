@@ -80,7 +80,7 @@ phina.define("pbr.Enemy", {
         this.type = d.type || ENEMY_SMALL;
         if (this.type == ENEMY_MBOSS
             || this.type == ENEMY_BOSS
-            || this.type == ENEmY_BOSS_EQUIP) this.isBoss = true;
+            || this.type == ENEMY_BOSS_EQUIP) this.isBoss = true;
         this.def = this.defMax = d.def;
         this.width = d.width || 32;
         this.height = d.height || 32;
