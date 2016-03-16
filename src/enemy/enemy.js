@@ -78,7 +78,9 @@ phina.define("pbr.Enemy", {
 
         //基本仕様コピー
         this.type = d.type || ENEMY_SMALL;
-        if (this.type == ENEMY_MBOSS || this.type == ENEMY_BOSS) this.isBoss = true;
+        if (this.type == ENEMY_MBOSS
+            || this.type == ENEMY_BOSS
+            || this.type == ENEmY_BOSS_EQUIP) this.isBoss = true;
         this.def = this.defMax = d.def;
         this.width = d.width || 32;
         this.height = d.height || 32;

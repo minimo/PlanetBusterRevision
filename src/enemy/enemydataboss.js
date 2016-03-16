@@ -45,6 +45,7 @@ pbr.enemyData['ThorHammer'] = {
     setup: function(enterParam) {
         this.phase = 0;
         this.isCollision = false;
+        this.isMuteki = true;
         this.isGround = true;
         this.stopDanmaku();
 
@@ -66,6 +67,7 @@ pbr.enemyData['ThorHammer'] = {
                 this.phase++;
                 this.vy = -5;
                 this.isCollision = true;
+                this.isMuteki = false;
                 this.tweener.clear()
                     .to({vy: 0}, 150)
                     .call(function(){
@@ -75,6 +77,8 @@ pbr.enemyData['ThorHammer'] = {
             }
         }
         if (this.phase == 1) {
+            this.turret.flare('notify');
+            this.phase++;
         }
         if (this.phase == 2) {
         }
@@ -102,7 +106,7 @@ pbr.enemyData['ThorHammerTurret'] = {
     layer: LAYER_OBJECT_LOWER,
 
     //敵タイプ
-    type: ENEMY_BOSS,
+    type: ENEMY_MBOSS,
 
     //爆発タイプ
     explodeType: EXPLODE_LARGE,
@@ -119,7 +123,12 @@ pbr.enemyData['ThorHammerTurret'] = {
 
     setup: function(enterParam) {
         this.isCollision = false;
-//        this.stopDanmaku();
+        this.isMuteki = true;
+        this.stopDanmaku();
+
+        this.on('notify', function(e) {
+            this.resumeDanmaku();
+        }.bind(this))
     },
 
     algorithm: function() {
