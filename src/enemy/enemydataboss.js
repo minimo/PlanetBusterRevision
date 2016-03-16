@@ -106,7 +106,7 @@ pbr.enemyData['ThorHammerTurret'] = {
     layer: LAYER_OBJECT_LOWER,
 
     //敵タイプ
-    type: ENEMY_MBOSS,
+    type: ENEMY_BOSS_EQUIP,
 
     //爆発タイプ
     explodeType: EXPLODE_LARGE,
