@@ -256,11 +256,6 @@ phina.define("pbr.Enemy", {
         this.def -= power;
         if (force) this.def = -1;
         if (this.def < 1) {
-            //ボスの場合はステージクリアを親シーンに通知
-            if (this.data.type == ENEMY_BOSS) {
-                this.parentScene.stageClear = true;
-            }
-
             //破壊パターン投入
             this.dead();
 
@@ -270,15 +265,9 @@ phina.define("pbr.Enemy", {
             //スコア加算
             if (!this.isSelfCrash) this.parentScene.score += this.point;
 
-            //破壊時消去インターバル
-            if (this.data.explodeType == EXPLODE_SMALL) {
-                this.remove();
-            } else {
-                this.tweener.clear()
-                    .to({alpha: 0}, 60)
-                    .call(function(){
-                        this.remove();
-                    }.bind(this));
+            //ボスの場合はステージクリアを親シーンに通知
+            if (this.data.type == ENEMY_BOSS) {
+                this.parentScene.stageClear = true;
             }
 
             this.parentScene.enemyKill++;
@@ -332,52 +321,12 @@ phina.define("pbr.Enemy", {
 
     //通常破壊パターン
     defaultDead: function() {
-        var ground = this.parentScene.ground;
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
         this.stopDanmaku();
 
-        //爆発無しの場合以下処理は無し
-        if (this.data.explodeType == EXPLODE_NOTHING) return;
-
-        var upper = this.parentScene.effectLayerUpper;
-        var lower = this.parentScene.effectLayerLower;
-
-        var vx = this.x-this.beforeX+ground.deltaX;
-        var vy = this.y-this.beforeY+ground.deltaY;
-        if (this.data.explodeType == EXPLODE_SMALL) {
-            pbr.Effect.enterExplode(upper, {
-                position: {x: this.x, y: this.y},
-                velocity: {x: vx, y: vy, decay: 0.95},
-                delay: delay,
-            });
-            app.playSE("explodeSmall");
-        }
-        if (this.data.explodeType == EXPLODE_MIDDLE ||
-            this.data.explodeType == EXPLODE_LARGE ) {
-            var num = rand(20, 30)*this.data.explodeType;
-            for (var i = 0; i < num; i++) {
-                var x = this.x+rand(-this.width, this.width);
-                var y = this.y+rand(-this.height, this.height);
-                var delay = rand(0, 30);
-                pbr.Effect.enterExplode(upper, {
-                    position: {x: x, y: y},
-                    velocity: {x: vx, y: vy, decay: 0.95},
-                    delay: delay,
-                });
-            }
-            app.playSE("explodeLarge");
-        }
-        if (this.data.explodeType == EXPLODE_GROUND) {
-            var lower = this.parentScene.effectLayerLower;
-            pbr.Effect.enterExplodeGround(lower, {
-                position: {x: this.x, y: this.y},
-                velocity: {x: vx, y: vy, decay: 0.95},
-                delay: delay,
-            });
-            app.playSE("explodeSmall");
-        }
+        this.explode();        
 
         //弾消し
         if (this.data.type == ENEMY_MIDDLE) {
@@ -386,6 +335,18 @@ phina.define("pbr.Enemy", {
             this.parentScene.eraseBullet();
             this.parentScene.timeVanish = 60;
         }
+
+        //破壊時消去インターバル
+        if (this.data.explodeType == EXPLODE_SMALL) {
+            this.remove();
+        } else {
+            this.tweener.clear()
+                .to({alpha: 0}, 60)
+                .call(function(){
+                    this.remove();
+                }.bind(this));
+        }
+
         return this;
     },
 
@@ -395,33 +356,84 @@ phina.define("pbr.Enemy", {
         this.tweener.clear();
         this.stopDanmaku();
 
-        this.on("enterframe", function() {
-            this.alpha *= 0.9;
-            if (this.alpha < 0.02) this.remove();
-        }.bind(this));
-
-        var layer = this.parentScene.effectLayerUpper;
-        var vx = this.x-this.beforeX;
-        var vy = this.y-this.beforeY;
-        for (var i = 0; i < 10; i++) {
-            var x = rand(0, this.width)-this.width/2;
-            var y = rand(0, this.height)-this.height/2;
-            var delay = rand(0, 30);
-            pbr.Effect.enterExplodeSmall(layer, {
-                position: {x: x, y: y},
-                velocity: {x: vx, y: vy, decay: 0.95},
-                delay: delay,
-            });
-        }
+        this.explode();
         app.playSE("explodeLarge");
 
         //弾消し
         this.parentScene.eraseBullet();
 
-        //ボス戦闘終了
-        this.parentScene.bossBattle = false;
+        //破壊時消去インターバル
+        this.tweener.clear()
+            .moveBy(0, 120, 300)
+            .call(function() {
+                this.explode();
+                app.playSE("explodeLarge");
+            }.bind(this))
+            .to({alpha: 0}, 60)
+            .call(function(){
+                this.remove();
+            }.bind(this));
 
         return this;
+    },
+
+    explode: function() {
+        //爆発無し
+        if (this.data.explodeType == EXPLODE_NOTHING) return;
+
+        var ground = this.parentScene.ground;
+        var upper = this.parentScene.effectLayerUpper;
+        var lower = this.parentScene.effectLayerLower;
+        var vx = this.x-this.beforeX+ground.deltaX;
+        var vy = this.y-this.beforeY+ground.deltaY;
+
+        switch (this.data.explodeType) {
+            case EXPLODE_SMALL:
+                pbr.Effect.enterExplode(upper, {
+                    position: {x: this.x, y: this.y},
+                    velocity: {x: vx, y: vy, decay: 0.95},
+                    delay: delay,
+                });
+                app.playSE("explodeSmall");
+                break;
+            case EXPLODE_MIDDLE:
+            case EXPLODE_LARGE:
+                var num = rand(20, 30)*this.data.explodeType;
+                for (var i = 0; i < num; i++) {
+                    var x = this.x+rand(-this.width, this.width);
+                    var y = this.y+rand(-this.height, this.height);
+                    var delay = rand(0, 30);
+                    pbr.Effect.enterExplode(upper, {
+                        position: {x: x, y: y},
+                        velocity: {x: vx, y: vy, decay: 0.95},
+                        delay: delay,
+                    });
+                }
+                app.playSE("explodeLarge");
+                break;
+            case EXPLODE_GROUND:
+            var lower = this.parentScene.effectLayerLower;
+                pbr.Effect.enterExplodeGround(lower, {
+                    position: {x: this.x, y: this.y},
+                    velocity: {x: vx, y: vy, decay: 0.95},
+                    delay: delay,
+                });
+                app.playSE("explodeSmall");
+                break;
+            case EXPLODE_BOSS:
+                var num = rand(100, 150);
+                for (var i = 0; i < num; i++) {
+                    var x = this.x+rand(-this.width*0.7, this.width*0.7);
+                    var y = this.y+rand(-this.height*0.7, this.height*0.7);
+                    var delay = rand(0, 15);
+                    pbr.Effect.enterExplode(upper, {
+                        position: {x: x, y: y},
+                        velocity: {x: vx, y: vy, decay: 0.95},
+                        delay: delay,
+                    });
+                }
+                break;
+        }
     },
 
     //BulletML起動

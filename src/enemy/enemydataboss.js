@@ -34,7 +34,7 @@ pbr.enemyData['ThorHammer'] = {
     type: ENEMY_MBOSS,
 
     //爆発タイプ
-    explodeType: EXPLODE_MBOSS,
+    explodeType: EXPLODE_BOSS,
 
     //機体用テクスチャ情報
     texName: "tex_boss1",
