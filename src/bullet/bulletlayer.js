@@ -21,6 +21,7 @@ phina.define("pbr.BulletLayer", {
         this.pool = Array.range(0, this.max).map(function() {
             var b = pbr.Bullet();
             b.bulletLayer = self;
+            b.parentScene = app.currentScene;
             return b;
         });
     },
