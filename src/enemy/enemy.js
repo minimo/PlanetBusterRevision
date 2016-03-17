@@ -301,6 +301,7 @@ phina.define("pbr.Enemy", {
                 velocity: {x: ground.deltaX, y: ground.deltaY, decay: 0.9},
                 delay: 0,
             });
+            app.playSE("explodeSmall");
         }
         return this;
     },
@@ -364,10 +365,10 @@ phina.define("pbr.Enemy", {
 
         //破壊時消去インターバル
         this.tweener.clear()
-            .moveBy(0, 120, 300)
+            .moveBy(0, 60, 300)
             .call(function() {
                 this.explode();
-                app.playSE("explodeLarge");
+                app.playSE("explodeBoss");
             }.bind(this))
             .to({alpha: 0}, 60)
             .call(function(){

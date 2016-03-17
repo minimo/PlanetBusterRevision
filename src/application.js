@@ -22,6 +22,7 @@ phina.define("pbr.Application", {
                     "powerup":       "assets/sounds/ta_ta_suraido01.mp3",
                     "explodeSmall":  "assets/sounds/sen_ge_taihou03.mp3", 
                     "explodeLarge":  "assets/sounds/sen_ge_hasai01.mp3", 
+                    "explodeBoss":   "assets/sounds/se_maoudamashii_explosion02.mp3",
                     "explodePlayer": "assets/sounds/ta_ta_zuban_d01.mp3", 
                     "bomb":          "assets/sounds/bomb.mp3",
                 },
