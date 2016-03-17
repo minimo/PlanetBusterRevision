@@ -270,7 +270,6 @@ phina.define("pbr.Enemy", {
             //スコア加算
             if (!this.isSelfCrash) this.parentScene.score += this.point;
 
-
             this.parentScene.enemyKill++;
             return true;
         }

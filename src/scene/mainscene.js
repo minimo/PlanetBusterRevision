@@ -9,10 +9,11 @@ phina.define("pbr.MainScene", {
     superClass: "phina.display.DisplayScene",
 
     _member: {
+        //ゲーム内情報
         score: 0,
         rank: 1,
 
-        //ゲーム内情報
+        //ゲーム内設定
         autoBomb: true,
         bombTime: 0,    //ボム効果継続残りフレーム数
         bombStock: 2,
