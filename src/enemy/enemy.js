@@ -268,7 +268,8 @@ phina.define("pbr.Enemy", {
             if (this.parentEnemy) this.parentEnemy.deadChild(this);
 
             //スコア加算
-            if (!this.isSelfCrash) app.score += this.data.point;
+            if (!this.isSelfCrash) this.parentScene.score += this.point;
+
 
             this.parentScene.enemyKill++;
             return true;
@@ -321,8 +322,6 @@ phina.define("pbr.Enemy", {
 
     //通常破壊パターン
     defaultDead: function() {
-        this.parentScene.score += this.point;
-
         var ground = this.parentScene.ground;
         this.isCollision = false;
         this.isDead = true;
