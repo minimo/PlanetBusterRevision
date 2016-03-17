@@ -5,6 +5,32 @@
  *  This Program is MIT license.
  */
 
+phina.define("pbr.EffectPool", {
+    init: function(size) {
+        this.pool = null;
+        this.max = size || 256;
+
+        var self = this;
+        this.pool = Array.range(0, this.max).map(function() {
+            var e = pbr.Effect.EffectBase();
+            e.effectLayer = self;
+            return e;
+        });
+    },
+
+    //取得
+    shift: function() {
+        var e = this.pool.shift();
+        return e;
+    },
+
+    //戻し
+    push: function(e) {
+        this.pool.push(e);
+        return this;
+    },
+});
+
 phina.define("pbr.EffectLayer", {
     superClass: "phina.display.DisplayElement",
 
@@ -15,18 +41,9 @@ phina.define("pbr.EffectLayer", {
         delay: 0
     },
 
-    init: function(option) {
-        option = (option || {}).$safe({size: 64});
+    init: function(pool) {
         this.superInit();
-        this.pool = null;
-        this.max = option.size;
-
-        var self = this;
-        this.pool = Array.range(0, this.max).map(function() {
-            var e = pbr.Effect.EffectBase();
-            e.effectLayer = self;
-            return e;
-        });
+        this.pool = pool;
     },
 
     //エフェクト投入

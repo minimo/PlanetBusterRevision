@@ -80,6 +80,8 @@ phina.define("pbr.MainScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.bg.tweener.setUpdateType('fps');
 
+        //エフェクトプール
+        var effectPool = pbr.EffectPool(2048);
 
         //レイヤー準備
         this.base = phina.display.DisplayElement().addChildTo(this).setPosition(SC_OFFSET_X, 0);
@@ -95,11 +97,11 @@ phina.define("pbr.MainScene", {
                     this.shotLayer = this.layers[i];
                     break;
                 case LAYER_EFFECT_UPPER:
-                    this.layers[i] = pbr.EffectLayer({size: 1024}).addChildTo(this.base);
+                    this.layers[i] = pbr.EffectLayer(effectPool).addChildTo(this.base);
                     this.effectLayerUpper = this.layers[i];
                     break;
                 case LAYER_EFFECT_LOWER:
-                    this.layers[i] = pbr.EffectLayer({size: 1024}).addChildTo(this.base);
+                    this.layers[i] = pbr.EffectLayer(effectPool).addChildTo(this.base);
                     this.effectLayerLower = this.layers[i];
                     break;
                 default:
