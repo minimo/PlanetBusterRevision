@@ -89,6 +89,7 @@ pbr.enemyData['ThorHammer'] = {
     dead: function() {
         this.turret.dead();
         this.turret.remove();
+        this.body.frameIndex++;
         this.defaultDeadBoss();
     },
 };
