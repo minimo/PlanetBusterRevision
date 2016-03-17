@@ -85,6 +85,12 @@ pbr.enemyData['ThorHammer'] = {
         this.y -= this.vy;
         this.y -= this.parentScene.ground.deltaY;
     },
+
+    dead: function() {
+        this.turret.dead();
+        this.turret.remove();
+        this.defaultDeadBoss();
+    },
 };
 
 //砲台
@@ -109,7 +115,7 @@ pbr.enemyData['ThorHammerTurret'] = {
     type: ENEMY_BOSS_EQUIP,
 
     //爆発タイプ
-    explodeType: EXPLODE_LARGE,
+    explodeType: EXPLODE_SMALL,
 
     //機体用テクスチャ情報
     texName: "tex_boss1",

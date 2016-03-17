@@ -270,6 +270,17 @@ phina.define("pbr.Enemy", {
             //スコア加算
             if (!this.isSelfCrash) this.parentScene.score += this.point;
 
+            //破壊時消去インターバル
+            if (this.data.explodeType == EXPLODE_SMALL) {
+                this.remove();
+            } else {
+                this.tweener.clear()
+                    .to({alpha: 0}, 60)
+                    .call(function(){
+                        this.remove();
+                    }.bind(this));
+            }
+
             this.parentScene.enemyKill++;
             return true;
         }
@@ -375,17 +386,6 @@ phina.define("pbr.Enemy", {
             this.parentScene.eraseBullet();
             this.parentScene.timeVanish = 60;
         }
-
-        //破壊時消去インターバル
-        if (this.data.explodeType == EXPLODE_SMALL) {
-            this.remove();
-        } else {
-            this.tweener.clear()
-                .to({alpha: 0}, 60)
-                .call(function(){
-                    this.remove();
-                }.bind(this));
-        }
         return this;
     },
 
@@ -418,8 +418,9 @@ phina.define("pbr.Enemy", {
         //弾消し
         this.parentScene.eraseBullet();
 
-        this.remove();
+        //ボス戦闘終了
         this.parentScene.bossBattle = false;
+
         return this;
     },
 
