@@ -24,6 +24,7 @@ phina.define("pbr.Stage1", {
             this.player.isAfterburner = false;
         });
 
+        this.add( 120, "ToyBox-p-right");
         this.add( 300, "ThorHammer", {boss: true});
         this.add( 120, function(app) {
             this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");

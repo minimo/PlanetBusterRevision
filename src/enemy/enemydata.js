@@ -444,7 +444,7 @@ pbr.enemyData['Mistilteinn'] = {
  */
 pbr.enemyData['ToyBox'] = {
     //使用弾幕名
-    danmakuName: "basic",
+    danmakuName: "ToyBox",
 
     //当り判定サイズ
     width:  30,
@@ -479,6 +479,22 @@ pbr.enemyData['ToyBox'] = {
         if (enterParam == "bomb") this.kind = 1;
         if (enterParam == "1UP") this.kind = 2;
         this.tweener.clear().moveBy(0, SC_H*0.5, 300).wait(480).moveBy(0, -SC_H, 600);
+
+        var that = this;
+        this.turret = phina.display.Sprite("tex1", 24, 24)
+            .addChildTo(this)
+            .setFrameTrimming(196, 32, 24, 24)
+            .setFrameIndex(0)
+            .setPosition(0, -36);
+        this.turret.update = function() {
+            this.lookAt({
+                x: that.x-that.player.x,
+                y: that.y-that.player.y,
+            });
+        }
+    },
+
+    epuipment: function() {
     },
 
     algorithm: function() {

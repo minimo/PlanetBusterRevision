@@ -53,6 +53,7 @@ var BM  = bullet({ type: "BM"  });
 var BL  = bullet({ type: "BL"  });
 var BES = bullet({ type: "BES" });
 var BEM = bullet({ type: "BEM" });
+var THIN = bullet({ type: "THIN" });
 
 var DM  = bullet({ dummy: true });
 
@@ -134,8 +135,8 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     ]),
 });
 
- //中型爆撃機「ビッグウィング」
- pbr.danmaku.BigWing = new bulletml.Root({
+//中型爆撃機「ビッグウィング」
+pbr.danmaku.BigWing = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
@@ -163,6 +164,24 @@ pbr.danmaku.MudDauber = new bulletml.Root({
                 interval(20),
             ]),
             interval(60),
+        ]),
+    ]),
+});
+
+//中型輸送機「トイボックス」
+pbr.danmaku.ToyBox = new bulletml.Root({
+    top0: action([
+        interval(120),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(-3)),
+            repeat("$burst + 2", [
+                fire(THIN, spdSeq(0), direction(0, "sequence"), offsetX(0), offsetY(-32)),
+                fire(THIN, spdSeq(0), direction(3, "sequence"), offsetX(0), offsetY(-32)),
+                fire(THIN, spdSeq(0), direction(3, "sequence"), offsetX(0), offsetY(-32)),
+                fire(DM, spdSeq(0.05), direction(-30, "sequence")),
+                interval(10),
+            ]),
+            interval(30),
         ]),
     ]),
 });
