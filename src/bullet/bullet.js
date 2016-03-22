@@ -42,8 +42,7 @@ phina.define("pbr.Bullet", {
         this.radius = 2;
 
         //弾画像
-        this.sprite = phina.display.Sprite("bullet1", 24, 24).addChildTo(this);
-        this.spriteName = "";
+        this.sprite = phina.display.Sprite("bullet", 24, 24).addChildTo(this);
 
         this.on("enterframe", function(app){
             if (this.rolling) this.rotation += this.rollAngle;
@@ -91,33 +90,30 @@ phina.define("pbr.Bullet", {
         this.y = runner.y;
         this.runner = runner;
 
+        this.rolling = true;
+
         if (spec.dummy) {
             this.dummy = true;
             this.sprite.visible = false;
         } else {
             //弾種別グラフィック
-            var type = 1, size = 1, index = 0;
+            var size = 1, index = 0;
             switch (spec.type) {
-                case "RS":  type = 1; size = 0.6; index = 0; break;
-                case "BS":  type = 1; size = 0.6; index = 1; break;
-                case "RM":  type = 1; size = 0.8; index = 0; break;
-                case "BM":  type = 1; size = 0.8; index = 1; break;
-                case "RL":  type = 1; size = 1.0; index = 0; break;
-                case "BL":  type = 1; size = 1.0; index = 1; break;
-                case "RES": type = 2; size = 0.6; index = 0; break;
-                case "BES": type = 2; size = 0.6; index =16; break;
-                case "REM": type = 2; size = 1.0; index = 0; break;
-                case "BEM": type = 2; size = 1.0; index =16; break;
+                case "RS":  size = 0.6; index = 0; break;
+                case "BS":  size = 0.6; index = 1; break;
+                case "RM":  size = 0.8; index = 0; break;
+                case "BM":  size = 0.8; index = 1; break;
+                case "RL":  size = 1.0; index = 0; break;
+                case "BL":  size = 1.0; index = 1; break;
+                case "RES": size = 0.6; index = 8; break;
+                case "BES": size = 0.6; index =24; break;
+                case "REM": size = 1.0; index = 8; break;
+                case "BEM": size = 1.0; index =24; break;
                 case "THIN":
-                    type = 2; size = 1.0; index =24; 
+                    size = 1.0; index = 3; 
                     this.rolling = false;
-                    this.rotation = this.angle*toDeg-90;
+                    this.rotation = this.runner.direction*toDeg-90;
                     break;
-            }
-            var spName = "bullet"+type;
-            if (this.spriteName != spName) {
-                this.sprite.image = phina.asset.AssetManager.get('image', spName);
-                this.spriteName = spName;
             }
             this.sprite.setFrameIndex(index).setScale(size);
             this.dummy = false;
