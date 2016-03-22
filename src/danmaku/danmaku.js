@@ -170,70 +170,19 @@ pbr.danmaku.BigWing = new bulletml.Root({
 
 //中型輸送機「トイボックス」
 pbr.danmaku.ToyBox = new bulletml.Root({
-    top0: action([
+    top: action([
         interval(120),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(-3)),
-            repeat("$burst + 2", [
-                fire(THIN, spdSeq(0), direction(0, "sequence"), offsetX(0), offsetY(-32)),
-                fire(THIN, spdSeq(0), direction(3, "sequence"), offsetX(0), offsetY(-32)),
-                fire(THIN, spdSeq(0), direction(3, "sequence"), offsetX(0), offsetY(-32)),
-                fire(DM, spdSeq(0.05), direction(-30, "sequence")),
+            fire(DM, spd(1), direction(0)),
+            repeat("$burst + 1", [
+                fire(THIN, spd(1), direction(0, "sequence")),
+                interval(10),
+                fire(THIN, spd(1), direction(0, "sequence")),
+                interval(10),
+                fire(THIN, spd(1), direction(0, "sequence")),
                 interval(10),
             ]),
-            interval(30),
-        ]),
-    ]),
-});
-
-//１面中ボス
-pbr.danmaku.ThorHammer = new bulletml.Root({
-    top0: action([
-        repeat(Infinity, [
-            repeat("$burst + 1", [
-                fire(RM, spd(0.5), direction(20, "absolute"), offsetX(-32), offsetY(16)),
-                repeat(5, [
-                    fire(RM, spdSeq(0), direction(-30, "sequence"), offsetX(-32), offsetY(16)),
-                ]),
-            ]),
-            repeat("$burst + 1", [
-                fire(RM, spd(0.5), direction(340, "absolute"), offsetX(32), offsetY(16)),
-                repeat(5, [
-                    fire(RM, spdSeq(0), direction(30, "sequence"), offsetX(32), offsetY(16)),
-                ]),
-            ]),
-            interval(20),
-
-            repeat("$burst + 1", [
-                fire(RM, spd(0.5), direction(40, "absolute"), offsetX(-32), offsetY(16)),
-                repeat(6, [
-                    fire(RS, spdSeq(0), direction(-30, "sequence"), offsetX(-32), offsetY(16)),
-                ]),
-            ]),
-            repeat("$burst + 1", [
-                fire(RM, spd(0.5), direction(320, "absolute"), offsetX(32), offsetY(16)),
-                repeat(6, [
-                    fire(RS, spdSeq(0), direction(30, "sequence"), offsetX(32), offsetY(16)),
-                ]),
-            ]),
-            interval(30),
-        ]),
-    ]),
-});
-
-pbr.danmaku.ThorHammerTurret = new bulletml.Root({
-    top0: action([
-        interval(120),
-        repeat(Infinity, [
-            fire(DM, spd(1), direction(-15)),
-            repeat("$burst + 2", [
-                fire(BS, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
-                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-                fire(DM, spdSeq(0.05), direction(-30, "sequence")),
-                interval(10),
-            ]),
-            interval(30),
+            interval(120),
         ]),
     ]),
 });
