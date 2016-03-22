@@ -15,7 +15,7 @@ phina.display.DisplayElement.prototype.isHitElement = function(elm) {
         }
     } else {
         if (elm.boundingType == 'rect') {
-            return phina.collision.testCiecleRect(this, elm);
+            return phina.collision.testRectCircle(elm, this);
         } else {
             return phina.collision.testCircleCircle(this, elm);
         }
