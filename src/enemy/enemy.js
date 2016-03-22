@@ -293,14 +293,18 @@ phina.define("pbr.Enemy", {
             var ground = this.parentScene.ground;
             var w = this.width/2;
             var h = this.height/2;
-            var x = this.x+rand(-w, w);
-            var y = this.y+rand(-h, h);
-            var layer = this.parentScene.effectLayerUpper;
-            pbr.Effect.enterExplode(layer, {
-                position: {x: x, y: y},
-                velocity: {x: ground.deltaX, y: ground.deltaY, decay: 0.9},
-                delay: 0,
-            });
+            var num = this.type == ENEMY_BOSS || this.type == ENEMY_MBOSS? 3: 1;
+            for (var i = 0; i < num; i++) {
+                var x = this.x+rand(-w, w);
+                var y = this.y+rand(-h, h);
+                var layer = this.parentScene.effectLayerUpper;
+                var delay = i == 0? 0: rand(0, 15);
+                pbr.Effect.enterExplode(layer, {
+                    position: {x: x, y: y},
+                    velocity: {x: ground.deltaX, y: ground.deltaY, decay: 0.9},
+                    delay: delay,
+                });
+            }
             app.playSE("explodeSmall");
         }
         return this;
