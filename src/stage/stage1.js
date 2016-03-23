@@ -30,7 +30,11 @@ phina.define("pbr.Stage1", {
             this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
             this.player.isAfterburner = true;
         });
-        this.add( 600, function() {});
+        this.add( 1800, function() {});
+        this.add( 300, function(app) {
+            this.ground.tweener.clear().to({speed:3.0}, 180, "easeInOutCubic");
+            this.player.isAfterburner = false;
+        });
 
         //Stage data
         this.add( 180, "Hornet1-left");
@@ -53,16 +57,16 @@ phina.define("pbr.Stage1", {
         this.add( 120, "Hornet2-center");
 
         this.add(120, function(app) {
-            this.ground.tweener.clear().to({scaleX:0.5, scaleY:0.5, speed:2.0}, 300, "easeInOutCubic");
+            this.ground.tweener.clear().to({scaleX:0.5, scaleY:0.5, speed:2.0}, 600, "easeInOutSine");
         });
 
         this.add(  30, "BigWing-left");
         this.add( 180, "BigWing-right");
-
+/*
         this.add(120, function(app) {
             this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
         });
-
+*/
         this.add( 120, "Hornet2-left");
         this.add(  20, "Hornet2-right");
         this.add( 120, "Hornet2-center");
@@ -91,7 +95,7 @@ phina.define("pbr.Stage1Ground", {
         });
         var w = 640;
         var h = 1300;
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 30; i++) {
             phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(0, -h*i);
             phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(-w, -h*i);
             phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(w, -h*i);
