@@ -21,6 +21,9 @@ phina.define("pbr.MainScene", {
         //現在ステージＩＤ
         stageId: 1,
 
+        //ステージクリアフラグ
+        stageClear: false,
+
         //再生中BGM
         bgm: null,
 
@@ -29,6 +32,7 @@ phina.define("pbr.MainScene", {
 
         //ボス戦闘中フラグ
         bossBattle: false,
+        bossBattleEnd: false,
         bossObject: null,
 
         //ラベル用パラメータ
@@ -172,6 +176,16 @@ phina.define("pbr.MainScene", {
             }
         }
 
+        if (this.bossBattleEnd) {
+            this.bossBattleEnd = false;
+            if (this.stageClear) {
+                this.stageClear = false;
+            } else {
+                //早回し
+                var time = this.stage.getNextTime(this.time);
+                this.time = time-1;
+            }
+        }
         //ボム効果
         if (this.bombTime > 0) {
             this.bombTime--;

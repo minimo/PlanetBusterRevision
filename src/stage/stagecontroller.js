@@ -41,6 +41,23 @@ phina.define("pbr.StageController", {
         return data;
     },
 
+    getNextTime: function(time) {
+        var data = this.seq[time];
+        if (data === undefined) {
+            var t = time+1;
+            var rt = -1;
+            this.seq.some(function(val, index){
+                if (index > t) {
+                    rt = index;
+                    return true;
+                }
+            },this.seq);
+            return rt;
+        } else {
+            return time;
+        }
+    },
+
     clear: function() {
         this.seq = [];
         this.index = 0;
