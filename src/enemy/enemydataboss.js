@@ -80,13 +80,26 @@ pbr.enemyData['ThorHammer'] = {
             this.turret.flare('notify');
             this.phase++;
         }
-        if (this.phase == 2) {
+
+        //タイムアップで逃走（１７秒）
+        if (!this.isDead && this.time == 1020) {
+            this.tweener.clear()
+                .to({vy: 5}, 120, "easeInSine")
+                .call(function(){
+                    this.parentScene.bossBattle = false;
+                    this.parentScene.bossBattleEnd = true;
+                }.bind(this))
+                .wait(300)
+                .call(function(){
+                    this.remove();
+                }.bind(this));
         }
         this.y -= this.vy;
         this.y -= this.parentScene.ground.deltaY;
     },
 
     dead: function() {
+        this.tweener.clear();
         this.turret.dead();
         this.turret.remove();
         this.body.frameIndex++;
