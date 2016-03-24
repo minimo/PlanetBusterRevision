@@ -180,16 +180,18 @@ phina.define("pbr.MainScene", {
             }
         }
 
+        //ボス破壊
         if (this.bossBattleEnd) {
             this.bossBattleEnd = false;
             if (this.stageClear) {
                 this.stageClear = false;
             } else {
                 //早回し
-                var time = this.stage.getNextTime(this.time);
+                var time = this.stage.getNextEventTime(this.time);
                 this.time = time-1;
             }
         }
+
         //ボム効果
         if (this.bombTime > 0) {
             this.bombTime--;

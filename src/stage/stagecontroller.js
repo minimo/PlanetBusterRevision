@@ -41,7 +41,7 @@ phina.define("pbr.StageController", {
         return data;
     },
 
-    getNextTime: function(time) {
+    getNextEventTime: function(time) {
         var data = this.seq[time];
         if (data === undefined) {
             var t = time+1;
