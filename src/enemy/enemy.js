@@ -221,7 +221,7 @@ phina.define("pbr.Enemy", {
 
         //自機との当り判定チェック
         var player = this.player;
-        if (this.isCollision && !this.isGround && player.isCollision && this.isHitElement(player)) {
+        if (this.isCollision && !this.isGround && !this.isDead && player.isCollision && this.isHitElement(player)) {
             player.damage();
         }
 
