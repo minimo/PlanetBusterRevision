@@ -193,6 +193,10 @@ phina.define("pbr.Enemy", {
 
         //行動アルゴリズム
         this.algorithm(app);
+        //ボス系破壊時弾消去
+        if (this.isDead) {
+            if (this.type == EXPLODE_MBOSS || this.type == EXPLODE_BOSS) this.parentScene.eraseBullet();
+        }
 
         //タスク処理
         if (this.task) {
