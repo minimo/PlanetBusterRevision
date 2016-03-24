@@ -104,6 +104,10 @@ phina.define("pbr.MainScene", {
                     this.layers[i] = pbr.EffectLayer(effectPool).addChildTo(this.base);
                     this.effectLayerUpper = this.layers[i];
                     break;
+                case LAYER_EFFECT_MIDDLE:
+                    this.layers[i] = pbr.EffectLayer(effectPool).addChildTo(this.base);
+                    this.effectLayerMiddle = this.layers[i];
+                    break;
                 case LAYER_EFFECT_LOWER:
                     this.layers[i] = pbr.EffectLayer(effectPool).addChildTo(this.base);
                     this.effectLayerLower = this.layers[i];
@@ -293,7 +297,7 @@ phina.define("pbr.MainScene", {
         this.bombTime = 90;
 
         this.eraseBullet();
-        var layer = this.effectLayerLower;
+        var layer = this.effectLayerMiddle;
         var x = this.player.x;
         var y = this.player.y;
         pbr.Effect.enterBomb(layer, {position: {x: x, y: y}});
