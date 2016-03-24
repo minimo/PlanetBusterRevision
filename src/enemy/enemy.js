@@ -191,8 +191,6 @@ phina.define("pbr.Enemy", {
             this.y += ground.deltaY;
         }
 
-        //行動アルゴリズム
-        this.algorithm(app);
         //ボス系破壊時弾消去
         if (this.isDead) {
             if (this.type == EXPLODE_MBOSS || this.type == EXPLODE_BOSS) this.parentScene.eraseBullet();
@@ -200,16 +198,11 @@ phina.define("pbr.Enemy", {
 
         //タスク処理
         if (this.task) {
-            var t = this.task.shift();
-            if (t) {
-                if (typeof(t) === 'function') {
-                    t.call(this, app);
-                } else {
-                    this.fire(t);
-                }
-            }
-            if (this.task.length == 0) this.task = null;
+            this.execTask(this.time);
         }
+
+        //行動アルゴリズム
+        this.algorithm(app);
 
         //スクリーン内入った判定
         if (this.isOnScreen) {
@@ -524,5 +517,23 @@ phina.define("pbr.Enemy", {
     release: function() {
         this.removeChildren();
         return this;
+    },
+
+    //処理タスクの追加
+    addTask: function(time, task) {
+        if (!this.task) this.task = [];
+        this.task[time] = task;
+    },
+
+    //処理タスクの実行
+    execTask: function(time) {
+        var t = this.task[time];
+        if (t) {
+            if (typeof(t) === 'function') {
+                t.call(this, app);
+            } else {
+                this.fire(t);
+            }
+        }
     },
 });
