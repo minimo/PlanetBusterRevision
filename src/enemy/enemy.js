@@ -193,7 +193,7 @@ phina.define("pbr.Enemy", {
 
         //ボス系破壊時弾消去
         if (this.isDead) {
-            if (this.type == EXPLODE_MBOSS || this.type == EXPLODE_BOSS) this.parentScene.eraseBullet();
+            if (this.type == ENEMY_MBOSS || this.type == ENEMY_BOSS) this.parentScene.eraseBullet();
         }
 
         //タスク処理
