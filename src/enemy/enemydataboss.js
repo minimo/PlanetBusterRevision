@@ -22,7 +22,7 @@ pbr.enemyData['ThorHammer'] = {
     height: 196,
 
     //耐久力
-    def: 1000,
+    def: 3000,
 
     //得点
     point: 10000,
@@ -89,7 +89,7 @@ pbr.enemyData['ThorHammer'] = {
                     this.parentScene.bossBattle = false;
                     this.parentScene.bossBattleEnd = true;
                 }.bind(this))
-                .wait(300)
+                .wait(60)
                 .call(function(){
                     this.remove();
                 }.bind(this));
