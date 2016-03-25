@@ -316,8 +316,7 @@ phina.define("pbr.MainScene", {
         for (var i = 0; i < 3; i++) {
             var layer = this.layers[checkLayers[i]];
             layer.children.each(function(a) {
-                if (a === app.player) return;
-                a.damage(power);
+                if (a instanceof pbr.Enemy && a.isOnScreen) a.damage(power);
             }.bind(this));
         }
     },
