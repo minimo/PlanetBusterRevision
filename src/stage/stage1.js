@@ -30,8 +30,8 @@ phina.define("pbr.Stage1", {
             this.player.isAfterburner = true;
         });
         this.add( 1800, function() {});
-        this.add( 30, function(app) {
-            this.ground.tweener.clear().to({speed:5.0}, 180, "easeInOutCubic");
+        this.add( 60, function(app) {
+            this.ground.tweener.clear().to({speed:5.0}, 120, "easeInOutCubic");
             this.player.isAfterburner = false;
         });
 

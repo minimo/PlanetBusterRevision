@@ -50,7 +50,7 @@ pbr.enemyData['ThorHammer'] = {
         this.stopDanmaku();
 
         //初速
-        this.vy = 5;
+        this.vy = -8;
     },
 
     epuipment: function() {
@@ -69,7 +69,7 @@ pbr.enemyData['ThorHammer'] = {
                 this.isCollision = true;
                 this.isMuteki = false;
                 this.tweener.clear()
-                    .to({vy: 0}, 150)
+                    .to({vy: -10}, 240)
                     .call(function(){
                         this.phase++;
                         this.resumeDanmaku();
@@ -94,16 +94,37 @@ pbr.enemyData['ThorHammer'] = {
                     this.remove();
                 }.bind(this));
         }
-        this.y -= this.vy;
-        this.y -= this.parentScene.ground.deltaY;
+        this.y += this.vy;
+//        this.y -= this.parentScene.ground.deltaY;
     },
 
     dead: function() {
-        this.tweener.clear();
         this.turret.dead();
         this.turret.remove();
         this.body.frameIndex++;
-        this.defaultDeadBoss();
+
+        this.isCollision = false;
+        this.isDead = true;
+        this.tweener.clear();
+        this.stopDanmaku();
+
+        this.explode();
+        app.playSE("explodeLarge");
+
+        //弾消し
+        this.parentScene.eraseBullet();
+
+        //破壊時消去インターバル
+        this.tweener.clear()
+            .to({vy: -2}, 240, "easeInSine")
+            .call(function() {
+                this.explode();
+                app.playSE("explodeBoss");
+            }.bind(this))
+            .to({alpha: 0}, 60)
+            .call(function(){
+                this.remove();
+            }.bind(this));
     },
 };
 
