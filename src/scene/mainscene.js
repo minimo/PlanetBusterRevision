@@ -196,7 +196,7 @@ phina.define("pbr.MainScene", {
         if (this.bombTime > 0) {
             this.bombTime--;
             this.eraseBullet();
-            this.addEnemyDamage(100);
+            this.addEnemyDamage(10);
         }
 
         var kb = app.keyboard;
