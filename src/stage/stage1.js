@@ -24,17 +24,6 @@ phina.define("pbr.Stage1", {
             this.player.isAfterburner = false;
         });
 
-        this.add( 300, "ThorHammer", {boss: true});
-        this.add( 120, function(app) {
-            this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
-            this.player.isAfterburner = true;
-        });
-        this.add( 1800, function() {});
-        this.add( 60, function(app) {
-            this.ground.tweener.clear().to({speed:5.0}, 120, "easeInOutCubic");
-            this.player.isAfterburner = false;
-        });
-
         //Stage data
         this.add( 180, "Hornet1-left");
         this.add(  60, "Hornet1-right");
@@ -55,15 +44,20 @@ phina.define("pbr.Stage1", {
         this.add( 120, "Hornet2-right");
         this.add( 120, "Hornet2-center");
 
+        this.add( 120, "ToyBox-p-right");
+
+        this.add( 120, "MudDauber-left");
+        this.add(  60, "MudDauber-right");
+
         //中ボス
-        this.add( 300, "ThorHammer", {boss: true});
+        this.add( 360, "ThorHammer", {boss: true});
         this.add( 120, function(app) {
             this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
             this.player.isAfterburner = true;
         });
         this.add( 1800, function() {});
-        this.add( 30, function(app) {
-            this.ground.tweener.clear().to({speed:5.0}, 180, "easeInOutCubic");
+        this.add( 60, function(app) {
+            this.ground.tweener.clear().to({speed:5.0}, 120, "easeInOutCubic");
             this.player.isAfterburner = false;
         });
 
@@ -87,15 +81,6 @@ phina.define("pbr.Stage1", {
         this.add( 120, "Hornet2-center");
 
         this.add( 120, "ToyBox-p-right");
-
-/*
-        this.add( 180, "ThorHammer", {boss: true});
-        this.add( 120, function(app) {
-            this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
-            this.player.isAfterburner = true;
-        });
-        this.add( 600, function() {});
-*/
     },
 });
 
