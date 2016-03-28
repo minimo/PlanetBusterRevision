@@ -81,6 +81,19 @@ pbr.enemyData['ThorHammer'] = {
             this.phase++;
         }
 
+        //土煙出すよ
+        if (!this.isDead) {
+            var vy = this.parentScene.ground.deltaY;
+            for (var i = 0; i < 3; i++) {
+                var layer = this.parentScene.effectLayerLower;
+                layer.enterSmoke({
+                    position: {x: this.x-32+rand(0,64), y: this.y},
+                    velocity: {x: 0, y: vy, decay: 1},
+                    delay: rand(0, 2)
+                });
+            }
+        }
+
         //タイムアップで逃走（１７秒）
         if (!this.isDead && this.time == 1020) {
             this.tweener.clear()
