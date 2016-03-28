@@ -14,9 +14,10 @@ phina.define("pbr.MainScene", {
         rank: 1,
 
         //ゲーム内設定
-        autoBomb: true,
+        zanki: 3,       //残機
+        autoBomb: true, //オートボムフラグ
         bombTime: 0,    //ボム効果継続残りフレーム数
-        bombStock: 2,
+        bombStock: 2,   //ボム残数
 
         //現在ステージＩＤ
         stageId: 1,
@@ -154,6 +155,32 @@ phina.define("pbr.MainScene", {
         this.rankLabel.update = function() {
             this.text = "RANK "+that.rank;
         };
+
+        //残機表示
+        for (var i = 0; i < 9; i++) {
+            var s = this.sprite = phina.display.Sprite("gunship", 48, 48)
+                .addChildTo(this)
+                .setFrameIndex(4)
+                .setScale(0.3)
+                .setPosition(i*16+16, 48);
+            s.num = i;
+            s.update = function() {
+                if (that.zanki-1 > this.num) this.visible = true; else this.visible = false;
+            }
+        }
+
+        //残ボム表示
+        for (var i = 0; i < 9; i++) {
+            var s = this.sprite = phina.display.Sprite("bomb", 96, 96)
+                .addChildTo(this)
+                .setFrameIndex(0)
+                .setScale(0.16)
+                .setPosition(i*16+16, 64);
+            s.num = i;
+            s.update = function() {
+                if (that.bombStock > this.num) this.visible = true; else this.visible = false;
+            }
+        }
 
         //ステージ初期化
         this.initStage();
@@ -297,6 +324,7 @@ phina.define("pbr.MainScene", {
     enterBomb: function() {
         if (this.bombTime > 0) return;
         this.bombTime = 90;
+        this.bombStock--;
 
         this.eraseBullet();
         var layer = this.effectLayerMiddle;
