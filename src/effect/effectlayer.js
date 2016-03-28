@@ -284,4 +284,52 @@ phina.define("pbr.EffectLayer", {
         }));
         return e;
     },
+
+    //スモーク(小）
+    enterSmokeSmall: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        var e = this.enter(option.$extend({
+            name: "smoke",
+            assetName: "effect",
+            width: 16,
+            height: 16,
+            interval: 5,
+            startIndex: 0,
+            maxIndex: 4,
+            trimming: {x: 128, y: 128, width: 64, height: 16},
+        }));
+        return e;
+    },
+
+    //スモーク(中）
+    enterSmoke: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        var e = this.enter(option.$extend({
+            name: "smoke",
+            assetName: "effect",
+            width: 24,
+            height: 24,
+            interval: 5,
+            startIndex: 0,
+            maxIndex: 5,
+            trimming: {x: 128, y: 160, width: 120, height: 24},
+        }));
+        return e;
+    },
+
+    //スモーク(大）
+    enterSmokeLarge: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        var e = this.enter(option.$extend({
+            name: "smoke",
+            assetName: "effect",
+            width: 32,
+            height: 32,
+            interval: 5,
+            startIndex: 0,
+            maxIndex: 8,
+            trimming: {x: 256, y: 128, width: 128, height: 64},
+        }));
+        return e;
+    },
 });
