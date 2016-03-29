@@ -15,9 +15,10 @@ phina.define("pbr.MainScene", {
 
         //ゲーム内設定
         zanki: 3,       //残機
-        autoBomb: true, //オートボムフラグ
+        autoBomb: false,//オートボムフラグ
         bombTime: 0,    //ボム効果継続残りフレーム数
         bombStock: 2,   //ボム残数
+        timeVanish: 0,  //弾消し時間
 
         //現在ステージＩＤ
         stageId: 1,
@@ -27,9 +28,6 @@ phina.define("pbr.MainScene", {
 
         //再生中BGM
         bgm: null,
-
-        //自機コントロール可能フラグ
-        control: true,
 
         //ボス戦闘中フラグ
         bossBattle: false,
@@ -238,6 +236,12 @@ phina.define("pbr.MainScene", {
             this.bombTime--;
             this.eraseBullet();
             this.addEnemyDamage(10);
+        }
+
+        //弾消し
+        if (this.timeVanish > 0) {
+            this.timeVanish--;
+            this.eraseBullet();
         }
 
         var kb = app.keyboard;

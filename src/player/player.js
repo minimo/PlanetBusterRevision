@@ -186,17 +186,30 @@ phina.define("pbr.Player", {
     //被弾処理
     damage: function() {
         //無敵時間中はスルー
-        if (this.timeMuteki > 0 || this.parentScene.bombTime > 0) return;
+        if (this.timeMuteki > 0 || this.parentScene.bombTime > 0 || this.parentScene.timeVanish > 0) return false;
 
         //オートボム発動
         if (this.parentScene.autoBomb && this.parentScene.bombStock > 0) {
             this.parentScene.enterBomb();
-            return;
+            return true;
         }
 
         //被弾エフェクト表示
         var layer = this.parentScene.effectLayerUpper;
         layer.enterExplodePlayer({position: {x: this.x, y: this.y}});
+
+        app.playSE("playermiss");
+
+        this.parentScene.zanki--;
+        if (this.parentScene.zanki > 0) {
+            this.startup();
+        } else {
+            this.visible = false;
+            this.isCollision = false;
+            this.isControl = false;
+        }
+
+        return true;
     },
 
     //ショット発射
@@ -206,6 +219,7 @@ phina.define("pbr.Player", {
         ly.enterShot(this.x+10, this.y-8, {type: 0, rotation: 1, power: this.shotPower});
         ly.enterShot(this.x   , this.y-16,{type: 0, rotation: 0, power: this.shotPower});
         ly.enterShot(this.x-10, this.y-8, {type: 0, rotation:-1, power: this.shotPower});
+        return this;
     },
 
     //ビット展開
@@ -245,6 +259,7 @@ phina.define("pbr.Player", {
                 color = 60;
                 break;
         }
+        return this;
     },
 
     //プレイヤー投入時演出
@@ -252,20 +267,22 @@ phina.define("pbr.Player", {
         this.x = SC_W/2;
         this.y = SC_H+128;
         this.tweener.clear()
-            .wait(2000)
-            .to({x: SC_W/2, y: SC_H-128}, 120, "easeOutQuint")
+            .wait(120)
+            .call(function(){
+                this.parentScene.timeVanish = 150;
+            }.bind(this))
+            .to({x: SC_W*0.5, y: SC_H*0.8}, 120, "easeOutQuint")
             .call(function(){
                 this.shotON = true;
                 this.control = true;
                 this.isCollision = true;
-                this.timeMuteki = 180;
+                this.timeMuteki = 120;
+                this.parentScene.timeVanish = 60;
             }.bind(this));
 
         this.shotON = false;
         this.control = false;
         this.isCollision = false;
-
-        this.parentScene.timeVanish = 300;
         return this;
     },
 
@@ -280,7 +297,7 @@ phina.define("pbr.Player", {
                 this.shotON = true;
                 this.control = true;
                 this.isCollision = true;
-                this.timeMuteki = 180;
+                this.timeMuteki = 120;
             }.bind(this));
 
         this.shotON = false;

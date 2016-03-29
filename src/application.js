@@ -25,6 +25,7 @@ phina.define("pbr.Application", {
                     "explodeBoss":   "assets/sounds/se_maoudamashii_explosion02.mp3",
                     "explodePlayer": "assets/sounds/ta_ta_zuban_d01.mp3", 
                     "bomb":          "assets/sounds/bomb.mp3",
+                    "playermiss":    "assets/sounds/ta_ta_zuban_d01.mp3",
                 },
                 font: {
                     "UbuntuMono":   "fonts/UbuntuMono-Bold.ttf",

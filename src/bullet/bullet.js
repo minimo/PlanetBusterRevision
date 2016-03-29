@@ -69,8 +69,7 @@ phina.define("pbr.Bullet", {
                     var player = this.bulletLayer.parentScene.player;
                     if (player.isCollision) {
                         if (this.isHitElement(player) ) {
-                            player.damage();
-                            this.remove();
+                            if (player.damage()) this.remove();
                             return;
                         }
                     }
