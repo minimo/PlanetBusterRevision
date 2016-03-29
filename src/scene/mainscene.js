@@ -9,15 +9,16 @@ phina.define("pbr.MainScene", {
     superClass: "phina.display.DisplayScene",
 
     _member: {
-        //ゲーム内情報
+        //ゲーム設定
         score: 0,
         rank: 1,
-
-        //ゲーム内設定
         zanki: 3,       //残機
-        autoBomb: false,//オートボムフラグ
-        bombTime: 0,    //ボム効果継続残りフレーム数
         bombStock: 2,   //ボム残数
+        numContinue: 0, //コンティニュー回数
+        autoBomb: false,//オートボムフラグ
+
+        //シーン内設定
+        bombTime: 0,    //ボム効果継続残りフレーム数
         timeVanish: 0,  //弾消し時間
 
         //現在ステージＩＤ
@@ -25,9 +26,6 @@ phina.define("pbr.MainScene", {
 
         //ステージクリアフラグ
         stageClear: false,
-
-        //再生中BGM
-        bgm: null,
 
         //ボス戦闘中フラグ
         bossBattle: false,
