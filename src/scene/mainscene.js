@@ -164,6 +164,7 @@ phina.define("pbr.MainScene", {
                 .setScale(0.3)
                 .setPosition(i*16+16, 48);
             s.num = i;
+            s.visible = false;
             s.update = function() {
                 if (that.zanki-1 > this.num) this.visible = true; else this.visible = false;
             }
@@ -177,9 +178,22 @@ phina.define("pbr.MainScene", {
                 .setScale(0.16)
                 .setPosition(i*16+16, 64);
             s.num = i;
+            s.visible = false;
             s.update = function() {
                 if (that.bombStock > this.num) this.visible = true; else this.visible = false;
             }
+            lparam = {
+                text: "B",
+                fill: "blue",
+                stroke: "black",
+                strokeWidth: 2,
+                fontFamily: "Orbitron",
+                align: "center",
+                baseline: "middle",
+                fontSize: 32,
+                fontWeight: ''
+            };
+            phina.display.Label(lparam).addChildTo(s).setScale(2.5);
         }
 
         //ステージ初期化
