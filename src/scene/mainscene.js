@@ -182,7 +182,7 @@ phina.define("pbr.MainScene", {
             s.update = function() {
                 if (that.bombStock > this.num) this.visible = true; else this.visible = false;
             }
-            lparam = {
+            var lparam = {
                 text: "B",
                 fill: "blue",
                 stroke: "black",
