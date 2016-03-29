@@ -1705,16 +1705,26 @@ phina.namespace(function() {
     }
   });
 
-  if (phina.global.addEventListener) {
+  var doc = phina.global.document;
+  if (phina.global.addEventListener && doc && doc.readyState !== 'complete') {
     phina.global.addEventListener('load', function() {
-      // ちょっと遅延させる(画面サイズ問題)
-      setTimeout(function() {
-        phina._mainListeners.each(function(func) {
+      var run = function() {
+        var listeners = phina._mainListeners.clone();
+        phina._mainListeners.clear();
+        listeners.each(function(func) {
           func();
         });
-        phina._mainListeners.clear();
-        phina._mainLoaded = true;
-      });
+
+        // main 内で main を追加している場合があるのでそのチェック
+        if (phina._mainListeners.length > 0) {
+          run(0);
+        }
+        else {
+          phina._mainLoaded = true;
+        }
+      };
+      // ちょっと遅延させる(画面サイズ問題)
+      setTimeout(run);
     });
   }
   else {
@@ -6622,34 +6632,36 @@ phina.namespace(function() {
       this.rotation       = phina.geom.Vector3(0, 0, 0);
       this.orientation    = phina.geom.Vector3(0, 0, 0);
 
-      phina.global.addEventListener("devicemotion", function(e) {
-        var acceleration = self.acceleration;
-        var gravity = self.gravity;
-        var rotation = self.rotation;
+      if (phina.isMobile()) {
+        phina.global.addEventListener("devicemotion", function(e) {
+          var acceleration = self.acceleration;
+          var gravity = self.gravity;
+          var rotation = self.rotation;
+          
+          if (e.acceleration) {
+            acceleration.x = e.acceleration.x;
+            acceleration.y = e.acceleration.y;
+            acceleration.z = e.acceleration.z;
+          }
+          if (e.accelerationIncludingGravity) {
+            gravity.x = e.accelerationIncludingGravity.x;
+            gravity.y = e.accelerationIncludingGravity.y;
+            gravity.z = e.accelerationIncludingGravity.z;
+          }
+          if (e.rotationRate) {
+            rotation.x = rotation.beta  = e.rotationRate.beta;
+            rotation.y = rotation.gamma = e.rotationRate.gamma;
+            rotation.z = rotation.alpha = e.rotationRate.alpha;
+          }
+        });
         
-        if (e.acceleration) {
-          acceleration.x = e.acceleration.x;
-          acceleration.y = e.acceleration.y;
-          acceleration.z = e.acceleration.z;
-        }
-        if (e.accelerationIncludingGravity) {
-          gravity.x = e.accelerationIncludingGravity.x;
-          gravity.y = e.accelerationIncludingGravity.y;
-          gravity.z = e.accelerationIncludingGravity.z;
-        }
-        if (e.rotationRate) {
-          rotation.x = rotation.beta  = e.rotationRate.beta;
-          rotation.y = rotation.gamma = e.rotationRate.gamma;
-          rotation.z = rotation.alpha = e.rotationRate.alpha;
-        }
-      });
-      
-      phina.global.addEventListener("deviceorientation", function(e) {
-        var orientation = self.orientation;
-        orientation.alpha   = e.alpha;  // z(0~360)
-        orientation.beta    = e.beta;   // x(-180~180)
-        orientation.gamma   = e.gamma;  // y(-90~90)
-      });
+        phina.global.addEventListener("deviceorientation", function(e) {
+          var orientation = self.orientation;
+          orientation.alpha   = e.alpha;  // z(0~360)
+          orientation.beta    = e.beta;   // x(-180~180)
+          orientation.gamma   = e.gamma;  // y(-90~90)
+        });
+      }
     },
 
   });
@@ -6907,6 +6919,7 @@ phina.namespace(function() {
       this._sceneIndex = 0;
 
       this.updater = phina.app.Updater(this);
+      this.interactive = phina.app.Interactive(this);
 
       this.awake = true;
       this.ticker = phina.util.Ticker();
@@ -7047,7 +7060,7 @@ phina.namespace(function() {
       this._update();
       this._draw();
 
-      this.interactive && this.interactive.check(this.currentScene);
+      this.interactive.check(this.currentScene);
 
       // stats update
       if (this.stats) this.stats.update();
@@ -7055,6 +7068,11 @@ phina.namespace(function() {
 
     _update: function() {
       if (this.awake) {
+        // エンターフレームイベント
+        if (this.has('enterframe')) {
+          this.flare('enterframe');
+        }
+
         this.update && this.update();
         this.updater.update(this.currentScene);
       }
@@ -8748,9 +8766,6 @@ phina.namespace(function() {
         s.top  = "0px";
         s.bottom = "0px";
         s.right = "0px";
-        // チラつき防止
-        // https://drafts.csswg.org/css-images/#the-image-rendering
-        s.imageRendering = 'pixelated';
 
         var rateWidth = e.width/window.innerWidth;
         var rateHeight= e.height/window.innerHeight;
@@ -9449,6 +9464,11 @@ phina.namespace(function() {
           return null;
         }
       })(),
+
+      measureText: function(font, text) {
+        this._context.font = font;
+        return this._context.measureText(text);
+      },
     },
   });
 });
@@ -9840,7 +9860,7 @@ phina.namespace(function() {
       this.prerender(this.canvas);
 
       // ストローク描画
-      if (this.stroke) {
+      if (this.isStrokable()) {
         context.strokeStyle = this.stroke;
         context.lineWidth = this.strokeWidth;
         context.lineJoin = "round";
@@ -10807,9 +10827,6 @@ phina.namespace(function() {
         });
       }.bind(this));
 
-      // interactive
-      this.interactive = phina.app.Interactive(this);
-
       // click 対応
       var eventName = phina.isMobile() ? 'touchend' : 'mouseup';
       this.domElement.addEventListener(eventName, this._checkClick.bind(this));
@@ -10828,13 +10845,14 @@ phina.namespace(function() {
         this.flare('blur');
         this.currentScene.flare('blur');
       }.bind(this), false);
-    },
 
-    update: function() {
-      this.mouse.update();
-      this.touch.update();
-      this.touchList.update();
-      this.keyboard.update();
+      // 更新関数を登録
+      this.on('enterframe', function() {
+        this.mouse.update();
+        this.touch.update();
+        this.touchList.update();
+        this.keyboard.update();
+      });
     },
 
     _checkClick: function(e) {
@@ -10904,6 +10922,12 @@ phina.namespace(function() {
 
       if (options.fit) {
         this.fitScreen();
+      }
+
+      if (options.pixelated) {
+        // チラつき防止
+        // https://drafts.csswg.org/css-images/#the-image-rendering
+        this.domElement.style.imageRendering = 'pixelated';
       }
 
       // pushScene, popScene 対策
@@ -11246,8 +11270,6 @@ phina.namespace(function() {
 
 phina.namespace(function() {
 
-  var dummyCanvas = document.createElement('canvas');
-  var dummyContext = dummyCanvas.getContext('2d');
   var textWidthCache = {};
 
   var LabelArea = phina.define('phina.ui.LabelArea', {
@@ -11299,10 +11321,9 @@ phina.namespace(function() {
       if (this.width < 1) return lines;
 
       var rowWidth = this.width;
-      dummyContext.font = this.font;
 
       //どのへんで改行されるか目星つけとく
-      var index = rowWidth / dummyContext.measureText('あ').width | 0;
+      var index = rowWidth / phina.graphics.Canvas.measureText(this.font, 'あ').width | 0;
 
       var cache = this.getTextWidthCache();
       for (var i = lines.length; i--;) {
@@ -11321,12 +11342,12 @@ phina.namespace(function() {
           len = text.length;
           if (index >= len) index = len - 1;
 
-          width = cache[char = text.substring(0, index)] || (cache[char] = dummyContext.measureText(char).width);
+          width = cache[char = text.substring(0, index)] || (cache[char] = phina.graphics.Canvas.measureText(this.font, char).width);
 
           if (rowWidth < width) {
-            while (rowWidth < (width -= cache[char = text[--index]] || (cache[char] = dummyContext.measureText(char).width)));
+            while (rowWidth < (width -= cache[char = text[--index]] || (cache[char] = phina.graphics.Canvas.measureText(this.font, char).width)));
           } else {
-            while (rowWidth >= (width += cache[char = text[index++]] || (cache[char] = dummyContext.measureText(char).width))) {
+            while (rowWidth >= (width += cache[char = text[index++]] || (cache[char] = phina.graphics.Canvas.measureText(this.font, char).width))) {
               if (index >= len) {
                 breakFlag = true;
                 break;
