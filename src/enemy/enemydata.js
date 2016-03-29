@@ -91,6 +91,10 @@ pbr.enemyData['Hornet'] = {
                 this.y += this.vy;
             }
         }
+
+        //画面下部では弾を出さない
+        if (this.y > SC_H*0.7) this.stopDanmaku();
+
     },
 };
 
