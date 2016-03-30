@@ -41,6 +41,19 @@ phina.define("pbr.TitleScene", {
         this.superInit();
         this.$extend(this._member);
 
+        //バックグラウンド
+        var param = {
+            width:SC_W,
+            height:SC_H,
+            fill: 'black',
+            stroke: false,
+            backgroundColor: 'transparent',
+        };
+        this.bg = phina.display.RectangleShape(param)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+        this.bg.tweener.setUpdateType('fps');
+
         phina.display.Label({text: "PlanetBuster"}.$safe(this.titleParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.4);

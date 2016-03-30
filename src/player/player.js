@@ -14,9 +14,10 @@ phina.define("pbr.Player", {
         width: 2,
         height: 2,
 
-        control: true,  //操作可能フラグ
-        shotON: true,   //ショットフラグ
-        mouseON: false, //マウス操作中フラグ
+        isControl: true,    //操作可能フラグ
+        isDead: false,      //死亡フラグ
+        shotON: true,       //ショットフラグ
+        mouseON: false,     //マウス操作中フラグ
 
         isCollision: false,     //当り判定有効フラグ
         isAfterburner: false,   //アフターバーナー中
@@ -69,7 +70,7 @@ phina.define("pbr.Player", {
     },
 
     update: function(app) {
-        if (this.control) {
+        if (this.isControl) {
             //マウス操作
             var p = app.mouse;
             if (p.getPointing()) {
@@ -151,12 +152,14 @@ phina.define("pbr.Player", {
                     });
                 }
             }
-            var e = layer.enterAfterburner({
-                position: {x: this.x, y: this.y+16},
-                velocity: {x: 0, y: ground.deltaY, decay: 0.99},
-                alpha: 0.7,
-                blendMode: "lighter",
-            });
+            if (!this.isDead) {
+                var e = layer.enterAfterburner({
+                    position: {x: this.x, y: this.y+16},
+                    velocity: {x: 0, y: ground.deltaY, decay: 0.99},
+                    alpha: 0.7,
+                    blendMode: "lighter",
+                });
+            }
         } else {
             //消火
             if (this.isAfterburnerBefore) {
@@ -200,6 +203,7 @@ phina.define("pbr.Player", {
 
         app.playSE("playermiss");
 
+        this.isDead = true;
         app.zanki--;
         if (app.zanki > 0) {
             this.startup();
@@ -207,6 +211,7 @@ phina.define("pbr.Player", {
             this.visible = false;
             this.isCollision = false;
             this.isControl = false;
+            this.parentScene.isGameOver = true;
         }
 
         return true;
@@ -274,14 +279,15 @@ phina.define("pbr.Player", {
             .to({x: SC_W*0.5, y: SC_H*0.8}, 120, "easeOutQuint")
             .call(function(){
                 this.shotON = true;
-                this.control = true;
+                this.isControl = true;
                 this.isCollision = true;
                 this.timeMuteki = 120;
                 this.parentScene.timeVanish = 60;
             }.bind(this));
 
+        this.isDead = false;
         this.shotON = false;
-        this.control = false;
+        this.isControl = false;
         this.isCollision = false;
         return this;
     },
@@ -295,13 +301,14 @@ phina.define("pbr.Player", {
             .to({x: SC_W/2, y: SC_H-64  }, 120)
             .call(function(){
                 this.shotON = true;
-                this.control = true;
+                this.isControl = true;
                 this.isCollision = true;
                 this.timeMuteki = 120;
             }.bind(this));
 
+        this.isDead = false;
         this.shotON = false;
-        this.control = false;
+        this.isControl = false;
         this.isCollision = false;
         return this;
     },

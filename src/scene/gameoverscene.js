@@ -5,7 +5,7 @@
  *  This Program is MIT license.
  */
  
-tm.define("pbr.GameoverScene", {
+phina.define("pbr.GameOverScene", {
     superClass: "phina.display.DisplayScene",
 
     _member: {
@@ -15,16 +15,18 @@ tm.define("pbr.GameoverScene", {
             strokeWidth: 1,
 
             fontFamily: "UbuntuMono",
-            align: "left",
+            align: "center",
             baseline: "middle",
             fontSize: 20,
             fontWeight: ''
         },
     },
 
-    init: function(score, stageNumber, boss, allclear) {
+    init: function(currentScene, stageNumber, boss, allclear) {
         this.superInit();
         this.$extend(this._member);
+
+        this.currentScene = currentScene;
 
         //バックグラウンド
         var param = {
@@ -39,7 +41,7 @@ tm.define("pbr.GameoverScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
 
         //リザルト表示
-        this.result1 = "SCORE: "+score;
+        this.result1 = "SCORE: "+app.score;
         if (!allclear) {
             this.result2 = "Stage:"+stageNumber+(boss?"-boss":"");
         } else {
@@ -70,8 +72,14 @@ tm.define("pbr.GameoverScene", {
         //キーボード操作
         var kb = app.keyboard;
         if (this.time > 60 && app.keyboard.getKey("Z")) {
+            this.currentScene.flare("gameover");
             this.exit();
         }
+        if (this.time > 60 && app.keyboard.getKey("X")) {
+            this.currentScene.flare("continue");
+            app.popScene();
+        }
+
         this.time++;
     },
 

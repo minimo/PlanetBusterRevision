@@ -196,6 +196,27 @@ phina.define("pbr.MainScene", {
             .setPosition(SC_W*0.5, SC_H*0.5);
         this.mask.tweener.setUpdateType('fps');
         this.mask.tweener.clear().fadeOut(20);
+
+        //イベント処理
+        //コンティニュー時
+        this.on("continue", function() {
+            app.numContinue++;
+
+            //初期状態へ戻す
+            app.zanki = 3;
+            app.bombStock = 3;
+            app.score = 0;
+            app.rank = 1;
+
+            this.player.visible = true;
+            this.player.startup();
+            this.scoreLabel.score = 0;
+        }.bind(this));
+
+        //ゲームオーバー時
+        this.on("gameover", function() {
+            app.stopBGM();
+        });
     },
     
     update: function(app) {
@@ -235,6 +256,18 @@ phina.define("pbr.MainScene", {
         if (this.timeVanish > 0) {
             this.timeVanish--;
             this.eraseBullet();
+        }
+
+        //ゲームオーバー処理
+        if (this.isGameOver) {
+            this.isGameOver = false;
+            this.player.control = false;
+            var gos = pbr.GameOverScene(this, this.stageId, this.isStageBoss, false);
+            phina.app.Object2D().addChildTo(this).tweener.clear()
+                .wait(2000)
+                .call( function() {
+                    app.pushScene(gos);
+                });
         }
 
         var kb = app.keyboard;
