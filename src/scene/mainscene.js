@@ -261,7 +261,7 @@ phina.define("pbr.MainScene", {
         //ゲームオーバー処理
         if (this.isGameOver) {
             this.isGameOver = false;
-            this.player.control = false;
+            this.player.isControl = false;
             var gos = pbr.GameOverScene(this, this.stageId, this.isStageBoss, false);
             phina.app.Object2D().addChildTo(this).tweener.clear()
                 .wait(2000)

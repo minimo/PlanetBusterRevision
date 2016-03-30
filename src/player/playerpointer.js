@@ -20,7 +20,7 @@ phina.define("pbr.PlayerPointer", {
 
     update: function(app) {
         var p = app.mouse;
-        if (this.player.control && p.getPointing()) {
+        if (this.player.isControl && p.getPointing()) {
             if (~~(this.x) == ~~(this.player.x) && ~~(this.y) == ~~(this.player.y)) {
                 this.alpha = 0;
             } else {
