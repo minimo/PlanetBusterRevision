@@ -99,8 +99,8 @@ pbr.enemyData['ThorHammer'] = {
             this.tweener.clear()
                 .to({vy: 5}, 120, "easeInSine")
                 .call(function(){
-                    this.parentScene.bossBattle = false;
-                    this.parentScene.bossBattleEnd = true;
+                    this.parentScene.isBossBattle = false;
+                    this.parentScene.isBossBattleEnd = true;
                 }.bind(this))
                 .wait(60)
                 .call(function(){

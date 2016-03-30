@@ -264,15 +264,15 @@ phina.define("pbr.Enemy", {
 
             //中ボス撃破をシーンに通知
             if (this.data.type == ENEMY_MBOSS) {
-                this.parentScene.bossBattle = false;
-                this.parentScene.bossBattleEnd = true;
+                this.parentScene.isBossBattle = false;
+                this.parentScene.isBossBattleEnd = true;
             }
 
             //ボスの場合はステージクリアを親シーンに通知
             if (this.data.type == ENEMY_BOSS) {
                 this.parentScene.stageClear = true;
-                this.parentScene.bossBattle = false;
-                this.parentScene.bossBattleEnd = true;
+                this.parentScene.isBossBattle = false;
+                this.parentScene.isBossBattleEnd = true;
             }
 
             this.parentScene.enemyKill++;

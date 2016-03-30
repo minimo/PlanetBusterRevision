@@ -17,11 +17,14 @@ phina.define("pbr.MainScene", {
         stageId: 1,
 
         //ステージクリアフラグ
-        stageClear: false,
+        isStageClear: false,
+
+        //ゲームオーバーフラグ
+        isGameOver: false,
 
         //ボス戦闘中フラグ
-        bossBattle: false,
-        bossBattleEnd: false,
+        isBossBattle: false,
+        isBossBattleEnd: false,
         bossObject: null,
 
         //ラベル用パラメータ
@@ -204,16 +207,16 @@ phina.define("pbr.MainScene", {
             } else {
                 this.enterEnemyUnit(event.value);
                 if (event.option && event.option.boss) {
-                    this.bossBattle = true;
+                    this.isBossBattle = true;
                 }
             }
         }
 
         //ボス破壊
-        if (this.bossBattleEnd) {
-            this.bossBattleEnd = false;
-            if (this.stageClear) {
-                this.stageClear = false;
+        if (this.isBossBattleEnd) {
+            this.isBossBattleEnd = false;
+            if (this.isStageClear) {
+                this.isStageClear = false;
             } else {
                 //早回し
                 var time = this.stage.getNextEventTime(this.time);
