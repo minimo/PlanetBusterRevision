@@ -260,7 +260,7 @@ phina.define("pbr.Enemy", {
             if (this.parentEnemy) this.parentEnemy.deadChild(this);
 
             //スコア加算
-            if (!this.isSelfCrash) this.parentScene.score += this.point;
+            if (!this.isSelfCrash) app.score += this.point;
 
             //中ボス撃破をシーンに通知
             if (this.data.type == ENEMY_MBOSS) {
@@ -450,7 +450,7 @@ phina.define("pbr.Enemy", {
     startDanmaku: function(danmakuName) {
         this.runner = pbr.danmaku[danmakuName].createRunner(pbr.BulletConfig);
         this.runner.onNotify = function(eventType, event) {
-            this.flare("bullet" + eventType, event);
+//            this.flare("bullet" + eventType, event);
         }.bind(this);
         return this;
     },

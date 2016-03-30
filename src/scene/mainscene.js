@@ -9,14 +9,6 @@ phina.define("pbr.MainScene", {
     superClass: "phina.display.DisplayScene",
 
     _member: {
-        //ゲーム設定
-        score: 0,
-        rank: 1,
-        zanki: 3,       //残機
-        bombStock: 2,   //ボム残数
-        numContinue: 0, //コンティニュー回数
-        autoBomb: false,//オートボムフラグ
-
         //シーン内設定
         bombTime: 0,    //ボム効果継続残りフレーム数
         timeVanish: 0,  //弾消し時間
@@ -135,11 +127,11 @@ phina.define("pbr.MainScene", {
             .setPosition(10, 10);
         this.scoreLabel.score = 0;
         this.scoreLabel.update = function() {
-            if (this.score < that.score) {
-                var s = ~~((that.score-this.score)/5);
+            if (this.score < app.score) {
+                var s = ~~((app.score-this.score)/5);
                 if (s < 3) s=3;
                 this.score += s;
-                if (this.score > that.score)this.score = that.score;
+                if (this.score > app.score)this.score = app.score;
             }
             this.text = "SCORE "+this.score;
         }
@@ -149,7 +141,7 @@ phina.define("pbr.MainScene", {
             .addChildTo(this)
             .setPosition(10, 30);
         this.rankLabel.update = function() {
-            this.text = "RANK "+that.rank;
+            this.text = "RANK "+app.rank;
         };
 
         //残機表示
@@ -162,7 +154,7 @@ phina.define("pbr.MainScene", {
             s.num = i;
             s.visible = false;
             s.update = function() {
-                if (that.zanki-1 > this.num) this.visible = true; else this.visible = false;
+                if (app.zanki-1 > this.num) this.visible = true; else this.visible = false;
             }
         }
 
@@ -176,7 +168,7 @@ phina.define("pbr.MainScene", {
             s.num = i;
             s.visible = false;
             s.update = function() {
-                if (that.bombStock > this.num) this.visible = true; else this.visible = false;
+                if (app.bombStock > this.num) this.visible = true; else this.visible = false;
             }
             var lparam = {
                 text: "B",
@@ -340,7 +332,7 @@ phina.define("pbr.MainScene", {
     enterBomb: function() {
         if (this.bombTime > 0) return;
         this.bombTime = 90;
-        this.bombStock--;
+        app.bombStock--;
 
         this.eraseBullet();
         var layer = this.effectLayerMiddle;

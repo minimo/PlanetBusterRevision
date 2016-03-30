@@ -189,7 +189,7 @@ phina.define("pbr.Player", {
         if (this.timeMuteki > 0 || this.parentScene.bombTime > 0 || this.parentScene.timeVanish > 0) return false;
 
         //オートボム発動
-        if (this.parentScene.autoBomb && this.parentScene.bombStock > 0) {
+        if (app.autoBomb && app.bombStock > 0) {
             this.parentScene.enterBomb();
             return true;
         }
@@ -200,8 +200,8 @@ phina.define("pbr.Player", {
 
         app.playSE("playermiss");
 
-        this.parentScene.zanki--;
-        if (this.parentScene.zanki > 0) {
+        app.zanki--;
+        if (app.zanki > 0) {
             this.startup();
         } else {
             this.visible = false;

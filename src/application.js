@@ -52,6 +52,14 @@ phina.define("pbr.Application", {
     },
 
     _member: {
+        //ゲーム設定
+        score: 0,
+        rank: 1,
+        zanki: 3,       //残機
+        bombStock: 2,   //ボム残数
+        numContinue: 0, //コンティニュー回数
+        autoBomb: false,//オートボムフラグ
+
         //ＢＧＭ＆効果音
         bgm: null,
         bgmIsPlay: false,
