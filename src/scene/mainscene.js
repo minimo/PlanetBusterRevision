@@ -339,6 +339,14 @@ phina.define("pbr.MainScene", {
     restartStage: function() {
     },
 
+    //シーン内容リセット
+    reset: function() {
+        this.layers = [];
+        for (var i = 0; i < LAYER_SYSTEM+1; i++) {
+            this.layers[i].removeChildren();
+        }
+    },
+
     //敵ユニット単位の投入
     enterEnemyUnit: function(name) {
         var unit = pbr.enemyUnit[name];
