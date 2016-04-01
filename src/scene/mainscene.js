@@ -53,6 +53,7 @@ phina.define("pbr.MainScene", {
 
         stageName: {
             1: "Operation PLANET_BUSTER",
+            2: "Dance in the Sky",
         },
     },
 
@@ -187,15 +188,15 @@ phina.define("pbr.MainScene", {
             phina.display.Label(lparam).addChildTo(s).setScale(2.5);
         }
 
-        //ステージ初期化
-        this.initStage();
-
         //目隠し
         this.mask = phina.display.RectangleShape(param)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
         this.mask.tweener.setUpdateType('fps');
         this.mask.tweener.clear().fadeOut(20);
+
+        //ステージ初期化
+        this.initStage();
 
         //イベント処理
         //コンティニュー時
@@ -216,6 +217,7 @@ phina.define("pbr.MainScene", {
         //ゲームオーバー時
         this.on("gameover", function() {
             app.stopBGM();
+            this.exit("gameover");
         });
     },
     
@@ -283,7 +285,24 @@ phina.define("pbr.MainScene", {
 
     //ステージ初期化
     initStage: function() {
-        if (this.ground) this.ground.remove();
+        if (this.ground) {
+            this.ground.remove();
+            this.ground = null;
+        }
+        if (this.stage) this.stage = null;
+
+        //レイヤー内容を全てクリア
+        for (var i = 0; i < LAYER_SYSTEM+1; i++) {
+            this.layers[i].removeChildren();
+        }
+
+        //プレイヤー再設定
+        this.player
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+            .stageStartup();
+
+        //ステージ進行と背景追加
         switch (this.stageId) {
             case 1:
                 this.stage = pbr.Stage1(this, this.player);
@@ -291,11 +310,11 @@ phina.define("pbr.MainScene", {
                 break;
             case 2:
                 this.stage = pbr.Stage1(this, this.player);
-                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.ground = pbr.Stage1Ground().addChildTo(this);
                 break;
             case 3:
                 this.stage = pbr.Stage1(this, this.player);
-                this.ground = pbr.Stage1Ground().setPosition(0, -400).addChildTo(this);
+                this.ground = pbr.Stage1Ground().addChildTo(this);
                 break;
         }
         this.time = 0;
@@ -332,18 +351,6 @@ phina.define("pbr.MainScene", {
             .call(function(){this.remove()}.bind(m2));
         m2.update = function() {
             this.text = name.substring(0, ~~this.col)+"_";
-        }
-    },
-
-    //ステージ再スタート
-    restartStage: function() {
-    },
-
-    //シーン内容リセット
-    reset: function() {
-        this.layers = [];
-        for (var i = 0; i < LAYER_SYSTEM+1; i++) {
-            this.layers[i].removeChildren();
         }
     },
 

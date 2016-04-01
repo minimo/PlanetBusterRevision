@@ -9,9 +9,9 @@
 phina.define("pbr.SceneFlow", {
     superClass: "phina.game.ManagerScene",
 
-    init: function() {
-        this.superInit({
-            startLabel: "splash",
+    init: function(options) {
+        options = options || {};
+        this.superInit(options.$safe({
             scenes: [{
                 label: "splash",
                 className: "pbr.SplashScene",
@@ -31,7 +31,7 @@ phina.define("pbr.SceneFlow", {
                 className: "pbr.ArcadeMode",
                 nextLabel: "title",
             }],
-        });
+        }));
     }
 });
 
@@ -54,6 +54,9 @@ phina.define("pbr.ArcadeMode", {
                 arguments: {
                     stageId: 1,
                 },
+            },{
+                label: "gameover",
+                className: "pbr.GameOverScene",
             }],
         });
     }

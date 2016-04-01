@@ -16,8 +16,6 @@ phina.define("pbr.Application", {
         assets: {
             "preload": {
                 sound: {
-                    "stage1":        "assets/sounds/expsy.mp3",
-
                     "warning":       "assets/sounds/bgm_warning.mp3",
                     "powerup":       "assets/sounds/ta_ta_suraido01.mp3",
                     "explodeSmall":  "assets/sounds/sen_ge_taihou03.mp3", 
@@ -47,6 +45,14 @@ phina.define("pbr.Application", {
                 },
             },
             "stage1": {
+                sound: {
+                    "stage1":        "assets/sounds/expsy.mp3",
+                },
+            },
+            "stage2": {
+                sound: {
+                    "stage2":        "assets/sounds/expsy.mp3",
+                },
             },
         },
     },
@@ -55,7 +61,7 @@ phina.define("pbr.Application", {
         //ゲーム設定
         score: 0,
         rank: 1,
-        zanki: 3,       //残機
+        zanki: 1,       //残機
         bombStock: 2,   //ボム残数
         numContinue: 0, //コンティニュー回数
         autoBomb: false,//オートボムフラグ
