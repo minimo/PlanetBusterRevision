@@ -26,7 +26,7 @@ phina.display.DisplayElement.prototype.isHitElement = function(elm) {
 phina.app.Element.prototype.removeChildren = function(beginIndex) {
     beginIndex = beginIndex || 0;
     var tempChildren = this.children.slice();
-    var len = len = tempChildren.length;
+    var len = tempChildren.length;
     for (var i = beginIndex; i < len; ++i) {
         tempChildren[i].remove();
     }
