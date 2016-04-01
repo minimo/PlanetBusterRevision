@@ -6,7 +6,7 @@
  *
  */
 
-phina.define("pbr.GameObverScene", {
+phina.define("pbr.GameOverScene", {
     superClass: "phina.display.DisplayScene",
     
     _member: {
