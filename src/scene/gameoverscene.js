@@ -62,6 +62,11 @@ phina.define("pbr.GameOverScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6);
 
+        this.mask = phina.display.RectangleShape(param)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+        this.mask.tweener.setUpdateType('fps').fadeOut(30);
+
         this.time = 0;
     },
     
