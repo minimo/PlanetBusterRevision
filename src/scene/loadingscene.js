@@ -20,6 +20,19 @@ phina.define("pbr.LoadingScene", {
         });
         this.superInit(options);
 
+        //バックグラウンド
+        var param = {
+            width:SC_W,
+            height:SC_H,
+            fill: 'black',
+            stroke: false,
+            backgroundColor: 'transparent',
+        };
+        this.bg = phina.display.RectangleShape(param)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+        this.bg.tweener.setUpdateType('fps');
+
         //ロードする物が無い場合スキップ
         this.forceExit = false;
         var asset = options.asset;
