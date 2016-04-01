@@ -291,17 +291,6 @@ phina.define("pbr.MainScene", {
         }
         if (this.stage) this.stage = null;
 
-        //レイヤー内容を全てクリア
-        for (var i = 0; i < LAYER_SYSTEM+1; i++) {
-            this.layers[i].removeChildren();
-        }
-
-        //プレイヤー再設定
-        this.player
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.5)
-            .stageStartup();
-
         //ステージ進行と背景追加
         switch (this.stageId) {
             case 1:
