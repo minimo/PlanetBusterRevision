@@ -112,7 +112,7 @@ phina.define("pbr.Player", {
             this.y = Math.clamp(this.y, 16, SC_H-16);
 
             //ショット投入
-            if (this.shotON && app.ticker.frame % this.shotInterval == 0) this.enterShot();
+            if (this.shotON && app.ticker.frame % this.shotInterval == 0 && !this.isDead) this.enterShot();
         }
 
         //機体ロール
@@ -208,6 +208,7 @@ phina.define("pbr.Player", {
         if (app.zanki > 0) {
             this.startup();
         } else {
+            this.shotON = false;
             this.visible = false;
             this.isCollision = false;
             this.isControl = false;
