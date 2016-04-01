@@ -1,11 +1,11 @@
 /*
- *  gameoverscene.js
+ *  continuescene.js
  *  2016/03/29
  *  @auther minimo  
  *  This Program is MIT license.
  */
  
-phina.define("pbr.GameOverScene", {
+phina.define("pbr.ContinueScene", {
     superClass: "phina.display.DisplayScene",
 
     _member: {
@@ -73,7 +73,7 @@ phina.define("pbr.GameOverScene", {
         var kb = app.keyboard;
         if (this.time > 60 && app.keyboard.getKey("Z")) {
             this.currentScene.flare("gameover");
-            this.exit();
+            app.popScene();
         }
         if (this.time > 60 && app.keyboard.getKey("X")) {
             this.currentScene.flare("continue");
