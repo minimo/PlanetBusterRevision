@@ -57,6 +57,13 @@ phina.define("pbr.ArcadeMode", {
             },{
                 label: "gameover",
                 className: "pbr.GameOverScene",
+                nextLabel: "toTitle",
+            },{
+                label: "toTitle",
+                className: "pbr.SceneFlow",
+                arguments: {
+                    startLabel: "title",
+                },
             }],
         });
     }
