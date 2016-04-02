@@ -112,8 +112,9 @@ phina.define("pbr.Application", {
         return this;
     },
 
-    playBGM: function(asset) {
-        this.soundset.playBGM(asset);
+    playBGM: function(asset, loop, callback) {
+        if (loop === undefined) loop = true;
+        this.soundset.playBGM(asset, loop, callback);
     },
 
     stopBGM: function(asset) {

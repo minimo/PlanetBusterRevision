@@ -49,15 +49,17 @@ phina.define("phina.extension.SoundSet", {
         return null;
     },
 
-    playBGM: function(name) {
+    playBGM: function(name, loop, callback) {
+        if (loop === undefined) loop = true;
         if (this.bgm) {
             this.bgm.stop();
             this.bgmIsPlay = false;
         }
         var media = this.find(name);
         if (media) {
-            media.play(true);
-            media.setVolume(this.volumeBGM);
+            var vol = this.volumeBGM * media.volume;
+            media.setVolume(vol);
+            media.play(loop, callback);
             this.bgm = media;
             this.bgmIsPlay = true;
         } else {
@@ -113,7 +115,7 @@ phina.define("phina.extension.SoundSet", {
         if (media) {
             var vol = this.volumeSE * media.volume;
             media.setVolume(vol);
-            media.play();
+            media.play(false);
         } else {
             if (this.add(name)) this.playSE(name);
         }
@@ -136,6 +138,7 @@ phina.define("phina.extension.SoundElement", {
         volume: 1,
         status: null,
         message: null,
+        callback: null,
     },
 
     init: function(name) {
@@ -144,15 +147,20 @@ phina.define("phina.extension.SoundElement", {
         this.media = phina.asset.AssetManager.get("sound", name);
         if (this.media) {
             this.media.volume = 1;
+            this.media.on('ended', function() {
+                if (this.callback) this.callback();
+            }.bind(this))
         } else {
             console.warn("asset not found. "+name);
         }
     },
 
-    play: function(loop) {
+    play: function(loop, callback) {
+        if (loop === undefined) loop = false
         if (!this.media) return this;
         this.media.loop = loop;
         this.media.play();
+        this.callback = callback;
         return this;
     },
 
