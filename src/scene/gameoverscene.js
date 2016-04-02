@@ -67,6 +67,8 @@ phina.define("pbr.GameOverScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.mask.tweener.setUpdateType('fps').fadeOut(30);
 
+        app.playBGM("gameover", false);
+
         this.time = 0;
     },
     
