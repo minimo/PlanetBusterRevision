@@ -49,7 +49,7 @@ phina.define("pbr.ContinueScene", {
         }
 
         //ゲームオーバー表示
-        phina.display.Label({text: "GAME OVER"}.$safe(this.labelParam))
+        phina.display.Label({text: "CONTINUE?"}.$safe(this.labelParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.4);
 
@@ -61,7 +61,7 @@ phina.define("pbr.ContinueScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.55);
 
-        phina.display.Label({text: "Press [Z] key or Touch"}.$safe(this.labelParam))
+        phina.display.Label({text: "YES     NO"}.$safe(this.labelParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.60);
 
