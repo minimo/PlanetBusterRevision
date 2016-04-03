@@ -56,18 +56,16 @@ phina.define("pbr.GameOverScene", {
 
         phina.display.Label({text: "GAME OVER"}.$safe(this.titleParam))
             .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.4);
-
-        phina.display.Label({text: "Press[Z]key or touch to Title"}.$safe(this.msgParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.6);
+            .setPosition(SC_W*0.5, SC_H*0.5);
 
         this.mask = phina.display.RectangleShape(param)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.mask.tweener.setUpdateType('fps').fadeOut(30);
 
-        app.playBGM("gameover", false);
+        app.playBGM("gameover", false, function() {
+            this.exit();
+        }.bind(this));
 
         this.time = 0;
     },
@@ -76,6 +74,7 @@ phina.define("pbr.GameOverScene", {
         //キーボード操作
         var kb = this.app.keyboard;
         if (this.time > 30 && app.keyboard.getKey("Z")) {
+            app.stopBGM();
             this.exit();
         }
         this.time++;
