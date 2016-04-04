@@ -32,8 +32,6 @@ phina.define("phina.extension.Button", {
         flat: true,
     },
 
-    style: {},
-
     labelParam: {align: "center", baseline:"middle", outlineWidth:3},
 
     text: "",
@@ -48,15 +46,21 @@ phina.define("phina.extension.Button", {
     alphaON: 0.9,
     alphaOFF: 0.4,
 
-    init: function(width, height, text, style) {
+    init: function(options) {
         this.superInit();
+        options = (options||{}).$safe({
+            width: 200,
+            height: 80,
+            text: "undefined",
+            style: null
+        });
 
-        this.width = width || 200;
-        this.height = height || 80;
-        this.text = text || "";
+        this.width = options.width;
+        this.height = options.height;
+        this.text = options.text;
 
         //セットアップ
-        this.setup(style);
+        this.setup(options.style);
 
         //判定処理設定
         this.interactive = true;
@@ -198,8 +202,8 @@ phina.define("phina.extension.Button", {
 phina.define("phina.extension.RoundButton", {
     superClass: "phina.extension.Button",
 
-    init: function(width, height, text, style) {
-        this.superInit(width, height, text, style);
+    init: function(options) {
+        this.superInit(options);
     },
 
     setup: function(style) {
@@ -273,8 +277,6 @@ phina.define("phina.extension.ToggleButton", {
         flat: true,
     },
 
-    style: {},
-
     labelParam: {align: "center", baseline:"middle", outlineWidth:3 },
 
     onText: "",
@@ -291,15 +293,20 @@ phina.define("phina.extension.ToggleButton", {
     alphaON: 0.9,
     alphaOFF: 0.4,
 
-    init: function(width, height, onText, offText, style) {
+    init: function(options) {
+        options = (options||{}).$safe({
+            width: 200,
+            height: 80,
+            onText: "ON",
+            offText: "OFF",
+            style: null
+        });
         this.superInit();
-
-        this.width = width || 200;
-        this.height = height || 80;
-        this.onText = onText || "";
-        this.offText = offText || "";
-
-        this.text = this.offText;
+ 
+        this.width = options.width;
+        this.height = options.height;
+        this.onText = options.onText;
+        this.offText = options.offText;
 
         //セットアップ
         this.setup(style);
@@ -530,8 +537,6 @@ phina.define("phina.extension.SlideButton", {
         onColor: 'rgba(0, 255, 0, 1.0)',
         offColor: 'rgba(200, 200, 200, 1.0)',
     },
-
-    style: null,
 
     _slideON: false,
 
