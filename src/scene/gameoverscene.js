@@ -63,6 +63,7 @@ phina.define("pbr.GameOverScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.mask.tweener.setUpdateType('fps').fadeOut(30);
 
+        //ＢＧＭ終了時にシーンを抜ける
         app.playBGM("gameover", false, function() {
             this.exit();
         }.bind(this));
@@ -90,6 +91,9 @@ phina.define("pbr.GameOverScene", {
 
     //タッチorクリック終了処理
     onpointend: function(e) {
-        this.exit();
+        if (this.time > 30) {
+            app.stopBGM();
+            this.exit();
+        }
     },
 });

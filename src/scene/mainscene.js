@@ -264,7 +264,7 @@ phina.define("pbr.MainScene", {
         if (this.isGameOver) {
             this.isGameOver = false;
             this.player.isControl = false;
-            var cos = pbr.ContinueScene(this, this.stageId, this.isStageBoss, false);
+            var cos = pbr.ContinueScene(this);
             phina.app.Object2D().addChildTo(this).tweener.clear()
                 .wait(2000)
                 .call( function() {
