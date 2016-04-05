@@ -80,8 +80,8 @@ phina.define("pbr.Player", {
                 this.y += (pt.y - this.y)/this.touchSpeed;
 */
                 var pt = p.deltaPosition;
-                this.x += pt.x;
-                this.y += pt.y;
+                this.x += ~~(pt.x*1.8);
+                this.y += ~~(pt.y*1.8);
 
                 this.mouseON = true;
                 this.shotON = true;
