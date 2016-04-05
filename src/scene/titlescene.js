@@ -78,15 +78,15 @@ phina.define("pbr.TitleScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6)
 
-        phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
+        this.arcade = phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6);
 
-        phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
+        this.practice = phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.7);
 
-        phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
+        this.setting = phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.8);
 
@@ -111,6 +111,7 @@ phina.define("pbr.TitleScene", {
 
         //選択中メニュー番号
         this.select = 0;
+        this.isSelected = false;
 
         this.mask = phina.display.RectangleShape(param)
             .addChildTo(this)
@@ -122,7 +123,7 @@ phina.define("pbr.TitleScene", {
     
     update: function(app) {
         //キーボード操作
-        if (this.time > 10) {
+        if (this.time > 10 && !this.isSelected) {
             var kb = app.keyboard;
             if (kb.getKey("up")) {
                 this.select--;
@@ -155,7 +156,10 @@ phina.define("pbr.TitleScene", {
         switch (this.select) {
             case 0:
                 app.playSE("start");
-                this.arcadeMode();
+                this.isSelected = true;
+                this.tweener.clear().wait(2000).call(function() {
+                    this.arcadeMode();
+                }.bind(this));
                 break;
             case 1:
                 this.practiceMode();
