@@ -40,6 +40,7 @@ phina.define("pbr.Enemy", {
         texIndex: 0,
         texWidth: 32,
         texHeight: 32,
+        texColor: "",
 
         //基本情報
         data: null,
@@ -103,6 +104,7 @@ phina.define("pbr.Enemy", {
             this.texWidth = d.texWidth;
             this.texHeight = d.texHeight;
             this.body = phina.display.Sprite(d.texName, d.texWidth, d.texHeight).addChildTo(this);
+            this.body.tweener.setUpdateType('fps');
 
             this.texTrimX = d.texTrimX || 0;
             this.texTrimY = d.texTrimY || 0;
@@ -118,6 +120,7 @@ phina.define("pbr.Enemy", {
             this.texWidth = this.width;
             this.texHeight = this.height;
             this.body = phina.display.Shape({width:this.width, height:this.height}).addChildTo(this);
+            this.body.tweener.setUpdateType('fps');
             this.body.renderRectangle({fillStyle: "rgba(255,255,0,1.0)", strokeStyle: "rgba(255,255,0,1.0)"});
             this.body.update = function() {this.rotation = -that.rotation;};
         }
@@ -280,7 +283,7 @@ phina.define("pbr.Enemy", {
         }
 
         //被ダメージ演出
-        this.changeColor("White");
+        this.changeColor("White", true);
         this.body.tweener.clear().wait(1).call(function(){this.changeColor()}.bind(this));
 
         return false;
@@ -316,17 +319,21 @@ phina.define("pbr.Enemy", {
     },
 
     //色を赤or白くする
-    changeColor: function(color) {
-/*
+    changeColor: function(color, reverse) {
         if (!this.texName) return;
-        if (color === undefined) {
-            color = "";
+        if (reverse && this.texColor != "") {
+            this.texColor = "";
         } else {
-            if (color != "Red" && color != "White") color = "Red";
+            if (color === undefined) {
+                this.texColor = "";
+            } else {
+                if (color != "Red" && color != "White") color = "Red";
+                this.texColor = color;
+            }
         }
-        this.body.setImage(this.texName+color, this.texWidth, this.texHeight);
+
+        this.body.image = phina.asset.AssetManager.get("image", this.texName+this.texColor);
         this.body.setFrameIndex(this.texIndex);
-*/
     },
 
     //通常破壊パターン
