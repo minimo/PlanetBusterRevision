@@ -27,6 +27,9 @@ phina.define("pbr.MainScene", {
         isBossBattleEnd: false,
         bossObject: null,
 
+        //各種判定用
+        isPlayerMiss: false,
+
         //ラベル用パラメータ
         labelParam: {
             fill: "white",
