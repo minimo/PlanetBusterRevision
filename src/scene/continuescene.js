@@ -116,18 +116,18 @@ phina.define("pbr.ContinueScene", {
 
     update: function() {
         //キーボード操作
-        if (this.time > 60) {
-            var kb = app.keyboard;
-            if (app.keyboard.getKey("left")) {
-                this.cursol.tweener.clear()
-                    .moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
-                this.yes = true;
-            }
-            if (app.keyboard.getKey("right")) {
-                this.cursol.tweener.clear()
-                    .moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
-                this.yes = false;
-            }
+        var kb = app.keyboard;
+        if (app.keyboard.getKey("left")) {
+            this.cursol.tweener.clear()
+                .moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
+            this.yes = true;
+        }
+        if (app.keyboard.getKey("right")) {
+            this.cursol.tweener.clear()
+                .moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
+            this.yes = false;
+        }
+        if (this.time > 30) {
             if (app.keyboard.getKey("Z") || app.keyboard.getKey("space")) {
                 if (this.yes) {
                     this.currentScene.flare("continue");
@@ -138,7 +138,6 @@ phina.define("pbr.ContinueScene", {
                 }
             }
         }
-
         this.time++;
     },
 });
