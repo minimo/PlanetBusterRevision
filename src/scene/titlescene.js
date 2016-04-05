@@ -20,7 +20,7 @@ phina.define("pbr.TitleScene", {
             fontFamily: "Orbitron",
             align: "center",
             baseline: "middle",
-            fontSize: 32,
+            fontSize: 36,
             fontWeight: ''
         },
         msgParam: {
@@ -54,37 +54,116 @@ phina.define("pbr.TitleScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.bg.tweener.setUpdateType('fps');
 
-        phina.display.Label({text: "PlanetBuster"}.$safe(this.titleParam))
+        //タイトル
+        phina.display.Label({text: "Planet"}.$safe(this.titleParam))
             .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.4);
+            .setPosition(SC_W*0.3-5, SC_H*0.3);
+        phina.display.Label({text: "Buster"}.$safe(this.titleParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.7+5, SC_H*0.3);
+        phina.display.Label({text: "REVISION", fontSize:16, stroke: "red"}.$safe(this.titleParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.35);
 
-        phina.display.Label({text: "Press[Z]key or touch"}.$safe(this.msgParam))
+        var that = this;
+        //選択カーソル
+        var param2 = {
+            width:SC_W,
+            height:SC_H*0.08,
+            fill: "rgba(0,100,200,0.5)",
+            stroke: "rgba(0,100,200,0.5)",
+            backgroundColor: 'transparent',
+        };
+        this.cursol = phina.display.RectangleShape(param2)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.6)
+
+        phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6);
+
+        phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.7);
+
+        phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.8);
+
+        //タッチ用
+        for (var i = 0; i < 3; i++) {
+            var c = phina.display.RectangleShape(param2)
+                .addChildTo(this)
+                .setPosition(SC_W*0.5, SC_H*0.6+i*SC_H*0.1)
+                .setInteractive(true);
+            c.alpha = 0;
+            c.select = i;
+            c.onpointstart = function() {
+                if (that.select != this.select) {
+                    that.select = this.select;
+                    that.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(that.select*SC_H*0.1), 200, "easeOutCubic");
+                } else {
+                    that.menuSelect();
+                }
+            }
+        }
+
+        //選択中メニュー番号
+        this.select = 0;
+
+        this.mask = phina.display.RectangleShape(param)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+        this.mask.tweener.setUpdateType('fps').fadeOut(20);
 
         this.time = 0;
     },
     
     update: function(app) {
         //キーボード操作
-        var kb = this.app.keyboard;
-        if (this.time > 30 && app.keyboard.getKey("Z")) {
-            this.exit();
+        if (this.time > 10) {
+            var kb = app.keyboard;
+            if (kb.getKey("up")) {
+                this.select--;
+                if (this.select < 0) this.select = 0;
+                this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                this.time = 0;
+            }
+            if (kb.getKey("down")) {
+                this.select++;
+                if (this.select > 2) this.select = 2;
+                this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                this.time = 0;
+            }
+            if (kb.getKey("Z")) {
+                this.menuSelect();
+            }
         }
         this.time++;
     },
 
-    //タッチorクリック開始処理
-    onpointstart: function(e) {
+    menuSelect: function() {
+        switch (this.select) {
+            case 0:
+                this.arcadeMode();
+                break;
+            case 1:
+                this.practiceMode();
+                break;
+            case 2:
+                this.setting();
+                break;
+        }
     },
 
-    //タッチorクリック移動処理
-    onpointmove: function(e) {
-    },
-
-    //タッチorクリック終了処理
-    onpointend: function(e) {
+    arcadeMode: function() {
         this.exit();
+    },
+
+    practiceMode: function() {
+    },
+
+    setting: function() {
     },
 });
 
