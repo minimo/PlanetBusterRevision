@@ -16,6 +16,7 @@ phina.define("pbr.Application", {
         assets: {
             "preload": {
                 sound: {
+                    "start":         "assets/sounds/soundlogo40.mp3",
                     "warning":       "assets/sounds/bgm_warning.mp3",
                     "powerup":       "assets/sounds/ta_ta_suraido01.mp3",
                     "explodeSmall":  "assets/sounds/sen_ge_taihou03.mp3", 
@@ -25,6 +26,9 @@ phina.define("pbr.Application", {
                     "bomb":          "assets/sounds/bomb.mp3",
                     "playermiss":    "assets/sounds/ta_ta_zuban_d01.mp3",
                     "gameover":      "assets/sounds/soundlogo9.mp3",
+                    "cancel":        "assets/sounds/se_maoudamashii_system20.mp3",
+                    "select":        "assets/sounds/se_maoudamashii_system36.mp3",
+                    "click":         "assets/sounds/se_maoudamashii_system26.mp3",
                 },
                 font: {
                     "UbuntuMono":   "fonts/UbuntuMono-Bold.ttf",

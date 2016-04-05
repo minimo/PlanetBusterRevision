@@ -102,6 +102,7 @@ phina.define("pbr.TitleScene", {
                 if (that.select != this.select) {
                     that.select = this.select;
                     that.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(that.select*SC_H*0.1), 200, "easeOutCubic");
+                    app.playSE("select");
                 } else {
                     that.menuSelect();
                 }
@@ -125,14 +126,22 @@ phina.define("pbr.TitleScene", {
             var kb = app.keyboard;
             if (kb.getKey("up")) {
                 this.select--;
-                if (this.select < 0) this.select = 0;
-                this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                if (this.select < 0) {
+                    this.select = 0;
+                } else {
+                    this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                    app.playSE("select");
+                }
                 this.time = 0;
             }
             if (kb.getKey("down")) {
                 this.select++;
-                if (this.select > 2) this.select = 2;
-                this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                if (this.select > 2) {
+                    this.select = 2;
+                } else {
+                    this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                    app.playSE("select");
+                }
                 this.time = 0;
             }
             if (kb.getKey("Z")) {
@@ -145,6 +154,7 @@ phina.define("pbr.TitleScene", {
     menuSelect: function() {
         switch (this.select) {
             case 0:
+                app.playSE("start");
                 this.arcadeMode();
                 break;
             case 1:

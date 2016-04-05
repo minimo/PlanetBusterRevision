@@ -67,6 +67,7 @@ phina.define("pbr.ContinueScene", {
             } else {
                 that.cursol.tweener.clear().moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
                 that.yes = true;
+                app.playSE("select");
             }
         }
         this.cursol2 = phina.display.RectangleShape(param2)
@@ -81,6 +82,7 @@ phina.define("pbr.ContinueScene", {
             } else {
                 that.cursol.tweener.clear().moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
                 that.yes = false;
+                app.playSE("select");
             }
         }
 
@@ -118,14 +120,20 @@ phina.define("pbr.ContinueScene", {
         //キーボード操作
         var kb = app.keyboard;
         if (app.keyboard.getKey("left")) {
-            this.cursol.tweener.clear()
-                .moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
-            this.yes = true;
+            if (!this.yes) {
+                this.cursol.tweener.clear()
+                    .moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
+                this.yes = true;
+                app.playSE("select");
+            }
         }
         if (app.keyboard.getKey("right")) {
-            this.cursol.tweener.clear()
-                .moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
-            this.yes = false;
+            if (this.yes) {
+                this.cursol.tweener.clear()
+                    .moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
+                this.yes = false;
+                app.playSE("select");
+            }
         }
         if (this.time > 30) {
             if (app.keyboard.getKey("Z") || app.keyboard.getKey("space")) {
