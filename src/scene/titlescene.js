@@ -132,6 +132,11 @@ phina.define("pbr.TitleScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.mask.tweener.setUpdateType('fps').fadeOut(20);
 
+        //戻ってきた場合に選択状態を解除
+        this.on('enter', function() {
+            this.isSelected = false;
+        }.bind(this));
+
         this.time = 0;
     },
     
