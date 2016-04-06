@@ -81,14 +81,32 @@ phina.define("pbr.TitleScene", {
         this.arcade = phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6);
+        this.arcade.blink = false;
+        this.arcade.update = function(e) {
+            if (this.blink) {
+                if (e.ticker.frame % 15 == 0) this.visible = !this.visible;
+            }
+        }
 
         this.practice = phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.7);
+        this.practice.blink = false;
+        this.practice.update = function(e) {
+            if (this.blink) {
+                if (e.ticker.frame % 15 == 0) this.visible = !this.visible;
+            }
+        }
 
         this.setting = phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.8);
+        this.setting.blink = false;
+        this.setting.update = function(e) {
+            if (this.blink) {
+                if (e.ticker.frame % 15 == 0) this.visible = !this.visible;
+            }
+        }
 
         //タッチ用
         for (var i = 0; i < 3; i++) {
@@ -156,8 +174,9 @@ phina.define("pbr.TitleScene", {
         switch (this.select) {
             case 0:
                 app.playSE("start");
+                this.arcade.blink = true;
                 this.isSelected = true;
-                this.tweener.clear().wait(2000).call(function() {
+                this.tweener.clear().wait(2500).call(function() {
                     this.arcadeMode();
                 }.bind(this));
                 break;
