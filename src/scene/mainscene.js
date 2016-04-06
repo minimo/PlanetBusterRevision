@@ -216,7 +216,7 @@ phina.define("pbr.MainScene", {
         this.on("gameover", function() {
             app.stopBGM();
             this.exit("gameover");
-        });
+        }.bind(this));
     },
     
     update: function(app) {
