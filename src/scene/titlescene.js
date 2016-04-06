@@ -164,7 +164,7 @@ phina.define("pbr.TitleScene", {
                 }
                 this.time = 0;
             }
-            if (kb.getKey("Z")) {
+            if (kb.getKey("Z") || kb.getKey("space")) {
                 this.menuSelect();
             }
         }
