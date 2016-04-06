@@ -1232,6 +1232,57 @@
       return item;
     }, context);
   });
+  
+  /**
+   * @method most
+   * most関数 最大値と最小値を返す
+   *
+   */
+  Array.prototype.$method("most", function(func, self) {
+    if(this.length < 1){
+      return {
+        max: -Infinity,
+        min: Infinity,
+      };
+    }
+    if(func){
+      var maxValue = -Infinity;
+      var minValue = Infinity;
+      var maxIndex = 0;
+      var minIndex = 0;
+      
+      if(typeof self === 'undefined'){self = this;}
+      
+      for (var i = 0, len = this.length; i < len; ++i) {
+        var v = func.call(self, this[i], i, this);
+        if(maxValue < v){
+          maxValue = v;
+          maxIndex = i;
+        }
+        if(minValue > v){
+          minValue = v;
+          minIndex = i;
+        }
+      }
+      return {
+        max: this[maxIndex],
+        min: this[minIndex],
+      };
+    }
+    else{
+      var max = -Infinity;
+      var min = Infinity;
+      for (var i = 0, len = this.length;i < len; ++i) {
+        if(max<this[i]){max=this[i];}
+        if(min>this[i]){min=this[i];}
+      }
+      return {
+        max: max,
+        min: min,
+      };
+    }
+    
+  });  
 
 })();
 
@@ -5041,7 +5092,6 @@ phina.namespace(function() {
 
       // デフォルトアニメーション
       this.animations["default"] = {
-          name: "default",
           frames: [].range(0, this.frame),
           next: "default",
           frequency: 1,
@@ -5052,7 +5102,6 @@ phina.namespace(function() {
 
         if (anim instanceof Array) {
           this.animations[key] = {
-            name: key,
             frames: [].range(anim[0], anim[1]),
             next: anim[2],
             frequency: anim[3] || 1,
@@ -5060,7 +5109,6 @@ phina.namespace(function() {
         }
         else {
           this.animations[key] = {
-            name: key,
             frames: anim.frames,
             next: anim.next,
             frequency: anim.frequency || 1
@@ -6796,11 +6844,13 @@ phina.namespace(function() {
 
     check: function(root) {
       // カーソルのスタイルを反映
-      if (this._holds.length > 0) {
-        this.app.domElement.style.cursor = this.cursor.hover;
-      }
-      else {
-        this.app.domElement.style.cursor = this.cursor.normal;
+      if (this.app.domElement) {
+        if (this._holds.length > 0) {
+          this.app.domElement.style.cursor = this.cursor.hover;
+        }
+        else {
+          this.app.domElement.style.cursor = this.cursor.normal;
+        }
       }
 
       if (!this._enable) return ;
@@ -8503,19 +8553,6 @@ phina.namespace(function() {
         this.target.width = frame.width;
         this.target.height = frame.height;
       }
-    },
-    
-    _accessor: {
-      currentAnimationName: {
-        get: function() {
-          if (this.currentAnimation) {
-            return this.currentAnimation.name;
-          } else {
-            return nul;
-          }
-        },
-        set: function(name) {return this;}
-      },
     },
   });
 });
@@ -10254,31 +10291,12 @@ phina.namespace(function() {
     init: function(image, width, height) {
       this.superInit();
 
-      if (typeof image === 'string') {
-        image = phina.asset.AssetManager.get('image', image);
-      }
-      
-      this.image = image;
-      this.width = width || this.image.domElement.width;
-      this.height = height || this.image.domElement.height;
-      this._frameIndex = 0;
-
-      this._frameTrimX = 0;
-      this._frameTrimY = 0;
-      this._frameTrimW = this.image.domElement.width;
-      this._frameTrimH = this.image.domElement.height;
-
-      this.srcRect = {
-        x: 0,
-        y: 0,
-        width: this.width,
-        height: this.height,
-      };
+      this.srcRect = phina.geom.Rect();
+      this.setImage(image, width, height);
     },
 
     draw: function(canvas) {
       var image = this.image.domElement;
-
 
       // canvas.context.drawImage(image,
       //   0, 0, image.width, image.height,
@@ -10288,27 +10306,38 @@ phina.namespace(function() {
       var srcRect = this.srcRect;
       canvas.context.drawImage(image,
         srcRect.x, srcRect.y, srcRect.width, srcRect.height,
-        -this.width*this.originX, -this.height*this.originY, this.width, this.height
+        -this._width*this.originX, -this._height*this.originY, this._width, this._height
         );
     },
 
-    setFrameIndex: function(index, width, height) {
-      var sx = this._frameTrimX || 0;
-      var sy = this._frameTrimY || 0;
-      var sw = this._frameTrimW || (this.image.domElement.width-sx);
-      var sh = this._frameTrimH || (this.image.domElement.height-sy);
+    setImage: function(image, width, height) {
+      if (typeof image === 'string') {
+        image = phina.asset.AssetManager.get('image', image);
+      }
+      this._image = image;
+      this.width = this._image.domElement.width;
+      this.height = this._image.domElement.height;
 
-      var tw  = width || this.width;      // tw
-      var th  = height || this.height;    // th
-      var row = ~~(sw / tw);
-      var col = ~~(sh / th);
+      this.frameIndex = 0;
+
+      if (width) { this.width = width; }
+      if (height) { this.height = height; }
+
+      return this;
+    },
+
+    setFrameIndex: function(index, width, height) {
+      var tw  = width || this._width;      // tw
+      var th  = height || this._height;    // th
+      var row = ~~(this.image.domElement.width / tw);
+      var col = ~~(this.image.domElement.height / th);
       var maxIndex = row*col;
       index = index%maxIndex;
       
-      var x   = index%row;
-      var y   = ~~(index/row);
-      this.srcRect.x = sx+x*tw;
-      this.srcRect.y = sy+y*th;
+      var x = index%row;
+      var y = ~~(index/row);
+      this.srcRect.x = x*tw;
+      this.srcRect.y = y*th;
       this.srcRect.width  = tw;
       this.srcRect.height = th;
 
@@ -10317,47 +10346,18 @@ phina.namespace(function() {
       return this;
     },
 
-    setFrameTrimming: function(x, y, width, height) {
-      this._frameTrimX = x || 0;
-      this._frameTrimY = y || 0;
-      this._frameTrimW = width || this.image.domElement.width - this._frameTrimX;
-      this._frameTrimH = height || this.image.domElement.height - this._frameTrimY;
-      return this;
-    },
-
     _accessor: {
+      image: {
+        get: function() {return this._image;},
+        set: function(v) {
+          this.setImage(v);
+          return this;
+        }
+      },
       frameIndex: {
         get: function() {return this._frameIndex;},
         set: function(idx) {
           this.setFrameIndex(idx);
-          return this;
-        }
-      },
-      frameTrimX: {
-        get: function() {return this._frameTrimY;},
-        set: function(x) {
-          this._frameTrimX = x;
-          return this;
-        }
-      },
-      frameTrimY: {
-        get: function() {return this._frameTrimY;},
-        set: function(y) {
-          this._frameTrimY = y;
-          return this;
-        }
-      },
-      frameTrimW: {
-        get: function() {return this._frameTrimW;},
-        set: function(w) {
-          this._frameTrimW = w;
-          return this;
-        }
-      },
-      frameTrimH: {
-        get: function() {return this._frameTrimH;},
-        set: function(h) {
-          this._frameTrimH = h;
           return this;
         }
       },
@@ -10383,32 +10383,12 @@ phina.namespace(function() {
     init: function(options) {
       if (typeof arguments[0] !== 'object') {
         options = { text: arguments[0], };
-        if (arguments[1] === 'object') {
-            options.$safe(arguments[1]);
-        }
       }
       else {
         options = arguments[0];
       }
 
-      options = ({}).$safe(options, {
-        backgroundColor: 'transparent',
-
-        fill: 'black',
-        stroke: null,
-        strokeWidth: 2,
-
-        // 
-        text: 'Hello, world!',
-        // 
-        fontSize: 32,
-        fontWeight: '',
-        fontFamily: "'HiraKakuProN-W3'", // Hiragino or Helvetica,
-        // 
-        align: 'center',
-        baseline: 'middle',
-        lineHeight: 1.2,
-      });
+      options = ({}).$safe(options, phina.display.Label.defaults);
 
       this.superInit(options);
 
@@ -10485,6 +10465,27 @@ phina.namespace(function() {
           return "{fontWeight} {fontSize}px {fontFamily}".format(this);
         },
       }
+    },
+
+    _static: {
+      defaults: {
+        backgroundColor: 'transparent',
+
+        fill: 'black',
+        stroke: null,
+        strokeWidth: 2,
+
+        // 
+        text: 'Hello, world!',
+        // 
+        fontSize: 32,
+        fontWeight: '',
+        fontFamily: "'HiraKakuProN-W3'", // Hiragino or Helvetica,
+        // 
+        align: 'center',
+        baseline: 'middle',
+        lineHeight: 1.2,
+      },
     },
 
     _defined: function() {
@@ -11019,25 +11020,14 @@ phina.namespace(function() {
      * @constructor
      */
     init: function(options) {
-      options = (options || {}).$safe({
-        width: 200,
-        height: 80,
-        backgroundColor: 'transparent',
-        fill: 'hsl(200, 80%, 60%)',
-        stroke: null,
-
-        cornerRadius: 8,
-        text: 'Hello',
-        fontColor: 'white',
-        fontSize: 32,
-        fontFamily: "'HiraKakuProN-W3'", // Hiragino or Helvetica,
-      });
+      options = (options || {}).$safe(phina.ui.Button.defaults);
       this.superInit(options);
 
       this.cornerRadius = options.cornerRadius;
       this.text         = options.text;
       this.fontColor    = options.fontColor;
       this.fontSize     = options.fontSize;
+      this.fontWeight     = options.fontWeight;
       this.fontFamily   = options.fontFamily;
 
       this.setInteractive(true);
@@ -11052,12 +11042,29 @@ phina.namespace(function() {
     postrender: function(canvas) {
       var context = canvas.context;
       // text
-      var font = "{fontSize}px {fontFamily}".format(this);
+      var font = "{fontWeight} {fontSize}px {fontFamily}".format(this);
       context.font = font;
       context.textAlign = 'center';
       context.textBaseline = 'middle';
       context.fillStyle = this.fontColor;
       context.fillText(this.text, 0, 0);
+    },
+
+    _static: {
+      defaults: {
+        width: 200,
+        height: 80,
+        backgroundColor: 'transparent',
+        fill: 'hsl(200, 80%, 60%)',
+        stroke: null,
+
+        cornerRadius: 8,
+        text: 'Hello',
+        fontColor: 'white',
+        fontSize: 32,
+        fontWeight: '',
+        fontFamily: "'HiraKakuProN-W3'", // Hiragino or Helvetica,
+      },
     },
 
     _defined: function() {
@@ -11309,7 +11316,7 @@ phina.namespace(function() {
       var cache = textWidthCache[this.font];
       return cache || (textWidthCache[this.font] = {});
     },
-
+    
     getLines: function() {
       if (this._lineUpdate === false) {
         return this._lines;
@@ -11322,46 +11329,65 @@ phina.namespace(function() {
 
       var rowWidth = this.width;
 
+      var context = this.canvas.context;
+      context.font = this.font;
       //どのへんで改行されるか目星つけとく
-      var index = rowWidth / phina.graphics.Canvas.measureText(this.font, 'あ').width | 0;
+      var pos = rowWidth / context.measureText('あ').width | 0;
 
       var cache = this.getTextWidthCache();
-      for (var i = lines.length; i--;) {
-        var text = lines[i],
-            len,
-            j = 0,
-            width,
-            breakFlag = false,
-            char;
+      for (var i = lines.length - 1; 0 <= i; --i) {
+        var text = lines[i];
+        if (text === '') {
+          continue;
+        }
 
-        if (text === '') { continue;}
-
+        var j = 0;
+        var breakFlag = false;
+        var char;
         while (true) {
           //if (rowWidth > (cache[text] || (cache[text] = dummyContext.measureText(text).width))) break;
 
-          len = text.length;
-          if (index >= len) index = len - 1;
+          var len = text.length;
+          if (pos >= len) pos = len - 1;
+          char = text.substring(0, pos);
+          if (!cache[char]) {
+            cache[char] = context.measureText(char).width;
+          }
+          var textWidth = cache[char];
 
-          width = cache[char = text.substring(0, index)] || (cache[char] = phina.graphics.Canvas.measureText(this.font, char).width);
+          if (rowWidth < textWidth) {
+            do {
+              char = text[--pos];
+              if (!cache[char]) {
+                cache[char] = context.measureText(char).width;
+              }
+              textWidth -= cache[char];
+            } while (rowWidth < textWidth);
 
-          if (rowWidth < width) {
-            while (rowWidth < (width -= cache[char = text[--index]] || (cache[char] = phina.graphics.Canvas.measureText(this.font, char).width)));
           } else {
-            while (rowWidth >= (width += cache[char = text[index++]] || (cache[char] = phina.graphics.Canvas.measureText(this.font, char).width))) {
-              if (index >= len) {
+
+            do {
+              char = text[pos++];
+              if (pos >= len) {
                 breakFlag = true;
                 break;
               }
-            }
-            --index;
+              if (!cache[char]) {
+                cache[char] = context.measureText(char).width;
+              }
+              textWidth += cache[char];
+            } while (rowWidth >= textWidth);
+
+            --pos;
           }
           if (breakFlag) {
             break;
           }
-          //index が 0 のときは無限ループになるので、1にしとく
-          if (index === 0) index = 1;
+          //0 のときは無限ループになるので、1にしとく
+          if (pos === 0) pos = 1;
 
-          lines.splice(i + j++, 1, text.substring(0, index), text = text.substring(index, len));
+          lines.splice(i + j, 1, text.substring(0, pos), text = text.substring(pos, len));
+          ++j;
         }
 
       }
