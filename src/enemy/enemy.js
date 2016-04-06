@@ -23,6 +23,7 @@ phina.define("pbr.Enemy", {
         isEnemy: true,      //敵機判別
         isAttack: true,     //攻撃フラグ
         isCrashDown: false, //墜落フラグ
+        isShadow: true,     //影有りフラグ
 
         //キャラクタ情報
         name: null,
@@ -161,6 +162,23 @@ phina.define("pbr.Enemy", {
         this.parentScene = app.currentScene;
         this.player = this.parentScene.player;
         this.setup(param);
+
+        //影作成
+        if (this.isShadow) {
+            this.shadow = phina.display.Sprite(d.texName+"Black", d.texWidth, d.texHeight);
+            this.shadow.layer = LAYER_SHADOW;
+            this.shadow.alpha = 0.3;
+            this.shadow.addChildTo(this.parentScene);
+            this.shadow.setFrameTrimming(this.texTrimX, this.texTrimY, this.texTrimWidth, this.texTrimHeight);
+            this.shadow.setFrameIndex(this.texIndex);
+
+            var that = this;
+            this.shadow.update = function(e) {
+                this.x = that.x + 20;
+                this.y = that.y + 40;
+                this.rotation = that.rotation;
+            }
+        }
 
         //当り判定設定
         this.boundingType = "rect";
@@ -522,6 +540,7 @@ phina.define("pbr.Enemy", {
     },
 
     release: function() {
+        if (this.shadow) this.shadow.remove();
         this.removeChildren();
         return this;
     },
