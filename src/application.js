@@ -139,7 +139,7 @@ phina.define("pbr.Application", {
                 phina.asset.AssetManager.set("image", name+"Red", tex);
             }
             //影用
-            if (phina.asset.AssetManager.get("image", name+"Black")) {
+            if (!phina.asset.AssetManager.get("image", name+"Black")) {
                 var tex = phina.asset.AssetManager.get("image", name).clone();
                 tex.filter( function(pixel, index, x, y, bitmap) {
                     var data = bitmap.data;
