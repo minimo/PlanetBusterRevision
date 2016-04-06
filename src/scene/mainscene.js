@@ -53,11 +53,6 @@ phina.define("pbr.MainScene", {
             fontSize: 20,
             fontWeight: ''
         },
-
-        stageName: {
-            1: "Operation PLANET_BUSTER",
-            2: "Dance in the Sky",
-        },
     },
 
     init: function(option) {
@@ -325,7 +320,7 @@ phina.define("pbr.MainScene", {
         m1.tweener.wait(30).fadeIn(15).wait(171).fadeOut(15).call(function(){this.remove()}.bind(m1));
 
         //ステージ名表示
-        var name = this.stageName[this.stageId];
+        var name = pbr.Application.stageName[this.stageId];
         var param = {text: "_", fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontSize: 16, fontWeight: 200, outlineWidth: 2};
         var m2 = phina.display.Label(param, 50)
             .addChildTo(this)

@@ -13,6 +13,10 @@ phina.define("pbr.Application", {
 
 	_static: {
         version: "0.0.1",
+        stageName: {
+            1: "Operation PLANET_BUSTER",
+            2: "Dance in the Sky",
+        },
         assets: {
             "preload": {
                 sound: {
