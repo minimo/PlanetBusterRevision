@@ -314,4 +314,23 @@ phina.define("pbr.Player", {
         this.isCollision = false;
         return this;
     },
+
+    addShadow: function() {
+        var that = this;
+        this.shadow = phina.display.Sprite("gunshipBlack", 48, 48);
+        this.shadow.layer = LAYER_SHADOW;
+        this.shadow.alpha = 0.3;
+        this.shadow.addChildTo(this.parentScene);
+        this.shadow.setFrameIndex(4).setScale(0.66);
+        this.shadow.update = function(e) {
+            this.rotation = that.rotation;
+            this.x = that.x + 20;
+            this.y = that.y + 40;
+            this.scaleX = that.parentScene.ground.scaleX*0.66;
+            this.scaleY = that.parentScene.ground.scaleY*0.66;
+            this.frameIndex = that.sprite.frameIndex;
+            this.visible = that.visible;
+        }
+        return this;
+    },
 });

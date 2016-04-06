@@ -112,6 +112,7 @@ phina.define("pbr.MainScene", {
         //プレイヤー準備
         var player = this.player = pbr.Player()
             .addChildTo(this)
+            .addShadow()
             .setPosition(SC_W*0.5, SC_H*0.5)
             .stageStartup();
         player.shotLayer = this.shotLayer;
