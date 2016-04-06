@@ -81,32 +81,26 @@ phina.define("pbr.TitleScene", {
         this.arcade = phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6);
-        this.arcade.blink = false;
-        this.arcade.update = function(e) {
-            if (this.blink) {
-                if (e.ticker.frame % 15 == 0) this.visible = !this.visible;
-            }
-        }
+        this.arcade2 = phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.6);
+        this.arcade2.alpha = 0;
 
         this.practice = phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.7);
-        this.practice.blink = false;
-        this.practice.update = function(e) {
-            if (this.blink) {
-                if (e.ticker.frame % 15 == 0) this.visible = !this.visible;
-            }
-        }
+        this.practice2 = phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.7);
+        this.practice2.alpha = 0;
 
         this.setting = phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.8);
-        this.setting.blink = false;
-        this.setting.update = function(e) {
-            if (this.blink) {
-                if (e.ticker.frame % 15 == 0) this.visible = !this.visible;
-            }
-        }
+        this.setting2 = phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.8);
+        this.setting2.alpha = 0;
 
         //タッチ用
         for (var i = 0; i < 3; i++) {
@@ -117,6 +111,8 @@ phina.define("pbr.TitleScene", {
             c.alpha = 0;
             c.select = i;
             c.onpointstart = function() {
+                if (that.isSelected) return;
+
                 if (that.select != this.select) {
                     that.select = this.select;
                     that.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(that.select*SC_H*0.1), 200, "easeOutCubic");
@@ -174,11 +170,12 @@ phina.define("pbr.TitleScene", {
         switch (this.select) {
             case 0:
                 app.playSE("start");
-                this.arcade.blink = true;
                 this.isSelected = true;
                 this.tweener.clear().wait(2500).call(function() {
                     this.arcadeMode();
                 }.bind(this));
+                this.arcade2.alpha = 1;
+                this.arcade2.tweener.clear().to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
             case 1:
                 this.practiceMode();
