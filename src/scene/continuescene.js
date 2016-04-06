@@ -62,8 +62,7 @@ phina.define("pbr.ContinueScene", {
         this.cursol1.alpha = 0;
         this.cursol1.onpointend = function() {
             if (that.yes) {
-                that.currentScene.flare("continue");
-                app.popScene();
+                that.gotoContinue();
             } else {
                 that.cursol.tweener.clear().moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
                 that.yes = true;
@@ -77,8 +76,7 @@ phina.define("pbr.ContinueScene", {
         this.cursol2.alpha = 0;
         this.cursol2.onpointend = function() {
             if (!that.yes) {
-                that.currentScene.flare("gameover");
-                app.popScene();
+                that.gotoGameover();
             } else {
                 that.cursol.tweener.clear().moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
                 that.yes = false;
@@ -91,13 +89,21 @@ phina.define("pbr.ContinueScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.40);
 
-        phina.display.Label({text: "YES"}.$safe(this.labelParam))
+        this.lyes = phina.display.Label({text: "YES"}.$safe(this.labelParam))
             .addChildTo(this)
             .setPosition(SC_W*0.4, SC_H*0.55);
+        this.lyes.blink = false;
+        this.lyes.update = function(e) {
+            if (this.blink && e.ticker.frame % 10 == 0) this.visible = !this.visible;
+        }
 
-        phina.display.Label({text: "NO"}.$safe(this.labelParam))
+        this.lno = phina.display.Label({text: "NO"}.$safe(this.labelParam))
             .addChildTo(this)
             .setPosition(SC_W*0.6, SC_H*0.55);
+        this.lno.blink = false;
+        this.lno.update = function(e) {
+            if (this.blink && e.ticker.frame % 10 == 0) this.visible = !this.visible;
+        }
 
         //カウンタ表示
         this.counter = phina.display.Label({text: "9", fontSize: 30}.$safe(this.labelParam))
@@ -113,13 +119,16 @@ phina.define("pbr.ContinueScene", {
             }
         }
 
+        this.isSelected = false;
         this.time = 0;        
     },
 
     update: function() {
+        if (this.isSelected) return;
+
         //キーボード操作
         var kb = app.keyboard;
-        if (app.keyboard.getKey("left")) {
+        if (kb.getKey("left")) {
             if (!this.yes) {
                 this.cursol.tweener.clear()
                     .moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
@@ -127,7 +136,7 @@ phina.define("pbr.ContinueScene", {
                 app.playSE("select");
             }
         }
-        if (app.keyboard.getKey("right")) {
+        if (kb.getKey("right")) {
             if (this.yes) {
                 this.cursol.tweener.clear()
                     .moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
@@ -136,17 +145,30 @@ phina.define("pbr.ContinueScene", {
             }
         }
         if (this.time > 30) {
-            if (app.keyboard.getKey("Z") || app.keyboard.getKey("space")) {
-                if (this.yes) {
-                    this.currentScene.flare("continue");
-                    app.popScene();
+            if (kb.getKey("Z") || kb.getKey("space")) {
+                this.isSelected = true;
+                app.playSE("click");
+                if (this.yes) { 
+                    this.gotoContinue();
                 } else {
-                    this.currentScene.flare("gameover");
-                    app.popScene();
+                    this.gotoGameover();
                 }
             }
         }
         this.time++;
+    },
+
+    gotoContinue: function() {
+        this.lyes.blink = true;
+        this.currentScene.flare("continue");
+        this.tweener.clear().wait(1000).call(function() {
+            app.popScene();
+        });
+    },
+    gotoGameover: function() {
+        this.lno.blink = true;
+        this.currentScene.flare("gameover");
+        app.popScene();
     },
 });
 
