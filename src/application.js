@@ -116,6 +116,7 @@ phina.define("pbr.Application", {
             "tex2",
             "tex_boss1",
             "gunship",
+            "bit",
         ].forEach(function(name) {
             //ダメージ用
             if (!phina.asset.AssetManager.get("image", name+"White")) {

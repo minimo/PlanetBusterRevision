@@ -64,6 +64,10 @@ phina.define("pbr.Player", {
         this.boundingType = "circle";
         this.radius = 2;
 
+        this.on('removed', function() {
+            if (this.shadow) this.shadow.remove();
+        }.bind(this));
+
         this.time = 0;
         this.changeInterval = 0;
         return this;
