@@ -2782,6 +2782,35 @@ phina.namespace(function() {
         
         return false;
       },
+      // 円と2点を結ぶ線分の当たり判定
+      testCircleLine : function(circle, p1, p2) {
+        // 先に線分端との判定
+        if (circle.contains(p1.x, p1.y) || circle.contains(p2.x, p2.y)) return true;
+        // 半径の2乗
+        var r2 = circle.radius * circle.radius;
+        // 円の中心座標
+        var p3 = phina.geom.Vector2(circle.x, circle.y);
+        // 各ベクトル
+        var p1p2 = phina.geom.Vector2.sub(p1, p2);
+        var p1p3 = phina.geom.Vector2.sub(p1, p3);
+        var p2p3 = phina.geom.Vector2.sub(p2, p3);
+        // 外積
+        var cross = phina.geom.Vector2.cross(p1p2, p1p3);
+        // 外積の絶対値の2乗
+        var cross2 = cross * cross;
+        // p1p2の長さの2乗
+        var length2 = p1p2.lengthSquared();
+        // 円の中心から線分までの垂線の距離の2乗
+        var d2 = cross2 / length2;
+        // 円の半径の2乗より小さいなら重複
+        if (d2 <= r2) {
+          var dot1 = phina.geom.Vector2.dot(p1p3, p1p2);
+          var dot2 = phina.geom.Vector2.dot(p2p3, p1p2);
+          // 通常は内積の乗算
+          if (dot1 * dot2 <= 0) return true;
+        }
+        return false;
+      },
     }
 
   });
@@ -5092,6 +5121,7 @@ phina.namespace(function() {
 
       // デフォルトアニメーション
       this.animations["default"] = {
+          name: "default",
           frames: [].range(0, this.frame),
           next: "default",
           frequency: 1,
@@ -5102,6 +5132,7 @@ phina.namespace(function() {
 
         if (anim instanceof Array) {
           this.animations[key] = {
+            name: key,
             frames: [].range(anim[0], anim[1]),
             next: anim[2],
             frequency: anim[3] || 1,
@@ -5109,6 +5140,7 @@ phina.namespace(function() {
         }
         else {
           this.animations[key] = {
+            name: key,
             frames: anim.frames,
             next: anim.next,
             frequency: anim.frequency || 1
@@ -8554,6 +8586,19 @@ phina.namespace(function() {
         this.target.height = frame.height;
       }
     },
+    
+    _accessor: {
+      currentAnimationName: {
+        get: function() {
+          if (this.currentAnimation) {
+            return this.currentAnimation.name;
+          } else {
+            return nul;
+          }
+        },
+        set: function(name) {return this;}
+      },
+    },
   });
 });
 /*
@@ -10291,12 +10336,31 @@ phina.namespace(function() {
     init: function(image, width, height) {
       this.superInit();
 
-      this.srcRect = phina.geom.Rect();
-      this.setImage(image, width, height);
+      if (typeof image === 'string') {
+        image = phina.asset.AssetManager.get('image', image);
+      }
+      
+      this.image = image;
+      this.width = width || this.image.domElement.width;
+      this.height = height || this.image.domElement.height;
+      this._frameIndex = 0;
+
+      this._frameTrimX = 0;
+      this._frameTrimY = 0;
+      this._frameTrimW = this.image.domElement.width;
+      this._frameTrimH = this.image.domElement.height;
+
+      this.srcRect = {
+        x: 0,
+        y: 0,
+        width: this.width,
+        height: this.height,
+      };
     },
 
     draw: function(canvas) {
       var image = this.image.domElement;
+
 
       // canvas.context.drawImage(image,
       //   0, 0, image.width, image.height,
@@ -10306,38 +10370,27 @@ phina.namespace(function() {
       var srcRect = this.srcRect;
       canvas.context.drawImage(image,
         srcRect.x, srcRect.y, srcRect.width, srcRect.height,
-        -this._width*this.originX, -this._height*this.originY, this._width, this._height
+        -this.width*this.originX, -this.height*this.originY, this.width, this.height
         );
     },
 
-    setImage: function(image, width, height) {
-      if (typeof image === 'string') {
-        image = phina.asset.AssetManager.get('image', image);
-      }
-      this._image = image;
-      this.width = this._image.domElement.width;
-      this.height = this._image.domElement.height;
-
-      this.frameIndex = 0;
-
-      if (width) { this.width = width; }
-      if (height) { this.height = height; }
-
-      return this;
-    },
-
     setFrameIndex: function(index, width, height) {
-      var tw  = width || this._width;      // tw
-      var th  = height || this._height;    // th
-      var row = ~~(this.image.domElement.width / tw);
-      var col = ~~(this.image.domElement.height / th);
+      var sx = this._frameTrimX || 0;
+      var sy = this._frameTrimY || 0;
+      var sw = this._frameTrimW || (this.image.domElement.width-sx);
+      var sh = this._frameTrimH || (this.image.domElement.height-sy);
+
+      var tw  = width || this.width;      // tw
+      var th  = height || this.height;    // th
+      var row = ~~(sw / tw);
+      var col = ~~(sh / th);
       var maxIndex = row*col;
       index = index%maxIndex;
       
-      var x = index%row;
-      var y = ~~(index/row);
-      this.srcRect.x = x*tw;
-      this.srcRect.y = y*th;
+      var x   = index%row;
+      var y   = ~~(index/row);
+      this.srcRect.x = sx+x*tw;
+      this.srcRect.y = sy+y*th;
       this.srcRect.width  = tw;
       this.srcRect.height = th;
 
@@ -10346,18 +10399,47 @@ phina.namespace(function() {
       return this;
     },
 
+    setFrameTrimming: function(x, y, width, height) {
+      this._frameTrimX = x || 0;
+      this._frameTrimY = y || 0;
+      this._frameTrimW = width || this.image.domElement.width - this._frameTrimX;
+      this._frameTrimH = height || this.image.domElement.height - this._frameTrimY;
+      return this;
+    },
+
     _accessor: {
-      image: {
-        get: function() {return this._image;},
-        set: function(v) {
-          this.setImage(v);
-          return this;
-        }
-      },
       frameIndex: {
         get: function() {return this._frameIndex;},
         set: function(idx) {
           this.setFrameIndex(idx);
+          return this;
+        }
+      },
+      frameTrimX: {
+        get: function() {return this._frameTrimY;},
+        set: function(x) {
+          this._frameTrimX = x;
+          return this;
+        }
+      },
+      frameTrimY: {
+        get: function() {return this._frameTrimY;},
+        set: function(y) {
+          this._frameTrimY = y;
+          return this;
+        }
+      },
+      frameTrimW: {
+        get: function() {return this._frameTrimW;},
+        set: function(w) {
+          this._frameTrimW = w;
+          return this;
+        }
+      },
+      frameTrimH: {
+        get: function() {return this._frameTrimH;},
+        set: function(h) {
+          this._frameTrimH = h;
           return this;
         }
       },
@@ -10383,6 +10465,9 @@ phina.namespace(function() {
     init: function(options) {
       if (typeof arguments[0] !== 'object') {
         options = { text: arguments[0], };
+        if (arguments[1] === 'object') {
+            options.$safe(arguments[1]);
+        }
       }
       else {
         options = arguments[0];
