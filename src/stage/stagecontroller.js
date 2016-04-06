@@ -16,6 +16,8 @@ phina.define("pbr.StageController", {
 
         seq: null,
         index: 0,
+
+        altitude: 100,
     },
 
     init: function(scene, player) {

@@ -33,7 +33,7 @@ phina.define("pbr.Enemy", {
         danmakuName: null,
         id: -1,
         enterParam: null,
-        altitude: 0,
+        altitude: 1,
 
         //機体用テクスチャ情報
         body: null,
