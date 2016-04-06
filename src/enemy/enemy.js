@@ -174,9 +174,16 @@ phina.define("pbr.Enemy", {
 
             var that = this;
             this.shadow.update = function(e) {
-                this.x = that.x + 20;
-                this.y = that.y + 40;
                 this.rotation = that.rotation;
+                if (that.isGround) {
+                    this.x = that.x + 10;
+                    this.y = that.y + 10;
+                } else {
+                    this.x = that.x + 20;
+                    this.y = that.y + 40;
+                    this.scaleX = that.parentScene.ground.scaleX;
+                    this.scaleY = that.parentScene.ground.scaleY;
+                }
             }
         }
 
