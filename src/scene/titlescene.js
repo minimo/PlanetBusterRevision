@@ -186,7 +186,7 @@ phina.define("pbr.TitleScene", {
                 this.practiceMode();
                 break;
             case 2:
-                this.setting();
+                this.settingMode();
                 break;
         }
     },
@@ -198,7 +198,7 @@ phina.define("pbr.TitleScene", {
     practiceMode: function() {
     },
 
-    setting: function() {
+    settingMode: function() {
     },
 });
 
