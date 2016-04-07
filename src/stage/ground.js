@@ -15,7 +15,9 @@ phina.define("pbr.Ground", {
 
         direction: 0,   //スクロール方向
         speed: 1,       //スクロール速度
-        altitude: 1,    //高度
+
+        altitudeBasic: 50, //基本高度
+        altitude: 1,       //現在高度（基本高度に対する割合：１を１００％とする)
 
         deltaX : 0,        
         deltaY : 0,        
@@ -112,6 +114,19 @@ phina.define("pbr.Ground", {
         y: {
             "get": function() { return this.mapBase.y; },
             "set": function(y) { this.mapBase.x = y;}
+        },
+
+        shadowX: {
+            "get": function() {
+                return (this.altitudeBasic * this.altitude)*0.5;
+            },
+            "set": function(y) {}
+        },
+        shadowY: {
+            "get": function() {
+                return this.altitudeBasic * this.altitude;
+            },
+            "set": function(y) {}
         },
 /*
         scaleX: {
