@@ -10,17 +10,19 @@
 phina.define("pbr.Stage1", {
     superClass: "pbr.StageController",
 
+    altitudeBasic: 40,
+
     init: function(parent, player) {
         this.superInit(parent, player);
 
         //初期化処理
         this.add(1, function(app) {
-            this.ground.tweener.clear().to({altitude: 500, scaleX:0.2, scaleY:0.2, speed:1.0, alpha:1}, 1, "easeInOutQuad");
+            this.ground.tweener.clear().to({scaleX:0.2, scaleY:0.2, speed:1.0, alpha:1}, 1, "easeInOutQuad");
             app.playBGM("stage1", true);
             this.player.isAfterburner = true;
         });
         this.add(60, function(app) {
-            this.ground.tweener.clear().to({altitude: 100, scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
             this.player.isAfterburner = false;
         });
 
