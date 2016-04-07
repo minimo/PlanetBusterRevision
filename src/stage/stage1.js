@@ -10,7 +10,7 @@
 phina.define("pbr.Stage1", {
     superClass: "pbr.StageController",
 
-    altitudeBasic: 40,
+    altitudeBasic: 20,
 
     init: function(parent, player) {
         this.superInit(parent, player);

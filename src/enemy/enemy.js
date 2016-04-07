@@ -567,11 +567,12 @@ phina.define("pbr.Enemy", {
         var that = this;
         this.shadow.update = function(e) {
             var ground = that.parentScene.ground;
+            this.visible = ground.isShadow;
 
             this.rotation = that.rotation;
             if (that.isGround) {
-                this.x = that.x + ground.shadowX*0.1;
-                this.y = that.y + ground.shadowY*0.1;
+                this.x = that.x + 10;
+                this.y = that.y + 10;
             } else {
                 this.x = that.x + ground.shadowX;
                 this.y = that.y + ground.shadowY;

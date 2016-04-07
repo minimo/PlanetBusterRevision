@@ -329,6 +329,12 @@ phina.define("pbr.Player", {
         this.shadow.setFrameIndex(4).setScale(0.66);
         this.shadow.update = function(e) {
             var ground = that.parentScene.ground;
+            if (!ground.isShadow) {
+                this.visible = false;
+                return;
+            } else {
+                this.visible = true;
+            }
 
             this.rotation = that.rotation;
             this.x = that.x + ground.shadowX;

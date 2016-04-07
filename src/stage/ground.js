@@ -16,8 +16,9 @@ phina.define("pbr.Ground", {
         direction: 0,   //スクロール方向
         speed: 1,       //スクロール速度
 
-        altitudeBasic: 50, //基本高度
-        altitude: 1,       //現在高度（基本高度に対する割合：１を１００％とする)
+        altitudeBasic: 50,  //基本高度
+        altitude: 1,        //現在高度（基本高度に対する割合：１を１００％とする)
+        isShadow: true,     //影有りフラグ
 
         deltaX : 0,        
         deltaY : 0,        
