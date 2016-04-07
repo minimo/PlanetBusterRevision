@@ -97,7 +97,7 @@ pbr.enemyData['ThorHammer'] = {
         //タイムアップで逃走（１７秒）
         if (!this.isDead && this.time == 1020) {
             this.tweener.clear()
-                .to({vy: 5}, 120, "easeInSine")
+                .to({vy: -15}, 120, "easeInSine")
                 .call(function(){
                     this.parentScene.isBossBattle = false;
                     this.parentScene.isBossBattleEnd = true;
