@@ -27,9 +27,6 @@ phina.define("pbr.PlayerBit", {
         this.beforeX = 0;
         this.beforeY = 0;
 
-        this.parentScene = app.currentScene;
-        this.addShadow();
-
         this.on('removed', function() {
             if (this.shadow) this.shadow.remove();
         }.bind(this));
@@ -70,13 +67,14 @@ phina.define("pbr.PlayerBit", {
         this.shadow.layer = LAYER_SHADOW;
         this.shadow.alpha = 0.3;
         this.shadow.addChildTo(this.parentScene);
-        this.shadow.setScale(0.5);
+        this.shadow.setFrameIndex(0).setScale(0.5);
         this.shadow.update = function(e) {
             this.rotation = that.rotation;
-            this.x = that.x + 20 + this.parent.x;
-            this.y = that.y + 40 + this.parent.y;
+            this.x = that.x + 20 + that.parent.x;
+            this.y = that.y + 40 + that.parent.y;
             this.scaleX = that.parentScene.ground.scaleX*0.5;
             this.scaleY = that.parentScene.ground.scaleY*0.5;
+            this.frameIndex = that.frameIndex;
             this.visible = that.visible;
         }
         return this;

@@ -335,6 +335,13 @@ phina.define("pbr.Player", {
             this.frameIndex = that.sprite.frameIndex;
             this.visible = that.visible;
         }
+
+        //ビットの影
+        for (var i = 0; i < 4; i++) {
+            var b = this.bits[i];
+            b.parentScene = this.parentScene;
+            b.addShadow();
+        }
         return this;
     },
 });
