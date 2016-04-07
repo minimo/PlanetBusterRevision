@@ -23,7 +23,6 @@ phina.define("pbr.Enemy", {
         isEnemy: true,      //敵機判別
         isAttack: true,     //攻撃フラグ
         isCrashDown: false, //墜落フラグ
-        isShadow: true,     //影有りフラグ
 
         //キャラクタ情報
         name: null,
@@ -163,29 +162,8 @@ phina.define("pbr.Enemy", {
         this.player = this.parentScene.player;
         this.setup(param);
 
-        //影作成
-        if (this.isShadow) {
-            this.shadow = phina.display.Sprite(d.texName+"Black", d.texWidth, d.texHeight);
-            this.shadow.layer = LAYER_SHADOW;
-            this.shadow.alpha = 0.3;
-            this.shadow.addChildTo(this.parentScene);
-            this.shadow.setFrameTrimming(this.texTrimX, this.texTrimY, this.texTrimWidth, this.texTrimHeight);
-            this.shadow.setFrameIndex(this.texIndex);
-
-            var that = this;
-            this.shadow.update = function(e) {
-                this.rotation = that.rotation;
-                if (that.isGround) {
-                    this.x = that.x + 10;
-                    this.y = that.y + 10;
-                } else {
-                    this.x = that.x + 20;
-                    this.y = that.y + 40;
-                    this.scaleX = that.parentScene.ground.scaleX;
-                    this.scaleY = that.parentScene.ground.scaleY;
-                }
-            }
-        }
+        //機影追加
+        this.addShadow();
 
         //当り判定設定
         this.boundingType = "rect";
@@ -387,6 +365,13 @@ phina.define("pbr.Enemy", {
                 .call(function(){
                     this.remove();
                 }.bind(this));
+            if (this.shadow) {
+                this.shadow.tweener.clear()
+                    .to({alpha: 0}, 60)
+                    .call(function(){
+                        this.remove();
+                    }.bind(this.shadow));
+            }
         }
 
         return this;
@@ -566,6 +551,30 @@ phina.define("pbr.Enemy", {
                 t.call(this, app);
             } else {
                 this.fire(t);
+            }
+        }
+    },
+
+    //機影追加
+    addShadow: function() {
+        this.shadow = phina.display.Sprite(d.texName+"Black", d.texWidth, d.texHeight);
+        this.shadow.layer = LAYER_SHADOW;
+        this.shadow.alpha = 0.3;
+        this.shadow.addChildTo(this.parentScene);
+        this.shadow.setFrameTrimming(this.texTrimX, this.texTrimY, this.texTrimWidth, this.texTrimHeight);
+        this.shadow.setFrameIndex(this.texIndex);
+
+        var that = this;
+        this.shadow.update = function(e) {
+            this.rotation = that.rotation;
+            if (that.isGround) {
+                this.x = that.x + SHADOW_OFFSET_GROUND_X;
+                this.y = that.y + SHADOW_OFFSET_GROUND_Y;
+            } else {
+                this.x = that.x + SHADOW_OFFSET_X;
+                this.y = that.y + SHADOW_OFFSET_Y;
+                this.scaleX = that.parentScene.ground.scaleX;
+                this.scaleY = that.parentScene.ground.scaleY;
             }
         }
     },
