@@ -367,7 +367,7 @@ phina.define("pbr.Enemy", {
                 }.bind(this));
             if (this.shadow) {
                 this.shadow.tweener.clear()
-                    .to({alpha: 0}, 60)
+                   .to({alpha: 0}, 60)
                     .call(function(){
                         this.remove();
                     }.bind(this.shadow));
@@ -400,6 +400,13 @@ phina.define("pbr.Enemy", {
             .call(function(){
                 this.remove();
             }.bind(this));
+        if (this.shadow) {
+            this.shadow.tweener.clear()
+                .to({alpha: 0}, 60)
+                .call(function(){
+                    this.remove();
+                }.bind(this.shadow));
+        }
 
         return this;
     },

@@ -16,7 +16,7 @@ phina.define("pbr.Ground", {
         direction: 0,   //スクロール方向
         speed: 1,       //スクロール速度
 
-        altitudeBasic: 50,  //基本高度
+        altitudeBasic: 20,  //基本高度
         altitude: 1,        //現在高度（基本高度に対する割合：１を１００％とする)
         isShadow: true,     //影有りフラグ
 
@@ -119,7 +119,7 @@ phina.define("pbr.Ground", {
 
         shadowX: {
             "get": function() {
-                return (this.altitudeBasic * this.altitude)*0.5;
+                return (this.altitudeBasic * this.altitude)*0.3;
             },
             "set": function(y) {}
         },
