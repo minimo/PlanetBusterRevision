@@ -119,7 +119,7 @@ phina.define("pbr.Ground", {
 
         shadowX: {
             "get": function() {
-                return (this.altitudeBasic * this.altitude)*0.3;
+                return (this.altitudeBasic * this.altitude)*0.5;
             },
             "set": function(y) {}
         },
