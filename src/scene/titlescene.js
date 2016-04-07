@@ -78,29 +78,9 @@ phina.define("pbr.TitleScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6)
 
-        this.arcade = phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.6);
-        this.arcade2 = phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.6);
-        this.arcade2.alpha = 0;
-
-        this.practice = phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.7);
-        this.practice2 = phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.7);
-        this.practice2.alpha = 0;
-
-        this.setting = phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.8);
-        this.setting2 = phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.8);
-        this.setting2.alpha = 0;
+        phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.6);
+        phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.7);
+        phina.display.Label({text: "SETTING"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.8);
 
         //タッチ用
         for (var i = 0; i < 3; i++) {
@@ -179,14 +159,46 @@ phina.define("pbr.TitleScene", {
                 this.tweener.clear().wait(2500).call(function() {
                     this.arcadeMode();
                 }.bind(this));
-                this.arcade2.alpha = 1;
-                this.arcade2.tweener.clear().to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
+                phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
+                    .addChildTo(this)
+                    .setPosition(SC_W*0.5, SC_H*0.6)
+                    .tweener.clear().to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
+                phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam))
+                    .addChildTo(this)
+                    .setPosition(SC_W*0.5, SC_H*0.6)
+                    .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
             case 1:
-                this.practiceMode();
+                app.playSE("start");
+                this.isSelected = true;
+                this.tweener.clear().wait(2500).call(function() {
+                    this.practiceMode();
+                    this.isSelected = false;
+                }.bind(this));
+                phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
+                    .addChildTo(this)
+                    .setPosition(SC_W*0.5, SC_H*0.7)
+                    .tweener.clear().to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
+                phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam))
+                    .addChildTo(this)
+                    .setPosition(SC_W*0.5, SC_H*0.7)
+                    .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
             case 2:
-                this.settingMode();
+                app.playSE("start");
+                this.isSelected = true;
+                this.tweener.clear().wait(2500).call(function() {
+                    this.settingMode();
+                    this.isSelected = false;
+                }.bind(this));
+                phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
+                    .addChildTo(this)
+                    .setPosition(SC_W*0.5, SC_H*0.8)
+                    .tweener.clear().to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
+                phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
+                    .addChildTo(this)
+                    .setPosition(SC_W*0.5, SC_H*0.8)
+                    .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
         }
     },
