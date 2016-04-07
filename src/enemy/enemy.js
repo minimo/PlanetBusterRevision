@@ -557,7 +557,7 @@ phina.define("pbr.Enemy", {
 
     //機影追加
     addShadow: function() {
-        this.shadow = phina.display.Sprite(d.texName+"Black", d.texWidth, d.texHeight);
+        this.shadow = phina.display.Sprite(this.texName+"Black", this.texWidth, this.texHeight);
         this.shadow.layer = LAYER_SHADOW;
         this.shadow.alpha = 0.3;
         this.shadow.addChildTo(this.parentScene);
@@ -566,15 +566,17 @@ phina.define("pbr.Enemy", {
 
         var that = this;
         this.shadow.update = function(e) {
+            var ground = that.parentScene.ground;
+
             this.rotation = that.rotation;
             if (that.isGround) {
-                this.x = that.x + SHADOW_OFFSET_GROUND_X;
-                this.y = that.y + SHADOW_OFFSET_GROUND_Y;
+                this.x = that.x + ground.shadowX*0.1;
+                this.y = that.y + ground.shadowY*0.1;
             } else {
-                this.x = that.x + SHADOW_OFFSET_X;
-                this.y = that.y + SHADOW_OFFSET_Y;
-                this.scaleX = that.parentScene.ground.scaleX;
-                this.scaleY = that.parentScene.ground.scaleY;
+                this.x = that.x + ground.shadowX;
+                this.y = that.y + ground.shadowY;
+                this.scaleX = ground.scaleX;
+                this.scaleY = ground.scaleY;
             }
         }
     },

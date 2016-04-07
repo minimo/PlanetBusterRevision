@@ -319,6 +319,7 @@ phina.define("pbr.Player", {
         return this;
     },
 
+    //機影追加
     addShadow: function() {
         var that = this;
         this.shadow = phina.display.Sprite("gunshipBlack", 48, 48);
@@ -327,11 +328,13 @@ phina.define("pbr.Player", {
         this.shadow.addChildTo(this.parentScene);
         this.shadow.setFrameIndex(4).setScale(0.66);
         this.shadow.update = function(e) {
+            var ground = that.parentScene.ground;
+
             this.rotation = that.rotation;
-            this.x = that.x + 20;
-            this.y = that.y + 40;
-            this.scaleX = that.parentScene.ground.scaleX*0.66;
-            this.scaleY = that.parentScene.ground.scaleY*0.66;
+            this.x = that.x + ground.shadowX;
+            this.y = that.y + ground.shadowY;
+            this.scaleX = ground.scaleX*0.66;
+            this.scaleY = ground.scaleY*0.66;
             this.frameIndex = that.sprite.frameIndex;
             this.visible = that.visible;
         }
