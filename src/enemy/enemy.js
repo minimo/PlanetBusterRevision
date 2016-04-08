@@ -273,7 +273,7 @@ phina.define("pbr.Enemy", {
 
             //ボス撃破をシーンに通知
             if (this.data.type == ENEMY_BOSS || this.data.type == ENEMY_MBOSS) {
-                this.parentScene.flare('end_boss', this);
+                this.parentScene.flare('end_boss');
             }
 
             this.parentScene.enemyKill++;
