@@ -76,7 +76,7 @@ phina.define("pbr.TitleScene", {
         };
         this.cursol = phina.display.RectangleShape(param2)
             .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.6)
+            .setPosition(SC_W*0.5, SC_H*0.6-3)
 
         phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.6);
         phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.7);
@@ -95,7 +95,7 @@ phina.define("pbr.TitleScene", {
 
                 if (that.select != this.select) {
                     that.select = this.select;
-                    that.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(that.select*SC_H*0.1), 200, "easeOutCubic");
+                    that.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(that.select*SC_H*0.1)-3, 200, "easeOutCubic");
                     app.playSE("select");
                 } else {
                     that.menuSelect();
@@ -129,7 +129,7 @@ phina.define("pbr.TitleScene", {
                 if (this.select < 0) {
                     this.select = 0;
                 } else {
-                    this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                    this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1)-3, 200, "easeOutCubic");
                     app.playSE("select");
                 }
                 this.time = 0;
@@ -139,7 +139,7 @@ phina.define("pbr.TitleScene", {
                 if (this.select > 2) {
                     this.select = 2;
                 } else {
-                    this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1), 200, "easeOutCubic");
+                    this.cursol.tweener.clear().moveTo(SC_W*0.5, SC_H*0.6+(this.select*SC_H*0.1)-3, 200, "easeOutCubic");
                     app.playSE("select");
                 }
                 this.time = 0;
