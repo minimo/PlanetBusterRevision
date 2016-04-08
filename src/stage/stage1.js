@@ -46,6 +46,10 @@ phina.define("pbr.Stage1", {
         this.add( 120, "Hornet2-right");
         this.add( 120, "Hornet2-center");
 
+        this.add(  60, "Hornet1-left");
+        this.add(  60, "Hornet1-right");
+        this.add(  60, "Hornet1-center");
+
         this.add( 120, "ToyBox-p-right");
 
         this.add( 120, "MudDauber-left");
