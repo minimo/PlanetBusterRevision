@@ -98,11 +98,15 @@ pbr.enemyUnit = {
  *  飛空艇「モーンブレイド」
  */
 "MournBlade-left": [
-    { "name": "MournBlade", "x": SC_W*0.9, "y":-SC_H*0.2 },
+    { "name": "MournBlade", "x": SC_W*0.2, "y":-SC_H*0.2 },
 ],
 
-"MournBlade-left": [
-    { "name": "MournBlade", "x":-SC_W*0.1, "y":-SC_H*0.2 },
+"MournBlade-right": [
+    { "name": "MournBlade", "x":-SC_W*0.8, "y":-SC_H*0.2 },
+],
+
+"MournBlade-center": [
+    { "name": "MournBlade", "x": SC_W*0.5, "y":-SC_H*0.2 },
 ],
 
 /*

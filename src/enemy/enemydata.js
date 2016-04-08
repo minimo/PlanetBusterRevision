@@ -140,7 +140,7 @@ pbr.enemyData['MudDauber'] = {
         this.roter.index = 0;
 
         //行動設定
-        if (this.x < 0) {
+        if (this.x < SC_W*0.5) {
             this.px = 1;
             this.tweener.moveBy( SC_W*0.6, 0, 180, "easeOutCubic").call(function(){this.phase++;}.bind(this));
         } else {
@@ -216,7 +216,7 @@ pbr.enemyData['BigWing'] = {
  */
 pbr.enemyData['MournBlade'] = {
     //使用弾幕名
-    danmakuName: "basic",
+    danmakuName: "MournBlade",
 
     //当り判定サイズ
     width:  128,
@@ -257,7 +257,7 @@ pbr.enemyData['MournBlade'] = {
         this.roter.index = 0;
 
         //行動設定
-        if (this.x < 0) {
+        if (this.x < SC_W*0.5) {
             this.px = 1;
             this.tweener.moveBy( SC_W*0.6, 0, 180, "easeOutCubic").moveBy( SC_W*1.0, 0, 5000, "easeOutCubic");
         } else {

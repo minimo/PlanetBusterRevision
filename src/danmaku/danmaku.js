@@ -110,27 +110,29 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(0), offsetX(-32)),
+            fire(DM, spd(1), direction(-10), offsetX(-32)),
             repeat("$burst + 1", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
                 fire(DM, spdSeq(0.05), direction(-20, "sequence")),
+                interval(10),
             ]),
-            interval(60),
+            interval(50),
         ]),
     ]),
     top1: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(0), offsetX(32)),
+            fire(DM, spd(1), direction(-10), offsetX(32)),
             repeat("$burst + 1", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
                 fire(DM, spdSeq(0.05), direction(-20, "sequence")),
+                interval(10),
             ]),
-            interval(60),
+            interval(50),
         ]),
     ]),
 });
@@ -162,6 +164,36 @@ pbr.danmaku.BigWing = new bulletml.Root({
                     fire(BS, spdSeq(0), direction(180, "absolute"), offsetX(-16), offsetY(16)),
                 ]),
                 interval(20),
+            ]),
+            interval(60),
+        ]),
+    ]),
+});
+
+//飛空艇「モーンブレイド」
+pbr.danmaku.MournBlade = new bulletml.Root({
+    top0: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(0), offsetX(0), offsetY(-32)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
+                fire(DM, spdSeq(0.05), direction(-20, "sequence")),
+            ]),
+            interval(60),
+        ]),
+    ]),
+    top1: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(0), offsetX(0), offsetY(32)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
+                fire(DM, spdSeq(0.05), direction(-20, "sequence")),
             ]),
             interval(60),
         ]),
