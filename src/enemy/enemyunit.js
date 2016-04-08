@@ -76,11 +76,15 @@ pbr.enemyUnit = {
  *  中型攻撃ヘリ「ジガバチ」
  */
 "MudDauber-left": [
-    { "name": "MudDauber", "x":-SC_W*0.2, "y":SC_H*0.4 },
+    { "name": "MudDauber", "x": SC_W*0.3, "y":-SC_H*0.1 },
+],
+
+"MudDauber-center": [
+    { "name": "MudDauber", "x": SC_W*0.5, "y":-SC_H*0.1 },
 ],
 
 "MudDauber-right": [
-    { "name": "MudDauber", "x": SC_W*1.2, "y":SC_H*0.4 },
+    { "name": "MudDauber", "x": SC_W*0.7, "y":-SC_H*0.1 },
 ],
 
 /*
@@ -98,15 +102,11 @@ pbr.enemyUnit = {
  *  飛空艇「モーンブレイド」
  */
 "MournBlade-left": [
-    { "name": "MournBlade", "x": SC_W*0.2, "y":-SC_H*0.2 },
+    { "name": "MournBlade", "x":-SC_W*0.2, "y": SC_H*0.4 },
 ],
 
 "MournBlade-right": [
-    { "name": "MournBlade", "x":-SC_W*0.8, "y":-SC_H*0.2 },
-],
-
-"MournBlade-center": [
-    { "name": "MournBlade", "x": SC_W*0.5, "y":-SC_H*0.2 },
+    { "name": "MournBlade", "x": SC_W*1.2, "y": SC_H*0.4 },
 ],
 
 /*
