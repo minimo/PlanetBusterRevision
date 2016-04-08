@@ -33,7 +33,7 @@ phina.define("pbr.Shot", {
             this.x += this.vx;
             this.y += this.vy;
 
-            if (this.x<-20 || this.x>SC_W+20 || this.y<-20 || this.y>SC_H+20) {
+            if (this.x<-16 || this.x>SC_W+16 || this.y<-16 || this.y>SC_H+16) {
                 this.remove();
                 return;
             }

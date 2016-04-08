@@ -212,13 +212,16 @@ phina.define("pbr.Enemy", {
 
         //スクリーン内入った判定
         if (this.isOnScreen) {
-            if (this.x < -100 || this.x > SC_W+100 || this.y < -100 || this.y > SC_H+100) {
-                if (!this.isBoss) {
+            if (!this.isBoss) {
+                var w = this.body.width/2;
+                var h = this.body.height/2;
+                if (this.x < -w || this.x > SC_W+w || this.y < -h || this.y > SC_H+h) {
                     this.remove();
                     this.isCollision = false;
                 }
             }
         } else {
+            //中心が画面内に入った時点を画面内と判定する
             if (0 < this.x && this.x < SC_W && 0 < this.y && this.y < SC_H) this.isOnScreen = true;
         }
 

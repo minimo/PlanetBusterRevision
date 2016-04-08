@@ -59,7 +59,7 @@ phina.define("pbr.Bullet", {
                 this.y += this.vy;
 
                 //画面範囲外
-                if (this.x<-32 || this.x>SC_W+32 || this.y<-32 || this.y>SC_H+32) {
+                if (this.x<-16 || this.x>SC_W+16 || this.y<-16 || this.y>SC_H+16) {
                     this.remove();
                     return;
                 }
