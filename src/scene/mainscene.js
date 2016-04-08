@@ -24,7 +24,6 @@ phina.define("pbr.MainScene", {
 
         //ボス戦闘中フラグ
         isBossBattle: false,
-        isBossBattleEnd: false,
         bossObject: null,
 
         //各種判定用
@@ -198,6 +197,29 @@ phina.define("pbr.MainScene", {
         this.initStage();
 
         //イベント処理
+        //ボス戦開始
+        this.on('start_boss', function() {
+            this.isBossBattle = true;
+        }.bind(this));
+
+        //ボス撃破
+        this.on('end_boss', function() {
+            this.isBossBattle = false;
+
+            //ボスタイプ判定
+            if (this.bossObject.type == ENEMY_MBOSS) {
+                //中ボスの場合早回し
+                var time = this.stage.getNextEventTime(this.time);
+                this.time = time-1;
+            } else {
+                //ステージボスの場合ステージクリア
+            }
+        }.bind(this));
+
+        //ステージクリア
+        this.on('stageclear', function() {
+        }.bind(this));
+
         //コンティニュー時
         this.on("continue", function() {
             app.numContinue++;
@@ -228,21 +250,6 @@ phina.define("pbr.MainScene", {
                 event.value.call(this, app);
             } else {
                 this.enterEnemyUnit(event.value);
-                if (event.option && event.option.boss) {
-                    this.isBossBattle = true;
-                }
-            }
-        }
-
-        //ボス破壊
-        if (this.isBossBattleEnd) {
-            this.isBossBattleEnd = false;
-            if (this.isStageClear) {
-                this.isStageClear = false;
-            } else {
-                //早回し
-                var time = this.stage.getNextEventTime(this.time);
-                this.time = time-1;
             }
         }
 
@@ -351,9 +358,11 @@ phina.define("pbr.MainScene", {
         for (var i = 0; i < len; i++) {
             var e = unit[i];
             var en = pbr.Enemy(e.name, e.x, e.y, this.enemyID, e.param).addChildTo(this);
-            if (en.data.type == ENEMY_BOSS) {
-                this.bossGauge.setTarget(en);
-                this.systemBase.tweener.clear().moveBy(0, 32, 1000);
+            if (en.data.type == ENEMY_BOSS || en.data.type == ENEMY_MBOSS) {
+//                this.bossGauge.setTarget(en);
+//                this.systemBase.tweener.clear().moveBy(0, 32, 1000);
+                this.bossObject = en;
+                this.flare('start_boss');
             }
             this.enemyID++;
             this.enemyCount++;

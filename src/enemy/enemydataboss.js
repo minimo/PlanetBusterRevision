@@ -99,8 +99,7 @@ pbr.enemyData['ThorHammer'] = {
             this.tweener.clear()
                 .to({vy: -15}, 120, "easeInSine")
                 .call(function(){
-                    this.parentScene.isBossBattle = false;
-                    this.parentScene.isBossBattleEnd = true;
+                    this.parentScene.flare('end_boss');
                 }.bind(this))
                 .wait(60)
                 .call(function(){
@@ -129,7 +128,7 @@ pbr.enemyData['ThorHammer'] = {
 
         //破壊時消去インターバル
         this.tweener.clear()
-            .to({vy: -2}, 240, "easeInSine")
+            .to({vy: -5}, 240, "easeInSine")
             .call(function() {
                 this.explode();
                 app.playSE("explodeBoss");

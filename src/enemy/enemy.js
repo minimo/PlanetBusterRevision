@@ -271,17 +271,9 @@ phina.define("pbr.Enemy", {
             //スコア加算
             if (!this.isSelfCrash) app.score += this.point;
 
-            //中ボス撃破をシーンに通知
-            if (this.data.type == ENEMY_MBOSS) {
-                this.parentScene.isBossBattle = false;
-                this.parentScene.isBossBattleEnd = true;
-            }
-
-            //ボスの場合はステージクリアを親シーンに通知
-            if (this.data.type == ENEMY_BOSS) {
-                this.parentScene.stageClear = true;
-                this.parentScene.isBossBattle = false;
-                this.parentScene.isBossBattleEnd = true;
+            //ボス撃破をシーンに通知
+            if (this.data.type == ENEMY_BOSS || this.data.type == ENEMY_MBOSS) {
+                this.parentScene.flare('end_boss', this);
             }
 
             this.parentScene.enemyKill++;
