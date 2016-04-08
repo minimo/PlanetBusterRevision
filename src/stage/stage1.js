@@ -42,9 +42,8 @@ phina.define("pbr.Stage1", {
         this.add(  20, "Hornet1-right");
         this.add( 120, "Hornet1-center");
 
-        this.add(  90, "Hornet2-left");
-        this.add( 120, "Hornet2-right");
-        this.add( 120, "Hornet2-center");
+        this.add( 120, "MournBlade-left");
+        this.add(  60, "MournBlade-right");
 
         this.add(  60, "Hornet1-left");
         this.add(  60, "Hornet1-right");
