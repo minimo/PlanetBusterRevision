@@ -110,29 +110,42 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(-10), offsetX(-32)),
+            fire(DM, spd(1), direction(0), offsetX(0), offsetY(-10)),
             repeat("$burst + 1", [
-                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
-                fire(DM, spdSeq(0.05), direction(-20, "sequence")),
-                interval(10),
+                repeat(3, [
+                    fire(THIN, spdSeq(0), direction(0, "sequence"), offsetY(30)),
+                    interval(10),
+                ]),
             ]),
-            interval(50),
+            interval(120),
         ]),
     ]),
     top1: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(-10), offsetX(32)),
-            repeat("$burst + 1", [
-                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
-                fire(DM, spdSeq(0.05), direction(-20, "sequence")),
-                interval(10),
+            fire(DM, spd(1), direction(180, "absolute"), offsetX(-32)),
+            repeat("$burst + 3", [
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(-32)),
+                fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(-32)),
+                fire(DM, spdSeq(0.05), direction(-40, "sequence")),
+                interval(20),
             ]),
-            interval(50),
+            interval(160),
+        ]),
+    ]),
+    top2: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(140, "absolute"), offsetX(32)),
+            repeat("$burst + 3", [
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(32)),
+                fire(DM, spdSeq(0.05), direction(-40, "sequence")),
+                interval(20),
+            ]),
+            interval(160),
         ]),
     ]),
 });
