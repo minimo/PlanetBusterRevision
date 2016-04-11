@@ -62,9 +62,9 @@ pbr.danmaku.Hornet = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(0.7), direction(0)),
+            fire(DM, spd(0.8), direction(0)),
             repeat("$burst + 1", [
-                fire(THIN, spdSeq(0), direction(0, "sequence")),
+                fire(RS, spdSeq(0), direction(0, "sequence")),
                 interval(10),
             ]),
             interval(120),
@@ -77,7 +77,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
         interval(120),
         repeat(Infinity, [
-            fire(DM, spd(0.5), direction(0), offsetX(0), offsetY(-10)),
+            fire(DM, spd(0.8), direction(0), offsetX(0), offsetY(-10)),
             repeat("$burst + 3", [
                 fire(THIN, spdSeq(0), direction(0, "sequence"), offsetY(30)),
                 interval(10),
