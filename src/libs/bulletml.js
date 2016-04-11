@@ -2174,7 +2174,7 @@ bulletml.runner.SubRunner.prototype = Object.create(bulletml.runner.SimpleSubRun
  * @override
  */
 bulletml.runner.SubRunner.prototype.update = function() {
-    if (this.parentRunner.stop) return;
+    if (this.stop) return;
 
     this.age += 1;
 
@@ -2427,7 +2427,7 @@ bulletml.runner.SubRunner.prototype.accel = function(cmd) {
  * @param {bulletml.Notify} cmd
  */
 bulletml.runner.SubRunner.prototype.notify = function(cmd) {
-    this.parentRunner.onNotify(cmd.eventName, cmd.params);
+    this.onNotify(cmd.eventName, cmd.params);
 };
 
 /**
