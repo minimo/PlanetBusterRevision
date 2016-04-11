@@ -467,9 +467,13 @@ phina.define("pbr.Enemy", {
 
     //BulletML起動
     startDanmaku: function(danmakuName) {
+        if (this.runner) {
+            this.runner.stop = true;
+            this.runner = null;
+        }
         this.runner = pbr.danmaku[danmakuName].createRunner(pbr.BulletConfig);
         this.runner.onNotify = function(eventType, event) {
-//            this.flare("bullet" + eventType, event);
+            this.flare("bullet" + eventType, event);
         }.bind(this);
         return this;
     },
