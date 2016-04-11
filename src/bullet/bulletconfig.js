@@ -18,8 +18,14 @@ phina.namespace(function() {
                 this.target = target;
                 this.bulletLayer = bulletLayer;
 
-                this.put("densityRank", 0.00);
+                //’e‘¬(float)
+                this.put("speedBase", 1.00);
                 this.put("speedRank", 0.00);
+
+                //’e–§“x(float)
+                this.put("densityRank", 0.00);
+
+                //’e”‘‰Á”(int)
                 this.put("burst", 0);
             },
 
