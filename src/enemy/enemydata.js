@@ -149,7 +149,7 @@ pbr.enemyData['MudDauber'] = {
             this.roter.index = (this.roter.index+1)%4+32;
             this.roter.setFrameIndex(this.roter.index);
         }
-        if (this.time % 10 == 0) {
+        if (this.time % 4 == 0) {
             this.index = (this.index+1)%2+6;
             this.body.setFrameIndex(this.index);
         }
@@ -198,7 +198,7 @@ pbr.enemyData['BigWing'] = {
 
     algorithm: function() {
         if (this.time % 2 == 0) this.y++;
-        if (this.time % 10 == 0) {
+        if (this.time % 4 == 0) {
             this.index = (this.index+1)%2+2;
             this.body.setFrameIndex(this.index);
         }
@@ -265,7 +265,7 @@ pbr.enemyData['MournBlade'] = {
             this.roter.index = (this.roter.index+1)%4;
             this.roter.setFrameIndex(this.roter.index);
         }
-        if (this.time % 10 == 0) {
+        if (this.time % 4 == 0) {
             this.index = (this.index+1)%2;
             this.body.setFrameIndex(this.index);
         }
