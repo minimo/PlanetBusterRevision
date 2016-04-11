@@ -57,6 +57,7 @@ var THIN = bullet({ type: "THIN" });
 
 var DM  = bullet({ dummy: true });
 
+//é©ã@ë_Ç¢íe
 var basic = function(s, dir) {
   return new bulletml.Root({
     top: action([
@@ -82,28 +83,55 @@ pbr.danmaku.basicFL1 = basic(1.2, +5);
 pbr.danmaku.basicFR2 = basic(1.2, -15);
 pbr.danmaku.basicFL2 = basic(1.2, +15);
 
-var basic3way = function(dir) {
+//N-Way(é©ã@ë_Ç¢)
+var basicNway = function(n, dir, s) {
+    var rn = (n-1)/2;
     return new bulletml.Root({
         top: action([
-            interval(10),
+            interval(60),
             repeat(Infinity, [
-                fire(DM, spd(1), direction(dir - 7)),
+                fire(DM, spd(s), direction(-dir*rn)),
                 repeat("$burst + 1", [
                     fire(RS, spdSeq(0), direction(0, "sequence")),
-                    fire(RS, spdSeq(0), direction(7, "sequence")),
-                    fire(RS, spdSeq(0), direction(7, "sequence")),
-                    fire(DM, spdSeq(0.05), direction(-14, "sequence")),
+                    repeat(n-1, [
+                        fire(RS, spdSeq(0), direction(dir, "sequence")),
+                    ]),
+                    fire(DM, spdSeq(0.05), direction(-dir*n, "sequence")),
                 ]),
-                interval(50),
+                interval(60),
             ]),
         ]),
     });
 };
-pbr.danmaku.basic3way = basic3way(0);
-pbr.danmaku.basic3wayR1 = basic3way(-5);
-pbr.danmaku.basic3wayL1 = basic3way(+5);
-pbr.danmaku.basic3wayR2 = basic3way(-15);
-pbr.danmaku.basic3wayL2 = basic3way(+15);
+pbr.danmaku.basic3way = basicNway(3, 10, 0.7);
+pbr.danmaku.basic4way = basicNway(4, 10, 0.7);
+pbr.danmaku.basic5way = basicNway(5, 10, 0.7);
+pbr.danmaku.basic6way = basicNway(6, 10, 0.7);
+pbr.danmaku.basic7way = basicNway(7, 10, 0.7);
+
+//ä¬èÛíe
+var basicNwayCircle = function(n, s) {
+    var dir = ~~(360/n);
+    var rn = (n-1)/2;
+    return new bulletml.Root({
+        top: action([
+            interval(60),
+            repeat(Infinity, [
+                fire(DM, spd(s), direction(0, "absolute")),
+                repeat("$burst + 1", [
+                    fire(RS, spdSeq(0), direction(0, "sequence")),
+                    repeat(n-1, [
+                        fire(RS, spdSeq(0), direction(dir, "sequence")),
+                    ]),
+                    fire(DM, spdSeq(0.05), direction(-dir*n, "sequence")),
+                ]),
+                interval(60),
+            ]),
+        ]),
+    });
+};
+pbr.danmaku.basic8wayCircle = basicNwayCircle(8, 0.7);
+pbr.danmaku.basic16wayCircle = basicNwayCircle(16, 0.7);
 
 });
 
