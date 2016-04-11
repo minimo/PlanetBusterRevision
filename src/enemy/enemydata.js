@@ -12,7 +12,7 @@ pbr.enemyData = pbr.enemyData || [];
  */
 pbr.enemyData['Hornet'] = {
     //使用弾幕名
-    danmakuName: "basic",
+    danmakuName: "Hornet",
 
     //当り判定サイズ
     width:  16,
@@ -141,7 +141,7 @@ pbr.enemyData['MudDauber'] = {
 
         //行動設定
         this.vy = 5;
-        this.tweener.to({vy: 0.5}, 60, "easeOutCubic").call(function(){this.phase++;}.bind(this));
+        this.tweener.to({vy: 0.5}, 120, "easeOutCubic").call(function(){this.phase++;}.bind(this));
     },
 
     algorithm: function() {

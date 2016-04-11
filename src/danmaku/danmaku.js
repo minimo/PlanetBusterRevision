@@ -57,93 +57,58 @@ var THIN = bullet({ type: "THIN" });
 
 var DM  = bullet({ dummy: true });
 
-var basic = function(s, dir) {
-  return new bulletml.Root({
-    top: action([
-      interval(60),
-      repeat(Infinity, [
-        fire(DM, spd(s), direction(dir)),
-        repeat("$burst + 1", [
-          fire(RS, spdSeq(0.15), direction(0, "sequence")),
-        ]),
+//攻撃ヘリ「ホーネット」
+pbr.danmaku.Hornet = new bulletml.Root({
+    top0: action([
         interval(60),
-      ]),
-    ]),
-  });
-};
-pbr.danmaku.basic = basic(1, 0);
-pbr.danmaku.basicR1 = basic(1, -5);
-pbr.danmaku.basicL1 = basic(1, +5);
-pbr.danmaku.basicR2 = basic(1, -15);
-pbr.danmaku.basicL2 = basic(1, +15);
-pbr.danmaku.basicF = basic(1.2, 0);
-pbr.danmaku.basicFR1 = basic(1.2, -5);
-pbr.danmaku.basicFL1 = basic(1.2, +5);
-pbr.danmaku.basicFR2 = basic(1.2, -15);
-pbr.danmaku.basicFL2 = basic(1.2, +15);
-
-var basic3way = function(dir) {
-    return new bulletml.Root({
-        top: action([
-            interval(10),
-            repeat(Infinity, [
-                fire(DM, spd(1), direction(dir - 7)),
-                repeat("$burst + 1", [
-                    fire(RS, spdSeq(0), direction(0, "sequence")),
-                    fire(RS, spdSeq(0), direction(7, "sequence")),
-                    fire(RS, spdSeq(0), direction(7, "sequence")),
-                    fire(DM, spdSeq(0.05), direction(-14, "sequence")),
-                ]),
-                interval(50),
+        repeat(Infinity, [
+            fire(DM, spd(0.7), direction(0)),
+            repeat("$burst + 1", [
+                fire(THIN, spdSeq(0), direction(0, "sequence")),
+                interval(10),
             ]),
+            interval(120),
         ]),
-    });
-};
-pbr.danmaku.basic3way = basic3way(0);
-pbr.danmaku.basic3wayR1 = basic3way(-5);
-pbr.danmaku.basic3wayL1 = basic3way(+5);
-pbr.danmaku.basic3wayR2 = basic3way(-15);
-pbr.danmaku.basic3wayL2 = basic3way(+15);
+    ]),
+});
 
 //中型攻撃ヘリ MudDauber
 pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
-        interval(60),
+        interval(120),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(0), offsetX(0), offsetY(-10)),
-            repeat("$burst + 1", [
-                repeat(3, [
-                    fire(THIN, spdSeq(0), direction(0, "sequence"), offsetY(30)),
-                    interval(10),
-                ]),
+            fire(DM, spd(0.5), direction(0), offsetX(0), offsetY(-10)),
+            repeat("$burst + 3", [
+                fire(THIN, spdSeq(0), direction(0, "sequence"), offsetY(30)),
+                interval(10),
             ]),
             interval(120),
         ]),
     ]),
     top1: action([
-        interval(60),
+        interval(120),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(180, "absolute"), offsetX(-32)),
+            fire(DM, spd(0.7), direction(180, "absolute"), offsetX(-32)),
             repeat("$burst + 3", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
                 fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(-32)),
                 fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(-32)),
-                fire(DM, spdSeq(0.05), direction(-40, "sequence")),
-                interval(10),
+                fire(DM, spdSeq(0), direction(-40, "sequence")),
+                interval(15),
             ]),
             interval(160),
         ]),
     ]),
     top2: action([
-        interval(60),
+        interval(120),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(140, "absolute"), offsetX(32)),
+            fire(DM, spd(0.7), direction(140, "absolute"), offsetX(32)),
             repeat("$burst + 3", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
                 fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(32)),
                 fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(32)),
-                fire(DM, spdSeq(0.05), direction(-40, "sequence")),
-                interval(10),
+                fire(DM, spdSeq(0), direction(-40, "sequence")),
+                interval(15),
             ]),
             interval(160),
         ]),
