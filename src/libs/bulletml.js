@@ -2051,6 +2051,7 @@ bulletml.runner.Runner = function() {
     this.x = 0;
     this.y = 0;
     this.fireable = true;
+    this.stop = false;
 };
 bulletml.runner.Runner.prototype = {
     constructor: bulletml.runner.Runner,
@@ -2159,7 +2160,7 @@ bulletml.runner.SubRunner = function(config, walker) {
     this.aclFinV = 0.0;
     this.aclEnd = -1.0;
     this.age = -1.0;
-    this.stop = false;
+//    this.stop = false;
 
     /**
      * @private
@@ -2173,7 +2174,7 @@ bulletml.runner.SubRunner.prototype = Object.create(bulletml.runner.SimpleSubRun
  * @override
  */
 bulletml.runner.SubRunner.prototype.update = function() {
-    if (this.stop) return;
+    if (this.parentRunner.stop) return;
 
     this.age += 1;
 
@@ -2426,7 +2427,7 @@ bulletml.runner.SubRunner.prototype.accel = function(cmd) {
  * @param {bulletml.Notify} cmd
  */
 bulletml.runner.SubRunner.prototype.notify = function(cmd) {
-    this.onNotify(cmd.eventName, cmd.params);
+    this.parentRunner.onNotify(cmd.eventName, cmd.params);
 };
 
 /**
