@@ -2160,7 +2160,7 @@ bulletml.runner.SubRunner = function(config, walker) {
     this.aclFinV = 0.0;
     this.aclEnd = -1.0;
     this.age = -1.0;
-//    this.stop = false;
+    this.stop = false;
 
     /**
      * @private
@@ -2175,6 +2175,11 @@ bulletml.runner.SubRunner.prototype = Object.create(bulletml.runner.SimpleSubRun
  */
 bulletml.runner.SubRunner.prototype.update = function() {
     if (this.stop) return;
+    if (this.parentRunner !== null) {
+        if (this.parentRunner.stop) return;
+    }
+    
+
 
     this.age += 1;
 
@@ -2428,6 +2433,9 @@ bulletml.runner.SubRunner.prototype.accel = function(cmd) {
  */
 bulletml.runner.SubRunner.prototype.notify = function(cmd) {
     this.onNotify(cmd.eventName, cmd.params);
+    if (this.parentRunner !== null) {
+        this.parentRunner.onNotify(cmd.eventName, cmd.params);
+    }
 };
 
 /**
