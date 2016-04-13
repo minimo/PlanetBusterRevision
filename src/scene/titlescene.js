@@ -211,5 +211,6 @@ phina.define("pbr.TitleScene", {
     },
 
     settingMode: function() {
+        app.pushScene(pbr.SettingScene(this));
     },
 });

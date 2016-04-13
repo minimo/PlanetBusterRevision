@@ -9,108 +9,85 @@ phina.define("pbr.SettingScene", {
     superClass: "phina.display.DisplayScene",
 
     _member: {
+        //ラベル用パラメータ
         labelParam: {
+            text: "",
             fill: "white",
-            stroke: "black",
-            strokeWidth: 1,
+            stroke: false,
+            strokeWidth: 2,
 
-            fontFamily: "UbuntuMono",
+            fontFamily: "Orbitron",
             align: "center",
             baseline: "middle",
-            fontSize: 20,
+            fontSize: 15,
             fontWeight: ''
         },
     },
 
-    init: function(currentScene) {
+    init: function() {
         this.superInit();
         this.$extend(this._member);
 
-        this.currentScene = currentScene;
-        this.yes = true;
+        var option = {
+            title: "notitle",
+            menu: ["menu1", "menu2"],
+            description: ["menu1", "menu2"],
+        };
+
+        //メニュー項目数
+        var numMenuItem = option.menu.length;
 
         //バックグラウンド
-        var param = {
-            width:SC_W*0.8,
-            height:SC_H*0.8,
-            fill: "rgba(0,0,0,0.7)",
-            stroke: "rgba(0,0,0,0.7)",
+        var paramBG = {
+            width:SC_W,
+            height:SC_H,
+            fill: "rgba(0, 0, 0, 1)",
+            stroke: "rgba(0, 0, 0, 1)",
             backgroundColor: 'transparent',
         };
-        this.bg = phina.display.RectangleShape(param)
+        this.bg = phina.display.RectangleShape(paramBG)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5);
+        this.bg.alpha = 0;
+        this.bg.tweener.to({alpha: 0.8}, 2000, "easeOutCubic");
+
+        //バックグラウンド
+        var paramFR = {
+            width:SC_W*0.8,
+            height:SC_H*(numMenuItem*0.1),
+            fill: "rgba(0, 0, 0, 0.7)",
+            stroke: "rgba(255, 255, 255, 0.7)",
+            backgroundColor: 'transparent',
+        };
+        this.frame = phina.display.RectangleShape(paramFR)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5)
+            .setScale(1.0, 0);
+        this.frame.tweener.to({scaleY: 1}, 1000, "easeOutCubic");
 
-        //選択カーソル
-        var param2 = {
-            width:SC_W*0.15,
-            height:SC_H*0.1,
-            fill: "rgba(0,200,200,0.5)",
-            stroke: "rgba(0,200,200,0.5)",
-            backgroundColor: 'transparent',
-        };
-        this.cursol = phina.display.RectangleShape(param2)
-            .addChildTo(this)
-            .setPosition(SC_W*0.4, SC_H*0.55)
+        //初期位置
+        var posY = SC_H*0.5-(numMenuItem*0.1);
 
-        //タッチ用カーソル
-        var that = this;
-        this.cursol1 = phina.display.RectangleShape(param2)
-            .addChildTo(this)
-            .setPosition(SC_W*0.4, SC_H*0.55)
-            .setInteractive(true);
-        this.cursol1.alpha = 0;
-        this.cursol1.onpointend = function() {
-            if (that.yes) {
-                that.currentScene.flare("continue");
-                app.popScene();
-            } else {
-                that.cursol.tweener.clear().moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
-                that.yes = true;
-                app.playSE("select");
-            }
-        }
-        this.cursol2 = phina.display.RectangleShape(param2)
-            .addChildTo(this)
-            .setPosition(SC_W*0.6, SC_H*0.55)
-            .setInteractive(true);
-        this.cursol2.alpha = 0;
-        this.cursol2.onpointend = function() {
-            if (!that.yes) {
-                that.currentScene.flare("gameover");
-                app.popScene();
-            } else {
-                that.cursol.tweener.clear().moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
-                that.yes = false;
-                app.playSE("select");
-            }
-        }
-
+        //メニュータイトル
         phina.display.Label({text: "SETTING"}.$safe(this.labelParam))
             .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.40);
+            .setPosition(SC_W*0.5, posY);
 
-        phina.display.Label({text: "YES"}.$safe(this.labelParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.55);
-
-        phina.display.Label({text: "NO"}.$safe(this.labelParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.6, SC_H*0.55);
-
-        //カウンタ表示
-        this.counter = phina.display.Label({text: "9", fontSize: 30}.$safe(this.labelParam))
-            .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.45);
-        this.counter.count = 9;
-        this.counter.tweener.clear().wait(1000).call(function() {this.count--;}.bind(this.counter)).setLoop(true);
-        this.counter.update = function() {
-            this.text = ""+this.count;
-            if (this.count < 0) {
-                that.currentScene.flare("gameover");
-                app.popScene();
-            }
+        //メニュー項目
+        for (var i = 0; i < numMenuItem; i++) {
         }
+
+        //注釈
+        var param2 = {
+            width:SC_W,
+            height:SC_H*0.15,
+            fill: "rgba(0, 0, 0, 0.7)",
+            stroke: "rgba(0, 0, 0, 0.7)",
+            backgroundColor: 'transparent',
+        };
+        phina.display.RectangleShape(param2)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.8)
 
         this.time = 0;        
     },
@@ -136,13 +113,6 @@ phina.define("pbr.SettingScene", {
         }
         if (this.time > 30) {
             if (kb.getKey("Z") || kb.getKey("space")) {
-                if (this.yes) {
-                    this.currentScene.flare("continue");
-                    app.popScene();
-                } else {
-                    this.currentScene.flare("gameover");
-                    app.popScene();
-                }
             }
         }
         this.time++;

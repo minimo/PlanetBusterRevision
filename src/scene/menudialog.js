@@ -47,45 +47,51 @@ phina.define("pbr.MenuDialog", {
         this.superInit(option, callback);
         this.$extend(this._member);
 
-        var rectParam = {
-            width: SC_W*0.2,
-            height: 0,
+        //メニュー項目数
+        var numMenuItem = option.menu.length;
 
+        //バックグラウンド
+        var param = {
+            width:SC_W*0.8,
+            height:SC_H*(numMenuItem*0.2),
+            fill: "rgba(0, 0, 0, 0.7)",
+            stroke: "rgba(255, 255, 255, 0.7)",
             backgroundColor: 'transparent',
-            fill: '#22f',
-            stroke: '#fff',
-            strokeWidth: 3,
-            cornerRadius: 0,
         };
-        var frame = phina.display.RectangleShape(rectParam)
+        this.bg = phina.display.RectangleShape(param)
             .addChildTo(this)
-            .setPosition(SC_W_C, SC_H_C);
-        frame.tweener.clear()
-            .to({width: SC_W*0.8, height: SC_H*0.3}, 100, "easeSineOut");
+            .setPosition(SC_W*0.5, SC_H*0.5)
+            .setScale(1.0, 0);
+        this.bg.tweener.to({scaleY: 1}, 1000, "easeOutCubic");
+
+        //初期位置
+        var posY = SC_H*0.5-(numMenuItem*0.1);
+
+        //メニュータイトル
+        phina.display.Label({text: "SETTING"}.$safe(this.labelParam))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, posY);
 
         //メニュー項目
-        var len = option.menu.length;
-        var posY = SC_H*0.5-(len*30);
-        for (var i = 0; i < len; i++) {
+        for (var i = 0; i < numMenuItem; i++) {
         }
+
+        //注釈
+        var param2 = {
+            width:SC_W,
+            height:SC_H*0.15,
+            fill: "rgba(0, 0, 0, 0.7)",
+            stroke: "rgba(0, 0, 0, 0.7)",
+            backgroundColor: 'transparent',
+        };
+        phina.display.RectangleShape(param2)
+            .addChildTo(this)
+            .setPosition(SC_W, SC_H*0.8)
 
         this.time = 0;
     },
     
     update: function(app) {
         this.time++;
-    },
-
-    //タッチorクリック開始処理
-    onpointstart: function(e) {
-    },
-
-    //タッチorクリック移動処理
-    onpointmove: function(e) {
-    },
-
-    //タッチorクリック終了処理
-    onpointend: function(e) {
-        this.exit("arcade");
     },
 });
