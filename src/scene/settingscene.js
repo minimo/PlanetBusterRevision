@@ -24,7 +24,7 @@ phina.define("pbr.SettingScene", {
         },
         defaultMenu: {
             title: "SETTING",
-            item: ["menu1", "menu2"],
+            item: ["menu1", "menu2","menu3"],
             description: ["menu1", "menu2"],
         },
     },
@@ -55,9 +55,25 @@ phina.define("pbr.SettingScene", {
 
         this.frameBase = phina.display.DisplayElement().addChildTo(this);
 
+        this.cursolBase = phina.display.DisplayElement().addChildTo(this);
+        this.cursolBase.alpha = 0;
+        this.cursolBase.tweener.wait(400).fadeIn(100);
+
         this.base = phina.display.DisplayElement().addChildTo(this);
         this.base.alpha = 0;
         this.base.tweener.wait(400).fadeIn(100);
+
+        //選択カーソル
+        var paramCursol = {
+            width:SC_W*0.8-10,
+            height:SC_H*0.08,
+            fill: "rgba(100,100,100,0.5)",
+            stroke: "rgba(100,100,100,0.5)",
+            backgroundColor: 'transparent',
+        };
+        this.cursol = phina.display.RectangleShape(paramCursol)
+            .addChildTo(this.cursolBase)
+            .setPosition(SC_W*0.5, SC_H*0.6-3)
 
         //注釈
         var param2 = {
@@ -69,7 +85,7 @@ phina.define("pbr.SettingScene", {
         };
         phina.display.RectangleShape(param2)
             .addChildTo(this.base)
-            .setPosition(SC_W*0.5, SC_H*0.8)
+            .setPosition(SC_W*0.5, SC_H*0.9)
 
         this.time = 0;
 
@@ -79,20 +95,24 @@ phina.define("pbr.SettingScene", {
     update: function() {
         //キーボード操作
         var kb = app.keyboard;
-        if (kb.getKey("up")) {
-            if (!this.yes) {
-                this.cursol.tweener.clear()
-                    .moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
-                this.yes = true;
+        if (this.time > 10) {
+            if (kb.getKey("up")) {
                 app.playSE("select");
+                this.cursol.sel--;
+                if (this.cursol.sel < 0) this.cursol.sel = 0;
+                var sel = this.cursol.sel;
+                this.cursol.tweener.clear()
+                    .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
+                this.time = 0;
             }
-        }
-        if (kb.getKey("down")) {
-            if (this.yes) {
-                this.cursol.tweener.clear()
-                    .moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
-                this.yes = false;
+            if (kb.getKey("down")) {
                 app.playSE("select");
+                this.cursol.sel++;
+                if (this.cursol.sel > this.menu.item.length-1) this.cursol.sel = this.menu.item.length-1;
+                var sel = this.cursol.sel;
+                this.cursol.tweener.clear()
+                    .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
+                this.time = 0;
             }
         }
         if (this.time > 30) {
@@ -104,6 +124,7 @@ phina.define("pbr.SettingScene", {
                     .call(function(){
                         app.popScene();
                     });
+                this.time = 0;
             }
         }
         this.time++;
@@ -111,14 +132,16 @@ phina.define("pbr.SettingScene", {
 
     openMenu: function(menu) {
         menu = (menu||{}).$safe(this.defaultMenu);
+        this.menu = menu;
 
         //メニュー項目数
         var numMenuItem = menu.item.length;
 
         //フレーム
+        if (this.frame) this.frame.remove();
         var paramFR = {
             width:SC_W*0.8,
-            height:SC_H*(numMenuItem*0.15),
+            height:SC_H*(numMenuItem*0.15)+SC_H*0.1,
             fill: "rgba(0, 0, 0, 0.7)",
             stroke: "rgba(255, 255, 255, 0.7)",
             backgroundColor: 'transparent',
@@ -133,17 +156,29 @@ phina.define("pbr.SettingScene", {
         var posY = SC_H*0.5-SC_H*(numMenuItem*0.05);
 
         //メニュータイトル
-        phina.display.Label({text: menu.title}.$safe(this.labelParam))
+        if (this.title) this.title.remove();
+        this.title = phina.display.Label({text: menu.title}.$safe(this.labelParam))
             .addChildTo(this.base)
             .setPosition(SC_W*0.5, posY);
 
         //メニュー項目
-        for (var i = 0; i < numMenuItem; i++) {
+        if (this.item) {
+            for (var i = 0; i < this.item.length; i++) this.item[i].remove();
         }
+        this.item = [];
+        for (var i = 0; i < numMenuItem; i++) {
+            var y = posY+SC_H*0.1*i+SC_H*0.1;
+            this.item[i] = phina.display.Label({text: menu.item[i]}.$safe(this.labelParam))
+                .addChildTo(this.base)
+                .setPosition(SC_W*0.5, y);
+        }
+        this.cursol.y = this.item[0].y;
+        this.cursol.sel = 0;
     },
 
     closeMenu: function() {
         this.base.tweener.clear().fadeOut(100);
+        this.cursolBase.tweener.clear().fadeOut(100);
         this.frame.tweener.clear().wait(100).to({scaleY: 0}, 500, "easeOutCubic")
     },
 });
