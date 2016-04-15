@@ -80,7 +80,12 @@ phina.define("pbr.TitleScene", {
 
         phina.display.Label({text: "ARCADE MODE"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.6);
         phina.display.Label({text: "PRACTICE MODE"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.7);
-        phina.display.Label({text: "SETTING"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.8);
+        this.label3 = phina.display.Label({text: "SETTING"}.$safe(this.msgParam)).addChildTo(this).setPosition(SC_W*0.5, SC_H*0.8);
+        this.label3.blink = false;
+        this.label3.update = function(e) {
+            if (this.blink && e.ticker.frame % 10 == 0) this.visible = !this.visible;
+            if (!this.blink) this.visible = true;
+        }
 
         //タッチ用
         for (var i = 0; i < 3; i++) {
@@ -114,6 +119,7 @@ phina.define("pbr.TitleScene", {
 
         //戻ってきた場合に選択状態を解除
         this.on('enter', function() {
+            this.time = 0;
             this.isSelected = false;
         }.bind(this));
 
@@ -185,20 +191,15 @@ phina.define("pbr.TitleScene", {
                     .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
             case 2:
-                app.playSE("start");
                 this.isSelected = true;
-                this.tweener.clear().wait(2500).call(function() {
-                    this.settingMode();
-                    this.isSelected = false;
-                }.bind(this));
-                phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
-                    .addChildTo(this)
-                    .setPosition(SC_W*0.5, SC_H*0.8)
-                    .tweener.clear().to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
-                phina.display.Label({text: "SETTING"}.$safe(this.msgParam))
-                    .addChildTo(this)
-                    .setPosition(SC_W*0.5, SC_H*0.8)
-                    .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
+                this.tweener.clear().wait(700)
+                    .call(function() {
+                        this.label3.blink = false;
+                        this.time = 0;
+                        this.isSelected = false;
+                        this.settingMode();
+                    }.bind(this));
+                this.label3.blink = true;
                 break;
         }
     },
