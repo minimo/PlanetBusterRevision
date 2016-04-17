@@ -21,6 +21,7 @@ phina.define("pbr.Application", {
             "preload": {
                 sound: {
                     "start":         "assets/sounds/soundlogo40.mp3",
+                    "setting":       "assets/sounds/receipt05.mp3",
                     "warning":       "assets/sounds/bgm_warning.mp3",
                     "powerup":       "assets/sounds/ta_ta_suraido01.mp3",
                     "explodeSmall":  "assets/sounds/sen_ge_taihou03.mp3", 

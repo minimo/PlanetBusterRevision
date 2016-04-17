@@ -97,22 +97,28 @@ phina.define("pbr.SettingScene", {
         var kb = app.keyboard;
         if (this.time > 10) {
             if (kb.getKey("up")) {
-                app.playSE("select");
                 this.cursol.sel--;
-                if (this.cursol.sel < 0) this.cursol.sel = 0;
-                var sel = this.cursol.sel;
-                this.cursol.tweener.clear()
-                    .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
-                this.time = 0;
+                if (this.cursol.sel < 0) {
+                    this.cursol.sel = 0;
+                } else {
+                    var sel = this.cursol.sel;
+                    this.cursol.tweener.clear()
+                        .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
+                    this.time = 0;
+                    app.playSE("select");
+                }
             }
             if (kb.getKey("down")) {
-                app.playSE("select");
                 this.cursol.sel++;
-                if (this.cursol.sel > this.menu.item.length-1) this.cursol.sel = this.menu.item.length-1;
-                var sel = this.cursol.sel;
-                this.cursol.tweener.clear()
-                    .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
-                this.time = 0;
+                if (this.cursol.sel > this.menu.item.length-1) {
+                    this.cursol.sel = this.menu.item.length-1;
+                } else {
+                    var sel = this.cursol.sel;
+                    this.cursol.tweener.clear()
+                        .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
+                    this.time = 0;
+                    app.playSE("select");
+                }
             }
         }
         if (this.time > 30) {

@@ -191,6 +191,7 @@ phina.define("pbr.TitleScene", {
                     .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
             case 2:
+                app.playSE("setting");
                 this.isSelected = true;
                 this.tweener.clear().wait(700)
                     .call(function() {
