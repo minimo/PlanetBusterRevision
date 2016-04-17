@@ -140,11 +140,13 @@ phina.define("pbr.SettingScene", {
         menu = (menu||{}).$safe(this.defaultMenu);
         this.menu = menu;
 
+        //既存メニュー項目クリア
+        this.clearMenu();
+
         //メニュー項目数
         var numMenuItem = menu.item.length;
 
         //フレーム
-        if (this.frame) this.frame.remove();
         var paramFR = {
             width:SC_W*0.8,
             height:SC_H*(numMenuItem*0.15)+SC_H*0.1,
@@ -162,15 +164,11 @@ phina.define("pbr.SettingScene", {
         var posY = SC_H*0.5-SC_H*(numMenuItem*0.05);
 
         //メニュータイトル
-        if (this.title) this.title.remove();
         this.title = phina.display.Label({text: menu.title}.$safe(this.labelParam))
             .addChildTo(this.base)
             .setPosition(SC_W*0.5, posY);
 
         //メニュー項目
-        if (this.item) {
-            for (var i = 0; i < this.item.length; i++) this.item[i].remove();
-        }
         this.item = [];
         for (var i = 0; i < numMenuItem; i++) {
             var y = posY+SC_H*0.1*i+SC_H*0.1;
@@ -180,6 +178,25 @@ phina.define("pbr.SettingScene", {
         }
         this.cursol.y = this.item[0].y;
         this.cursol.sel = 0;
+    },
+
+    //既存メニュー項目クリア
+    clearMenu: function() {
+        if (this.frame) {
+            this.frame.remove();
+            delete this.frame;
+        }
+        if (this.title) {
+            this.title.remove();
+            delete this.title;
+        }
+        if (this.item) {
+            for (var i = 0; i < this.item.length; i++) {
+                this.item[i].remove();
+                delete this.item[i];
+            }
+            delete this.item;
+        }
     },
 
     closeMenu: function() {
