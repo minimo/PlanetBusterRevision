@@ -116,16 +116,7 @@ phina.define("pbr.SettingScene", {
         }
         if (this.time > 30) {
             if (kb.getKey("Z") || kb.getKey("space")) {
-                if (this.cursol.sel == this.menu.item.length-1) {
-                    this.closeMenu();
-                    this.bg.tweener.clear().to({alpha: 0.0}, 500, "easeOutCubic");
-                    this.tweener.clear()
-                        .wait(600)
-                        .call(function(){
-                            app.popScene();
-                        });
-                    this.time = 0;
-                }
+                this.selectMenu();
             }
         }
         this.time++;
@@ -189,6 +180,7 @@ phina.define("pbr.SettingScene", {
             this.click[i].$extend({alpha: 0, selY: y, sel: i});
             this.click[i].onpointstart = function() {
                 if (that.cursol.sel == this.sel) {
+                    that.selectMenu();
                 } else {
                     app.playSE("select");
                     that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
@@ -226,6 +218,18 @@ phina.define("pbr.SettingScene", {
         this.base.tweener.clear().fadeOut(100);
         this.cursolBase.tweener.clear().fadeOut(100);
         this.frame.tweener.clear().wait(100).to({scaleY: 0}, 250, "easeOutCubic")
+    },
+
+    selectMenu: function() {
+        if (this.cursol.sel == this.menu.item.length-1) {
+            this.closeMenu();
+            this.bg.tweener.clear().to({alpha: 0.0}, 500, "easeOutCubic");
+            this.tweener.clear()
+                .wait(600)
+                .call(function(){
+                    app.popScene();
+                });
+        }
     },
 });
 
