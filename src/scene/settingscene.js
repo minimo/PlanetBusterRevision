@@ -24,20 +24,14 @@ phina.define("pbr.SettingScene", {
         },
         defaultMenu: {
             title: "SETTING",
-            item: ["menu1", "menu2","menu3"],
-            description: ["menu1", "menu2"],
+            item: ["GAME", "SYSTEM","EXIT"],
+            description: ["menu1", "menu2","exit"],
         },
     },
 
-    init: function() {
+    init: function(menu) {
         this.superInit();
         this.$extend(this._member);
-
-        var option = {
-            title: "notitle",
-            menu: ["menu1", "menu2"],
-            description: ["menu1", "menu2"],
-        };
 
         //バックグラウンド
         var paramBG = {
@@ -57,11 +51,10 @@ phina.define("pbr.SettingScene", {
 
         this.cursolBase = phina.display.DisplayElement().addChildTo(this);
         this.cursolBase.alpha = 0;
-        this.cursolBase.tweener.wait(400).fadeIn(100);
+        this.cursolBase.tweener.wait(300).fadeIn(100);
 
         this.base = phina.display.DisplayElement().addChildTo(this);
         this.base.alpha = 0;
-        this.base.tweener.wait(400).fadeIn(100);
 
         //選択カーソル
         var paramCursol = {
@@ -89,7 +82,7 @@ phina.define("pbr.SettingScene", {
 
         this.time = 0;
 
-        this.openMenu();
+        this.openMenu(menu);
     },
 
     update: function() {
@@ -123,14 +116,16 @@ phina.define("pbr.SettingScene", {
         }
         if (this.time > 30) {
             if (kb.getKey("Z") || kb.getKey("space")) {
-                this.closeMenu();
-                this.bg.tweener.clear().to({alpha: 0.0}, 500, "easeOutCubic");
-                this.tweener.clear()
-                    .wait(600)
-                    .call(function(){
-                        app.popScene();
-                    });
-                this.time = 0;
+                if (this.cursol.sel == this.menu.item.length-1) {
+                    this.closeMenu();
+                    this.bg.tweener.clear().to({alpha: 0.0}, 500, "easeOutCubic");
+                    this.tweener.clear()
+                        .wait(600)
+                        .call(function(){
+                            app.popScene();
+                        });
+                    this.time = 0;
+                }
             }
         }
         this.time++;
@@ -158,7 +153,8 @@ phina.define("pbr.SettingScene", {
             .addChildTo(this.frameBase)
             .setPosition(SC_W*0.5, SC_H*0.5)
             .setScale(1.0, 0);
-        this.frame.tweener.to({scaleY: 1}, 500, "easeOutCubic");
+        this.frame.tweener.to({scaleY: 1}, 250, "easeOutCubic");
+        this.base.tweener.wait(150).fadeIn(100);
 
         //初期位置
         var posY = SC_H*0.5-SC_H*(numMenuItem*0.05);
@@ -168,13 +164,37 @@ phina.define("pbr.SettingScene", {
             .addChildTo(this.base)
             .setPosition(SC_W*0.5, posY);
 
+        //クリック用
+        var paramCL = {
+            width:SC_W*0.8,
+            height:SC_H*0.08,
+            fill: "rgba(0,100,200,0.5)",
+            stroke: "rgba(0,100,200,0.5)",
+            backgroundColor: 'transparent',
+        };
         //メニュー項目
+        var that = this;
         this.item = [];
+        this.click = [];
         for (var i = 0; i < numMenuItem; i++) {
             var y = posY+SC_H*0.1*i+SC_H*0.1;
             this.item[i] = phina.display.Label({text: menu.item[i]}.$safe(this.labelParam))
                 .addChildTo(this.base)
                 .setPosition(SC_W*0.5, y);
+
+            this.click[i] = phina.display.RectangleShape(paramCL)
+                .addChildTo(this.base)
+                .setPosition(SC_W*0.5, y)
+                .setInteractive(true);
+            this.click[i].$extend({alpha: 0, selY: y, sel: i});
+            this.click[i].onpointstart = function() {
+                if (that.cursol.sel == this.sel) {
+                } else {
+                    app.playSE("select");
+                    that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
+                    that.cursol.sel = this.sel;
+                }
+            }
         }
         this.cursol.y = this.item[0].y;
         this.cursol.sel = 0;
@@ -194,15 +214,18 @@ phina.define("pbr.SettingScene", {
             for (var i = 0; i < this.item.length; i++) {
                 this.item[i].remove();
                 delete this.item[i];
+                this.click[i].remove();
+                delete this.click[i];
             }
             delete this.item;
+            delete this.click;
         }
     },
 
     closeMenu: function() {
         this.base.tweener.clear().fadeOut(100);
         this.cursolBase.tweener.clear().fadeOut(100);
-        this.frame.tweener.clear().wait(100).to({scaleY: 0}, 500, "easeOutCubic")
+        this.frame.tweener.clear().wait(100).to({scaleY: 0}, 250, "easeOutCubic")
     },
 });
 
