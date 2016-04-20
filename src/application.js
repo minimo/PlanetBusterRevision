@@ -51,6 +51,7 @@ phina.define("pbr.Application", {
                     "shot":     "assets/images/shot.png",
                     "effect":   "assets/images/effect.png",
                     "bomb":     "assets/images/bomb.png",
+                    "particle": "assets/images/particle.png",
                     "map1g":    "assets/maps/map1.png",
                 },
             },
