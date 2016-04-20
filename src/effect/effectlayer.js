@@ -249,7 +249,7 @@ phina.define("pbr.EffectLayer", {
             startIndex: 0,
             maxIndex: 16,
         }));
-//        if (e) e.tweener.clear().to({alpha:0}, 300, "easeInOutSine");
+        if (e) e.tweener.clear().to({alpha:0}, 600, "easeInOutSine");
         return e;
     },
 
