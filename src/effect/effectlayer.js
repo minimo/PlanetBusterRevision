@@ -331,4 +331,31 @@ phina.define("pbr.EffectLayer", {
         }));
         return e;
     },
+
+    //パーティクル
+    enterParticle: function(option) {
+        option = (option || {}).$safe(this.defaultOption);
+        var trim = {x: 0, y: 0, width: 256, height: 16};
+        switch (option.color) {
+            case 'red':
+                trim = {x: 0, y: 16, width: 256, height: 16};
+                break;
+            case 'green':
+                trim = {x: 0, y: 32, width: 256, height: 16};
+                break;
+             default:
+                trim = {x: 0, y: 0, width: 256, height: 16};
+        }
+        var e = this.enter(option.$extend({
+            name: "particle",
+            assetName: "particle",
+            width: 16,
+            height: 16,
+            interval: 2,
+            startIndex: 0,
+            maxIndex: 16,
+            trimming: trim,
+        }));
+        return e;
+    },
 });
