@@ -53,6 +53,7 @@ phina.define("pbr.Effect.EffectBase", {
         interval: 2,
         startIndex: 0,
         maxIndex: 17,
+        sequence: null,
         delay: 0,
         loop: false,
         enterframe: null,
@@ -69,6 +70,8 @@ phina.define("pbr.Effect.EffectBase", {
     init: function() {
         this.superInit("effect");
         this.$extend(this._member);
+
+        this.tweener.setUpdateType('fps');
 
         this.velocity = {
             x: 0,       //Ｘ座標方向
@@ -98,6 +101,8 @@ phina.define("pbr.Effect.EffectBase", {
         this.interval = option.interval;
         this.startIndex = option.startIndex;
         this.maxIndex = option.maxIndex;
+        this.sequence = option.sequence;
+        this.seqIndex = 0;
         this.delay = option.delay;
         if (this.delay < 0) this.delay *= -1;
         this.loop = option.loop;
@@ -112,6 +117,7 @@ phina.define("pbr.Effect.EffectBase", {
         this.setFrameTrimming(tr.x, tr.y, tr.width, tr.height);
 
         this.index = this.startIndex;
+        if (this.sequence) this.index = this.sequence[0];
         this.setFrameIndex(this.index);
 
         this.setPosition(option.position.x, option.position.y);
@@ -148,12 +154,24 @@ phina.define("pbr.Effect.EffectBase", {
 
         if (this.time % this.interval == 0) {
             this.setFrameIndex(this.index);
-            this.index++;
-            if (this.index > this.maxIndex) {
-                if (this.loop) {
-                    this.index = this.startIndex;
-                } else {
-                    this.isRemove = true;
+            if (this.sequence) {
+                this.index = this.sequence[this.seqIndex];
+                this.seqIndex++;
+                if (this.seqIndex == this.sequence.length) {
+                    if (this.loop) {
+                        this.seqIndex = 0;
+                    } else {
+                        this.isRemove = true;
+                    }
+                }
+            } else {
+                this.index++;
+                if (this.index > this.maxIndex) {
+                    if (this.loop) {
+                        this.index = this.startIndex;
+                    } else {
+                        this.isRemove = true;
+                    }
                 }
             }
         }
