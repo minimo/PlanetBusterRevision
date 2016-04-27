@@ -4,7 +4,7 @@
  *  @auther minimo  
  *  This Program is MIT license.
  */
- 
+
 phina.define("pbr.SettingScene", {
     superClass: "phina.display.DisplayScene",
 
@@ -114,7 +114,7 @@ phina.define("pbr.SettingScene", {
                 }
             }
         }
-        if (this.time > 30) {
+        if (this.time > 10) {
             if (kb.getKey("Z") || kb.getKey("space")) {
                 this.selectMenu();
             }
@@ -233,3 +233,44 @@ phina.define("pbr.SettingScene", {
     },
 });
 
+phina.define("pbr.Selector", {
+    superClass: "phina.display.DisplayElement",
+
+    //ラベル用パラメータ
+    labelParam: {
+        text: "",
+        fill: "white",
+        stroke: false,
+        strokeWidth: 2,
+
+        fontFamily: "Orbitron",
+        align: "center",
+        baseline: "middle",
+        fontSize: 15,
+        fontWeight: ''
+    },
+    defaultOption: {
+        width: 640,
+        title: "SELECT",
+        initial: 0,
+        item: ["1", "2", "3", "4", "5"],
+        description: ["1", "2", "3", "4", "5"],
+        vertical: false,
+    },
+
+    init: function(option) {
+        this.option = (option||{}).$safe(this.defaultOption);
+
+        var width = option.width;
+        this.title = phina.display.Label({text: this.option.title}.$safe(this.labelParam))
+            .addChildTo(this)
+            .setPosition(-width*0.25, 0);
+
+        this.items = [];
+        for (var i = 0; i < this.option.item.length; i++) {
+            this.items[i] = phina.display.Label({text: this.option.item[i]}.$safe(this.labelParam))
+                .addChildTo(this)
+                .setPosition(i*50, 0);
+        }
+    },
+});
