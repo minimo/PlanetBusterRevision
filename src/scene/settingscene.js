@@ -24,8 +24,8 @@ phina.define("pbr.SettingScene", {
         },
         defaultMenu: {
             title: "SETTING",
-            item: ["GAME", "SYSTEM","EXIT"],
-            description: ["menu1", "menu2","exit"],
+            item: ["GAME", "SYSTEM", "test", "EXIT"],
+            description: ["menu1", "menu2", "test", "exit"],
         },
     },
 
@@ -77,7 +77,7 @@ phina.define("pbr.SettingScene", {
             backgroundColor: 'transparent',
         };
         phina.display.RectangleShape(param2)
-            .addChildTo(this.base)
+//            .addChildTo(this.base)
             .setPosition(SC_W*0.5, SC_H*0.9)
 
         this.time = 0;
@@ -125,6 +125,7 @@ phina.define("pbr.SettingScene", {
     openMenu: function(menu) {
         menu = (menu||{}).$safe(this.defaultMenu);
         this.menu = menu;
+        menu.item[2] = pbr.Selector({width:SC_W*0.8});
 
         //既存メニュー項目クリア
         this.clearMenu();
@@ -169,23 +170,30 @@ phina.define("pbr.SettingScene", {
         this.click = [];
         for (var i = 0; i < numMenuItem; i++) {
             var y = posY+SC_H*0.1*i+SC_H*0.1;
-            this.item[i] = phina.display.Label({text: menu.item[i]}.$safe(this.labelParam))
-                .addChildTo(this.base)
-                .setPosition(SC_W*0.5, y);
+            var item = menu.item[i];
+            if (typeof item == 'string') {
+                this.item[i] = phina.display.Label({text: menu.item[i]}.$safe(this.labelParam))
+                    .addChildTo(this.base)
+                    .setPosition(SC_W*0.5, y);
 
-            this.click[i] = phina.display.RectangleShape(paramCL)
-                .addChildTo(this.base)
-                .setPosition(SC_W*0.5, y)
-                .setInteractive(true);
-            this.click[i].$extend({alpha: 0, selY: y, sel: i});
-            this.click[i].onpointstart = function() {
-                if (that.cursol.sel == this.sel) {
-                    that.selectMenu();
-                } else {
-                    app.playSE("select");
-                    that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
-                    that.cursol.sel = this.sel;
+                this.click[i] = phina.display.RectangleShape(paramCL)
+                    .addChildTo(this.base)
+                    .setPosition(SC_W*0.5, y)
+                    .setInteractive(true);
+                this.click[i].$extend({alpha: 0, selY: y, sel: i});
+                this.click[i].onpointstart = function() {
+                    if (that.cursol.sel == this.sel) {
+                        that.selectMenu();
+                    } else {
+                        app.playSE("select");
+                        that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
+                        that.cursol.sel = this.sel;
+                    }
                 }
+            }
+            if (item instanceof pbr.Selector) {
+                this.item[i] = item;
+                item.addChildTo(this).setPosition(SC_W*0.5, y);
             }
         }
         this.cursol.y = this.item[0].y;
@@ -259,18 +267,22 @@ phina.define("pbr.Selector", {
     },
 
     init: function(option) {
+        this.superInit();
         this.option = (option||{}).$safe(this.defaultOption);
 
-        var width = option.width;
+        var width = this.option.width;
         this.title = phina.display.Label({text: this.option.title}.$safe(this.labelParam))
-            .addChildTo(this)
+        this.title.addChildTo(this)
             .setPosition(-width*0.25, 0);
+
+        this.itemBase = phina.display.DisplayElement().addChildTo(this);
 
         this.items = [];
         for (var i = 0; i < this.option.item.length; i++) {
             this.items[i] = phina.display.Label({text: this.option.item[i]}.$safe(this.labelParam))
-                .addChildTo(this)
-                .setPosition(i*50, 0);
+                .addChildTo(this.itemBase)
+                .setPosition((i*50, 0);
+            if (i != this.option.initial) this.items[i].alpha = 0;
         }
     },
 });
