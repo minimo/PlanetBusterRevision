@@ -193,7 +193,7 @@ phina.define("pbr.SettingScene", {
             }
             if (item instanceof pbr.Selector) {
                 this.item[i] = item;
-                item.addChildTo(this).setPosition(SC_W*0.5, y);
+                item.addChildTo(this.base).setPosition(SC_W*0.5, y);
             }
         }
         this.cursol.y = this.item[0].y;
@@ -261,7 +261,7 @@ phina.define("pbr.Selector", {
         width: 640,
         title: "SELECT",
         initial: 0,
-        item: ["1", "2", "3", "4", "5"],
+        item: ["aaaaa", "2", "3", "4", "5"],
         description: ["1", "2", "3", "4", "5"],
         vertical: false,
     },
@@ -281,7 +281,7 @@ phina.define("pbr.Selector", {
         for (var i = 0; i < this.option.item.length; i++) {
             this.items[i] = phina.display.Label({text: this.option.item[i]}.$safe(this.labelParam))
                 .addChildTo(this.itemBase)
-                .setPosition(i*50, 0);
+                .setPosition(width*0.2+i*50, 0);
             if (i != this.option.initial) this.items[i].alpha = 0;
         }
     },
