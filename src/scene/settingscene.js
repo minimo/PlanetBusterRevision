@@ -281,7 +281,7 @@ phina.define("pbr.Selector", {
         for (var i = 0; i < this.option.item.length; i++) {
             this.items[i] = phina.display.Label({text: this.option.item[i]}.$safe(this.labelParam))
                 .addChildTo(this.itemBase)
-                .setPosition((i*50, 0);
+                .setPosition(i*50, 0);
             if (i != this.option.initial) this.items[i].alpha = 0;
         }
     },
