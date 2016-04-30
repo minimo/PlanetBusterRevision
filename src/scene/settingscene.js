@@ -113,6 +113,18 @@ phina.define("pbr.SettingScene", {
                     app.playSE("select");
                 }
             }
+            var sel = this.cursol.sel;
+            if (this.item[sel] instanceof pbr.Selector) {
+                var item = this.item[sel];
+                if (kb.getKey("left")) {
+                    item.dec();
+                    this.time = 0;
+                }
+                if (kb.getKey("right")) {
+                    item.inc();
+                    this.time = 0;
+                }
+            }
         }
         if (this.time > 10) {
             if (kb.getKey("Z") || kb.getKey("space")) {
@@ -244,6 +256,9 @@ phina.define("pbr.SettingScene", {
 phina.define("pbr.Selector", {
     superClass: "phina.display.DisplayElement",
 
+    //選択中アイテム
+    selectItem: 0,
+
     //ラベル用パラメータ
     labelParam: {
         text: "",
@@ -271,18 +286,63 @@ phina.define("pbr.Selector", {
         this.option = (option||{}).$safe(this.defaultOption);
 
         var width = this.option.width;
+
+        //タイトル   
         this.title = phina.display.Label({text: this.option.title}.$safe(this.labelParam))
         this.title.addChildTo(this)
-            .setPosition(-width*0.25, 0);
+            .setPosition(-width*0.3, 0);
 
+        //選択初期位置
+        this.selectItem = this.option.initial;
+        if (this.selectItem < 0) this.selectItem = 0;
+
+        //アイテムセット
         this.itemBase = phina.display.DisplayElement().addChildTo(this);
-
         this.items = [];
         for (var i = 0; i < this.option.item.length; i++) {
             this.items[i] = phina.display.Label({text: this.option.item[i]}.$safe(this.labelParam))
                 .addChildTo(this.itemBase)
-                .setPosition(width*0.2+i*50, 0);
+                .setPosition(width*0.2+i*100, 0);
             if (i != this.option.initial) this.items[i].alpha = 0;
         }
+
+        //操作ボタン
+        var paramBT = {
+            width: 10,
+            height:SC_H*0.05,
+            fill: "rgba(0, 0, 0, 0.7)",
+            stroke: "rgba(255, 255, 255, 0.7)",
+            backgroundColor: 'transparent',
+        };
+        this.btnL = phina.display.RectangleShape(paramBT)
+            .addChildTo(this)
+            .setPosition(-width*0.05, 0);
+        this.btnR = phina.display.RectangleShape(paramBT)
+            .addChildTo(this)
+            .setPosition(width*0.45, 0);
+    },
+
+    inc: function() {
+        this.selectItem++;
+        if (this.selectItem > this.option.item.length-1) {
+            this.selectItem = this.option.item.length-1;
+            return this;
+        }
+        this.items[this.selectItem-1].tweener.clear().to({alpha: 0}, 500, "easeOutSine");
+        this.items[this.selectItem].tweener.clear().to({alpha: 1}, 500, "easeOutSine");
+        this.itemBase.tweener.clear().to({x: -this.selectItem*100}, 800, "easeOutCubic");
+        return this;
+    },
+
+    dec: function() {
+        this.selectItem--;
+        if (this.selectItem < 0) {
+            this.selectItem = 0;
+            return this;
+        }
+        this.items[this.selectItem+1].tweener.clear().to({alpha: 0}, 500, "easeOutSine");
+        this.items[this.selectItem].tweener.clear().to({alpha: 1}, 500, "easeOutSine");
+        this.itemBase.tweener.clear().to({x: -this.selectItem*100}, 800, "easeOutCubic");
+        return this;
     },
 });
