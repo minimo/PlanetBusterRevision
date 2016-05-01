@@ -187,25 +187,24 @@ phina.define("pbr.SettingScene", {
                 this.item[i] = phina.display.Label({text: menu.item[i]}.$safe(this.labelParam))
                     .addChildTo(this.base)
                     .setPosition(SC_W*0.5, y);
-
-                this.click[i] = phina.display.RectangleShape(paramCL)
-                    .addChildTo(this.base)
-                    .setPosition(SC_W*0.5, y)
-                    .setInteractive(true);
-                this.click[i].$extend({alpha: 0, selY: y, sel: i});
-                this.click[i].onpointstart = function() {
-                    if (that.cursol.sel == this.sel) {
-                        that.selectMenu();
-                    } else {
-                        app.playSE("select");
-                        that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
-                        that.cursol.sel = this.sel;
-                    }
-                }
             }
             if (item instanceof pbr.Selector) {
                 this.item[i] = item;
                 item.addChildTo(this.base).setPosition(SC_W*0.5, y);
+            }
+            this.click[i] = phina.display.RectangleShape(paramCL)
+                .addChildTo(this.base)
+                .setPosition(SC_W*0.5, y)
+                .setInteractive(true);
+            this.click[i].$extend({alpha: 0, selY: y, sel: i});
+            this.click[i].onpointstart = function() {
+                if (that.cursol.sel == this.sel) {
+                    that.selectMenu();
+                } else {
+                    app.playSE("select");
+                    that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
+                    that.cursol.sel = this.sel;
+                }
             }
         }
         this.cursol.y = this.item[0].y;
@@ -310,8 +309,8 @@ phina.define("pbr.Selector", {
         var paramBT = {
             width: 10,
             height:SC_H*0.05,
-            fill: "rgba(0, 0, 0, 0.7)",
-            stroke: "rgba(255, 255, 255, 0.7)",
+            fill: "rgba(255, 255, 255, 0.7)",
+            stroke: null,
             backgroundColor: 'transparent',
         };
         this.btnL = phina.display.RectangleShape(paramBT)
@@ -331,6 +330,7 @@ phina.define("pbr.Selector", {
         this.items[this.selectItem-1].tweener.clear().to({alpha: 0}, 500, "easeOutSine");
         this.items[this.selectItem].tweener.clear().to({alpha: 1}, 500, "easeOutSine");
         this.itemBase.tweener.clear().to({x: -this.selectItem*100}, 800, "easeOutCubic");
+        app.playSE("click");
         return this;
     },
 
@@ -343,6 +343,7 @@ phina.define("pbr.Selector", {
         this.items[this.selectItem+1].tweener.clear().to({alpha: 0}, 500, "easeOutSine");
         this.items[this.selectItem].tweener.clear().to({alpha: 1}, 500, "easeOutSine");
         this.itemBase.tweener.clear().to({x: -this.selectItem*100}, 800, "easeOutCubic");
+        app.playSE("click");
         return this;
     },
 });

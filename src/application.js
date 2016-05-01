@@ -34,6 +34,7 @@ phina.define("pbr.Application", {
                     "cancel":        "assets/sounds/se_maoudamashii_system20.mp3",
                     "select":        "assets/sounds/se_maoudamashii_system36.mp3",
                     "click":         "assets/sounds/se_maoudamashii_system26.mp3",
+                    "click2":        "assets/sounds/click2.mp3",
                 },
                 font: {
                     "UbuntuMono":   "fonts/UbuntuMono-Bold.ttf",
