@@ -53,6 +53,13 @@ phina.namespace(function() {
                 }, this);
         },
 
+        update: function() {
+            var kb = app.keyboard;
+            if (kb.getKey("Z") || kb.getKey("space")) {
+                if (this.unlock && this.loadcomplete) this.exit();
+            }
+        },
+
         onpointstart: function() {
             if (this.unlock && this.loadcomplete) this.exit();
         },
