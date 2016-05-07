@@ -58,7 +58,7 @@ phina.define("pbr.SettingScene", {
 
         //選択カーソル
         var paramCursol = {
-            width:SC_W*0.8-10,
+            width:SC_W*0.85-10,
             height:SC_H*0.08,
             fill: "rgba(100,100,100,0.5)",
             stroke: "rgba(100,100,100,0.5)",
@@ -147,7 +147,7 @@ phina.define("pbr.SettingScene", {
 
         //フレーム
         var paramFR = {
-            width:SC_W*0.8,
+            width:SC_W*0.87,
             height:SC_H*(numMenuItem*0.15)+SC_H*0.1,
             fill: "rgba(0, 0, 0, 0.7)",
             stroke: "rgba(255, 255, 255, 0.7)",
@@ -305,9 +305,23 @@ phina.define("pbr.Selector", {
             if (i != this.option.initial) this.items[i].alpha = 0;
         }
 
+        var that = this;
+        //ラベル用パラメータ
+        var paramLbl = {
+            text: "△",
+            fill: "black",
+            stroke: false,
+            strokeWidth: 2,
+
+            fontFamily: "Orbitron",
+            align: "center",
+            baseline: "middle",
+            fontSize: 15,
+            fontWeight: ''
+        };
         //操作ボタン
         var paramBT = {
-            width: 10,
+            width: 15,
             height:SC_H*0.05,
             fill: "rgba(255, 255, 255, 0.7)",
             stroke: null,
@@ -315,10 +329,27 @@ phina.define("pbr.Selector", {
         };
         this.btnL = phina.display.RectangleShape(paramBT)
             .addChildTo(this)
-            .setPosition(-width*0.05, 0);
+            .setPosition(-width*0.05, 0)
+            .setInteractive(true);
+        this.btnL.onpointstart = function() {
+            that.dec();
+        }
+        this.btnL2 = phina.display.Label(paramLbl)
+            .addChildTo(this.btnL)
+            .setPosition(0, 1);
+        this.btnL2.rotation = 30;
+
         this.btnR = phina.display.RectangleShape(paramBT)
             .addChildTo(this)
-            .setPosition(width*0.45, 0);
+            .setPosition(width*0.45, 0)
+            .setInteractive(true);
+        this.btnR.onpointstart = function() {
+            that.inc();
+        }
+        this.btnR2 = phina.display.Label(paramLbl)
+            .addChildTo(this.btnR)
+            .setPosition(0, 1);
+        this.btnR2.rotation = -30;
     },
 
     inc: function() {
