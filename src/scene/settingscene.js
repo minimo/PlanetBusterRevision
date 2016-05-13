@@ -306,18 +306,16 @@ phina.define("pbr.Selector", {
         }
 
         var that = this;
-        //ラベル用パラメータ
-        var paramLbl = {
-            text: "△",
-            fill: "black",
-            stroke: false,
-            strokeWidth: 2,
+        //Shape用パラメータ
+        var paramShp = {
+            backgroundColor: 'transparent',
+            fill: 'black',
+            stroke: '#aaa',
+            strokeWidth: 0,
 
-            fontFamily: "Orbitron",
-            align: "center",
-            baseline: "middle",
-            fontSize: 15,
-            fontWeight: ''
+            radius: 7,
+            sides: 5,
+            sideIndent: 0.38,
         };
         //操作ボタン
         var paramBT = {
@@ -334,11 +332,11 @@ phina.define("pbr.Selector", {
         this.btnL.onpointstart = function() {
             that.dec();
         }
-        this.btnL2 = phina.display.Label(paramLbl)
+        this.btnL2 = phina.display.TriangleShape(paramShp)
             .addChildTo(this.btnL)
-            .setPosition(0, 1);
+            .setPosition(1, 0);
         this.btnL2.rotation = 30;
-
+        
         this.btnR = phina.display.RectangleShape(paramBT)
             .addChildTo(this)
             .setPosition(width*0.45, 0)
@@ -346,9 +344,9 @@ phina.define("pbr.Selector", {
         this.btnR.onpointstart = function() {
             that.inc();
         }
-        this.btnR2 = phina.display.Label(paramLbl)
+        this.btnR2 = phina.display.TriangleShape(paramShp)
             .addChildTo(this.btnR)
-            .setPosition(0, 1);
+            .setPosition(-1, 0);
         this.btnR2.rotation = -30;
     },
 
@@ -358,8 +356,8 @@ phina.define("pbr.Selector", {
             this.selectItem = this.option.item.length-1;
             return this;
         }
-        this.items[this.selectItem-1].tweener.clear().to({alpha: 0}, 500, "easeOutSine");
-        this.items[this.selectItem].tweener.clear().to({alpha: 1}, 500, "easeOutSine");
+        this.items[this.selectItem-1].tweener.clear().to({alpha: 0}, 300, "easeOutSine");
+        this.items[this.selectItem].tweener.clear().to({alpha: 1}, 300, "easeOutSine");
         this.itemBase.tweener.clear().to({x: -this.selectItem*100}, 800, "easeOutCubic");
         app.playSE("click");
         return this;
@@ -371,8 +369,8 @@ phina.define("pbr.Selector", {
             this.selectItem = 0;
             return this;
         }
-        this.items[this.selectItem+1].tweener.clear().to({alpha: 0}, 500, "easeOutSine");
-        this.items[this.selectItem].tweener.clear().to({alpha: 1}, 500, "easeOutSine");
+        this.items[this.selectItem+1].tweener.clear().to({alpha: 0}, 300, "easeOutSine");
+        this.items[this.selectItem].tweener.clear().to({alpha: 1}, 300, "easeOutSine");
         this.itemBase.tweener.clear().to({x: -this.selectItem*100}, 800, "easeOutCubic");
         app.playSE("click");
         return this;
