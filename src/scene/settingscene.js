@@ -68,18 +68,6 @@ phina.define("pbr.SettingScene", {
             .addChildTo(this.cursolBase)
             .setPosition(SC_W*0.5, SC_H*0.6-3)
 
-        //注釈
-        var param2 = {
-            width:SC_W,
-            height:SC_H*0.15,
-            fill: "rgba(0, 0, 0, 0.7)",
-            stroke: "rgba(0, 0, 0, 0.7)",
-            backgroundColor: 'transparent',
-        };
-        phina.display.RectangleShape(param2)
-//            .addChildTo(this.base)
-            .setPosition(SC_W*0.5, SC_H*0.9)
-
         this.time = 0;
 
         this.openMenu(menu);
@@ -137,7 +125,7 @@ phina.define("pbr.SettingScene", {
     openMenu: function(menu) {
         menu = (menu||{}).$safe(this.defaultMenu);
         this.menu = menu;
-        menu.item[2] = pbr.Selector({width:SC_W*0.8});
+//        menu.item[2] = pbr.Selector({width:SC_W*0.8});
 
         //既存メニュー項目クリア
         this.clearMenu();
@@ -249,6 +237,9 @@ phina.define("pbr.SettingScene", {
                     app.popScene();
                 });
         }
+    },
+
+    createTopMenu: function() {
     },
 });
 
