@@ -225,10 +225,10 @@ phina.define("pbr.MainScene", {
             app.numContinue++;
 
             //初期状態へ戻す
-            app.zanki = 3;
-            app.bombStock = 3;
             app.score = 0;
             app.rank = 1;
+            app.zanki = app._defaultSetting.zanki;
+            app.bombStock = app._defaultSetting.bombStock;
 
             this.player.visible = true;
             this.player.startup();

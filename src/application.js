@@ -70,18 +70,25 @@ phina.define("pbr.Application", {
     },
 
     _member: {
-        //ゲーム設定
+        //ゲーム内情報
         score: 0,
         rank: 1,
-        zanki: 1,       //残機
-        bombStock: 2,   //ボム残数
         numContinue: 0, //コンティニュー回数
+
+        //プレイヤー設定
+        zanki: 3,       //残機
+        bombStock: 2,   //ボム残数
         autoBomb: false,//オートボムフラグ
 
+        //デフォルト設定
+        _defaultSetting: {
+            zanki: 3,
+            bombStock: 2,
+            autoBomb: false,
+        },
+
         //ＢＧＭ＆効果音
-        bgm: null,
-        bgmIsPlay: false,
-        sounds: null,
+        soundset: null,
 
         //バックグラウンドカラー
         backgroundColor: 'rgba(0, 0, 0, 1)',
@@ -102,10 +109,9 @@ phina.define("pbr.Application", {
 */
         //設定情報の読み込み
         this.loadConfig();
- 
+
+        //ＢＧＭ＆ＳＥ
         this.soundset = phina.extension.SoundSet();
-        this.volumeBGM = 1;
-        this.volumeSE = 1;
 
         this.replaceScene(pbr.SceneFlow());
     },
@@ -177,6 +183,8 @@ phina.define("pbr.Application", {
     },
 
     setVolumeBGM: function(vol) {
+        if (vol > 1) vol = 1;
+        if (vol < 0) vol = 0;
         this.soundset.setVolumeBGM(vol);
     },
 
@@ -185,6 +193,8 @@ phina.define("pbr.Application", {
     },
 
     setVolumeSE: function(vol) {
+        if (vol > 1) vol = 1;
+        if (vol < 0) vol = 0;
         this.soundset.setVolumeSE(vol);
     },
 
