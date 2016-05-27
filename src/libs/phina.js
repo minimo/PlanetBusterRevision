@@ -10155,6 +10155,16 @@ phina.namespace(function() {
       return this.beginPath().ellipse(x, y, width, height).stroke();
     },
 
+    fillText: function() {
+      this._context.fillText.apply(this._context, arguments);
+      return this;
+    },
+
+    strokeText: function() {
+      this._context.strokeText.apply(this._context, arguments);
+      return this;
+    },
+
     /*
      * 画像を描画
      */
@@ -10358,6 +10368,10 @@ phina.namespace(function() {
 
       createLinearGradient: function() {
         return this._context.createLinearGradient.apply(this._context, arguments);
+      },
+
+      createRadialGradient: function() {
+        return this._context.createRadialGradient.apply(this._context, arguments);
       },
     },
   });
@@ -12206,6 +12220,73 @@ phina.namespace(function() {
       return cache || (textWidthCache[this.font] = {});
     },
     
+    spliceLines: function(lines){
+      lines = lines || this._lines;
+      
+      var rowWidth = this.width;
+
+      var context = this.canvas.context;
+      context.font = this.font;
+      //どのへんで改行されるか目星つけとく
+      var pos = rowWidth / context.measureText('あ').width | 0;
+
+      var cache = this.getTextWidthCache();
+      for (var i = lines.length - 1; i >= 0; --i) {
+        var text = lines[i];
+        if (text === '') {
+          continue;
+        }
+
+        var j = 0;
+        var char;
+        (function() {
+          while (true) {
+
+            var len = text.length;
+            if (pos >= len) pos = len - 1;
+            char = text.substring(0, pos);
+            if (!cache[char]) {
+              cache[char] = context.measureText(char).width;
+            }
+            var textWidth = cache[char];
+
+            if (rowWidth < textWidth) {
+              do {
+                char = text[--pos];
+                if (!cache[char]) {
+                  cache[char] = context.measureText(char).width;
+                }
+                textWidth -= cache[char];
+              } while (rowWidth < textWidth);
+
+            } else {
+
+              do {
+                char = text[pos++];
+                if (pos > len) {
+                  return;
+                }
+                if (!cache[char]) {
+                  cache[char] = context.measureText(char).width;
+                }
+                textWidth += cache[char];
+              } while (rowWidth >= textWidth);
+
+              --pos;
+            }
+            //0 のときは無限ループになるので、1にしとく
+            if (pos === 0) pos = 1;
+
+            lines.splice(i + j, 1, text.substring(0, pos), text = text.substring(pos, len));
+            ++j;
+          }
+        })();
+
+      }
+
+      return lines;
+    },
+    
     getLines: function() {
       if (this._lineUpdate === false) {
         return this._lines;
@@ -12215,73 +12296,7 @@ phina.namespace(function() {
       var lines = this._lines = (this.text + '').split('\n');
 
       if (this.width < 1) return lines;
-
-      var rowWidth = this.width;
-
-      var context = this.canvas.context;
-      context.font = this.font;
-      //どのへんで改行されるか目星つけとく
-      var pos = rowWidth / context.measureText('あ').width | 0;
-
-      var cache = this.getTextWidthCache();
-      for (var i = lines.length - 1; 0 <= i; --i) {
-        var text = lines[i];
-        if (text === '') {
-          continue;
-        }
-
-        var j = 0;
-        var breakFlag = false;
-        var char;
-        while (true) {
-          //if (rowWidth > (cache[text] || (cache[text] = dummyContext.measureText(text).width))) break;
-
-          var len = text.length;
-          if (pos >= len) pos = len - 1;
-          char = text.substring(0, pos);
-          if (!cache[char]) {
-            cache[char] = context.measureText(char).width;
-          }
-          var textWidth = cache[char];
-
-          if (rowWidth < textWidth) {
-            do {
-              char = text[--pos];
-              if (!cache[char]) {
-                cache[char] = context.measureText(char).width;
-              }
-              textWidth -= cache[char];
-            } while (rowWidth < textWidth);
-
-          } else {
-
-            do {
-              char = text[pos++];
-              if (pos >= len) {
-                breakFlag = true;
-                break;
-              }
-              if (!cache[char]) {
-                cache[char] = context.measureText(char).width;
-              }
-              textWidth += cache[char];
-            } while (rowWidth >= textWidth);
-
-            --pos;
-          }
-          if (breakFlag) {
-            break;
-          }
-          //0 のときは無限ループになるので、1にしとく
-          if (pos === 0) pos = 1;
-
-          lines.splice(i + j, 1, text.substring(0, pos), text = text.substring(pos, len));
-          ++j;
-        }
-
-      }
-
-      return lines;
+      return this.spliceLines(lines);
 
     },
 
