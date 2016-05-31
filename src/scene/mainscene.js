@@ -285,6 +285,9 @@ phina.define("pbr.MainScene", {
         if (app.keyboard.getKey("B")) {
             this.enterBomb();
         }
+        if (app.keyboard.getKey("D")) {
+            this.bulletDomination();
+        }
 
         this.time++;
     },
@@ -407,6 +410,16 @@ phina.define("pbr.MainScene", {
 
     //敵弾一括消去
     eraseBullet: function() {
+        this.bulletLayer.erase();
+    },
+
+    //弾幕撃ち返し
+    bulletDomination: function() {
+        var sl = this.shotLayer;
+        this.bulletLayer.children.each(function(a) {
+            var rot = Math.atan2(-a.vy, -a.vx)*toDeg+90;
+            sl.enterShot(a.x, a.y, {type: 1, rotation: rot, power: 20, velocity: 5});
+        });
         this.bulletLayer.erase();
     },
 
