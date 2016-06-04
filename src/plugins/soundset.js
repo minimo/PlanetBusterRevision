@@ -104,7 +104,7 @@ phina.define("phina.extension.SoundSet", {
         this.volumeBGM = vol;
         if (this.bgm) {
             this.bgm.pause();
-            this.bgm.setVolume(this.volumeBGM * media.volume);
+            this.bgm.setVolume(this.volumeBGM);
             this.bgm.resume();
         }
         return this;
@@ -113,7 +113,7 @@ phina.define("phina.extension.SoundSet", {
     playSE: function(name) {
         var media = this.find(name);
         if (media) {
-            var vol = this.volumeSE * media.volume;
+            var vol = this.volumeSE;
             media.setVolume(vol);
             media.play(false);
         } else {
@@ -134,8 +134,7 @@ phina.define("phina.extension.SoundElement", {
         name: null,
         url: null,
         media: null,
-        masterVolume: 1,
-        volume: 1,
+        _volume: 1,
         status: null,
         message: null,
         callback: null,
@@ -187,8 +186,15 @@ phina.define("phina.extension.SoundElement", {
     setVolume: function(vol) {
         if (!this.media) return this;
         if (vol === undefined) vol = 0;
-        this.volume = vol;
-        this.media.volume = this.volume;
+        this._volume = vol;
+        this.media.volume = this._volume;
         return this;
     },
+
+    _accessor: {
+        volume: {
+            "get": function() { return this._volume; },
+            "set": function(vol) { this.setVolume(vol); }
+        },
+    }
 });
