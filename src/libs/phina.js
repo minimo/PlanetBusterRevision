@@ -7798,6 +7798,7 @@ phina.namespace(function() {
       var e = {
         pointer: p,
         interactive: this,
+        over: overFlag,
       };
 
       if (!prevOverFlag && overFlag) {
@@ -11510,7 +11511,7 @@ phina.namespace(function() {
     init: function(params) {
       this.superInit();
 
-      params = ({}).$safe(params, phina.display.DisplayScene.default);
+      params = ({}).$safe(params, phina.display.DisplayScene.defaults);
 
       this.canvas = phina.graphics.Canvas();
       this.canvas.setSize(params.width, params.height);
@@ -11546,7 +11547,7 @@ phina.namespace(function() {
     },
 
     _static: {
-      default: {
+      defaults: {
         width: 640,
         height: 960,
       },
@@ -12737,9 +12738,8 @@ phina.namespace(function() {
     superClass: 'phina.display.DisplayScene',
 
     init: function(options) {
-      this.superInit(options);
-
       var defaults = phina.game.SplashScene.defaults;
+      this.superInit(options);
 
       var texture = phina.asset.Texture();
       texture.load(defaults.imageURL).then(function() {
@@ -12792,9 +12792,8 @@ phina.namespace(function() {
      * @constructor
      */
     init: function(params) {
-      this.superInit(params);
-
       params = ({}).$safe(params, phina.game.TitleScene.defaults);
+      this.superInit(params);
 
       this.backgroundColor = params.backgroundColor;
 
@@ -12841,8 +12840,6 @@ phina.namespace(function() {
       defaults: {
         title: 'phina.js games',
         message: '',
-        width: 640,
-        height: 960,
 
         fontColor: 'white',
         backgroundColor: 'hsl(200, 80%, 64%)',
@@ -12873,9 +12870,8 @@ phina.namespace(function() {
      * @constructor
      */
     init: function(params) {
-      this.superInit(params);
-
       params = ({}).$safe(params, phina.game.ResultScene.defaults);
+      this.superInit(params);
 
       var message = params.message.format(params);
 
@@ -12983,9 +12979,6 @@ phina.namespace(function() {
         hashtags: 'phina_js,game,javascript',
         url: phina.global.location && phina.global.location.href,
 
-        width: 640,
-        height: 960,
-
         fontColor: 'white',
         backgroundColor: 'hsl(200, 80%, 64%)',
         backgroundImage: '',
@@ -13067,9 +13060,6 @@ phina.namespace(function() {
 
     _static: {
       defaults: {
-        width: 640,
-        height: 960,
-
         exitType: 'auto',
 
         lie: false,
@@ -13200,9 +13190,8 @@ phina.namespace(function() {
      * @constructor
      */
     init: function(params) {
-      this.superInit(params);
-
       params = ({}).$safe(params, phina.game.PauseScene.defaults);
+      this.superInit(params);
 
       this.backgroundColor = params.backgroundColor;
 
@@ -13231,9 +13220,6 @@ phina.namespace(function() {
 
     _static: {
       defaults: {
-        width: 640,
-        height: 960,
-
         fontColor: 'white',
         backgroundColor: 'hsla(0, 0%, 0%, 0.85)',
 
