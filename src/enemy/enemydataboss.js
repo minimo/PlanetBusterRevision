@@ -76,8 +76,8 @@ pbr.enemyData['ThorHammer'] = {
                     }.bind(this));
             }
         }
-        if (this.phase == 1) {
-            this.turret.flare('notify');
+        if (this.phase == 2) {
+            this.turret.flare('startfire');
             this.phase++;
         }
 
@@ -186,7 +186,7 @@ pbr.enemyData['ThorHammerTurret'] = {
         this.isMuteki = true;
         this.stopDanmaku();
 
-        this.on('notify', function(e) {
+        this.on('startfire', function(e) {
             this.resumeDanmaku();
         }.bind(this))
     },

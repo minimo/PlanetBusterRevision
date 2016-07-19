@@ -94,7 +94,7 @@ pbr.danmaku.ThorHammer = new bulletml.Root({
 
 pbr.danmaku.ThorHammerTurret = new bulletml.Root({
     top0: action([
-        interval(120),
+        interval(30),
         repeat(Infinity, [
             fire(DM, spd(1), direction(-15)),
             repeat("$burst + 2", [
