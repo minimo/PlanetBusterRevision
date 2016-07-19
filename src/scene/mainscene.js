@@ -122,10 +122,28 @@ phina.define("pbr.MainScene", {
         //弾幕設定クラス
         pbr.BulletConfig.setup(player, this.bulletLayer);
 
+        //システム表示ベース
+        this.systemBase = phina.display.DisplayElement().addChildTo(this.base);
+
+        //ボス耐久力ゲージ
+        var gaugeStyle = {
+            width: SC_W-10,
+            height: 10,
+            style: {
+                fill: 'rgba(0, 0, 200, 1.0)',
+                empty: 'rgba(0, 0, 0, 0.0)',
+                stroke: 'rgba(255, 255, 255, 1.0)',
+                strokeWidth: 1,
+            },
+        }
+        this.bossGauge = phina.extension.Gauge(gaugeStyle)
+            .setPosition(SC_W*0.5, 20)
+            .addChildTo(this.systemBase);
+
         //スコア表示
         var that = this;
         this.scoreLabel = phina.display.Label({text:"SCORE:"}.$safe(this.scorelabelParam))
-            .addChildTo(this)
+            .addChildTo(this.systemBase)
             .setPosition(10, 10);
         this.scoreLabel.score = 0;
         this.scoreLabel.update = function() {
@@ -140,7 +158,7 @@ phina.define("pbr.MainScene", {
 
         //ランク表示
         this.rankLabel = phina.display.Label({text:"RANK:"}.$safe(this.scorelabelParam))
-            .addChildTo(this)
+            .addChildTo(this.systemBase)
             .setPosition(10, 30);
         this.rankLabel.update = function() {
             this.text = "RANK "+app.rank;
@@ -149,7 +167,7 @@ phina.define("pbr.MainScene", {
         //残機表示
         for (var i = 0; i < 9; i++) {
             var s = this.sprite = phina.display.Sprite("gunship", 48, 48)
-                .addChildTo(this)
+                .addChildTo(this.systemBase)
                 .setFrameIndex(4)
                 .setScale(0.3)
                 .setPosition(i*16+16, 48);
@@ -163,7 +181,7 @@ phina.define("pbr.MainScene", {
         //残ボム表示
         for (var i = 0; i < 9; i++) {
             var s = this.sprite = phina.display.Sprite("bomb", 96, 96)
-                .addChildTo(this)
+                .addChildTo(this.systemBase)
                 .setFrameIndex(0)
                 .setScale(0.16)
                 .setPosition(i*16+16, 64);
