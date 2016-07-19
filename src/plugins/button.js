@@ -15,8 +15,8 @@ phina.define("phina.extension.Button", {
     //描画スタイル設定
     DEFAULT_STYLE: {
         buttonColor: 'rgba(50, 150, 255, 0.8)',
-        lineColor: 'rgba(200, 200, 200, 0.5)',
-        lineWidth: 4,
+        strokeColor: 'rgba(200, 200, 200, 0.5)',
+        strokeWidth: 4,
         shadowColor: 'rgba(0, 0, 0, 0.5)',
         fontFamily: "UbuntuMono",
         fontSize: 50,
@@ -25,8 +25,8 @@ phina.define("phina.extension.Button", {
 
     DEFAULT_STYLE_FLAT: {
         buttonColor: 'rgba(150, 150, 250, 1.0)',
-        lineColor: 'rgba(0, 0, 0, 0.5)',
-        lineWidth: 3,
+        strokeColor: 'rgba(0, 0, 0, 0.5)',
+        strokeWidth: 3,
         fontFamily: "UbuntuMono",
         fontSize: 50,
         flat: true,
@@ -90,9 +90,9 @@ phina.define("phina.extension.Button", {
             var shadowStyle = {
                 width: width,
                 height: height,
-                fillStyle: style.shadowColor,
-                strokeStyle: style.shadowColor,
-                lineWidth: style.lineWidth
+                fill: style.shadowColor,
+                stroke: style.shadowColor,
+                strokeWidth: style.strokeWidth
             };
             this.shadow = phina.display.RectangleShape(shadowStyle)
                 .addChildTo(this)
@@ -103,9 +103,9 @@ phina.define("phina.extension.Button", {
         var buttonStyle = {
             width: width,
             height: height,
-            fillStyle: style.buttonColor,
-            strokeStyle: style.lineColor,
-            lineWidth: style.lineWidth
+            fill: style.buttonColor,
+            stroke: style.strokeColor,
+            strokeWidth: style.strokeWidth
         };
         this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
@@ -223,9 +223,9 @@ phina.define("phina.extension.RoundButton", {
         var shadowStyle = {
             width: width,
             height: height,
-            fillStyle: style.shadowColor,
-            strokeStyle: style.shadowColor,
-            lineWidth: style.lineWidth,
+            fill: style.shadowColor,
+            stroke: style.shadowColor,
+            strokeWidth: style.strokeWidth,
             radius: style.radius,
         };
         this.shadow = phina.display.RoundRectangleShape(shadowStyle)
@@ -237,9 +237,9 @@ phina.define("phina.extension.RoundButton", {
         var buttonStyle = {
             width: width,
             height: height,
-            fillStyle: style.buttonColor,
-            strokeStyle: style.lineColor,
-            lineWidth: style.lineWidth,
+            fill: style.buttonColor,
+            stroke: style.strokeColor,
+            strokeWidth: style.strokeWidth,
             radius: style.radius,
         };
         this.button = phina.display.RoundRectangleShape(buttonStyle)
@@ -339,9 +339,9 @@ phina.define("phina.extension.ToggleButton", {
             var shadowStyle = {
                 width: width,
                 height: height,
-                fillStyle: style.shadowColor,
-                strokeStyle: style.shadowColor,
-                lineWidth: style.lineWidth
+                fill: style.shadowColor,
+                stroke: style.shadowColor,
+                strokeWidth: style.strokeWidth
             };
             this.shadow = phina.display.RectangleShape(shadowStyle)
                 .addChildTo(this)
@@ -353,9 +353,9 @@ phina.define("phina.extension.ToggleButton", {
         var buttonStyle = {
             width: width,
             height: height,
-            fillStyle: style.buttonColor,
-            strokeStyle: style.lineColor,
-            lineWidth: style.lineWidth
+            fill: style.buttonColor,
+            stroke: style.lineColor,
+            strokeWidth: style.strokeWidth
         };
         this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
@@ -585,9 +585,9 @@ phina.define("phina.extension.SlideButton", {
         var baseStyle = {
             width: width,
             height: height,
-            fillStyle: style.offColor,
-            strokeStyle: style.offColor,
-            lineWidth:  style.lineWidth
+            fill: style.offColor,
+            stroke: style.offColor,
+            strokeWidth:  style.strokeWidth
         };
         this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
@@ -596,9 +596,9 @@ phina.define("phina.extension.SlideButton", {
         var buttonStyle = {
             width: buttonWidth,
             height: buttonHeight,
-            fillStyle: style.buttonColor,
-            strokeStyle: style.lineColor,
-            lineWidth: style.lineWidth
+            fill: style.buttonColor,
+            stroke: style.lineColor,
+            strokeWidth: style.strokeWidth
         };
         this.button = phina.display.RectangleShape(buttonStyle)
             .addChildTo(this);
