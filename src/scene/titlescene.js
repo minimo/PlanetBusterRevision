@@ -161,6 +161,7 @@ phina.define("pbr.TitleScene", {
         switch (this.select) {
             case 0:
                 app.playSE("start");
+                app.score = 0;
                 this.isSelected = true;
                 this.tweener.clear().wait(2500).call(function() {
                     this.arcadeMode();
@@ -176,6 +177,7 @@ phina.define("pbr.TitleScene", {
                 break;
             case 1:
                 app.playSE("start");
+                app.score = 0;
                 this.isSelected = true;
                 this.tweener.clear().wait(2500).call(function() {
                     this.practiceMode();
