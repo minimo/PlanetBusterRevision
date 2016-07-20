@@ -21,7 +21,7 @@ phina.define("phina.extension.Gauge", {
 
     min: 0,
     max: 100,
-    now: 50,
+    value: 100,
 
     init: function(options) {
         this.superInit();
@@ -65,11 +65,29 @@ phina.define("phina.extension.Gauge", {
             stroke: style.stroke,
             strokeWidth: style.strokeWidth
         }
-        this.gaugeFrame = phina.display.RectangleShape(frameStyle).addChildTo(this);
+        this.gaugeFrame = phina.display.RectangleShape(frameStyle)
+            .setPosition(width*-0.5, 0)
+            .addChildTo(this);
+        this.gaugeFrame.originX = 0;
+        
+//        this.tweener.clear().to({value: 0}, 2000).to({value: 100}, 2000).setLoop(true);
     },
 
     update: function() {
-        this.gauge.width = this.width*(this.now/(this.max-this.min));
+        this.gauge.width = this.width*(this.value/(this.max-this.min));
+    },
+
+    setValue: function(v) {
+        this.value = v;
+        return this;
+    },
+    setMax: function(v) {
+        this.max = v;
+        return this;
+    },
+    setMin: function(v) {
+        this.min = v;
+        return this;
     },
 });
 

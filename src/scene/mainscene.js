@@ -127,7 +127,7 @@ phina.define("pbr.MainScene", {
 
         //ボス耐久力ゲージ
         var gaugeStyle = {
-            width: SC_W-10,
+            width: SC_W*0.98,
             height: 10,
             style: {
                 fill: 'rgba(0, 0, 200, 1.0)',
@@ -137,7 +137,7 @@ phina.define("pbr.MainScene", {
             },
         }
         this.bossGauge = phina.extension.Gauge(gaugeStyle)
-            .setPosition(SC_W*0.5, 20)
+            .setPosition(SC_W*0.5, -10)
             .addChildTo(this.systemBase);
 
         //スコア表示
@@ -218,11 +218,13 @@ phina.define("pbr.MainScene", {
         //ボス戦開始
         this.on('start_boss', function() {
             this.isBossBattle = true;
+            this.systemBase.tweener.clear().to({y: 20}, 1000);
         }.bind(this));
 
         //ボス撃破
         this.on('end_boss', function() {
             this.isBossBattle = false;
+            this.systemBase.tweener.clear().to({y: 0}, 1000);
 
             //ボスタイプ判定
             if (this.bossObject.type == ENEMY_MBOSS) {
@@ -231,7 +233,9 @@ phina.define("pbr.MainScene", {
                 this.time = time-1;
             } else {
                 //ステージボスの場合ステージクリア
+                this.flare('stageclear');
             }
+            this.bossObject = null;
         }.bind(this));
 
         //ステージクリア
@@ -294,6 +298,10 @@ phina.define("pbr.MainScene", {
                 .call( function() {
                     app.pushScene(cos);
                 });
+        }
+
+        if (this.bossObject) {
+            this.bossGauge.setValue(this.bossObject.def);
         }
 
         var kb = app.keyboard;
@@ -380,8 +388,7 @@ phina.define("pbr.MainScene", {
             var e = unit[i];
             var en = pbr.Enemy(e.name, e.x, e.y, this.enemyID, e.param).addChildTo(this);
             if (en.data.type == ENEMY_BOSS || en.data.type == ENEMY_MBOSS) {
-//                this.bossGauge.setTarget(en);
-//                this.systemBase.tweener.clear().moveBy(0, 32, 1000);
+                this.bossGauge.setMax(en.defMax).setValue(en.defMax);
                 this.bossObject = en;
                 this.flare('start_boss');
             }
