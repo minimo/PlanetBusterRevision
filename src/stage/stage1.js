@@ -26,6 +26,16 @@ phina.define("pbr.Stage1", {
             this.player.isAfterburner = false;
         });
 
+        //ステージボス
+        this.add( 240, function(app) {
+            this.ground.tweener.clear().to({speed:0.0}, 180, "easeInOutCubic");
+        });
+        this.add( 120, "Golyat", {boss: true});
+        this.add( 120, function(app) {
+            this.ground.tweener.clear().to({speed:-15.0}, 180, "easeInOutCubic");
+        });
+        this.add( 1800, function() {});
+
         //Stage data
         this.add( 180, "Hornet1-left");
         this.add(  60, "Hornet1-right");

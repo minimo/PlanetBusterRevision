@@ -174,6 +174,16 @@ pbr.enemyUnit = {
     { "name": "ThorHammer", "x":SC_W*0.5, "y": SC_H*1.3 },
 ],
 
+/*
+ *
+ *  １面ボス
+ *  局地制圧型巨大戦車「ゴリアテ」
+ *
+ */
+"Golyat": [
+    { "name": "Golyat", "x":SC_W*0.5, "y": SC_H*-0.2 },
+],
+
 
 }
 

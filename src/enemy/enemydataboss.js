@@ -226,12 +226,12 @@ pbr.enemyData['Golyat'] = {
     type: ENEMY_BOSS,
 
     //爆発タイプ
-    explodeType: EXPLODE_MBOSS,
+    explodeType: EXPLODE_BOSS,
 
     //機体用テクスチャ情報
-    texName: "boss1",
-    texWidth: 32,
-    texHeight: 32,
+    texName: "tex_boss1",
+    texWidth: 184,
+    texHeight: 184,
     texTrimX: 192,
     texTrimY: 0,
     texTrimWidth: 184,
@@ -244,27 +244,46 @@ pbr.enemyData['Golyat'] = {
         this.isGround = true;
 
         //ボディカバー
-        this.cover = phina.display.Sprite("boss1", 32, 32)
+        this.cover = phina.display.Sprite("tex_boss1", 64, 80)
             .addChildTo(this)
             .setPosition(0, 0)
-            .setFrameTrimming(382, 0, 32, 32);
+            .setFrameTrimming(382, 0, 64, 80);
 
-        this.core = phina.display.Sprite("boss1", 32, 32)
+        this.core = phina.display.Sprite("tex_boss1", 32, 32)
             .addChildTo(this)
             .setPosition(0, 0)
             .setFrameTrimming(0, 0, 32, 32);
 
         //登場パターン
         this.tweener.clear()
-            .move(SC_W*0.5, SC_H*-0.5, 300, "easeOutSine")
+            .moveTo(SC_W*0.5, SC_H*0.3, 300, "easeOutSine")
             .call(function(){this.phase++;}.bind(this));
+
+        this.vy = 0;
+    },
+
+    epuipment: function() {
+        //左アーム
+        this.armL = pbr.Enemy("GolyatArm")
+            .addChildTo(this.parentScene)
+            .setParentEnemy(this);
+        this.armL.offsetX = -64;
+        this.armL.offsetY = 0;
+        //右アーム
+        this.armR = pbr.Enemy("GolyatArm")
+            .addChildTo(this.parentScene)
+            .setParentEnemy(this);
+        this.armR.offsetX = 64;
+        this.armR.offsetY = 0;
     },
 
     algorithm: function() {
-        if (this.phase == 2) {
+        if (this.phase == 1) {
             this.isCollision = true;
             this.phase++;
+            this.vy = 15;
         }
+        this.y += this.vy;
     },
 };
 
@@ -274,11 +293,11 @@ pbr.enemyData['GolyatArm'] = {
     bulletPattern: "",
 
     //当り判定サイズ
-    width:  64,
-    height: 64,
+    width:  56,
+    height: 200,
 
     //耐久力
-    def: 500,
+    def: 3000,
 
     //得点
     point: 10000,
@@ -287,25 +306,27 @@ pbr.enemyData['GolyatArm'] = {
     layer: LAYER_OBJECT_LOWER,
 
     //敵タイプ
-    type: ENEMY_BOSS,
+    type: ENEMY_BOSS_EQUIP,
 
     //爆発タイプ
-    explodeType: EXPLODE_MBOSS,
+    explodeType: EXPLODE_LARGE,
 
     //機体用テクスチャ情報
-    texName: "boss1",
-    texWidth: 32,
-    texHeight: 32,
-    texTrimX: 192,
+    texName: "tex_boss1",
+    texWidth: 56,
+    texHeight: 200,
+    texTrimX: 440,
     texTrimY: 0,
-    texTrimWidth: 184,
-    texTrimHeight: 184,
+    texTrimWidth: 56,
+    texTrimHeight: 200,
     texIndex: 0,
 
     setup: function(enterParam) {
     },
 
     algorithm: function() {
+        this.x = this.parentEnemy.x+this.offsetX;
+        this.y = this.parentEnemy.y+this.offsetY;
     },
 };
 
@@ -328,13 +349,13 @@ pbr.enemyData['GolyatTurret'] = {
     layer: LAYER_OBJECT_LOWER,
 
     //敵タイプ
-    type: ENEMY_BOSS,
+    type: ENEMY_BOSS_EQUIP,
 
     //爆発タイプ
-    explodeType: EXPLODE_MBOSS,
+    explodeType: EXPLODE_LARGE,
 
     //機体用テクスチャ情報
-    texName: "boss1",
+    texName: "tex_boss1",
     texWidth: 32,
     texHeight: 32,
     texTrimX: 192,
