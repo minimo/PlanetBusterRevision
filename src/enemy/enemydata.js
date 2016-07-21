@@ -194,6 +194,7 @@ pbr.enemyData['BigWing'] = {
 
     setup: function() {
         this.index = this.texIndex;
+        this.isCrashDown = true;
     },
 
     algorithm: function() {

@@ -352,21 +352,32 @@ phina.define("pbr.Enemy", {
             this.parentScene.timeVanish = 60;
         }
 
-        //破壊時消去インターバル
-        if (this.data.explodeType == EXPLODE_SMALL) {
-            this.remove();
-        } else {
+
+        if (this.isCrashDown) {
+            var grY = this.y + 80;
             this.tweener.clear()
-                .to({alpha: 0}, 60)
+                .to({y: grY, altitude: 0.2}, 180, "easeSineOut")
                 .call(function(){
+                    this.explode();
                     this.remove();
                 }.bind(this));
-            if (this.shadow) {
-                this.shadow.tweener.clear()
-                   .to({alpha: 0}, 60)
+        } else {
+            //破壊時消去インターバル
+            if (this.data.explodeType == EXPLODE_SMALL) {
+                this.remove();
+            } else {
+                this.tweener.clear()
+                    .to({alpha: 0}, 60)
                     .call(function(){
                         this.remove();
-                    }.bind(this.shadow));
+                    }.bind(this));
+                if (this.shadow) {
+                    this.shadow.tweener.clear()
+                       .to({alpha: 0}, 60)
+                        .call(function(){
+                            this.remove();
+                        }.bind(this.shadow));
+                }
             }
         }
 
@@ -581,8 +592,8 @@ phina.define("pbr.Enemy", {
                 this.x = that.x + 10;
                 this.y = that.y + 10;
             } else {
-                this.x = that.x + ground.shadowX;
-                this.y = that.y + ground.shadowY;
+                this.x = that.x + ground.shadowX * that.altitude;
+                this.y = that.y + ground.shadowY * that.altitude;
                 this.scaleX = ground.scaleX;
                 this.scaleY = ground.scaleY;
             }
