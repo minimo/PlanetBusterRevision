@@ -109,5 +109,41 @@ pbr.danmaku.ThorHammerTurret = new bulletml.Root({
     ]),
 });
 
+//１面ボス
+pbr.danmaku.Golyat = new bulletml.Root({
+    top0: action([
+        repeat(Infinity, [
+            repeat("$burst + 1", [
+                fire(RM, spd(0.5), direction(20, "absolute"), offsetX(-32), offsetY(16)),
+                repeat(5, [
+                    fire(RM, spdSeq(0), direction(-30, "sequence"), offsetX(-32), offsetY(16)),
+                ]),
+            ]),
+            repeat("$burst + 1", [
+                fire(RM, spd(0.5), direction(340, "absolute"), offsetX(32), offsetY(16)),
+                repeat(5, [
+                    fire(RM, spdSeq(0), direction(30, "sequence"), offsetX(32), offsetY(16)),
+                ]),
+            ]),
+            interval(20),
+
+            repeat("$burst + 1", [
+                fire(RM, spd(0.5), direction(40, "absolute"), offsetX(-32), offsetY(16)),
+                repeat(6, [
+                    fire(RS, spdSeq(0), direction(-30, "sequence"), offsetX(-32), offsetY(16)),
+                ]),
+            ]),
+            repeat("$burst + 1", [
+                fire(RM, spd(0.5), direction(320, "absolute"), offsetX(32), offsetY(16)),
+                repeat(6, [
+                    fire(RS, spdSeq(0), direction(30, "sequence"), offsetX(32), offsetY(16)),
+                ]),
+            ]),
+            interval(30),
+        ]),
+    ]),
+});
+
+
 });
 

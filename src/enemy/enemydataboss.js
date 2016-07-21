@@ -243,18 +243,26 @@ pbr.enemyData['Golyat'] = {
         this.isCollision = false;
         this.isGround = true;
 
+        var that = this;
+
         //ボディカバー
         this.cover = phina.display.Sprite("tex_boss1", 64, 80)
             .addChildTo(this)
             .setFrameTrimming(382, 0, 64, 80)
             .setFrameIndex(0)
             .setPosition(-2, -18);
+        this.cover.update = function() {
+            this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+        };
 
         this.core = phina.display.Sprite("tex_boss1", 32, 32)
             .addChildTo(this)
             .setFrameTrimming(0, 0, 32, 32)
             .setFrameIndex(0)
             .setPosition(-2, -18);
+        this.core.update = function() {
+            this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+        };
 
         //アームベース左
         this.armbaseL = phina.display.Sprite("tex_boss1", 66, 184)
@@ -294,13 +302,24 @@ pbr.enemyData['Golyat'] = {
             offsetX: 57,
             offsetY: 0,
         });
+
+        this.rad = Math.PI*0.5;
     },
 
     algorithm: function() {
         if (this.phase == 1) {
             this.isCollision = true;
+            this.armL.isCollision = true;
+            this.armR.isCollision = true;
+
             this.phase++;
             this.vy = 15;
+        }
+
+        if (this.phase == 2) {
+            this.x = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
+            this.vy = 15+(Math.sin(this.rad*2)/2)
+            this.rad -= 0.01
         }
 
         //土煙出すよ
@@ -360,6 +379,7 @@ pbr.enemyData['GolyatArm'] = {
     texIndex: 0,
 
     setup: function(enterParam) {
+        this.isCollision = false;
     },
 
     algorithm: function() {
