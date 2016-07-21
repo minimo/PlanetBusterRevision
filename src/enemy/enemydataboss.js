@@ -214,7 +214,7 @@ pbr.enemyData['Golyat'] = {
     height: 60,
 
     //耐久力
-    def: 1000,
+    def: 10000,
 
     //得点
     point: 10000,
@@ -256,6 +256,20 @@ pbr.enemyData['Golyat'] = {
             .setFrameIndex(0)
             .setPosition(-2, -18);
 
+        //アームベース左
+        this.armbaseL = phina.display.Sprite("tex_boss1", 66, 184)
+            .addChildTo(this)
+            .setFrameTrimming(192, 0, 66, 184)
+            .setFrameIndex(0)
+            .setPosition(-64, 0);
+
+        //アームベース右
+        this.armbaseR = phina.display.Sprite("tex_boss1", 66, 184)
+            .addChildTo(this)
+            .setFrameTrimming(310, 0, 66, 184)
+            .setFrameIndex(0)
+            .setPosition(64, 0);
+
         //登場パターン
         this.tweener.clear()
             .moveTo(SC_W*0.5, SC_H*0.3, 300, "easeOutSine")
@@ -265,19 +279,21 @@ pbr.enemyData['Golyat'] = {
     },
 
     epuipment: function() {
-        //左アーム
-        this.armL = pbr.Enemy("GolyatArmL")
-            .addChildTo(this.parentScene)
-            .setParentEnemy(this);
-        this.armL.offsetX = -64;
-        this.armL.offsetY = 0;
-
-        //右アーム
-        this.armR = pbr.Enemy("GolyatArmR")
-            .addChildTo(this.parentScene)
-            .setParentEnemy(this);
-        this.armR.offsetX = 64;
-        this.armR.offsetY = 0;
+        var ps = this.parentScene;
+        //アーム左
+        this.armL = ps.enterEnemy("GolyatArm", 0, 0).setParentEnemy(this);
+        this.armL.$extend({
+            base: this.armbaseL,
+            offsetX: -57,
+            offsetY: 0,
+        });
+        //アーム右
+        this.armR = ps.enterEnemy("GolyatArm", 0, 0).setParentEnemy(this);
+        this.armR.$extend({
+            base: this.armbaseR,
+            offsetX: 57,
+            offsetY: 0,
+        });
     },
 
     algorithm: function() {
@@ -286,12 +302,31 @@ pbr.enemyData['Golyat'] = {
             this.phase++;
             this.vy = 15;
         }
+
+        //土煙出すよ
+        if (!this.isDead) {
+            var vy = this.parentScene.ground.deltaY;
+            for (var i = 0; i < 3; i++) {
+                var layer = this.parentScene.effectLayerLower;
+                layer.enterSmoke({
+                    position: {x: this.x-74+rand(0, 40), y: this.y+80},
+                    velocity: {x: rand(-1, 1), y: vy, decay: 1},
+                    delay: rand(0, 2)
+                });
+                layer.enterSmoke({
+                    position: {x: this.x+40+rand(0, 40), y: this.y+80},
+                    velocity: {x: rand(-1, 1), y: vy, decay: 1},
+                    delay: rand(0, 2)
+                });
+            }
+        }
+
         this.y += this.vy;
     },
 };
 
-//アーム左
-pbr.enemyData['GolyatArmL'] = {
+//アーム
+pbr.enemyData['GolyatArm'] = {
     //使用弾幕パターン
     bulletPattern: "",
 
@@ -316,21 +351,15 @@ pbr.enemyData['GolyatArmL'] = {
 
     //機体用テクスチャ情報
     texName: "tex_boss1",
-    texWidth: 66,
-    texHeight: 184,
-    texTrimX: 192,
+    texWidth: 52,
+    texHeight: 200,
+    texTrimX: 450,
     texTrimY: 0,
-    texTrimWidth: 66,
-    texTrimHeight: 184,
+    texTrimWidth: 52,
+    texTrimHeight: 200,
     texIndex: 0,
 
     setup: function(enterParam) {
-        //ボディカバー
-        this.cover = phina.display.Sprite("tex_boss1", 52, 200)
-            .addChildTo(this)
-            .setFrameTrimming(450, 0, 52, 200)
-            .setFrameIndex(0)
-            .setPosition(7, 8);
     },
 
     algorithm: function() {
