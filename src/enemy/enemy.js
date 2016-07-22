@@ -88,6 +88,7 @@ phina.define("pbr.Enemy", {
         this.setup = d.setup || this.setup;
         this.equipment = d.epuipment || this.equipment;
         this.algorithm = d.algorithm || this.algorithm;
+        this.deadChild = d.deadChild || this.deadChild;
         this.changeColor = d.changeColor || this.changeColor;
 
         //破壊パターン
@@ -267,7 +268,9 @@ phina.define("pbr.Enemy", {
             this.dead();
 
             //親機に破壊を通知
-            if (this.parentEnemy) this.parentEnemy.deadChild(this);
+            if (this.parentEnemy) {
+                this.parentEnemy.deadChild(this);
+            }
 
             //スコア加算
             if (!this.isSelfCrash) app.score += this.point;
