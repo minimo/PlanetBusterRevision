@@ -20,6 +20,7 @@ phina.define("pbr.Enemy", {
         isBoss: false,      //ボス
         isOnScreen: false,  //画面内に入った
         isGround: false,    //地上フラグ
+        isHover: false,     //マップスクロールの影響無視
         isEnemy: true,      //敵機判別
         isAttack: true,     //攻撃フラグ
         isCrashDown: false, //墜落フラグ
@@ -151,6 +152,7 @@ phina.define("pbr.Enemy", {
         this.isMuteki    = d.isMuteki    || this.isMuteki
         this.isOnScreen  = d.isOnScreen  || this.isOnScreen;
         this.isGround    = d.isGround    || this.isGround;
+        this.isHover     = d.isHover     || this.isHover;
         this.isEnemy     = d.isEnemy     || this.isEnemy;
         this.isAttack    = d.isAttack    || this.isAttack;
         this.isCrashDown = d.isCrashDown || this.isCrashDown;
@@ -192,7 +194,7 @@ phina.define("pbr.Enemy", {
         }
 
         //地上物現座標調整
-        if (this.isGround) {
+        if (this.isGround && !this.isHover) {
             var ground = this.parentScene.ground;
             this.x += ground.deltaX;
             this.y += ground.deltaY;
