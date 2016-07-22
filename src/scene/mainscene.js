@@ -127,7 +127,7 @@ phina.define("pbr.MainScene", {
 
         //ボス耐久力ゲージ
         var gaugeStyle = {
-            width: SC_W*0.98,
+            width: SC_W*0.9,
             height: 10,
             style: {
                 fill: 'rgba(0, 0, 200, 1.0)',
