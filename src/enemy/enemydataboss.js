@@ -242,6 +242,7 @@ pbr.enemyData['Golyat'] = {
         this.phase = 0;
         this.isCollision = false;
         this.isGround = true;
+        this.isHover = true;
 
         var that = this;
 
@@ -282,8 +283,6 @@ pbr.enemyData['Golyat'] = {
         this.tweener.clear()
             .moveTo(SC_W*0.5, SC_H*0.3, 300, "easeOutSine")
             .call(function(){this.phase++;}.bind(this));
-
-        this.vy = 0;
     },
 
     epuipment: function() {
@@ -313,17 +312,16 @@ pbr.enemyData['Golyat'] = {
             this.armR.isCollision = true;
 
             this.phase++;
-            this.vy = 15;
         }
 
         if (this.phase == 2) {
             this.x = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
-            this.vy = 15+(Math.sin(this.rad*2)/2)
+//            this.y = Math.sin(this.rad*2)/2;
             this.rad -= 0.01
         }
 
         //土煙出すよ
-        if (!this.isDead) {
+        if (!this.isDead && this.phase != 9) {
             var vy = this.parentScene.ground.deltaY;
             for (var i = 0; i < 3; i++) {
                 var layer = this.parentScene.effectLayerLower;
@@ -339,8 +337,25 @@ pbr.enemyData['Golyat'] = {
                 });
             }
         }
+    },
 
-        this.y += this.vy;
+    //アーム破壊
+    deadChild: function(child) {
+        this.phase = 9;
+        var by = this.y;
+        var rot = child == this.armL? 60: -60;
+        this.tweener.clear()
+            .to({y: SC_H*0.2, rotation: rot}, 30, "easeOutSine")
+            .wait(60)
+            .to({rotation: 0}, 180, "easeInOutCubic")
+            .to({y: by}, 60, "easeInOutCubic")
+            .call(function() {
+                this.phase = 2;
+            }.bind(this))
+
+        this.parentScene.ground.tweener.clear()
+            .to({speed: 0.0}, 120, "easeInOutCubic")
+            .to({speed: -7.0}, 240, "easeInOutCubic");
     },
 };
 
@@ -354,7 +369,7 @@ pbr.enemyData['GolyatArm'] = {
     height: 200,
 
     //耐久力
-    def: 3000,
+    def: 1000,
 
     //得点
     point: 10000,
@@ -380,6 +395,66 @@ pbr.enemyData['GolyatArm'] = {
 
     setup: function(enterParam) {
         this.isCollision = false;
+        this.isGround = true;
+
+        this.turret1 = phina.display.Sprite("tex_boss1", 48, 48)
+            .addChildTo(this)
+            .setFrameTrimming(0, 192, 144, 48)
+            .setFrameIndex(0)
+            .setPosition(0, 32);
+
+        this.turret2 = phina.display.Sprite("tex_boss1", 48, 48)
+            .addChildTo(this)
+            .setFrameTrimming(0, 192, 144, 48)
+            .setFrameIndex(0)
+            .setPosition(0, -32);
+    },
+
+    algorithm: function() {
+        this.rotation = this.parentEnemy.rotation;
+        var rad = this.rotation*toRad;
+        this.x = this.parentEnemy.x+Math.cos(rad)*this.offsetX;
+        this.y = this.parentEnemy.y+Math.sin(rad)*this.offsetX+this.offsetY;
+    },
+};
+
+//アーム
+pbr.enemyData['GolyatTurret'] = {
+    //使用弾幕パターン
+    bulletPattern: "",
+
+    //当り判定サイズ
+    width:  56,
+    height: 200,
+
+    //耐久力
+    def: 10000,
+
+    //得点
+    point: 5000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT_LOWER,
+
+    //敵タイプ
+    type: ENEMY_BOSS_EQUIP,
+
+    //爆発タイプ
+    explodeType: EXPLODE_MIDDLE,
+
+    //機体用テクスチャ情報
+    texName: "tex_boss1",
+    texWidth: 48,
+    texHeight: 48,
+    texTrimX: 0,
+    texTrimY: 192,
+    texTrimWidth: 144,
+    texTrimHeight: 48,
+    texIndex: 0,
+
+    setup: function(enterParam) {
+        this.isCollision = false;
+        this.isGround = true;
     },
 
     algorithm: function() {
@@ -391,7 +466,7 @@ pbr.enemyData['GolyatArm'] = {
 /*
  *
  *  ２面中ボス
- *  大型爆撃機「レイブンブランド」
+ *  「モーンブレイド」
  *
  */
 
@@ -406,6 +481,7 @@ pbr.enemyData['GolyatArm'] = {
 /*
  *
  *  ３面中ボス  
+ *  大型爆撃機「レイブン」
  *
  */
 

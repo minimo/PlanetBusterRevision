@@ -32,7 +32,7 @@ phina.define("pbr.Stage1", {
         });
         this.add( 120, "Golyat", {boss: true});
         this.add( 120, function(app) {
-            this.ground.tweener.clear().to({speed:-15.0}, 180, "easeInOutCubic");
+            this.ground.tweener.clear().to({speed:-7.0}, 180, "easeInOutCubic");
         });
         this.add( 1800, function() {});
 
