@@ -337,24 +337,44 @@ pbr.enemyData['Golyat'] = {
                 });
             }
         }
+        //土煙出すよ
+        if (!this.isDead && this.phase == 9) {
+            var vy = this.parentScene.ground.deltaY;
+            for (var i = 0; i < 3; i++) {
+                var layer = this.parentScene.effectLayerLower;
+                layer.enterSmoke({
+                    position: {x: this.x-74+rand(0, 40), y: this.y+80},
+                    velocity: {x: rand(-1, 1), y: vy, decay: 1},
+                    delay: rand(0, 2)
+                });
+                layer.enterSmoke({
+                    position: {x: this.x+40+rand(0, 40), y: this.y+80},
+                    velocity: {x: rand(-1, 1), y: vy, decay: 1},
+                    delay: rand(0, 2)
+                });
+            }
+        }
     },
 
     //アーム破壊
     deadChild: function(child) {
         this.phase = 9;
+        var bx = this.x;
         var by = this.y;
-        var rot = child == this.armL? 60: -60;
+        var rot = child == this.armL? 20: -20;
+        var ax = child == this.armL? 30: -30;
         this.tweener.clear()
-            .to({y: SC_H*0.2, rotation: rot}, 30, "easeOutSine")
+            .to({x: this.x+ax, rotation: rot}, 30, "easeOutSine")
             .wait(60)
             .to({rotation: 0}, 180, "easeInOutCubic")
-            .to({y: by}, 60, "easeInOutCubic")
+            .to({x: bx, y: by}, 60, "easeInOutCubic")
             .call(function() {
                 this.phase = 2;
             }.bind(this))
 
         this.parentScene.ground.tweener.clear()
-            .to({speed: 0.0}, 120, "easeInOutCubic")
+            .to({speed: 0.0}, 30, "easeInOutCubic")
+            .wait(90+180)
             .to({speed: -7.0}, 240, "easeInOutCubic");
     },
 };
