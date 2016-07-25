@@ -464,7 +464,8 @@ phina.define("pbr.MainScene", {
         var belt = phina.display.RectangleShape(style)
             .setPosition(SC_W*0.5, SC_H*0.5)
             .addChildTo(this);
-        var text = phina.display.Label({text: "WARNING", align: "center"})
+        var text = phina.display.Label({text: "WARNING", align: "center", fontFamily: "Orbitron"})
+            .setPosition(0, 3)
             .addChildTo(belt);
 
         var param = {
@@ -476,15 +477,15 @@ phina.define("pbr.MainScene", {
             fontSize: 16,
             fontWeight: ''
         };
-        var text = "CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION";
+        var text = "CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION";
         caution1 = phina.display.Label({text: text}.$safe(param))
-            .setPosition(SC_W*0.5, SC_H*-0.05-10)
+            .setPosition(SC_W*0.5, SC_H*-0.05-8)
             .addChildTo(belt);
         caution1.update = function() {
             this.x -= 1;
         }
         caution2 = phina.display.Label({text: text}.$safe(param))
-            .setPosition(SC_W*0.5, SC_H*0.05+10)
+            .setPosition(SC_W*0.5, SC_H*0.05+12)
             .addChildTo(belt);
         caution2.update = function() {
             this.x += 1;
@@ -492,19 +493,9 @@ phina.define("pbr.MainScene", {
 
         belt.tweener.setUpdateType('fps');
         belt.tweener.clear()
-            .wait(120).fadeOut(5).wait(24)
-            .call(function(){
-                caution1.x = 0;
-                caution2.x = 0;
-            })
-            .fadeIn(1)
-            .wait(120).fadeOut(5).wait(24)
-            .call(function(){
-                caution1.x = 0;
-                caution2.x = 0;
-            })
-            .fadeIn(1)
-            .wait(120).fadeOut(5).wait(24)
+            .wait(90).fadeOut(5).wait(24).fadeIn(1)
+            .wait(90).fadeOut(5).wait(24).fadeIn(1)
+            .wait(90).fadeOut(5).wait(24)
             .call(function(){
                 caution1.x = 0;
                 caution2.x = 0;
