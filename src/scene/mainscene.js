@@ -501,6 +501,7 @@ phina.define("pbr.MainScene", {
                 caution2.x = 0;
             })
             .call(function(){
+                app.playBGM("boss", true);
                 this.remove();
             }.bind(belt));
     },
