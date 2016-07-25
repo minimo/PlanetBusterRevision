@@ -26,8 +26,13 @@ phina.define("pbr.Stage1", {
             this.player.isAfterburner = false;
         });
 
+        //WARNING
+        this.add( 240, function() {
+            this.enterWarning();
+        });
+
         //ステージボス
-        this.add( 240, function(app) {
+        this.add( 300, function(app) {
             this.ground.tweener.clear().to({speed:0.0}, 180, "easeInOutCubic");
         });
         this.add( 120, "Golyat", {boss: true});

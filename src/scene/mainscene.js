@@ -448,6 +448,72 @@ phina.define("pbr.MainScene", {
         this.bulletLayer.erase();
     },
 
+    //Warning表示
+    enterWarning: function() {
+
+        //警告音
+        app.playBGM("warning", false);
+
+        var style = {
+            width: SC_W,
+            height: SC_H*0.1,
+            fill: "red",
+            stroke: "red",
+            strokeWidth: 1
+        }
+        var belt = phina.display.RectangleShape(style)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+            .addChildTo(this);
+        var text = phina.display.Label({text: "WARNING", align: "center"})
+            .addChildTo(belt);
+
+        var param = {
+            fill: "red",
+            stroke: "red",
+            strokeWidth: 2,
+
+            fontFamily: "Orbitron",
+            fontSize: 16,
+            fontWeight: ''
+        };
+        var text = "CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION CAUTION";
+        caution1 = phina.display.Label({text: text}.$safe(param))
+            .setPosition(SC_W*0.5, SC_H*-0.05-10)
+            .addChildTo(belt);
+        caution1.update = function() {
+            this.x -= 1;
+        }
+        caution2 = phina.display.Label({text: text}.$safe(param))
+            .setPosition(SC_W*0.5, SC_H*0.05+10)
+            .addChildTo(belt);
+        caution2.update = function() {
+            this.x += 1;
+        }
+
+        belt.tweener.setUpdateType('fps');
+        belt.tweener.clear()
+            .wait(120).fadeOut(5).wait(24)
+            .call(function(){
+                caution1.x = 0;
+                caution2.x = 0;
+            })
+            .fadeIn(1)
+            .wait(120).fadeOut(5).wait(24)
+            .call(function(){
+                caution1.x = 0;
+                caution2.x = 0;
+            })
+            .fadeIn(1)
+            .wait(120).fadeOut(5).wait(24)
+            .call(function(){
+                caution1.x = 0;
+                caution2.x = 0;
+            })
+            .call(function(){
+                this.remove();
+            }.bind(belt));
+    },
+
     //タッチorクリック開始処理
     onpointstart: function(e) {
     },
