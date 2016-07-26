@@ -363,7 +363,7 @@ pbr.enemyData['Golyat'] = {
     deadChild: function(child) {
         this.phase = 9;
         this.isSmoke = false;
-        var bx = this.x;
+        var bx = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
         var by = this.y;
         var rot = child == this.armL? 20: -20;
         var ax = child == this.armL? 30: -30;
