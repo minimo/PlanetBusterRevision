@@ -243,6 +243,7 @@ pbr.enemyData['Golyat'] = {
         this.isCollision = false;
         this.isGround = true;
         this.isHover = true;
+        this.isSmoke = true;
 
         var that = this;
 
@@ -321,34 +322,36 @@ pbr.enemyData['Golyat'] = {
         }
 
         //土煙出すよ
-        if (!this.isDead && this.phase != 9) {
+        if (!this.isDead && this.isSmoke) {
             var vy = this.parentScene.ground.deltaY;
-            for (var i = 0; i < 3; i++) {
+            var rad = this.rotation*toRad;
+            for (var i = 0; i < 5; i++) {
                 var layer = this.parentScene.effectLayerLower;
+
+                var x = -76+rand(0, 40);
+                var y = 80-rand(0, 100);
+                var rx = this.x + x;
+                var ry = this.y + y;
+                if (this.rotation != 0)
+                    var rx = this.x + Math.cos(rad)*x - Math.sin(rad)*y;
+                    var ry = this.y + Math.sin(rad)*x + Math.cos(rad)*y;
+                }
                 layer.enterSmoke({
-                    position: {x: this.x-74+rand(0, 40), y: this.y+80},
+                    position: {x: rx, y: ry},
                     velocity: {x: rand(-1, 1), y: vy, decay: 1},
                     delay: rand(0, 2)
                 });
+
+                var x = 40+rand(0, 40);
+                var y = 80-rand(0, 100);
+                var rx = this.x + x;
+                var ry = this.y + y;
+                if (this.rotation != 0)
+                    var rx = this.x + Math.cos(rad)*x - Math.sin(rad)*y;
+                    var ry = this.y + Math.sin(rad)*x + Math.cos(rad)*y;
+                }
                 layer.enterSmoke({
-                    position: {x: this.x+40+rand(0, 40), y: this.y+80},
-                    velocity: {x: rand(-1, 1), y: vy, decay: 1},
-                    delay: rand(0, 2)
-                });
-            }
-        }
-        //土煙出すよ
-        if (!this.isDead && this.phase == 9) {
-            var vy = this.parentScene.ground.deltaY;
-            for (var i = 0; i < 3; i++) {
-                var layer = this.parentScene.effectLayerLower;
-                layer.enterSmoke({
-                    position: {x: this.x-74+rand(0, 40), y: this.y+80},
-                    velocity: {x: rand(-1, 1), y: vy, decay: 1},
-                    delay: rand(0, 2)
-                });
-                layer.enterSmoke({
-                    position: {x: this.x+40+rand(0, 40), y: this.y+80},
+                    position: {x: rx, y: ry},
                     velocity: {x: rand(-1, 1), y: vy, decay: 1},
                     delay: rand(0, 2)
                 });
@@ -359,6 +362,7 @@ pbr.enemyData['Golyat'] = {
     //アーム破壊
     deadChild: function(child) {
         this.phase = 9;
+        this.isSmoke = false;
         var bx = this.x;
         var by = this.y;
         var rot = child == this.armL? 20: -20;
@@ -366,16 +370,18 @@ pbr.enemyData['Golyat'] = {
         this.tweener.clear()
             .to({x: this.x+ax, rotation: rot}, 30, "easeOutSine")
             .wait(60)
-            .to({rotation: 0}, 180, "easeInOutCubic")
-            .to({x: bx, y: by}, 60, "easeInOutCubic")
+            .to({x: bx, y: by, rotation: 0}, 180, "easeInOutSine")
             .call(function() {
                 this.phase = 2;
-            }.bind(this))
+            }.bind(this));
 
         this.parentScene.ground.tweener.clear()
-            .to({speed: 0.0}, 30, "easeInOutCubic")
-            .wait(90+180)
-            .to({speed: -7.0}, 240, "easeInOutCubic");
+            .to({speed: -1.0}, 30, "easeInOutCubic")
+            .wait(90)
+            .call(function() {
+                this.isSmoke = true;
+            }.bind(this))
+            .to({speed: -7.0}, 60, "easeInOutCubic");
     },
 };
 
@@ -433,8 +439,10 @@ pbr.enemyData['GolyatArm'] = {
     algorithm: function() {
         this.rotation = this.parentEnemy.rotation;
         var rad = this.rotation*toRad;
-        this.x = this.parentEnemy.x+Math.cos(rad)*this.offsetX;
-        this.y = this.parentEnemy.y+Math.sin(rad)*this.offsetX+this.offsetY;
+        var offsetX = Math.cos(rad)*this.offsetX-Math.sin(rad)*this.offsetY;
+        var offsetY = Math.sin(rad)*this.offsetX+Math.cos(rad)*this.offsetY;
+        this.x = this.parentEnemy.x+offsetX;
+        this.y = this.parentEnemy.y+offsetY;
     },
 };
 
