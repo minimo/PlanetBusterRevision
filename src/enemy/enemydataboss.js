@@ -332,9 +332,9 @@ pbr.enemyData['Golyat'] = {
                 var y = 80-rand(0, 100);
                 var rx = this.x + x;
                 var ry = this.y + y;
-                if (this.rotation != 0)
-                    var rx = this.x + Math.cos(rad)*x - Math.sin(rad)*y;
-                    var ry = this.y + Math.sin(rad)*x + Math.cos(rad)*y;
+                if (this.rotation != 0) {
+                    rx = this.x + Math.cos(rad)*x - Math.sin(rad)*y;
+                    ry = this.y + Math.sin(rad)*x + Math.cos(rad)*y;
                 }
                 layer.enterSmoke({
                     position: {x: rx, y: ry},
@@ -346,9 +346,9 @@ pbr.enemyData['Golyat'] = {
                 var y = 80-rand(0, 100);
                 var rx = this.x + x;
                 var ry = this.y + y;
-                if (this.rotation != 0)
-                    var rx = this.x + Math.cos(rad)*x - Math.sin(rad)*y;
-                    var ry = this.y + Math.sin(rad)*x + Math.cos(rad)*y;
+                if (this.rotation != 0) {
+                    rx = this.x + Math.cos(rad)*x - Math.sin(rad)*y;
+                    ry = this.y + Math.sin(rad)*x + Math.cos(rad)*y;
                 }
                 layer.enterSmoke({
                     position: {x: rx, y: ry},
