@@ -74,8 +74,12 @@ phina.define("pbr.Enemy", {
 
         //弾幕定義
         if (d.danmakuName) {
-            this.danmakuName = d.danmakuName;
-            this.startDanmaku(this.danmakuName);
+            this.danmakuName = d.danmakuName
+            if (d.danmakuName instanceof Array) {
+                this.startDanmaku(this.danmakuName[0]);
+            } else {
+                this.startDanmaku(this.danmakuName);
+            }
         }
 
         //基本仕様コピー
@@ -187,6 +191,7 @@ phina.define("pbr.Enemy", {
     },
 
     update: function(app) {
+        //bulletML.runner更新処理
         if (!this.isDead && this.runner) {
             this.runner.x = this.position.x;
             this.runner.y = this.position.y;
