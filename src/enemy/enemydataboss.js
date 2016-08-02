@@ -207,7 +207,7 @@ pbr.enemyData['ThorHammerTurret'] = {
 //本体
 pbr.enemyData['Golyat'] = {
     //使用弾幕パターン
-    bulletPattern: "Golyat",
+    danmakuName: ["Golyat1_1", "Golyat1_2", "Golyat1_3", "Golyat2"],
 
     //当り判定サイズ
     width:  52,
@@ -245,6 +245,8 @@ pbr.enemyData['Golyat'] = {
         this.isHover = true;
         this.isSmoke = true;
 
+        this.stopDanmaku();
+
         var that = this;
 
         //ボディカバー
@@ -253,17 +255,26 @@ pbr.enemyData['Golyat'] = {
             .setFrameTrimming(382, 0, 64, 80)
             .setFrameIndex(0)
             .setPosition(-2, -18);
-        this.cover.update = function() {
-            this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+        this.cover.texColor = "";
+        this.cover.update = function(e) {
+            if (this.texColor !== that.texColor) {
+                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.texColor = that.texColor;
+            }
         };
 
-        this.core = phina.display.Sprite("tex_boss1", 32, 32)
+        this.core = phina.display.Sprite("tex_boss1", 16, 16)
             .addChildTo(this)
-            .setFrameTrimming(0, 0, 32, 32)
+            .setFrameTrimming(382, 80, 64, 16)
             .setFrameIndex(0)
-            .setPosition(-2, -18);
-        this.core.update = function() {
-            this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+            .setPosition(0, 200);
+        this.core.texColor = "";
+        this.core.update = function(e) {
+            if (this.texColor !== that.texColor) {
+                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.texColor = that.texColor;
+            }
+            if (e.ticker.frame % 5 == 0) this.frameIndex++;
         };
 
         //アームベース左
@@ -283,7 +294,10 @@ pbr.enemyData['Golyat'] = {
         //登場パターン
         this.tweener.clear()
             .moveTo(SC_W*0.5, SC_H*0.3, 300, "easeOutSine")
-            .call(function(){this.phase++;}.bind(this));
+            .call(function(){
+                this.phase++;
+                this.resumeDanmaku();
+            }.bind(this));
     },
 
     epuipment: function() {
@@ -313,6 +327,7 @@ pbr.enemyData['Golyat'] = {
             this.armR.isCollision = true;
 
             this.phase++;
+            this.resumeDanmaku();
         }
 
         if (this.phase == 2) {
@@ -388,7 +403,7 @@ pbr.enemyData['Golyat'] = {
 //アーム
 pbr.enemyData['GolyatArm'] = {
     //使用弾幕パターン
-    bulletPattern: "",
+    danmakuName: null,
 
     //当り判定サイズ
     width:  56,
@@ -449,7 +464,7 @@ pbr.enemyData['GolyatArm'] = {
 //アーム
 pbr.enemyData['GolyatTurret'] = {
     //使用弾幕パターン
-    bulletPattern: "",
+    danmakuName: "GolyatTurret",
 
     //当り判定サイズ
     width:  56,
