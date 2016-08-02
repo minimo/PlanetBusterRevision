@@ -328,6 +328,9 @@ pbr.enemyData['Golyat'] = {
 
             this.phase++;
             this.resumeDanmaku();
+
+            this.armL.flare('startfire');
+            this.armR.flare('startfire');
         }
 
         if (this.phase == 2) {
@@ -377,6 +380,11 @@ pbr.enemyData['Golyat'] = {
     //アーム破壊
     deadChild: function(child) {
         this.phase = 9;
+        this.stopDanmaku();
+
+        this.armL.stopDanmaku();
+        this.armR.stopDanmaku();
+
         var bx = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
         var by = this.y;
         var rot = child == this.armL? 20: -20;
@@ -387,14 +395,14 @@ pbr.enemyData['Golyat'] = {
             .to({x: bx, y: by, rotation: 0}, 180, "easeInOutSine")
             .call(function() {
                 this.phase = 2;
+                this.resumeDanmaku();
+                this.armL.resumeDanmaku();
+                this.armR.resumeDanmaku();
             }.bind(this));
 
         this.parentScene.ground.tweener.clear()
             .to({speed: -1.0}, 30, "easeInOutCubic")
             .wait(90)
-            .call(function() {
-                this.isSmoke = true;
-            }.bind(this))
             .to({speed: -7.0}, 60, "easeInOutCubic");
     },
 };
@@ -402,7 +410,7 @@ pbr.enemyData['Golyat'] = {
 //アーム
 pbr.enemyData['GolyatArm'] = {
     //使用弾幕パターン
-    danmakuName: null,
+    danmakuName: "GolyatArm",
 
     //当り判定サイズ
     width:  56,
@@ -442,12 +450,32 @@ pbr.enemyData['GolyatArm'] = {
             .setFrameTrimming(0, 192, 144, 48)
             .setFrameIndex(0)
             .setPosition(0, 32);
+        this.turret1.idx = 0;
+        this.turret1.update = function() {
+            this.frameIndex = this.idx | 0;
+        };
+        this.turret1.tweener.setUpdateType("fps");
 
         this.turret2 = phina.display.Sprite("tex_boss1", 48, 48)
             .addChildTo(this)
             .setFrameTrimming(0, 192, 144, 48)
             .setFrameIndex(0)
             .setPosition(0, -32);
+        this.turret2.idx = 0;
+        this.turret2.update = function() {
+            this.frameIndex = this.idx | 0;
+        };
+        this.turret2.tweener.setUpdateType("fps");
+
+        this.on('bulletstart', function(e) {
+            this.turret1.tweener.clear().to({idx: 3}, 500);
+            this.turret2.tweener.clear().to({idx: 3}, 500);
+        }.bind(this));
+
+        this.on('bulletend', function(e) {
+            this.turret1.tweener.clear().to({idx: 0}, 500);
+            this.turret2.tweener.clear().to({idx: 0}, 500);
+        }.bind(this));
     },
 
     algorithm: function() {

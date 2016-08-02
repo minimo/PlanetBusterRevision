@@ -141,23 +141,27 @@ pbr.danmaku.Golyat1_1 = new bulletml.Root({
             ]),
             interval(30),
         ]),
-        notify("Finish"),
+        notify("finish"),
     ]),
 });
 
-//１面ボス砲台
-pbr.danmaku.GolyatTurret = new bulletml.Root({
+//１面ボス（アーム砲台）
+pbr.danmaku.GolyatArm = new bulletml.Root({
     top0: action([
-        fire(DM, spd(1), direction(-15)),
-        repeat("$burst + 3", [
-            fire(BS, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
-            fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-            fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-            fire(DM, spdSeq(0.05), direction(-30, "sequence")),
-            interval(10),
+        repeat(Infinity, [
+            notify("start"),
+            interval(60),
+            fire(DM, spd(1), direction(-15)),
+            repeat("$burst + 3", [
+                fire(BS, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
+                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
+                fire(BS, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
+                fire(DM, spdSeq(0.05), direction(-30, "sequence")),
+                interval(10),
+            ]),
+            notify("end"),
+            interval(60),
         ]),
-        interval(60),
-        notify("Finish"),
     ]),
 });
 
