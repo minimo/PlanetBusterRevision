@@ -377,13 +377,12 @@ pbr.enemyData['Golyat'] = {
     //アーム破壊
     deadChild: function(child) {
         this.phase = 9;
-        this.isSmoke = false;
         var bx = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
         var by = this.y;
         var rot = child == this.armL? 20: -20;
         var ax = child == this.armL? 30: -30;
         this.tweener.clear()
-            .to({x: this.x+ax, rotation: rot}, 30, "easeOutSine")
+            .to({x: this.x+ax, rotation: rot}, 30, "easeInOutSine")
             .wait(60)
             .to({x: bx, y: by, rotation: 0}, 180, "easeInOutSine")
             .call(function() {
