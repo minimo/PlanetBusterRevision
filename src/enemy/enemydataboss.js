@@ -482,14 +482,14 @@ pbr.enemyData['GolyatArm'] = {
         this.turret2.tweener.clear().setUpdateType("fps");
 
         this.on('bulletstart1', function(e) {
-            this.turret1.tweener.clear().to({idx: 3}, 15);
+            this.turret1.tweener.clear().to({idx: 2}, 15);
         }.bind(this));
         this.on('bulletend1', function(e) {
             this.turret1.tweener.clear().to({idx: 0}, 15);
         }.bind(this));
 
         this.on('bulletstart2', function(e) {
-            this.turret2.tweener.clear().to({idx: 3}, 15);
+            this.turret2.tweener.clear().to({idx: 2}, 15);
         }.bind(this));
         this.on('bulletend2', function(e) {
             this.turret2.tweener.clear().to({idx: 0}, 15);
