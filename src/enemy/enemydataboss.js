@@ -215,7 +215,7 @@ pbr.enemyData['Golyat'] = {
     height: 60,
 
     //耐久力
-    def: 10000,
+    def: 5000,
 
     //得点
     point: 300000,
@@ -270,13 +270,22 @@ pbr.enemyData['Golyat'] = {
             .setFrameIndex(0)
             .setPosition(0, 200);
         this.core.texColor = "";
+        this.core.idx = 0;
         this.core.update = function(e) {
             if (this.texColor !== that.texColor) {
                 this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
                 this.texColor = that.texColor;
             }
-            if (e.ticker.frame % 5 == 0) this.frameIndex++;
+            this.frameIndex = this.idx | 0;
         };
+        this.core.tweener.clear().setUpdateType("fps");
+
+        this.on('bulletstart', function(e) {
+            this.core.tweener.clear().to({idx: 3}, 15);
+        }.bind(this));
+        this.on('bulletend', function(e) {
+            this.core.tweener.clear().to({idx: 0}, 15);
+        }.bind(this));
 
         //アームベース左
         this.armbaseL = phina.display.Sprite("tex_boss1", 66, 184)
