@@ -125,6 +125,7 @@ pbr.enemyData['ThorHammer'] = {
 
         //弾消し
         this.parentScene.eraseBullet();
+        this.parentScene.timeVanish = 180;
 
         //破壊時消去インターバル
         this.tweener.clear()
@@ -217,7 +218,7 @@ pbr.enemyData['Golyat'] = {
     def: 10000,
 
     //得点
-    point: 10000,
+    point: 300000,
 
     //表示レイヤー番号
     layer: LAYER_OBJECT_LOWER,
@@ -385,6 +386,10 @@ pbr.enemyData['Golyat'] = {
         this.armL.stopDanmaku();
         this.armR.stopDanmaku();
 
+        //弾消し
+        this.parentScene.eraseBullet();
+        this.parentScene.timeVanish = 60;
+
         var bx = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
         var by = this.y;
         var rot = child == this.armL? 20: -20;
@@ -420,7 +425,7 @@ pbr.enemyData['GolyatArm'] = {
     def: 1000,
 
     //得点
-    point: 10000,
+    point: 50000,
 
     //表示レイヤー番号
     layer: LAYER_OBJECT_LOWER,
@@ -454,7 +459,7 @@ pbr.enemyData['GolyatArm'] = {
         this.turret1.update = function() {
             this.frameIndex = this.idx | 0;
         };
-        this.turret1.tweener.setUpdateType("fps");
+        this.turret1.tweener.clear().setUpdateType("fps");
 
         this.turret2 = phina.display.Sprite("tex_boss1", 48, 48)
             .addChildTo(this)
@@ -465,16 +470,20 @@ pbr.enemyData['GolyatArm'] = {
         this.turret2.update = function() {
             this.frameIndex = this.idx | 0;
         };
-        this.turret2.tweener.setUpdateType("fps");
+        this.turret2.tweener.clear().setUpdateType("fps");
 
-        this.on('bulletstart', function(e) {
-            this.turret1.tweener.clear().to({idx: 3}, 500);
-            this.turret2.tweener.clear().to({idx: 3}, 500);
+        this.on('bulletstart1', function(e) {
+            this.turret1.tweener.clear().to({idx: 3}, 15);
+        }.bind(this));
+        this.on('bulletend1', function(e) {
+            this.turret1.tweener.clear().to({idx: 0}, 15);
         }.bind(this));
 
-        this.on('bulletend', function(e) {
-            this.turret1.tweener.clear().to({idx: 0}, 500);
-            this.turret2.tweener.clear().to({idx: 0}, 500);
+        this.on('bulletstart2', function(e) {
+            this.turret2.tweener.clear().to({idx: 3}, 15);
+        }.bind(this));
+        this.on('bulletend2', function(e) {
+            this.turret2.tweener.clear().to({idx: 0}, 15);
         }.bind(this));
     },
 
