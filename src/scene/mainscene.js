@@ -15,6 +15,7 @@ phina.define("pbr.MainScene", {
 
         //現在ステージＩＤ
         stageId: 1,
+        maxStageId: 1,
 
         //ステージクリアフラグ
         isStageClear: false,
@@ -27,7 +28,12 @@ phina.define("pbr.MainScene", {
         bossObject: null,
 
         //各種判定用
-        isPlayerMiss: false,
+        missCount: 0,       //プレイヤー総ミス回数
+        stageMissCount: 0,  //プレイヤーステージ内ミス回数
+
+        //敵関連        
+        enemyCount: 0,  //敵総数
+        enemyKill: 0,   //敵破壊数
 
         //ラベル用パラメータ
         labelParam: {
@@ -240,6 +246,13 @@ phina.define("pbr.MainScene", {
 
         //ステージクリア
         this.on('stageclear', function() {
+            //５秒後にステージクリア処理
+            phina.app.Object2D().addChildTo(this)
+                .tweener.clear()
+                .wait(5000)
+                .call(function() {
+                    this.stageclear();
+                }.bind(this));
         }.bind(this));
 
         //コンティニュー時
@@ -345,7 +358,7 @@ phina.define("pbr.MainScene", {
         this.timeVanish = 0;
         this.enemyCount = 0;
         this.enemyKill = 0;
-        this.stageMiss = 0;
+        this.stageMissCount = 0;
 
         //ステージ番号表示
         var param = {text: "STAGE "+this.stageId, fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 600, outlineWidth: 2};
@@ -375,6 +388,24 @@ phina.define("pbr.MainScene", {
             .call(function(){this.remove()}.bind(m2));
         m2.update = function() {
             this.text = name.substring(0, ~~this.col)+"_";
+        }
+    },
+
+    //ステージクリア処理
+    stageClear: function() {
+        var param = {
+            stageId: this.stageId,
+            missCount: this.stageMissCount,
+            enemyCount: this.enemyCount,
+            enemyKill: this.enemyKill,
+        };
+
+        if (this.stageId < this.maxStageId) {
+            //次のステージへ
+            this.stageId++;
+            this.initstage();
+        } else {
+            //オールクリア
         }
     },
 
