@@ -498,9 +498,13 @@ pbr.enemyData['GolyatArm'] = {
 
     algorithm: function() {
         this.rotation = this.parentEnemy.rotation;
-        var rad = this.rotation*toRad;
-        var offsetX = Math.cos(rad)*this.offsetX-Math.sin(rad)*this.offsetY;
-        var offsetY = Math.sin(rad)*this.offsetX+Math.cos(rad)*this.offsetY;
+        var offsetX = this.offsetX;
+        var offsetY = this.offsetY;
+        if (rotation != 0) {
+            var rad = this.rotation*toRad;
+            offsetX = Math.cos(rad)*this.offsetX-Math.sin(rad)*this.offsetY;
+            offsetY = Math.sin(rad)*this.offsetX+Math.cos(rad)*this.offsetY;
+        }
         this.x = this.parentEnemy.x+offsetX;
         this.y = this.parentEnemy.y+offsetY;
     },
