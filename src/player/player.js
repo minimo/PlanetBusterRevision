@@ -206,7 +206,8 @@ phina.define("pbr.Player", {
         layer.enterExplodePlayer({position: {x: this.x, y: this.y}});
 
         app.playSE("playermiss");
-        this.parentScene.isPlayerMiss = true;
+        this.parentScene.missCount++;
+        this.parentScene.stageMissCount++;
 
         this.isDead = true;
         app.zanki--;
