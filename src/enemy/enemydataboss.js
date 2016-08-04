@@ -287,6 +287,13 @@ pbr.enemyData['Golyat'] = {
             this.core.tweener.clear().to({idx: 0}, 15);
         }.bind(this));
 
+        //弾幕１セット終了
+        this.danmakuNumber = 0;
+        this.on('bulletfinish', function(e) {
+            this.danmakuNumber = (this.danmakuNumber+1)%3;
+            this.startDanmaku(this.danmakuName[this.danmakuNumber]);
+        });
+
         //アームベース左
         this.armbaseL = phina.display.Sprite("tex_boss1", 66, 184)
             .addChildTo(this)
