@@ -40,6 +40,7 @@ phina.define("pbr.Stage1", {
             this.ground.tweener.clear().to({speed:-7.0}, 180, "easeInOutCubic");
         });
         this.add( 1800, function() {});
+        return;
 
         //Stage data
         this.add( 180, "Hornet1-left");
@@ -101,6 +102,25 @@ phina.define("pbr.Stage1", {
         this.add( 120, "Hornet2-center");
 
         this.add( 120, "ToyBox-p-right");
+
+        this.add(120, function(app) {
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 600, "easeInOutSine");
+        });
+
+        //WARNING
+        this.add( 240, function() {
+            this.enterWarning();
+        });
+
+        //ステージボス
+        this.add( 300, function(app) {
+            this.ground.tweener.clear().to({speed:0.0}, 180, "easeInOutCubic");
+        });
+        this.add( 120, "Golyat", {boss: true});
+        this.add( 120, function(app) {
+            this.ground.tweener.clear().to({speed:-7.0}, 180, "easeInOutCubic");
+        });
+        this.add( 1800, function() {});
     },
 });
 
