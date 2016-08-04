@@ -340,8 +340,6 @@ pbr.enemyData['Golyat'] = {
     algorithm: function() {
         if (this.phase == 1) {
             this.isCollision = true;
-            this.armL.isCollision = true;
-            this.armR.isCollision = true;
 
             this.phase++;
             this.resumeDanmaku();
@@ -397,8 +395,9 @@ pbr.enemyData['Golyat'] = {
     //アーム破壊
     deadChild: function(child) {
         this.phase = 9;
-        this.stopDanmaku();
+        this.isCollision = false;
 
+        this.stopDanmaku();
         this.armL.stopDanmaku();
         this.armR.stopDanmaku();
 
@@ -416,6 +415,8 @@ pbr.enemyData['Golyat'] = {
             .to({x: bx, y: by, rotation: 0}, 180, "easeInOutSine")
             .call(function() {
                 this.phase = 2;
+                this.isCollision = true;
+
                 this.resumeDanmaku();
                 this.armL.resumeDanmaku();
                 this.armR.resumeDanmaku();
@@ -514,6 +515,9 @@ pbr.enemyData['GolyatArm'] = {
         }
         this.x = this.parentEnemy.x+offsetX;
         this.y = this.parentEnemy.y+offsetY;
+
+        //判定有無は親にあわせる
+        this.isCollision = this.parentEnemy.isCollision;
     },
 };
 
