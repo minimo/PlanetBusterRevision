@@ -15,7 +15,7 @@ phina.define("pbr.MainScene", {
 
         //現在ステージＩＤ
         stageId: 1,
-        maxStageId: 1,
+        maxStageId: 2,
 
         //ステージクリアフラグ
         isStageClear: false,
@@ -251,7 +251,7 @@ phina.define("pbr.MainScene", {
                 .tweener.clear()
                 .wait(5000)
                 .call(function() {
-                    this.stageclear();
+                    this.stageClear();
                 }.bind(this));
         }.bind(this));
 
@@ -403,7 +403,7 @@ phina.define("pbr.MainScene", {
         if (this.stageId < this.maxStageId) {
             //次のステージへ
             this.stageId++;
-            this.initstage();
+            this.initStage();
         } else {
             //オールクリア
         }
