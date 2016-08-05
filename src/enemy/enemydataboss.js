@@ -466,6 +466,7 @@ pbr.enemyData['GolyatArm'] = {
     setup: function(enterParam) {
         this.isCollision = false;
         this.isGround = true;
+        this.stopDanmaku();
 
         this.turret1 = phina.display.Sprite("tex_boss1", 48, 48)
             .addChildTo(this)
@@ -489,6 +490,7 @@ pbr.enemyData['GolyatArm'] = {
         };
         this.turret2.tweener.clear().setUpdateType("fps");
 
+        //砲台の開閉
         this.on('bulletstart1', function(e) {
             this.turret1.tweener.clear().to({idx: 2}, 15);
         }.bind(this));
@@ -501,6 +503,11 @@ pbr.enemyData['GolyatArm'] = {
         }.bind(this));
         this.on('bulletend2', function(e) {
             this.turret2.tweener.clear().to({idx: 0}, 15);
+        }.bind(this));
+
+        //BulletML始動
+        this.on('startfire', function() {
+            this.resumeDanmaku();
         }.bind(this));
     },
 
