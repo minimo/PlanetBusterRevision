@@ -54,7 +54,7 @@ var AdvanceConfirm = function(str) {
 };
 
 //数値をカンマ編集して文字列として出力
-Number.prototype.$method("commma",  function() {
+Number.prototype.$method("comma",  function() {
     var str = this+'';
     var len = str.length;
     var out = '';

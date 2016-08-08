@@ -162,7 +162,7 @@ phina.define("pbr.MainScene", {
             this.score += this.s;
             if (this.score > app.score) this.score = app.score;
 
-            this.text = "SCORE "+this.score.commma();
+            this.text = "SCORE "+this.score.comma();
         }
 
         //ランク表示
