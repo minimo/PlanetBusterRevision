@@ -249,12 +249,12 @@ phina.define("pbr.MainScene", {
 
         //ステージクリア
         this.on('stageclear', function() {
-            //５秒後にステージクリア処理
+            //１０秒後にリザルト処理
             phina.app.Object2D().addChildTo(this)
                 .tweener.clear()
-                .wait(5000)
+                .wait(10000)
                 .call(function() {
-                    this.stageClear();
+                    this.result();
                 }.bind(this));
         }.bind(this));
 
@@ -394,15 +394,53 @@ phina.define("pbr.MainScene", {
         }
     },
 
-    //ステージクリア処理
-    stageClear: function() {
-        var param = {
-            stageId: this.stageId,
-            missCount: this.stageMissCount,
-            enemyCount: this.enemyCount,
-            enemyKill: this.enemyKill,
+    result: function() {
+        this.systemBase.tweener.clear().fadeOut(500);
+
+        var labelParam = {
+            fill: "white",
+            stroke: "black",
+            strokeWidth: 1,
+
+            fontFamily: "UbuntuMono",
+            align: "left",
+            baseline: "middle",
+            fontSize: 20,
+            fontWeight: ''
         };
 
+        var base = phina.display.DisplayElement()
+            .addChildTo(this)
+            .setPosition(SC_W*1.5, 0);
+        base.update = function() {
+        };
+        base.tweener.clear().to({x: 0}, 1000,"easeOutSine");
+
+        var text1 = "STAGE "+this.stageId+" CLEAR";
+        var res1 = phina.display.Label({text: text1}.$safe(labelParam))
+            .addChildTo(base)
+            .setPosition(SC_W*0.2, SC_H*0.2);
+
+        var text2 = "CLEAR BONUS: "+(this.stageId*100000).comma();
+        var res2 = phina.display.Label({text: text2}.$safe(labelParam))
+            .addChildTo(base)
+            .setPosition(SC_W*0.2, SC_H*0.3);
+
+        var text3 = "HIT BONUS: "+this.enemyKill.comma();
+        var res3 = phina.display.Label({text: text3}.$safe(labelParam))
+            .addChildTo(base)
+            .setPosition(SC_W*0.2, SC_H*0.4);
+
+        if (this.stageMissCount == 0) {
+            var text4 = "NO MISS BONUS: 100,000";
+            var res4 = phina.display.Label({text: text4}.$safe(labelParam))
+                .addChildTo(base)
+                .setPosition(SC_W*0.2, SC_H*0.5);
+        }
+    },
+
+    //ステージクリア処理
+    stageClear: function() {
         if (this.stageId < this.maxStageId) {
             //次のステージへ
             this.stageId++;
