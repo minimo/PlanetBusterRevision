@@ -52,3 +52,15 @@ var AdvanceConfirm = function(str) {
 
     return result;
 };
+
+//数値をカンマ編集して文字列として出力
+Number.prototype.$method("commma",  function() {
+    var str = this+'';
+    var len = str.length;
+    var out = '';
+    for (var i = len-1; i > -1; i--) {
+        out = str[i]+out;
+        if (i != 0 && (len-i)%3 == 0) out = ','+out;
+    }
+    return out;
+});
