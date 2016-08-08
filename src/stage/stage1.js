@@ -130,9 +130,10 @@ phina.define("pbr.Stage1Ground", {
 
     init: function() {
         this.superInit({
-            asset: null,
-            belt: false
+            asset: "map1g",
+            belt: true
         });
+/*
         var w = 640;
         var h = 1300;
         for (var i = 0; i < 30; i++) {
@@ -140,6 +141,7 @@ phina.define("pbr.Stage1Ground", {
             phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(-w, -h*i);
             phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(w, -h*i);
         }
+*/
     },
 });
 

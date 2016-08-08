@@ -30,16 +30,14 @@ phina.define("pbr.Ground", {
         option = (option || {}).$safe({
             asset: null,
             belt: false,
-            beltW: 3,
-            beltH: 2,
+            x: SC_W*0.5,
+            y: SC_H*0.5
         });
         this.asset = option.asset;
         this.belt = option.belt;
-        this.beltW = option.beltW;
-        this.beltH = option.beltH;
 
-        this.position.x = SC_W/2;
-        this.position.y = SC_H/2;
+        this.position.x = option.x;
+        this.position.y = option.y;
 
         this.mapBase = phina.display.DisplayElement().setPosition(0, 0).addChildTo(this);
         this.tweener.setUpdateType('fps');
@@ -69,22 +67,18 @@ phina.define("pbr.Ground", {
             var h = this.map.height;
             this.map.setPosition(0, 0);
         } else {
+            var image = phina.asset.AssetManager.get('image', this.asset);
             this.map = [];
-            for (var x = 0; x < this.beltW; x++) {
+            for (var x = 0; x < 3; x++) {
                 this.map[x] = [];
-                for (var y = 0; y < this.beltH; y++) {
-                    this.map[x][y] = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
-                    var w = this.map[x][y].width;
-                    var h = this.map[x][y].height;
-                    var offsetW = (this.beltW*w)/2;
-                    var offsetH = h/2;
-                    this.map[x][y].mapX = x;
-                    this.map[x][y].mapY = y;
-                    this.map[x][y].setPosition(w*x-offsetW, h*-(y+1)+offsetH);
+                for (var y = 0; y < 3; y++) {
+                    var mx = x * image.domElement.width - image.domElement.width;
+                    var my = y * image.domElement.height - image.domElement.height;
+                    this.map[x][y] = phina.display.Sprite(this.asset)
+                        .addChildTo(this.mapBase)
+                        .setPosition(mx, my);
                 }
             }
-            this.mapW = this.map[0][0].width;
-            this.mapH = this.map[0][0].height;
         }
     },
 
