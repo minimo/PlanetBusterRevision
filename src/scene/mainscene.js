@@ -152,14 +152,17 @@ phina.define("pbr.MainScene", {
             .addChildTo(this.systemBase)
             .setPosition(10, 10);
         this.scoreLabel.score = 0;
-        this.scoreLabel.update = function() {
-            if (this.score < app.score) {
-                var s = ~~((app.score-this.score)/5);
-                if (s < 3) s=3;
-                this.score += s;
-                if (this.score > app.score)this.score = app.score;
+        this.scoreLabel.s = 0;
+        this.scoreLabel.update = function(e) {
+            if (e.ticker.frame%10 == 0) {
+                this.s = ~~((app.score-this.score)/7);
+                if (this.s < 3) this.s = 3;
+                if (this.s > 7777) this.s = 7777;
             }
-            this.text = "SCORE "+this.score;
+            this.score += this.s;
+            if (this.score > app.score) this.score = app.score;
+
+            this.text = "SCORE "+this.score.commma();
         }
 
         //ランク表示
