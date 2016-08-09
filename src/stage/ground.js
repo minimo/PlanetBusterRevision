@@ -39,8 +39,9 @@ phina.define("pbr.Ground", {
         this.position.x = option.x;
         this.position.y = option.y;
 
-        this.mapBase = phina.display.DisplayElement().setPosition(0, 0).addChildTo(this);
         this.tweener.setUpdateType('fps');
+
+        this.mapBase = phina.display.DisplayElement().setPosition(0, 0).addChildTo(this);
         this.mapBase.tweener.setUpdateType('fps');
 
         if (this.asset) {
@@ -57,26 +58,62 @@ phina.define("pbr.Ground", {
 
         this.mapBase.x += this.deltaX;
         this.mapBase.y += this.deltaY;
+
+        if (this.belt) {
+            //現在位置
+            var posX = Math.floor(-this.mapBase.x / this.map.width);
+            var posY = Math.floor(-this.mapBase.y / this.map.height);
+            for (var y = 0; y < 3; y++) {
+                for (var x = 0; x < 3; x++) {
+                    //現在地から上下２区画離れてたら場所を移動
+                    var mx = this.map[x][y].mapX;
+                    var ax = posX - mx;
+                    if (ax > 1) {
+                        this.map[x][y].x -= this.map.width;
+                    }
+                    if (ax < -1) {
+                        this.map[x][y].x += this.map.width;
+                    }
+
+                    var my = this.map[x][y].mapY;
+                    var ay = posY - my;
+                    if (ay > 1) {
+                        this.map[x][y].y -= this.map.height;
+                    }
+                    if (ay < -1) {
+                        this.map[x][y].y += this.map.height;
+                    }
+
+                    this.map[x][y].mapX = Math.floor(this.map[x][y].x / this.map.width);
+                    this.map[x][y].mapY = Math.floor(this.map[x][y].y / this.map.height);
+                }
+            }
+        }
     },
 
     setupMap: function() {
         if (!this.belt) {
             this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
-            this.map.alpha = 0.5;
             var w = this.map.width;
             var h = this.map.height;
             this.map.setPosition(0, 0);
+            this.map.setOrigin(0, 0);
         } else {
             var image = phina.asset.AssetManager.get('image', this.asset);
             this.map = [];
+            this.map.width = image.domElement.width;
+            this.map.height = image.domElement.height;
             for (var x = 0; x < 3; x++) {
                 this.map[x] = [];
                 for (var y = 0; y < 3; y++) {
-                    var mx = x * image.domElement.width - image.domElement.width;
-                    var my = y * image.domElement.height - image.domElement.height;
+                    var mx = (x-1) * this.map.width;
+                    var my = (y-1) * this.map.height;
                     this.map[x][y] = phina.display.Sprite(this.asset)
                         .addChildTo(this.mapBase)
-                        .setPosition(mx, my);
+                        .setPosition(mx, my)
+                        .setOrigin(0, 0);
+                    this.map[x][y].mapX = Math.floor(mx / this.map.width);
+                    this.map[x][y].mapY = Math.floor(my / this.map.height);
                 }
             }
         }

@@ -37,7 +37,7 @@ phina.define("pbr.Stage1", {
         });
         this.add( 120, "Golyat", {boss: true});
         this.add( 120, function(app) {
-            this.ground.tweener.clear().to({speed:-7.0}, 180, "easeInOutCubic");
+            this.ground.tweener.clear().to({direction:-90, speed:-7.0}, 180, "easeInOutCubic");
         });
         this.add( 1800, function() {});
         return;
@@ -133,15 +133,10 @@ phina.define("pbr.Stage1Ground", {
             asset: "map1g",
             belt: true
         });
-/*
-        var w = 640;
-        var h = 1300;
-        for (var i = 0; i < 30; i++) {
-            phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(0, -h*i);
-            phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(-w, -h*i);
-            phina.display.Sprite("map1g").addChildTo(this.mapBase).setPosition(w, -h*i);
-        }
-*/
+        var w = this.map.width;
+        var h = this.map.height;
+        this.mapBase.x = -w*0.5;
+        this.mapBase.y = -h*0.5;
     },
 });
 
