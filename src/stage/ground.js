@@ -60,32 +60,15 @@ phina.define("pbr.Ground", {
         this.mapBase.y += this.deltaY;
 
         if (this.belt) {
-            //現在位置
-            var posX = Math.floor(-this.mapBase.x / this.map.width);
-            var posY = Math.floor(-this.mapBase.y / this.map.height);
             for (var y = 0; y < 3; y++) {
                 for (var x = 0; x < 3; x++) {
-                    //現在地から上下２区画離れてたら場所を移動
-                    var mx = this.map[x][y].mapX;
-                    var ax = posX - mx;
-                    if (ax > 1) {
-                        this.map[x][y].x -= this.map.width;
-                    }
-                    if (ax < -1) {
-                        this.map[x][y].x += this.map.width;
-                    }
-
-                    var my = this.map[x][y].mapY;
-                    var ay = posY - my;
-                    if (ay > 1) {
-                        this.map[x][y].y -= this.map.height;
-                    }
-                    if (ay < -1) {
-                        this.map[x][y].y += this.map.height;
-                    }
-
-                    this.map[x][y].mapX = Math.floor(this.map[x][y].x / this.map.width);
-                    this.map[x][y].mapY = Math.floor(this.map[x][y].y / this.map.height);
+                    var m = this.map[x][y];
+                    var sx = Math.floor((this.mapBase.x + m.x)/this.map.width);
+                    if (sx >  2) m.x -= this.map.width*3;
+                    if (sx < -2) m.x += this.map.width*3;
+                    var sy = Math.floor((this.mapBase.y + m.y)/this.map.height);
+                    if (sy >  2) m.y -= this.map.height*3;
+                    if (sy < -2) m.y += this.map.height*3;
                 }
             }
         }
