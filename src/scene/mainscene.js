@@ -108,6 +108,15 @@ phina.define("pbr.MainScene", {
                     this.layers[i] = pbr.EffectLayer(effectPool).addChildTo(this.base);
                     this.effectLayerLower = this.layers[i];
                     break;
+                case LAYER_SHADOW:
+                    //地形と影レイヤーのみ目隠し
+                    this.groundMask = phina.display.RectangleShape(param)
+                        .addChildTo(this)
+                        .setPosition(SC_W*0.5, SC_H*0.5);
+                    this.groundMask.tweener.setUpdateType('fps');
+                    this.groundMask.alpha = 0;
+                    this.layers[i] = phina.display.DisplayElement().addChildTo(this.base);
+                    break;
                 default:
                     this.layers[i] = phina.display.DisplayElement().addChildTo(this.base);
             }
