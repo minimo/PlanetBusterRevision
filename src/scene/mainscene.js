@@ -109,13 +109,13 @@ phina.define("pbr.MainScene", {
                     this.effectLayerLower = this.layers[i];
                     break;
                 case LAYER_SHADOW:
+                    this.layers[i] = phina.display.DisplayElement().addChildTo(this.base);
                     //地形と影レイヤーのみ目隠し
                     this.groundMask = phina.display.RectangleShape(param)
-                        .addChildTo(this)
+                        .addChildTo(this.base)
                         .setPosition(SC_W*0.5, SC_H*0.5);
                     this.groundMask.tweener.setUpdateType('fps');
-                    this.groundMask.alpha = 0;
-                    this.layers[i] = phina.display.DisplayElement().addChildTo(this.base);
+                    this.groundMask.tweener.clear().fadeOut(20);
                     break;
                 default:
                     this.layers[i] = phina.display.DisplayElement().addChildTo(this.base);
@@ -404,7 +404,8 @@ phina.define("pbr.MainScene", {
     },
 
     result: function() {
-        this.systemBase.tweener.clear().fadeOut(500);
+//        this.systemBase.tweener.clear().fadeOut(500);
+        this.groundMask.tweener.clear().fadeIn(300);
 
         var labelParam = {
             fill: "white",
