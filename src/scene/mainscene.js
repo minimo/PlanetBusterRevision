@@ -416,10 +416,10 @@ phina.define("pbr.MainScene", {
             stroke: "black",
             strokeWidth: 1,
 
-            fontFamily: "UbuntuMono",
+            fontFamily: "Orbitron",
             align: "left",
             baseline: "middle",
-            fontSize: 20,
+            fontSize: 15,
             fontWeight: ''
         };
 
@@ -431,25 +431,34 @@ phina.define("pbr.MainScene", {
         base.tweener.clear().to({x: 0}, 1000,"easeOutSine");
 
         var text1 = "STAGE "+this.stageId+" CLEAR";
-        var res1 = phina.display.Label({text: text1}.$safe(labelParam))
+        var res1 = phina.display.Label({text: text1, align: "center", fontSize: 25}.$safe(labelParam))
             .addChildTo(base)
-            .setPosition(SC_W*0.2, SC_H*0.2);
+            .setPosition(SC_W*0.5, SC_H*0.25);
 
-        var text2 = "CLEAR BONUS: "+(this.stageId*100000).comma();
-        var res2 = phina.display.Label({text: text2}.$safe(labelParam))
+        var bonusClear = this.stageId*100000;
+        var res2 = phina.display.Label({text: ""}.$safe(labelParam))
             .addChildTo(base)
-            .setPosition(SC_W*0.2, SC_H*0.3);
+            .setPosition(SC_W*0.1, SC_H*0.4);
+            res2.update = function() {
+                this.text = "CLEAR BONUS: "+bonusClear.comma();
+            }
 
-        var text3 = "HIT BONUS: "+this.enemyKill.comma();
-        var res3 = phina.display.Label({text: text3}.$safe(labelParam))
+        var bonusHit = this.enemyKill*100;
+        var res3 = phina.display.Label({text: ""}.$safe(labelParam))
             .addChildTo(base)
-            .setPosition(SC_W*0.2, SC_H*0.4);
+            .setPosition(SC_W*0.1, SC_H*0.5);
+        res3.update = function() {
+            this.text = "HIT BONUS: "+bonusHit.comma();
+        }
 
         if (this.stageMissCount == 0) {
-            var text4 = "NO MISS BONUS: 100,000";
-            var res4 = phina.display.Label({text: text4}.$safe(labelParam))
+            var bonusNomiss = 100000;
+            var res4 = phina.display.Label({text: ""}.$safe(labelParam))
                 .addChildTo(base)
-                .setPosition(SC_W*0.2, SC_H*0.5);
+                .setPosition(SC_W*0.1, SC_H*0.6);
+            res4.update = function() {
+                this.text = "NO MISS BONUS: "+bonusNomiss.comma();
+            }
         }
     },
 
