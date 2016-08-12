@@ -258,6 +258,10 @@ phina.define("pbr.MainScene", {
 
         //ステージクリア
         this.on('stageclear', function() {
+            //プレイヤショットオフ・当たり判定無し
+            this.player.isShotOK  = false;
+            this.player.isCollision  = false;
+
             //１０秒後にリザルト処理
             phina.app.Object2D().addChildTo(this)
                 .tweener.clear()

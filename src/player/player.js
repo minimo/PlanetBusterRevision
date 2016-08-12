@@ -15,6 +15,7 @@ phina.define("pbr.Player", {
         height: 2,
 
         isControl: true,    //操作可能フラグ
+        isShotOK: true,     //ショット可能フラグ
         isDead: false,      //死亡フラグ
         shotON: true,       //ショットフラグ
         mouseON: false,     //マウス操作中フラグ
@@ -104,6 +105,10 @@ phina.define("pbr.Player", {
             }
             if (!this.mouseON) this.shotON = app.keyboard.getKey("Z");
 
+            if (!this.isControl || !this.isShotOK || this.isDead) {
+                this.shotON = false;
+            }
+
             //ショットタイプ変更（テスト用）
             if (app.keyboard.getKey("X") && this.time > this.changeInterval) {
                 this.type = (this.type+1)%3;
@@ -116,7 +121,7 @@ phina.define("pbr.Player", {
             this.y = Math.clamp(this.y, 16, SC_H-16);
 
             //ショット投入
-            if (this.shotON && app.ticker.frame % this.shotInterval == 0 && !this.isDead) this.enterShot();
+            if (this.shotON && app.ticker.frame % this.shotInterval == 0) this.enterShot();
         }
 
         //機体ロール
@@ -287,6 +292,7 @@ phina.define("pbr.Player", {
             .call(function(){
                 this.shotON = true;
                 this.isControl = true;
+                this.isShotOK = true;
                 this.isCollision = true;
                 this.timeMuteki = 120;
                 this.parentScene.timeVanish = 60;
@@ -309,6 +315,7 @@ phina.define("pbr.Player", {
             .call(function(){
                 this.shotON = true;
                 this.isControl = true;
+                this.isShotOK = true;
                 this.isCollision = true;
                 this.timeMuteki = 120;
             }.bind(this));
