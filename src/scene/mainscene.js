@@ -463,7 +463,7 @@ phina.define("pbr.MainScene", {
             if (this.time == 60) app.score += bonusClear;
             if (this.time > 60) {
                 this.score += this.scorePlus;
-                if (this.score > bonusClear) this.score = bonusNomiss;
+                if (this.score > bonusClear) this.score = bonusClear;
             }
             this.time++;
         }
