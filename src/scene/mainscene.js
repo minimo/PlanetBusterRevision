@@ -15,7 +15,7 @@ phina.define("pbr.MainScene", {
 
         //現在ステージＩＤ
         stageId: 1,
-        maxStageId: 2,
+        maxStageId: 1,
 
         //ステージクリアフラグ
         isStageClear: false,
@@ -376,6 +376,9 @@ phina.define("pbr.MainScene", {
         this.enemyKill = 0;
         this.stageMissCount = 0;
 
+        //地形消去用マスク
+        this.groundMask.tweener.clear().fadeOut(20);
+
         //ステージ番号表示
         var param = {text: "STAGE "+this.stageId, fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontWeight: 600, outlineWidth: 2};
         var m1 = phina.display.Label(param, 50)
@@ -408,8 +411,6 @@ phina.define("pbr.MainScene", {
     },
 
     result: function() {
-        this.groundMask.tweener.clear().fadeIn(300);
-
         var labelParam = {
             fill: "white",
             stroke: "black",
@@ -422,18 +423,34 @@ phina.define("pbr.MainScene", {
             fontWeight: ''
         };
 
+        //クリア時ＢＧＭ
+        app.playBGM("stageclear");
+
+        //地形消去用マスク
+        this.groundMask.tweener.clear().fadeIn(300);
+
+        var that = this;
+
         var base = phina.display.DisplayElement()
             .addChildTo(this)
             .setPosition(SC_W*1.5, 0);
         base.update = function() {
         };
-        base.tweener.clear().to({x: 0}, 500,"easeOutSine");
+        base.tweener.clear()
+            .to({x: 0}, 500,"easeOutSine")
+            .wait(5000)
+            .call(function() {
+                that.stageClear();
+                this.remove();
+            }.bind(base));
 
+        //ステージ番号表示
         var text1 = "STAGE "+this.stageId+" CLEAR";
         var res1 = phina.display.Label({text: text1, align: "center", fontSize: 25}.$safe(labelParam))
             .addChildTo(base)
             .setPosition(SC_W*0.5, SC_H*0.25);
 
+        //ステージクリアボーナス表示
         var bonusClear = this.stageId*100000;
         var res2 = phina.display.Label({text: ""}.$safe(labelParam))
             .addChildTo(base)
@@ -451,6 +468,7 @@ phina.define("pbr.MainScene", {
             this.time++;
         }
 
+        //ヒット数ボーナス表示
         var bonusHit = this.enemyKill*100;
         var res3 = phina.display.Label({text: ""}.$safe(labelParam))
             .addChildTo(base)
@@ -468,6 +486,7 @@ phina.define("pbr.MainScene", {
             this.time++;
         }
 
+        //ノーミスクリアボーナス表示
         if (this.stageMissCount == 0) {
             var bonusNomiss = 100000;
             var res4 = phina.display.Label({text: ""}.$safe(labelParam))
@@ -496,6 +515,12 @@ phina.define("pbr.MainScene", {
             this.initStage();
         } else {
             //オールクリア
+            this.mask.tweener.clear()
+                .fadeIn(60)
+                .wait(60)
+                .call(function() {
+                    this.flare('gameover');
+                }.bind(this));
         }
     },
 
