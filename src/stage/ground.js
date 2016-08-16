@@ -64,10 +64,10 @@ phina.define("pbr.Ground", {
                 for (var x = 0; x < 3; x++) {
                     var m = this.map[x][y];
                     var sx = Math.floor((this.mapBase.x + m.x)/this.map.width);
-                    if (sx >  2) m.x -= this.map.width*3;
+                    if (sx >  0) m.x -= this.map.width*3;
                     if (sx < -2) m.x += this.map.width*3;
                     var sy = Math.floor((this.mapBase.y + m.y)/this.map.height);
-                    if (sy >  2) m.y -= this.map.height*3;
+                    if (sy >  0) m.y -= this.map.height*3;
                     if (sy < -2) m.y += this.map.height*3;
                 }
             }
