@@ -408,7 +408,6 @@ phina.define("pbr.MainScene", {
     },
 
     result: function() {
-//        this.systemBase.tweener.clear().fadeOut(500);
         this.groundMask.tweener.clear().fadeIn(300);
 
         var labelParam = {
@@ -428,7 +427,7 @@ phina.define("pbr.MainScene", {
             .setPosition(SC_W*1.5, 0);
         base.update = function() {
         };
-        base.tweener.clear().to({x: 0}, 1000,"easeOutSine");
+        base.tweener.clear().to({x: 0}, 500,"easeOutSine");
 
         var text1 = "STAGE "+this.stageId+" CLEAR";
         var res1 = phina.display.Label({text: text1, align: "center", fontSize: 25}.$safe(labelParam))
@@ -439,16 +438,34 @@ phina.define("pbr.MainScene", {
         var res2 = phina.display.Label({text: ""}.$safe(labelParam))
             .addChildTo(base)
             .setPosition(SC_W*0.1, SC_H*0.4);
-            res2.update = function() {
-                this.text = "CLEAR BONUS: "+bonusClear.comma();
+        res2.score = 0;
+        res2.scorePlus = Math.floor(bonusClear/60);
+        res2.time = 0;
+        res2.update = function() {
+            this.text = "CLEAR BONUS: "+this.score.comma();
+            if (this.time == 60) app.score += bonusClear;
+            if (this.time > 60) {
+                this.score += this.scorePlus;
+                if (this.score > bonusClear) this.score = bonusNomiss;
             }
+            this.time++;
+        }
 
         var bonusHit = this.enemyKill*100;
         var res3 = phina.display.Label({text: ""}.$safe(labelParam))
             .addChildTo(base)
             .setPosition(SC_W*0.1, SC_H*0.5);
+        res3.score = 0;
+        res3.scorePlus = Math.floor(bonusHit/60);
+        res3.time = 0;
         res3.update = function() {
-            this.text = "HIT BONUS: "+bonusHit.comma();
+            this.text = "HIT BONUS: "+this.score.comma();
+            if (this.time == 90) app.score += bonusHit;
+            if (this.time > 90) {
+                this.score += this.scorePlus;
+                if (this.score > bonusHit) this.score = bonusHit;
+            }
+            this.time++;
         }
 
         if (this.stageMissCount == 0) {
@@ -456,8 +473,17 @@ phina.define("pbr.MainScene", {
             var res4 = phina.display.Label({text: ""}.$safe(labelParam))
                 .addChildTo(base)
                 .setPosition(SC_W*0.1, SC_H*0.6);
+            res4.score = 0;
+            res4.scorePlus = Math.floor(bonusNomiss/60);
+            res4.time = 0;
             res4.update = function() {
-                this.text = "NO MISS BONUS: "+bonusNomiss.comma();
+                this.text = "NO MISS BONUS: "+this.score.comma();
+                if (this.time == 120) app.score += bonusNomiss;
+                if (this.time > 120) {
+                    this.score += this.scorePlus;
+                    if (this.score > bonusNomiss) this.score = bonusNomiss;
+                }
+                this.time++;
             }
         }
     },
