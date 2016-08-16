@@ -30,6 +30,7 @@ phina.define("pbr.Application", {
                     "explodePlayer": "assets/sounds/ta_ta_zuban_d01.mp3", 
                     "bomb":          "assets/sounds/bomb.mp3",
                     "playermiss":    "assets/sounds/ta_ta_zuban_d01.mp3",
+                    "stageclear":    "assets/sounds/bgm_stageclear.mp3",
                     "gameover":      "assets/sounds/soundlogo9.mp3",
                     "cancel":        "assets/sounds/se_maoudamashii_system20.mp3",
                     "select":        "assets/sounds/se_maoudamashii_system36.mp3",
