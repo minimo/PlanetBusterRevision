@@ -337,9 +337,6 @@ phina.define("pbr.MainScene", {
         if (app.keyboard.getKey("C")) {
             this.eraseBullet();
         }
-        if (app.keyboard.getKey("B")) {
-            this.enterBomb();
-        }
         if (app.keyboard.getKey("D")) {
             this.bulletDomination();
         }
@@ -555,7 +552,7 @@ phina.define("pbr.MainScene", {
 
     //ボム投入
     enterBomb: function() {
-        if (this.bombTime > 0) return;
+        if (this.bombTime > 0 || app.bombStock < 1) return;
         this.bombTime = 90;
         app.bombStock--;
 

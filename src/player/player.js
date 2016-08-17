@@ -105,15 +105,24 @@ phina.define("pbr.Player", {
             }
             if (!this.mouseON) this.shotON = app.keyboard.getKey("Z");
 
+            //コントロール不可状態
             if (!this.isControl || !this.isShotOK || this.isDead) {
                 this.shotON = false;
             }
 
-            //ショットタイプ変更（テスト用）
-            if (app.keyboard.getKey("X") && this.time > this.changeInterval) {
-                this.type = (this.type+1)%3;
-                this.openBit(this.type);
-                this.changeInterval = this.time+30;
+            //コントロール可能状態
+            if (this.isControl && this.isShotOK && !this.isDead) {
+                //ボム投下
+                if (app.keyboard.getKey("B")) {
+                    this.parentScene.enterBomb();
+                }
+
+                //ショットタイプ変更（テスト用）
+                if (app.keyboard.getKey("X") && this.time > this.changeInterval) {
+                    this.type = (this.type+1)%3;
+                    this.openBit(this.type);
+                    this.changeInterval = this.time+30;
+                }
             }
 
             //移動範囲の制限
