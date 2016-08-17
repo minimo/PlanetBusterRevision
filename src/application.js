@@ -73,8 +73,9 @@ phina.define("pbr.Application", {
 
     _member: {
         //ゲーム内情報
-        score: 0,
-        rank: 1,
+        difficulty: 1,  //難易度
+        score: 0,       //スコア
+        rank: 1,        //難易度ランク
         numContinue: 0, //コンティニュー回数
 
         //プレイヤー設定

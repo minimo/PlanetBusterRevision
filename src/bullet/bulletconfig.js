@@ -18,6 +18,9 @@ phina.namespace(function() {
                 this.target = target;
                 this.bulletLayer = bulletLayer;
 
+                //“ïˆÕ“x(int)(0:easy 1:normal 2:hard 3:death)
+                this.put("difficulty", 1);
+
                 //’e‘¬(float)
                 this.put("speedBase", 1.00);
                 this.put("speedRank", 0.00);
