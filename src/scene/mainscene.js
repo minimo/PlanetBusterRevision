@@ -343,6 +343,9 @@ phina.define("pbr.MainScene", {
         if (app.keyboard.getKey("D")) {
             this.bulletDomination();
         }
+        if (app.keyboard.getKey("P")) {
+            app.pushScene(pbr.PauseScene());
+        }
 
         this.time++;
     },
