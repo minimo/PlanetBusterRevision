@@ -240,7 +240,7 @@ phina.define("pbr.Enemy", {
         }
 
         //親機が破壊された場合、自分も破壊
-        if (this.parentEnemy && this.parentEnemy.isDead) {
+        if (!this.isDead && this.parentEnemy && this.parentEnemy.isDead) {
             this.isSelfCrash = true;
             this.dead();
         }
