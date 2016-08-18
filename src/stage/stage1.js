@@ -17,7 +17,6 @@ phina.define("pbr.Stage1", {
 
         //初期化処理
         this.add(1, function(app) {
-            this.ground.tweener.clear().to({scaleX:0.2, scaleY:0.2, speed:1.0, alpha:1}, 1, "easeInOutQuad");
             app.playBGM("stage1", true);
             this.player.isAfterburner = true;
         });
@@ -125,6 +124,9 @@ phina.define("pbr.Stage1Ground", {
         var h = this.map.height;
         this.mapBase.x = -w*0.5;
         this.mapBase.y = -h*0.5;
+
+        this.setScale(0.2, 0.2);
+        this.speed = 1.0;
     },
 });
 
