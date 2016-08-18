@@ -362,8 +362,8 @@ phina.define("pbr.MainScene", {
                 this.ground = pbr.Stage1Ground().addChildTo(this);
                 break;
             case 2:
-                this.stage = pbr.Stage1(this, this.player);
-                this.ground = pbr.Stage1Ground().addChildTo(this);
+                this.stage = pbr.Stage2(this, this.player);
+                this.ground = pbr.Stage2Ground().addChildTo(this);
                 break;
             case 3:
                 this.stage = pbr.Stage1(this, this.player);
