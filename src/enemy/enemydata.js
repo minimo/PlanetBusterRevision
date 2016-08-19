@@ -474,9 +474,9 @@ pbr.enemyData['ToyBox'] = {
     kind: 0,
 
     setup: function(enterParam) {
-        if (enterParam == "power") this.kind = 0;
-        if (enterParam == "bomb") this.kind = 1;
-        if (enterParam == "1UP") this.kind = 2;
+        if (enterParam == "power") this.kind = ITEM_POWER;
+        if (enterParam == "bomb") this.kind = ITEM_BOMB;
+        if (enterParam == "1UP") this.kind = ITEM_1UP;
         this.tweener.clear().moveBy(0, SC_H*0.5, 300).wait(480).moveBy(0, -SC_H, 600);
 
         var that = this;
@@ -499,11 +499,85 @@ pbr.enemyData['ToyBox'] = {
     algorithm: function() {
     },
 
-/*
     dead: function() {
-        pbr.Item(this.kind).addChildTo(this.parentScene).setPosition(this.x, this.y);
+        //破壊時アイテムをシーンに投入
+        this.turret = pbr.Enemy("Item", this.x, this.y, 0, {kind: 0}).addChildTo(this.parentScene);
+
+        //通常の破壊処理
         this.defaultDead();
     },
-*/
+}
+
+/*
+ *  アイテム
+ */
+pbr.enemyData['Item'] = {
+    //使用弾幕名
+    danmakuName: null,
+
+    //当り判定サイズ
+    width:  30,
+    height: 90,
+
+    //耐久力
+    def: 1,
+
+    //得点
+    point: 10000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT,
+
+    //敵タイプ
+    type: ENEMY_ITEM,
+
+    //爆発タイプ
+    explodeType: EXPLODE_SMALL,
+
+    //機体用テクスチャ情報
+    texName: "tex1",
+    texWidth: 32,
+    texHeight: 32,
+    texIndex: 0,
+    texTrimX: 0,
+    texTrimY: 96,
+    texTrimWidth: 96,
+    texTrimHeight: 32,
+
+    //投下アイテム区分
+    kind: 0,
+
+    setup: function(enterParam) {
+        this.isCollision = false;
+        this.reset = true;
+        this.count = 0;
+
+        this.kind = enterParam.kind;
+        this.frameIndex = this.kind;
+
+        this.setScale(1.5);
+     },
+
+    epuipment: function() {
+    },
+
+    algorithm: function() {
+        if (this.reset) {
+            this.reset = false;
+            this.count++;
+            if (this.count < 5) {
+                var px = Math.randint(0, SC_W);
+                var py = Math.randint(SC_H*0.3, SC_W*0.9);
+                this.tweener.clear()
+                    .to({x: px, y: py}, 180, "easeInOutSine")
+                    .wait(30)
+                    .call(function() {
+                        this.reset = true;
+                    }.bind(this));
+            } else {
+                this.tweener.clear().to({x: this.x, y: SC_H*1.1}, 180, "easeInOutSine");
+            }
+       }
+    },
 }
 

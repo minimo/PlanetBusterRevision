@@ -235,8 +235,17 @@ phina.define("pbr.Enemy", {
 
         //自機との当り判定チェック
         var player = this.player;
-        if (this.isCollision && !this.isGround && !this.isDead && player.isCollision && this.isHitElement(player)) {
-            player.damage();
+        if (this.type == ENEMY_ITEM) {
+            //アイテムの場合
+            if (this.isHitElement(player)) {
+                this.remove();
+                player.getItem(this.kind);
+            }
+        } else {
+            //アイテム以外の場合
+            if (this.isCollision && !this.isGround && !this.isDead && player.isCollision && this.isHitElement(player)) {
+                player.damage();
+            }
         }
 
         //親機が破壊された場合、自分も破壊

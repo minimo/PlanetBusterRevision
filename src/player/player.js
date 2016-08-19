@@ -370,4 +370,21 @@ phina.define("pbr.Player", {
         }
         return this;
     },
+
+    //アイテム取得
+    getItem: function(kind) {
+        switch(kind) {
+            case ITEM_POWER:
+                app.playSE("powerup");
+                break;
+            case ITEM_BOMB:
+                app.playSE("powerup");
+                app.bombStock++;
+                break;
+            case ITEM_1UP:
+                app.playSE("powerup");
+                app.zanki++;
+                break;
+        }
+    },
 });

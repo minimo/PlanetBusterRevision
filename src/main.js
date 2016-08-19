@@ -54,6 +54,11 @@ EXPLODE_GROUND = 3;
 EXPLODE_MBOSS = 4;
 EXPLODE_BOSS = 5;
 
+//アイテム種類
+ITEM_POWER = 0;
+ITEM_BOMB = 1;
+ITEM_1UP = 0;
+
 var KEYBOARD_MOVE = {
       0: { x:  1.0, y:  0.0 },
      45: { x:  0.7, y: -0.7 },
