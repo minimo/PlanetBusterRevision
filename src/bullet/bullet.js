@@ -41,10 +41,11 @@ phina.define("pbr.Bullet", {
         this.boundingType = "circle";
         this.radius = 2;
 
+        //TweenerをFPSベースにする
+        this.tweener.setUpdateType('fps');
+
         //弾画像
         this.sprite = phina.display.Sprite("bullet", 24, 24).addChildTo(this);
-        this.setScale(0.01);
-        this.tweener.clear().to({scaleX: 1.0, scaleY:1.0}, 400);
 
         this.on("enterframe", function(app){
             if (this.rolling) this.rotation += this.rollAngle;
@@ -93,6 +94,8 @@ phina.define("pbr.Bullet", {
 
         this.rolling = true;
 
+        this.setOrigin(0.5, 0.5);
+
         if (spec.dummy) {
             this.dummy = true;
             this.sprite.visible = false;
@@ -114,11 +117,15 @@ phina.define("pbr.Bullet", {
                     size = 1.0; index = 3; 
                     this.rolling = false;
                     this.rotation = this.runner.direction*toDeg-90;
+                    this.setOrigin(0.5, 0.0);
                     break;
             }
             this.sprite.setFrameIndex(index).setScale(size);
             this.dummy = false;
             this.sprite.visible = true;
+    
+            this.setScale(0.01);
+            this.tweener.clear().to({scaleX: 1.0, scaleY:1.0}, 20, "easeInOutSine");
         }
         return this;
     },
