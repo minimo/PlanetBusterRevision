@@ -581,3 +581,70 @@ pbr.enemyData['Item'] = {
     },
 }
 
+/*
+ *  誘導弾「メドゥーサ」
+ */
+pbr.enemyData['Medusa'] = {
+    //使用弾幕名
+    danmakuName: null,
+
+    //当り判定サイズ
+    width:  30,
+    height: 90,
+
+    //耐久力
+    def: 100,
+
+    //得点
+    point: 1000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT,
+
+    //敵タイプ
+    type: ENEMY_SMALL,
+
+    //爆発タイプ
+    explodeType: EXPLODE_SMALL,
+
+    //機体用テクスチャ情報
+    texName: "tex1",
+    texWidth: 32,
+    texHeight: 32,
+    texIndex: 0,
+    texTrimX: 192,
+    texTrimY: 96,
+    texTrimWidth: 64,
+    texTrimHeight: 24,
+
+    //投下アイテム種類
+    kind: 0,
+
+    setup: function(enterParam) {
+        //一定時間ごとに煙だすよ
+        this.tweener.clear()
+            .wait(5)
+            .call(function() {
+                layer.enterSmoke({
+                    position: {x: this.x, y: this.y},
+                    velocity: {x: 0, y: 0, decay: 1},
+                    delay: 0
+                });
+            }.bind(this))
+            .setLoop(true);
+
+        this.vx = 0;
+        this.vy = 0;
+        this.spd = 3;
+    },
+
+    algorithm: function() {
+        this.lookAt();
+
+        this.vx = Math.sin(this.rotation*toRad)*this.spd;
+        this.vy = Math.cos(this.rotation*toRad)*this.spd;
+
+        this.x += this.vx;
+        this.y += this.vy;
+    },
+}
