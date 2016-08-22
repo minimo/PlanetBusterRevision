@@ -375,7 +375,7 @@ phina.define("pbr.Enemy", {
         if (this.isCrashDown) {
             var grY = this.y + 80;
             this.tweener.clear()
-                .to({y: grY, altitude: 0.2}, 180, "easeSineOut")
+                .to({y: grY, altitude: 0.1}, 120, "easeSineOut")
                 .call(function(){
                     this.explode();
                     this.remove();
@@ -386,13 +386,13 @@ phina.define("pbr.Enemy", {
                 this.remove();
             } else {
                 this.tweener.clear()
-                    .to({alpha: 0}, 60)
+                    .to({alpha: 0}, 15)
                     .call(function(){
                         this.remove();
                     }.bind(this));
                 if (this.shadow) {
                     this.shadow.tweener.clear()
-                       .to({alpha: 0}, 60)
+                       .to({alpha: 0}, 15)
                         .call(function(){
                             this.remove();
                         }.bind(this.shadow));
@@ -422,13 +422,13 @@ phina.define("pbr.Enemy", {
                 this.explode();
                 app.playSE("explodeBoss");
             }.bind(this))
-            .to({alpha: 0}, 60)
+            .to({alpha: 0}, 15)
             .call(function(){
                 this.remove();
             }.bind(this));
         if (this.shadow) {
             this.shadow.tweener.clear()
-                .to({alpha: 0}, 60)
+                .to({alpha: 0}, 15)
                 .call(function(){
                     this.remove();
                 }.bind(this.shadow));
