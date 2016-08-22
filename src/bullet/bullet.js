@@ -43,6 +43,8 @@ phina.define("pbr.Bullet", {
 
         //弾画像
         this.sprite = phina.display.Sprite("bullet", 24, 24).addChildTo(this);
+        this.setScale(0.01);
+        this.tweener.clear().to({scaleX: 1.0, scaleY:1.0}, 400);
 
         this.on("enterframe", function(app){
             if (this.rolling) this.rotation += this.rollAngle;
