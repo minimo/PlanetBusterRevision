@@ -40,6 +40,10 @@ pbr.enemyData['ThorHammer'] = {
     texName: "tex_boss1",
     texWidth: 96,
     texHeight: 192,
+    texTrimX: 0,
+    texTrimY: 0,
+    texTrimWidth: 192,
+    texTrimHeight: 192,
     texIndex: 0,
 
     setup: function(enterParam) {
@@ -113,7 +117,7 @@ pbr.enemyData['ThorHammer'] = {
     dead: function() {
         this.turret.dead();
         this.turret.remove();
-        this.body.frameIndex++;
+        this.texIndex++;
 
         this.isCollision = false;
         this.isDead = true;

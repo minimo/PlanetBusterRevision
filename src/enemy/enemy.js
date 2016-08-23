@@ -414,6 +414,7 @@ phina.define("pbr.Enemy", {
 
         //弾消し
         this.parentScene.eraseBullet();
+        this.parentScene.timeVanish = 180;
 
         //破壊時消去インターバル
         this.tweener.clear()
