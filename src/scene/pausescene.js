@@ -42,21 +42,30 @@ phina.define("pbr.PauseScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
 
         //ポーズ表示
-        phina.display.Label({text: "PAUSE"}.$safe(this.labelParam))
+        this.pause1 = phina.display.Label({text: "PAUSE"}.$safe(this.labelParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
 
-        phina.display.Label({text: "Press Z or Space or Tap to exit", fontSize: 15}.$safe(this.labelParam))
+        this.pause2 = phina.display.Label({text: "Press ESC or Space or Tap to exit", fontSize: 15}.$safe(this.labelParam))
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6);
 
+        this.isExit = false;
         this.time = 0;        
     },
 
     update: function() {
-        if (this.time > 30) {
+        if (this.time > 30 && !this.isExit) {
             var kb = app.keyboard;
-            if (kb.getKey("Z") || kb.getKey("space")) app.popScene();
+            if (kb.getKey("escape") || kb.getKey("space")) {
+                this.pause1.tweener.clear()
+                    .fadeOut(100)
+                    .call(function() {
+                        app.popScene();
+                    });
+                this.pause2.tweener.clear()
+                    .fadeOut(100);
+            }
         }
         this.time++;
     },
