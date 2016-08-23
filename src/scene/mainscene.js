@@ -15,7 +15,7 @@ phina.define("pbr.MainScene", {
 
         //現在ステージＩＤ
         stageId: 1,
-        maxStageId: 1,
+        maxStageId: 2,
 
         //ステージクリアフラグ
         isStageClear: false,
