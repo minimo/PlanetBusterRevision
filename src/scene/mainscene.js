@@ -411,6 +411,29 @@ phina.define("pbr.MainScene", {
     },
 
     result: function() {
+    
+        var endResult = false;
+        var loadcomplete = false;
+        var loadprogress = 0;
+
+        //次ステージのアセットをバックグラウンドで読み込み
+        if (this.stageId < this.maxStageId) {
+            var assetName = "stage"+(this.stageId+1);
+            var assets = pbr.Application.assets[assetName];
+            var loader = phina.asset.AssetLoader();
+            loader.load(assets);
+            loader.on('load', function(e) {
+                loadcomplete = true;
+                app._onLoadAssets();
+            }.bind(this));
+            loader.onprogress = function(e) {
+                loadprogress = e.progress;
+            }.bind(this);
+        } else {
+            loadcomplete = true;
+            loadprogress = 1;
+        }
+
         var labelParam = {
             fill: "white",
             stroke: "black",
@@ -440,9 +463,14 @@ phina.define("pbr.MainScene", {
             .to({x: 0}, 500,"easeOutSine")
             .wait(5000)
             .call(function() {
+                endResult = true;
+            }.bind(base));
+        base.update = function() {
+            if (endResult && loadcomplete) {
                 that.stageClear();
                 this.remove();
-            }.bind(base));
+            }
+        }
 
         //ステージ番号表示
         var text1 = "STAGE "+this.stageId+" CLEAR";
@@ -504,6 +532,18 @@ phina.define("pbr.MainScene", {
                 }
                 this.time++;
             }
+        }
+
+        //ロード進捗表示
+        var progress = phina.display.Label({text: "", align: "right", fontSize: 10}.$safe(labelParam))
+            .addChildTo(base)
+            .setPosition(SC_W*0.95, SC_H*0.95);
+        progress.time = 0;
+        progress.update = function() {
+            this.text = "Loading... "+Math.floor(loadprogress*100)+"%";
+            if (loadprogress == 1) this.remove();
+            if (this.time % 30 == 0) this.visible = !this.visible;
+            this.time++;
         }
     },
 
