@@ -338,6 +338,12 @@ pbr.enemyData['Golyat'] = {
             offsetY: 0,
         });
 
+        //アーム差動用
+        this.armL.vibX = 0;
+        this.armL.vibY = 0;
+        this.armR.vibX = 0;
+        this.armR.vibY = 0;
+
         this.rad = Math.PI*0.5;
     },
 
