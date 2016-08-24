@@ -110,6 +110,21 @@ pbr.enemyUnit = {
 ],
 
 /*
+ *  砲台「ブリュナーク」
+ */
+"Brionac1-left": [
+    { "name": "Brionac1", "x": SC_W*0.3, "y":-SC_H*0.1, param:{pos:"left"}},
+],
+
+"Brionac1-center": [
+    { "name": "Brionac1", "x": SC_W*0.5, "y":-SC_H*0.1, param:{pos:"center"}},
+],
+
+"Brionac1-right": [
+    { "name": "Brionac1", "x": SC_W*0.7, "y":-SC_H*0.1, param:{pos:"right"}},
+],
+
+/*
  *  中型戦車「フラガラッハ」
  */
 "Fragarach-center": [

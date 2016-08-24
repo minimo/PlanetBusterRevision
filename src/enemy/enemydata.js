@@ -236,11 +236,11 @@ pbr.enemyData['MournBlade'] = {
     texName: "tex1",
     texWidth: 48,
     texHeight: 104,
-    texIndex: 0,
     texTrimX: 0,
     texTrimY: 128,
     texTrimWidth: 96,
     texTrimHeight: 104,
+    texIndex: 0,
 
     setup: function() {
         this.index = this.texIndex;
@@ -351,24 +351,24 @@ pbr.enemyData['Fragarach'] = {
 };
 
 /*
- *  砲台「ブリュナーク」
+ *  浮遊砲台「ブリュナーク」（設置）
  */
-pbr.enemyData['Brionac'] = {
+pbr.enemyData['Brionac1'] = {
     //使用弾幕名
-    danmakuName: "basic",
+    danmakuName: ["Brionac1_3", "Brionac1_2", "Brionac_ground1_3"],
 
     //当り判定サイズ
-    width:  64,
-    height: 64,
+    width:  40,
+    height: 40,
 
     //耐久力
-    def: 800,
+    def: 400,
 
     //得点
     point: 3000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_LOWER,
 
     //敵タイプ
     type: ENEMY_MIDDLE,
@@ -377,18 +377,47 @@ pbr.enemyData['Brionac'] = {
     explodeType: EXPLODE_MIDDLE,
 
     //機体用テクスチャ情報
-    texName: "tex1",
+    texName: "tex2",
     texWidth: 48,
-    texHeight: 104,
+    texHeight: 48,
+    texTrimX: 0,
+    texTrimY: 64,
+    texTrimWidth: 48,
+    texTrimHeight: 48,
     texIndex: 0,
 
-    setup: function() {
-        this.index = this.texIndex;
-        this.phase = 0;
-        this.setFrameTrimming(0, 128, 96, 104);
+    setup: function(param) {
+        this.isGround = true;
+
+        this.vx = 0;
+        this.vy = 0;
+
+        //パラメータにより行動パターンを決定
+        switch (param.pos) {
+            case "center":
+                break;
+            case "left":
+                this.vx = 4;
+                break;
+            case "right":
+                this.vx = -4;
+                break;
+        }
+
+        this.turret = phina.display.Sprite("tex2", 24, 24)
+            .addChildTo(this)
+            .setFrameTrimming(64, 64, 24, 24)
+            .setFrameIndex(0)
+            .setPosition(0, 0);
     },
 
     algorithm: function() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        this.turret.rotation++;
+
+        this.addSmokeSmall(1);
     },
 };
 
@@ -422,11 +451,11 @@ pbr.enemyData['Mistilteinn'] = {
     texName: "tex1",
     texWidth: 48,
     texHeight: 104,
-    texIndex: 0,
     texTrimX: 0,
     texTrimY: 128,
     texTrimWidth: 96,
     texTrimHeight: 104,
+    texIndex: 0,
 
     setup: function() {
         this.index = this.texIndex;

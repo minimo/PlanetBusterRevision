@@ -178,6 +178,108 @@ pbr.danmaku.MournBlade = new bulletml.Root({
     ]),
 });
 
+//浮遊砲台「ブリュナーク」（設置１）
+pbr.danmaku.Brionac1_1 = new bulletml.Root({
+    top0: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(2), direction(0, "absolute")),
+            repeat("$burst + 2", [
+                fire(RM, spdSeq(0), direction(0, "sequence")),
+                fire(RM, spdSeq(0), direction(1, "sequence")),
+                fire(RM, spdSeq(0), direction(-2, "sequence")),
+                interval(2),
+                fire(RM, spdSeq(0), direction(3, "sequence")),
+                fire(RM, spdSeq(0), direction(5, "sequence")),
+                fire(RM, spdSeq(0), direction(-7, "sequence")),
+                interval(2),
+            ]),
+            interval(120),
+        ]),
+    ]),
+});
+
+//浮遊砲台「ブリュナーク」（設置２）
+pbr.danmaku.Brionac1_2 = new bulletml.Root({
+    top0: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(1), direction(0)),
+            repeat("$burst + 2", [
+                fire(RM, spdSeq(0), direction(0, "sequence")),
+                fire(RM, spdSeq(0), direction(5, "sequence")),
+                fire(RM, spdSeq(0), direction(5, "sequence")),
+                fire(DM, spdSeq(0.05), direction(-10, "sequence")),
+            ]),
+            interval(120),
+        ]),
+    ]),
+});
+
+//浮遊砲台「ブリュナーク」（設置３）
+pbr.danmaku.Brionac1_3 = new bulletml.Root({
+    top1: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(0, "absolute")),
+            repeat("$burst + 1", [
+                fire(BM, spdSeq(0), direction(0, "sequence")),
+                repeat(30, [
+                    fire(BM, spdSeq(0), direction(12, "sequence")),
+                    interval(1),
+                ]),
+                fire(DM, spdSeq(0), direction(0, "sequence")),
+            ]),
+            interval(120),
+        ]),
+    ]),
+    top2: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(90, "absolute")),
+            repeat("$burst + 1", [
+                fire(BM, spdSeq(0), direction(0, "sequence")),
+                repeat(30, [
+                    fire(BM, spdSeq(0), direction(12, "sequence")),
+                    interval(1),
+                ]),
+                fire(DM, spdSeq(0), direction(0, "sequence")),
+            ]),
+            interval(120),
+        ]),
+    ]),
+    top3: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(180, "absolute")),
+            repeat("$burst + 1", [
+                fire(BM, spdSeq(0), direction(0, "sequence")),
+                repeat(30, [
+                    fire(BM, spdSeq(0), direction(12, "sequence")),
+                    interval(1),
+                ]),
+                fire(DM, spdSeq(0), direction(0, "sequence")),
+            ]),
+            interval(120),
+        ]),
+    ]),
+    top3: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(270, "absolute")),
+            repeat("$burst + 1", [
+                fire(BM, spdSeq(0), direction(0, "sequence")),
+                repeat(30, [
+                    fire(BM, spdSeq(0), direction(12, "sequence")),
+                    interval(1),
+                ]),
+                fire(DM, spdSeq(0), direction(0, "sequence")),
+            ]),
+            interval(120),
+        ]),
+    ]),
+});
+
 //中型輸送機「トイボックス」
 pbr.danmaku.ToyBox = new bulletml.Root({
     top: action([
