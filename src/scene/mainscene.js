@@ -81,7 +81,7 @@ phina.define("pbr.MainScene", {
         this.bg.tweener.setUpdateType('fps');
 
         //エフェクトプール
-        var effectPool = pbr.EffectPool(2048);
+        var effectPool = pbr.EffectPool(2048, this);
 
         //レイヤー準備
         this.base = phina.display.DisplayElement().addChildTo(this).setPosition(SC_OFFSET_X, 0);

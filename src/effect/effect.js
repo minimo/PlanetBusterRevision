@@ -35,10 +35,6 @@ phina.define("pbr.Effect.EffectBase", {
         //加速度
         velocity: {},
 
-        //相対地上座標
-        groundX: 0,
-        groundY: 0,
-
         //地上エフェクトフラグ
         ifGround: false,
 
@@ -144,12 +140,9 @@ phina.define("pbr.Effect.EffectBase", {
 
         //地上物現座標調整
         if (this.isGround) {
-            var x = this.groundX-this.parentScene.ground.x;
-            var y = this.groundY-this.parentScene.ground.y;
-            this.x-=x;
-            this.y-=y;
-            this.groundX = this.parentScene.ground.x;
-            this.groundY = this.parentScene.ground.y;
+            var ground = this.parentScene.ground;
+            this.x += ground.deltaX;
+            this.y += ground.deltaY;
         }
 
         if (this.time % this.interval == 0) {

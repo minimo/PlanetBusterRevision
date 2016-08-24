@@ -6,7 +6,7 @@
  */
 
 phina.define("pbr.EffectPool", {
-    init: function(size) {
+    init: function(size, parentScene) {
         this.pool = null;
         this.max = size || 256;
 
@@ -14,6 +14,7 @@ phina.define("pbr.EffectPool", {
         this.pool = Array.range(0, this.max).map(function() {
             var e = pbr.Effect.EffectBase();
             e.effectLayer = self;
+            e.parentScene = parentScene;
             return e;
         });
     },
