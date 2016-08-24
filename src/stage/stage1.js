@@ -25,10 +25,6 @@ phina.define("pbr.Stage1", {
             this.player.isAfterburner = false;
         });
 
-        this.add( 180, "Brionac1-center");
-        this.add( 180, "Fragarach-center");
-        return;
-
         //Stage data
         this.add( 180, "Hornet1-left");
         this.add(  60, "Hornet1-right");

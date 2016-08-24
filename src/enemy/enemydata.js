@@ -322,19 +322,24 @@ pbr.enemyData['Fragarach'] = {
 
         switch (param) {
             case "c":
+                this.vx = 0;
+                this.vy = -2;
                 break;
             case "l":
+                this.rotation = 90;
+                this.vx = 1;
+                this.vy = 0;
                 break;
             case "r":
+                this.rotation = -90;
+                this.vx = -1;
+                this.vy = 0;
                 break;
         }
 
         this.turret = phina.display.Sprite("tex1", 32, 32).addChildTo(this);
         this.turret.setFrameTrimming(192, 32, 32, 32);
         this.turret.setFrameIndex(0);
-
-        this.vx = 0;
-        this.vy = -2;
     },
 
     algorithm: function() {
