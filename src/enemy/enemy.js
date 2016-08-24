@@ -619,4 +619,51 @@ phina.define("pbr.Enemy", {
             }
         }
     },
+
+    //土煙追加
+    addSmoke: function(volume, width, height) {
+        if (this.isDead) return this;
+        volume = volume || 5;
+        if (width === undefined) width = this.width;
+        if (height === undefined) height = this.width;
+
+        var layer = this.parentScene.effectLayerLower;
+        var ground = this.parentScene.ground;
+        var vx = ground.deltaX;
+        var vy = ground.deltaY;
+        var w = width/2;
+        var h = height/2;
+
+        for (var i = 0; i < volume; i++) {
+            var x = this.x+rand(-w, w);
+            var y = this.y+rand(-h, h);
+            layer.enterSmoke({
+                position: {x: x, y: y},
+                velocity: {x: vx, y: vy, decay: 1},
+            });
+        }
+    },
+    //土煙追加（小）
+    addSmokeSmall: function(volume, width, height) {
+        if (this.isDead) return this;
+        volume = volume || 5;
+        if (width === undefined) width = this.width;
+        if (height === undefined) height = this.width;
+
+        var layer = this.parentScene.effectLayerLower;
+        var ground = this.parentScene.ground;
+        var vx = ground.deltaX;
+        var vy = ground.deltaY;
+        var w = width/2;
+        var h = height/2;
+
+        for (var i = 0; i < volume; i++) {
+            var x = this.x+rand(-w, w);
+            var y = this.y+rand(-h, h);
+            layer.enterSmokeSmall({
+                position: {x: x, y: y},
+                velocity: {x: vx, y: vy, decay: 1},
+            });
+        }
+    },
 });
