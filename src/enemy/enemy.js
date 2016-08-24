@@ -473,7 +473,6 @@ phina.define("pbr.Enemy", {
                 app.playSE("explodeLarge");
                 break;
             case EXPLODE_GROUND:
-            var lower = this.parentScene.effectLayerLower;
                 pbr.Effect.enterExplodeGround(lower, {
                     position: {x: this.x, y: this.y},
                     velocity: {x: vx, y: vy, decay: 0.95},

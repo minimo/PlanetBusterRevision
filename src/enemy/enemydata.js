@@ -310,6 +310,10 @@ pbr.enemyData['Fragarach'] = {
     texName: "tex2",
     texWidth: 48,
     texHeight: 48,
+    texTrimX: 0,
+    texTrimY: 0,
+    texTrimWidth: 192,
+    texTrimHeight: 48,
     texIndex: 0,
 
     setup: function(param) {
@@ -318,19 +322,19 @@ pbr.enemyData['Fragarach'] = {
 
         switch (param) {
             case "c":
-                this.rotation = 0;
                 break;
             case "l":
-                this.rotation = 90;
                 break;
             case "r":
-                this.rotation = 270;
                 break;
         }
 
         this.turret = phina.display.Sprite("tex1", 32, 32).addChildTo(this);
         this.turret.setFrameTrimming(192, 32, 32, 32);
         this.turret.setFrameIndex(0);
+
+        this.vx = 0;
+        this.vy = -2;
     },
 
     algorithm: function() {
@@ -345,8 +349,12 @@ pbr.enemyData['Fragarach'] = {
             this.index = (this.index+1)%4;
             this.body.setFrameIndex(this.index);
         }
-        this.x += Math.cos((this.rotation+90)*toRad)*0.2;
-        this.y += Math.sin((this.rotation+90)*toRad)*0.2;
+        if (this.vx != 0 || this.vy != 0) {
+            this.addSmokeSmall(1);
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
     },
 };
 
