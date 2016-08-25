@@ -320,20 +320,21 @@ pbr.enemyData['Fragarach'] = {
         this.index = this.texIndex;
         this.phase = 0;
 
+        //パラメータにより進行方向を決定
+        this.speed = 1;
+        this.direction = 0;
         switch (param) {
             case "c":
-                this.vx = 0;
-                this.vy = -2;
+                this.direction = 0;
+                break;
+            case "b":
+                this.direction = 180;
                 break;
             case "l":
-                this.rotation = 90;
-                this.vx = 1;
-                this.vy = 0;
+                this.direction = 90;
                 break;
             case "r":
-                this.rotation = -90;
-                this.vx = -1;
-                this.vy = 0;
+                this.direction = 270;
                 break;
         }
 
@@ -343,7 +344,7 @@ pbr.enemyData['Fragarach'] = {
     },
 
     algorithm: function() {
-        //ターゲットの方向を向く
+        //砲台をターゲットの方向に向ける
         var ax = this.x - this.parentScene.player.x;
         var ay = this.y - this.parentScene.player.y;
         var rad = Math.atan2(ay, ax);
@@ -358,6 +359,11 @@ pbr.enemyData['Fragarach'] = {
             this.addSmokeSmall(1);
         }
 
+        //移動処理
+        this.rotation = this.direction;
+        var rad = this.direction * toRad;
+        this.vx = Math.sin(rad) * this.speed;
+        this.vy = Math.cos(rad) * this.speed;
         this.x += this.vx;
         this.y += this.vy;
     },
@@ -368,7 +374,7 @@ pbr.enemyData['Fragarach'] = {
  */
 pbr.enemyData['Brionac1'] = {
     //使用弾幕名
-    danmakuName: ["Brionac1_3", "Brionac1_2", "Brionac_ground1_3"],
+    danmakuName: ["Brionac1_1", "Brionac1_2", "Brionac_ground1_3"],
 
     //当り判定サイズ
     width:  40,
