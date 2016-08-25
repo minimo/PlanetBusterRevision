@@ -637,8 +637,8 @@ pbr.enemyData['Medusa'] = {
     danmakuName: null,
 
     //当り判定サイズ
-    width:  30,
-    height: 90,
+    width:  8,
+    height: 8,
 
     //耐久力
     def: 100,
@@ -657,23 +657,22 @@ pbr.enemyData['Medusa'] = {
 
     //機体用テクスチャ情報
     texName: "tex1",
-    texWidth: 32,
-    texHeight: 32,
+    texWidth: 8,
+    texHeight: 24,
     texIndex: 0,
     texTrimX: 192,
-    texTrimY: 96,
-    texTrimWidth: 64,
+    texTrimY: 64,
+    texTrimWidth: 8,
     texTrimHeight: 24,
 
-    //投下アイテム種類
-    kind: 0,
-
     setup: function(enterParam) {
+        this.body.setOrigin(0.5, 0.0);
+
         //一定時間ごとに煙だすよ
         this.tweener.clear()
-            .wait(5)
+            .wait(3)
             .call(function() {
-                layer.enterSmoke({
+                this.parentScene.effectLayerMiddle.enterSmokeSmall({
                     position: {x: this.x, y: this.y},
                     velocity: {x: 0, y: 0, decay: 1},
                     delay: 0
@@ -681,16 +680,34 @@ pbr.enemyData['Medusa'] = {
             }.bind(this))
             .setLoop(true);
 
+        //自動追尾設定
+        this.isHoming = true;
+
+        //移動情報
         this.vx = 0;
         this.vy = 0;
-        this.spd = 3;
+        this.spd = 0.05;
+        this.maxSpeed = 3;
     },
 
     algorithm: function() {
-        this.lookAt();
 
-        this.vx = Math.sin(this.rotation*toRad)*this.spd;
-        this.vy = Math.cos(this.rotation*toRad)*this.spd;
+        if (this.isHoming) {
+            this.lookAt();
+            var rad = (this.rotation+90)*toRad
+            this.vx += Math.cos(rad)*this.spd;
+            this.vy += Math.sin(rad)*this.spd;
+/*
+            var vec = phina.geom.Vector2(this.x, this.y);
+            var len = vec.length();
+            if (len > this.maxSpeed) {
+                this.vx = vec.x / len * this.maxSpeed;
+                this.vy = vec.y / len * this.maxSpeed;
+            }
+*/
+        }
+        var dis = distanceSq(this, this.player);
+        if (dis < 4096) this.isHoming = false;
 
         this.x += this.vx;
         this.y += this.vy;
