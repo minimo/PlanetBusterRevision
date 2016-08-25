@@ -12,7 +12,7 @@ pbr.enemyData = pbr.enemyData || [];
  */
 pbr.enemyData['Hornet'] = {
     //使用弾幕名
-    danmakuName: "Hornet",
+    danmakuName: ["Hornet1", "Hornet2", "Hornet3"],
 
     //当り判定サイズ
     width:  16,
@@ -50,7 +50,6 @@ pbr.enemyData['Hornet'] = {
 
         //行動パターン分岐
         this.pattern = enterParam;
-        this.bulletPattern = "Hornet"+enterParam;
         switch (enterParam) {
             case 1:
                 this.tweener.moveBy(0, 300, 120, "easeOutQuart")
@@ -62,11 +61,19 @@ pbr.enemyData['Hornet'] = {
                 this.moveTo(this.player, 5, true);
                 break;
             case 3:
-                this.tweener.moveBy(0, 300, 120, "easeOutQuart")
-                    .wait(1000)
+                this.tweener.moveBy(0, 200, 120, "easeOutQuart")
+                    .wait(600)
+                    .moveBy(0, -300, 120)
                     .call(function(){this.phase++;}.bind(this));
+                this.startDanmaku(this.danmakuName[2]);
                 break;
         }
+
+        //ミサイル発射
+        this.on('bulletmissile', function(e) {
+            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx = -0.5; en.vy = -0.5;
+            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx =  0.5; en.vy = -0.5;
+        }.bind(this));
     },
 
     algorithm: function() {
@@ -641,10 +648,10 @@ pbr.enemyData['Medusa'] = {
     height: 8,
 
     //耐久力
-    def: 100,
+    def: 10,
 
     //得点
-    point: 1000,
+    point: 500,
 
     //表示レイヤー番号
     layer: LAYER_OBJECT,

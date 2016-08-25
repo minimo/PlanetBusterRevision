@@ -58,7 +58,7 @@ var THIN = bullet({ type: "THIN" });
 var DM  = bullet({ dummy: true });
 
 //攻撃ヘリ「ホーネット」
-pbr.danmaku.Hornet = new bulletml.Root({
+pbr.danmaku.Hornet1 = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
@@ -68,6 +68,32 @@ pbr.danmaku.Hornet = new bulletml.Root({
                 interval(10),
             ]),
             interval(120),
+        ]),
+    ]),
+});
+
+//攻撃ヘリ「ホーネット」
+pbr.danmaku.Hornet2 = new bulletml.Root({
+    top0: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(0)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0), direction(0, "sequence")),
+                interval(10),
+            ]),
+            interval(120),
+        ]),
+    ]),
+});
+
+//攻撃ヘリ「ホーネット」
+pbr.danmaku.Hornet3 = new bulletml.Root({
+    top0: action([
+        interval(60),
+        repeat(Infinity, [
+            notify('missile'),
+            interval(240),
         ]),
     ]),
 });
