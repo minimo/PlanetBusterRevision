@@ -567,7 +567,10 @@ phina.define("pbr.MainScene", {
     //敵ユニット単位の投入
     enterEnemyUnit: function(name) {
         var unit = pbr.enemyUnit[name];
-        if (unit === undefined)return;
+        if (unit === undefined){
+            console.warn("Undefined unit: "+name);
+            return;
+        }
 
         var len = unit.length;
         for (var i = 0; i < len; i++) {
