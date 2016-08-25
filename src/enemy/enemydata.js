@@ -289,7 +289,7 @@ pbr.enemyData['MournBlade'] = {
  */
 pbr.enemyData['Fragarach'] = {
     //使用弾幕名
-    danmakuName: "basic",
+    danmakuName: "Fragarach",
 
     //当り判定サイズ
     width:  48,
@@ -677,7 +677,7 @@ pbr.enemyData['Medusa'] = {
 
         //一定時間ごとに煙だすよ
         this.tweener.clear()
-            .wait(3)
+            .wait(5)
             .call(function() {
                 this.parentScene.effectLayerMiddle.enterSmokeSmall({
                     position: {x: this.x, y: this.y},

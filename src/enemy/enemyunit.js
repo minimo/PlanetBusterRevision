@@ -128,31 +128,28 @@ pbr.enemyUnit = {
  *  中型戦車「フラガラッハ」
  */
 "Fragarach-center": [
-    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.1, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.1, param:"c" },
     { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.2, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.3, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.4, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.3, param:"c" },
 
     { "name": "Fragarach", "x": SC_W*0.5, "y":-SC_H*0.35, param:"c" },
     { "name": "Fragarach", "x": SC_W*0.5, "y":-SC_H*0.25, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.5, "y":-SC_H*0.45, param:"c" },
 
-    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.1, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.1, param:"c" },
     { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.2, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.3, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.4, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.3, param:"c" },
 ],
 "Fragarach-left": [
-    { "name": "Fragarach", "x":-SC_W*0.1, "y": SC_H*0.1, param:"l" },
+    { "name": "Fragarach", "x":-SC_W*0.05, "y": SC_H*0.0, param:"l" },
+    { "name": "Fragarach", "x":-SC_W*0.05, "y": SC_H*0.1, param:"l" },
     { "name": "Fragarach", "x":-SC_W*0.1, "y": SC_H*0.2, param:"l" },
-    { "name": "Fragarach", "x":-SC_W*0.2, "y": SC_H*0.3, param:"l" },
-    { "name": "Fragarach", "x":-SC_W*0.2, "y": SC_H*0.4, param:"l" },
+    { "name": "Fragarach", "x":-SC_W*0.1, "y": SC_H*0.3, param:"l" },
 ],
 "Fragarach-right": [
-    { "name": "Fragarach", "x": SC_W*1.1, "y": SC_H*0.1, param:"r" },
+    { "name": "Fragarach", "x": SC_W*1.05, "y": SC_H*0.0, param:"r" },
+    { "name": "Fragarach", "x": SC_W*1.05, "y": SC_H*0.1, param:"r" },
     { "name": "Fragarach", "x": SC_W*1.1, "y": SC_H*0.2, param:"r" },
-    { "name": "Fragarach", "x": SC_W*1.2, "y": SC_H*0.3, param:"r" },
-    { "name": "Fragarach", "x": SC_W*1.2, "y": SC_H*0.4, param:"r" },
+    { "name": "Fragarach", "x": SC_W*1.1, "y": SC_H*0.3, param:"r" },
 ],
 
 /*

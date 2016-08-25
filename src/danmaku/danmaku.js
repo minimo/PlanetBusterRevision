@@ -204,6 +204,21 @@ pbr.danmaku.MournBlade = new bulletml.Root({
     ]),
 });
 
+
+//中型戦車「フラガラッハ」
+pbr.danmaku.Fragarach = new bulletml.Root({
+    top: action([
+        interval(60),
+        repeat(Infinity, [
+            fire(DM, spd(0.5), direction(0)),
+            repeat("$burst + 1", [
+                fire(RS, spdSeq(0.15), direction(0, "sequence")),
+            ]),
+            interval(120),
+        ]),
+    ]),
+});
+
 //浮遊砲台「ブリュナーク」（設置１）
 pbr.danmaku.Brionac1_1 = new bulletml.Root({
     top0: action([
