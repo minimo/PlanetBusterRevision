@@ -37,21 +37,38 @@ phina.define("pbr.Stage1", {
         this.add( 120, "MudDauber-left");
         this.add(  60, "MudDauber-right");
 
+        this.add(60, function(app) {
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:1.0}, 300, "easeInOutCubic");
+        });
+
         this.add(  90, "Hornet1-left");
         this.add(  20, "Hornet1-right");
         this.add( 120, "Hornet1-center");
 
         this.add( 120, "ToyBox-p-right");
 
-        this.add( 120, "Fragarach-left");
-        this.add(  60, "MournBlade-right");
+        this.add( 120, "Fragarach-center");
 
+        this.add( 120, "Hornet1-left");
+        this.add(   1, "Hornet1-right");
+        this.add( 180, "Hornet1-center");
+
+        this.add( 120, "Fragarach-left");
         this.add(  60, "Fragarach-right");
-        this.add( 120, "MournBlade-left");
+
+        this.add( 120, "Hornet3-center");
+
+        this.add( 120, "Fragarach-left2");
+        this.add(   1, "Fragarach-right2");
+
+        this.add(60, function(app) {
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
+        });
 
         this.add(  60, "Hornet1-left");
         this.add(  60, "Hornet1-right");
         this.add(  60, "Hornet1-center");
+        this.add( 120, "Hornet3-center");
 
         //中ボス
         this.add( 360, "ThorHammer", {boss: true});
@@ -79,11 +96,6 @@ phina.define("pbr.Stage1", {
 
         this.add(  30, "BigWing-left");
         this.add( 180, "BigWing-right");
-        this.add( 180, "BigWing-left");
-
-        this.add(120, function(app) {
-            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 600, "easeInOutSine");
-        });
 
         this.add( 120, "Hornet2-left");
         this.add(  20, "Hornet2-right");
