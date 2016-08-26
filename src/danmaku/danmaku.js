@@ -103,7 +103,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
         interval(120),
         repeat(Infinity, [
-            fire(DM, spd(0.8), direction(0), offsetX(0), offsetY(-10)),
+            fire(DM, spd(0.6), direction(0), offsetX(0), offsetY(-10)),
             repeat("$burst + 3", [
                 fire(THIN, spdSeq(0), direction(0, "sequence"), offsetY(30)),
                 interval(10),
@@ -114,7 +114,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top1: action([
         interval(120),
         repeat(Infinity, [
-            fire(DM, spd(0.7), direction(180, "absolute"), offsetX(-32)),
+            fire(DM, spd(0.5), direction(180, "absolute"), offsetX(-32)),
             repeat("$burst + 3", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
                 fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(-32)),
@@ -128,7 +128,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top2: action([
         interval(120),
         repeat(Infinity, [
-            fire(DM, spd(0.7), direction(140, "absolute"), offsetX(32)),
+            fire(DM, spd(0.5), direction(140, "absolute"), offsetX(32)),
             repeat("$burst + 3", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
                 fire(RS, spdSeq(0), direction(20, "sequence"), offsetX(32)),
@@ -179,7 +179,7 @@ pbr.danmaku.MournBlade = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(0), offsetX(0), offsetY(-32)),
+            fire(DM, spd(0.7), direction(0), offsetX(0), offsetY(-32)),
             repeat("$burst + 1", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
@@ -192,7 +192,7 @@ pbr.danmaku.MournBlade = new bulletml.Root({
     top1: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(1), direction(0), offsetX(0), offsetY(32)),
+            fire(DM, spd(0.7), direction(0), offsetX(0), offsetY(32)),
             repeat("$burst + 1", [
                 fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
@@ -214,7 +214,7 @@ pbr.danmaku.Fragarach = new bulletml.Root({
             repeat("$burst + 1", [
                 fire(RS, spdSeq(0.15), direction(0, "sequence")),
             ]),
-            interval(120),
+            interval(60),
         ]),
     ]),
 });
