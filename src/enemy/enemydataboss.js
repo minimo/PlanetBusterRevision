@@ -296,6 +296,10 @@ pbr.enemyData['Golyat'] = {
         this.on('bulletfinish', function(e) {
             this.danmakuNumber = (this.danmakuNumber+1)%3;
             this.startDanmaku(this.danmakuName[this.danmakuNumber]);
+
+            //アーム側弾幕設定切替
+            this.armL.startDanmaku(this.armL.danmakuName[this.danmakuNumber]);
+            this.armR.startDanmaku(this.armR.danmakuName[this.danmakuNumber]);
         });
 
         //アームベース左
@@ -442,7 +446,7 @@ pbr.enemyData['Golyat'] = {
 //アーム
 pbr.enemyData['GolyatArm'] = {
     //使用弾幕パターン
-    danmakuName: "GolyatArm",
+    danmakuName: ["GolyatArm1", "GolyatArm2", "GolyatArm3"],
 
     //当り判定サイズ
     width:  56,
@@ -535,51 +539,6 @@ pbr.enemyData['GolyatArm'] = {
 
         //判定有無は親にあわせる
         this.isCollision = this.parentEnemy.isCollision;
-    },
-};
-
-//アーム
-pbr.enemyData['GolyatTurret'] = {
-    //使用弾幕パターン
-    danmakuName: "GolyatTurret",
-
-    //当り判定サイズ
-    width:  56,
-    height: 200,
-
-    //耐久力
-    def: 10000,
-
-    //得点
-    point: 5000,
-
-    //表示レイヤー番号
-    layer: LAYER_OBJECT_LOWER,
-
-    //敵タイプ
-    type: ENEMY_BOSS_EQUIP,
-
-    //爆発タイプ
-    explodeType: EXPLODE_MIDDLE,
-
-    //機体用テクスチャ情報
-    texName: "tex_boss1",
-    texWidth: 48,
-    texHeight: 48,
-    texTrimX: 0,
-    texTrimY: 192,
-    texTrimWidth: 144,
-    texTrimHeight: 48,
-    texIndex: 0,
-
-    setup: function(enterParam) {
-        this.isCollision = false;
-        this.isGround = true;
-    },
-
-    algorithm: function() {
-        this.x = this.parentEnemy.x+this.offsetX;
-        this.y = this.parentEnemy.y+this.offsetY;
     },
 };
 
