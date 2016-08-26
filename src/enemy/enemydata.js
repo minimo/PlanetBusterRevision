@@ -328,6 +328,7 @@ pbr.enemyData['Fragarach'] = {
         this.phase = 0;
 
         //パラメータにより進行方向を決定
+        this.param = param;
         this.speed = 1;
         this.direction = 0;
         switch (param) {
@@ -364,6 +365,13 @@ pbr.enemyData['Fragarach'] = {
         }
         if (this.vx != 0 || this.vy != 0) {
             this.addSmokeSmall(1);
+        }
+
+        if (this.param == "l" && this.x > SC_W*0.4) {
+            this.direction = 180;
+        }
+        if (this.param == "r" && this.x > SC_W*0.6) {
+            this.direction = 180;
         }
 
         //移動処理
