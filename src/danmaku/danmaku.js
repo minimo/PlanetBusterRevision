@@ -103,7 +103,7 @@ pbr.danmaku.MudDauber = new bulletml.Root({
     top0: action([
         interval(120),
         repeat(Infinity, [
-            fire(DM, spd(0.6), direction(0), offsetX(0), offsetY(-10)),
+            fire(DM, spd(0.6), direction(0), offsetY(30)),
             repeat("$burst + 3", [
                 fire(THIN, spdSeq(0), direction(0, "sequence"), offsetY(30)),
                 interval(10),
@@ -179,24 +179,11 @@ pbr.danmaku.MournBlade = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(0.7), direction(0), offsetX(0), offsetY(-32)),
+            fire(DM, spd(0.7), direction(0), offsetY(-32)),
             repeat("$burst + 1", [
-                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(-32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(-32)),
-                fire(DM, spdSeq(0.05), direction(-20, "sequence")),
-            ]),
-            interval(60),
-        ]),
-    ]),
-    top1: action([
-        interval(60),
-        repeat(Infinity, [
-            fire(DM, spd(0.7), direction(0), offsetX(0), offsetY(32)),
-            repeat("$burst + 1", [
-                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetX(32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
-                fire(RS, spdSeq(0), direction(10, "sequence"), offsetX(32)),
+                fire(RS, spdSeq(0), direction( 0, "sequence"), offsetY(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetY(-32)),
+                fire(RS, spdSeq(0), direction(10, "sequence"), offsetY(-32)),
                 fire(DM, spdSeq(0.05), direction(-20, "sequence")),
             ]),
             interval(60),
