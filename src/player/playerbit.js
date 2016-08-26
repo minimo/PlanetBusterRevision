@@ -65,7 +65,7 @@ phina.define("pbr.PlayerBit", {
         var that = this;
         this.shadow = phina.display.Sprite("bitBlack", 32, 32);
         this.shadow.layer = LAYER_SHADOW;
-        this.shadow.alpha = 0.3;
+        this.shadow.alpha = 0.5;
         this.shadow.addChildTo(this.parentScene);
         this.shadow.setFrameIndex(0).setScale(0.5);
         this.shadow.update = function(e) {

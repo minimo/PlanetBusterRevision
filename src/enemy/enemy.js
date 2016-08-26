@@ -596,7 +596,7 @@ phina.define("pbr.Enemy", {
     addShadow: function() {
         this.shadow = phina.display.Sprite(this.texName+"Black", this.texWidth, this.texHeight);
         this.shadow.layer = LAYER_SHADOW;
-        this.shadow.alpha = 0.3;
+        this.shadow.alpha = 0.5;
         this.shadow.addChildTo(this.parentScene);
         this.shadow.setFrameTrimming(this.texTrimX, this.texTrimY, this.texTrimWidth, this.texTrimHeight);
         this.shadow.setFrameIndex(this.texIndex);

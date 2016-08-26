@@ -341,7 +341,7 @@ phina.define("pbr.Player", {
         var that = this;
         this.shadow = phina.display.Sprite("gunshipBlack", 48, 48);
         this.shadow.layer = LAYER_SHADOW;
-        this.shadow.alpha = 0.3;
+        this.shadow.alpha = 0.5;
         this.shadow.addChildTo(this.parentScene);
         this.shadow.setFrameIndex(4).setScale(0.66);
         this.shadow.update = function(e) {
