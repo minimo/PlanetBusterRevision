@@ -71,8 +71,8 @@ pbr.enemyData['Hornet'] = {
 
         //ミサイル発射
         this.on('bulletmissile', function(e) {
-            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx = -0.5; en.vy = -0.5;
-            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx =  0.5; en.vy = -0.5;
+            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx = -0.5; en.vy = -2.0;
+            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx =  0.5; en.vy = -2.0;
         }.bind(this));
     },
 
@@ -329,7 +329,7 @@ pbr.enemyData['Fragarach'] = {
 
         //パラメータにより進行方向を決定
         this.param = param;
-        this.speed = 1;
+        this.speed = 0.5;
         this.direction = 0;
         switch (param) {
             case "c":
@@ -712,18 +712,9 @@ pbr.enemyData['Medusa'] = {
             var rad = (this.rotation+90)*toRad
             this.vx += Math.cos(rad)*this.spd;
             this.vy += Math.sin(rad)*this.spd;
-/*
-            var vec = phina.geom.Vector2(this.x, this.y);
-            var len = vec.length();
-            if (len > this.maxSpeed) {
-                this.vx = vec.x / len * this.maxSpeed;
-                this.vy = vec.y / len * this.maxSpeed;
-            }
-*/
+        } else {
+            this.lookAt({x: this.x+this.vx, y: this.y+this.vy});
         }
-        var dis = distanceSq(this, this.player);
-        if (dis < 4096) this.isHoming = false;
-
         this.x += this.vx;
         this.y += this.vy;
     },
