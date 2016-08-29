@@ -250,6 +250,9 @@ pbr.enemyData['Golyat'] = {
         this.isHover = true;
         this.isSmoke = true;
 
+        //発狂モードフラグ
+        this.isStampede = false;
+
         this.stopDanmaku();
 
         var that = this;
@@ -368,6 +371,11 @@ pbr.enemyData['Golyat'] = {
             this.rad -= 0.01
         }
 
+        if (this.phase == 3) {
+            this.tweener.to({x: SC_W*0.5}, 180, "easeInOutSine");
+            this.phase++;
+        }
+
         //土煙出すよ
         if (!this.isDead && this.isSmoke) {
             var vy = this.parentScene.ground.deltaY;
@@ -440,6 +448,13 @@ pbr.enemyData['Golyat'] = {
             .to({speed: -1.0}, 30, "easeInOutCubic")
             .wait(90)
             .to({speed: -7.0}, 60, "easeInOutCubic");
+
+        //発狂モード移行
+        if (this.armL.def == 0 && this.armR.def == 0) {
+            this.isStampede = true;
+            this.startDanmaku[this.danmakuName[3]];
+            this.phase++;
+        }
     },
 };
 

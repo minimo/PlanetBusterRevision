@@ -148,6 +148,17 @@ pbr.danmaku.Golyat1_1 = new bulletml.Root({
 //１面ボス（パターン２）
 pbr.danmaku.Golyat1_2 = new bulletml.Root({
     top0: action([
+        notify("start"),
+        interval(120),
+        fire(BEM, spd(0.5), direction(0, "absolute")),
+        repeat("$burst + 4", [
+            repeat(8, [
+                fire(BEM, spdSeq(0), direction(45, "sequence")),
+            ]),
+            interval(30),
+        ]),
+        interval(60),
+        notify("end"),
         interval(60),
         notify("finish"),
     ]),
@@ -255,16 +266,8 @@ pbr.danmaku.GolyatArm3 = new bulletml.Root({
         repeat(Infinity, [
             notify("start1"),
             interval(30),
-            fire(DM, spd(0.6), direction(-20), offsetX(0), offsetY(-40)),
-            repeat("$burst + 1", [
-                fire(RM, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(-40)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(-40)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(-40)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(-40)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(-40)),
-                fire(DM, spdSeq(0.1), direction(-20, "sequence")),
-                interval(10),
-            ]),
+            notify("missile1"),
+            interval(30),
             notify("end1"),
             interval(120),
         ]),
@@ -273,16 +276,8 @@ pbr.danmaku.GolyatArm3 = new bulletml.Root({
         repeat(Infinity, [
             notify("start2"),
             interval(30),
-            fire(DM, spd(0.8), direction(-20), offsetX(0), offsetY(20)),
-            repeat("$burst + 1", [
-                fire(RM, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(20)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(20)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(20)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(20)),
-                fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(20)),
-                fire(DM, spdSeq(0.1), direction(-20, "sequence")),
-                interval(10),
-            ]),
+            notify("missile2"),
+            interval(30),
             notify("end2"),
             interval(120),
         ]),
