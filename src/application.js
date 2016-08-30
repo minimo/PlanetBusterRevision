@@ -88,6 +88,12 @@ phina.define("pbr.Application", {
         bombStock: 2,   //ボム残数
         autoBomb: false,//オートボムフラグ
 
+        //エクステンド設定
+        extendScore: [50000, 200000, 500000],
+        extendAdvance: 0,
+        isExtendEvery: false,
+        extendEveryScore: 200000,
+
         //デフォルト設定
         _defaultSetting: {
             zanki: 3,

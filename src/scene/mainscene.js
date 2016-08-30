@@ -337,8 +337,21 @@ phina.define("pbr.MainScene", {
                 });
         }
 
+        //ボス体力ゲージ設定
         if (this.bossObject) {
             this.bossGauge.setValue(this.bossObject.def);
+        }
+
+        //エクステンドチェック
+        var extendScore = app.extendScore[app.extendAdvance];
+        if (app.isExtendEvery) {
+            extendScore = app.extendEveryScore * (app.extendAdvance + 1);
+        }
+        if (extendScore != undefined) {
+            if (app.score > extendScore) {
+                app.extendAdvance++;
+                app.zanki++;
+            }
         }
 
         var kb = app.keyboard;
