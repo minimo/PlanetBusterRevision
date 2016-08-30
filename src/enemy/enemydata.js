@@ -71,8 +71,8 @@ pbr.enemyData['Hornet'] = {
 
         //ミサイル発射
         this.on('bulletmissile', function(e) {
-            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx = -0.5; en.vy = -2.0;
-            var en = this.parentScene.enterEnemy("Medusa", this.x, this.y); en.vx =  0.5; en.vy = -2.0;
+            this.parentScene.enterEnemy("Medusa", this.x, this.y).setHoming(true).setVelocity(-0.5, -2.0);
+            this.parentScene.enterEnemy("Medusa", this.x, this.y).setHoming(true).setVelocity( 0.5, -2.0);
         }.bind(this));
     },
 
