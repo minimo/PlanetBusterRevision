@@ -164,6 +164,9 @@ phina.define("pbr.Enemy", {
             || this.type == ENEMY_BOSS
             || this.type == ENEMY_BOSS_EQUIP) this.isBoss = true;
 
+        //それ以外の固有変数をコピー
+        this.$safe(d);
+
         //パラメータセットアップ
         this.parentScene = app.currentScene;
         this.player = this.parentScene.player;
