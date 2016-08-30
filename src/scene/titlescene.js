@@ -212,6 +212,7 @@ phina.define("pbr.TitleScene", {
     },
 
     practiceMode: function() {
+        this.exit("practice");
     },
 
     settingMode: function() {

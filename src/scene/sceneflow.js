@@ -30,6 +30,10 @@ phina.define("pbr.SceneFlow", {
                 label: "arcade",
                 className: "pbr.ArcadeMode",
                 nextLabel: "title",
+            },{
+                label: "practice",
+                className: "pbr.PracticeMode",
+                nextLabel: "title",
             }],
         }));
     }
@@ -58,6 +62,37 @@ phina.define("pbr.ArcadeMode", {
                 label: "gameover",
                 className: "pbr.GameOverScene",
                 nextLabel: "toTitle",
+            },{
+                label: "toTitle",
+                className: "pbr.SceneFlow",
+                arguments: {
+                    startLabel: "title",
+                },
+            }],
+        });
+    }
+});
+
+phina.define("pbr.PracticeMode", {
+    superClass: "phina.game.ManagerScene",
+
+    init: function() {
+        this.superInit({
+            startLabel: "stage9load",
+            scenes: [{
+                label: "stage9load",
+                className: "pbr.LoadingScene",
+                arguments: {
+                    assetType: "stage9"
+                },
+                nextLabel: "stage9",
+            },{
+                label: "stage9",
+                className: "pbr.MainScene",
+                arguments: {
+                    stageId: 9,
+                    isPractice: true,
+                },
             },{
                 label: "toTitle",
                 className: "pbr.SceneFlow",

@@ -68,6 +68,11 @@ phina.define("pbr.Application", {
                     "stage2":        "assets/sounds/expsy.mp3",
                 },
             },
+            "stage9": {
+                sound: {
+                    "stage9":        "assets/sounds/expsy.mp3",
+                },
+            },
         },
     },
 

@@ -17,6 +17,9 @@ phina.define("pbr.MainScene", {
         stageId: 1,
         maxStageId: 2,
 
+        //プラクティスモードフラグ
+        isPractice: false,
+
         //ステージクリアフラグ
         isStageClear: false,
 
@@ -66,6 +69,7 @@ phina.define("pbr.MainScene", {
 
         option = (option || {}).$safe({stageId: 1});
         this.stageId = option.stageId;
+        this.isPractice = (option.isPractice == undefined)? false: option.isPractice;
 
         //バックグラウンド
         var param = {
@@ -289,7 +293,11 @@ phina.define("pbr.MainScene", {
         //ゲームオーバー時
         this.on("gameover", function() {
             app.stopBGM();
-            this.exit("gameover");
+            if (this.isPractice) {
+                this.exit("toTitle");
+            } else {
+                this.exit("gameover");
+            }
         }.bind(this));
     },
     
@@ -366,8 +374,13 @@ phina.define("pbr.MainScene", {
                 this.ground = pbr.Stage2Ground().addChildTo(this);
                 break;
             case 3:
-                this.stage = pbr.Stage1(this, this.player);
-                this.ground = pbr.Stage1Ground().addChildTo(this);
+                this.stage = pbr.Stage3(this, this.player);
+                this.ground = pbr.Stage3Ground().addChildTo(this);
+                break;
+            case 9:
+                //テスト用ステージ
+                this.stage = pbr.Stage9(this, this.player);
+                this.ground = pbr.Stage9Ground().addChildTo(this);
                 break;
         }
         this.time = 0;
@@ -389,7 +402,7 @@ phina.define("pbr.MainScene", {
         m1.tweener.wait(30).fadeIn(15).wait(171).fadeOut(15).call(function(){this.remove()}.bind(m1));
 
         //ステージ名表示
-        var name = pbr.Application.stageName[this.stageId];
+        var name = pbr.Application.stageName[this.stageId] || "Practice";
         var param = {text: "_", fill:"white", fontFamily: "Orbitron", align: "center", baseline: "middle", fontSize: 16, fontWeight: 200, outlineWidth: 2};
         var m2 = phina.display.Label(param, 50)
             .addChildTo(this)
