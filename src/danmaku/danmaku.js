@@ -197,9 +197,10 @@ pbr.danmaku.Fragarach = new bulletml.Root({
     top: action([
         interval(60),
         repeat(Infinity, [
-            fire(DM, spd(0.5), direction(0)),
-            repeat("$burst + 1", [
-                fire(RS, spdSeq(0.15), direction(0, "sequence")),
+            fire(RS, spd(0.5), direction(0)),
+            repeat("$burst", [
+                fire(RS, spdSeq(0.15), direction(-5, "sequence")),
+                fire(RS, spdSeq(0.15), direction(10, "sequence")),
             ]),
             interval(60),
         ]),
@@ -213,12 +214,12 @@ pbr.danmaku.Brionac1_1 = new bulletml.Root({
         repeat(Infinity, [
             fire(DM, spd(2), direction(0, "absolute")),
             repeat("$burst + 2", [
-                fire(RM, spdSeq(0), direction(0, "sequence")),
-                fire(RM, spdSeq(0), direction(1, "sequence")),
+                fire(RM, spdSeq(0.15), direction( 0, "sequence")),
+                fire(RM, spdSeq(0), direction( 1, "sequence")),
                 fire(RM, spdSeq(0), direction(-2, "sequence")),
                 interval(2),
-                fire(RM, spdSeq(0), direction(3, "sequence")),
-                fire(RM, spdSeq(0), direction(5, "sequence")),
+                fire(RM, spdSeq(0.15), direction( 3, "sequence")),
+                fire(RM, spdSeq(0), direction( 5, "sequence")),
                 fire(RM, spdSeq(0), direction(-7, "sequence")),
                 interval(2),
             ]),
