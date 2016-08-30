@@ -696,11 +696,11 @@ pbr.enemyData['Medusa'] = {
             .setLoop(true);
 
         //自動追尾設定
-        this.isHoming = true;
+        this.isHoming = false;
 
         //移動情報
         this.vx = 0;
-        this.vy = 0;
+        this.vy = 3;
         this.spd = 0.05;
         this.maxSpeed = 3;
     },
@@ -709,13 +709,31 @@ pbr.enemyData['Medusa'] = {
 
         if (this.isHoming) {
             this.lookAt();
-            var rad = (this.rotation+90)*toRad
-            this.vx += Math.cos(rad)*this.spd;
-            this.vy += Math.sin(rad)*this.spd;
+            var vx = this.player.x-this.x;
+            var vy = this.player.y-this.y;
+            var d = Math.sqrt(vx*vx+vy*vy);
+            this.vx += vx/d*this.spd;
+            this.vy += vy/d*this.spd;
+            if (d < 16) this.isHoming = false;
         } else {
             this.lookAt({x: this.x+this.vx, y: this.y+this.vy});
         }
         this.x += this.vx;
         this.y += this.vy;
+    },
+
+    setHoming: function(f) {
+        if (f && !this.isHoming) {
+            this.vx = 0;
+            this.vy = 0;
+        }
+        this.isHoming = f;
+        return this;
+    },
+
+    setVelocity: function(x, y) {
+        this.vx = x;
+        this.vy = y;
+        return this;
     },
 }
