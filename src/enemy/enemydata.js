@@ -302,7 +302,7 @@ pbr.enemyData['Fragarach'] = {
     point: 500,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_LOWER,
 
     //敵タイプ
     type: ENEMY_SMALL,
@@ -370,7 +370,7 @@ pbr.enemyData['Fragarach'] = {
         if (this.param == "l" && this.x > SC_W*0.4) {
             this.direction = 180;
         }
-        if (this.param == "r" && this.x > SC_W*0.6) {
+        if (this.param == "r" && this.x < SC_W*0.6) {
             this.direction = 180;
         }
 
