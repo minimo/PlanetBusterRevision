@@ -75,7 +75,7 @@ phina.define("pbr.MenuDialog", {
         };
         this.cursol = phina.display.RectangleShape(paramCursol)
             .addChildTo(this.cursolBase)
-            .setPosition(SC_W*0.5, SC_H*0.6-3)
+            .setPosition(SC_W*0.5, SC_H*0.6-3);
 
         this.time = 0;
 
@@ -130,7 +130,7 @@ phina.define("pbr.MenuDialog", {
         }
         if (this.time > 10) {
             if (kb.getKey("Z") || kb.getKey("space")) {
-                this.selectMenu(this.cursol.sel);
+                this.decision(this.cursol.sel);
             }
         }
         this.time++;
@@ -206,7 +206,7 @@ phina.define("pbr.MenuDialog", {
             this.click[i].$extend({alpha: 0, selY: y, sel: i});
             this.click[i].onpointstart = function() {
                 if (that.cursol.sel == this.sel) {
-                    that.selectMenu(that.cursol.sel);
+                    that.decision(that.cursol.sel);
                 } else {
                     app.playSE("select");
                     that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
@@ -247,13 +247,10 @@ phina.define("pbr.MenuDialog", {
         this.bg.tweener.clear().to({alpha: 0.0}, 500, "easeOutCubic");
     },
 
-    //メニュー項目選択
-    selectMenu: function(sel) {
+    //メニュー項目選択決定
+    decision: function(sel) {
         this.select = sel;
-        this.flare('menuselect');
-    },
-
-    createTopMenu: function() {
+        this.flare('decision');
     },
 });
 
@@ -316,6 +313,25 @@ phina.define("pbr.Selector", {
         }
 
         var that = this;
+
+        //選択操作用
+        var paramC = {
+            width: this.option.width,
+            height:SC_H*0.05,
+            fill: "rgba(255, 255, 255, 0.0)",
+            stroke: null,
+            backgroundColor: 'transparent',
+        };
+        this.btnC = phina.display.RectangleShape(paramC)
+            .addChildTo(this)
+            .setPosition(0, 0)
+            .setInteractive(true);
+        this.btnC.onpointstart = function() {
+            //決定操作時、イベント発火
+            this.flare('desicion');
+        }
+
+        //操作ボタン
         //Shape用パラメータ
         var paramShp = {
             backgroundColor: 'transparent',
@@ -327,7 +343,6 @@ phina.define("pbr.Selector", {
             sides: 5,
             sideIndent: 0.38,
         };
-        //操作ボタン
         var paramBT = {
             width: 15,
             height:SC_H*0.05,
@@ -360,6 +375,7 @@ phina.define("pbr.Selector", {
         this.btnR2.rotation = -30;
     },
 
+    //項目インクリメント
     inc: function() {
         this.selectItem++;
         if (this.selectItem > this.option.item.length-1) {
@@ -373,6 +389,7 @@ phina.define("pbr.Selector", {
         return this;
     },
 
+    //項目デクリメント
     dec: function() {
         this.selectItem--;
         if (this.selectItem < 0) {

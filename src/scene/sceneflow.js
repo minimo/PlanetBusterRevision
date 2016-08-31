@@ -6,6 +6,7 @@
  *
  */
 
+//基本シーンフロー
 phina.define("pbr.SceneFlow", {
     superClass: "phina.game.ManagerScene",
 
@@ -32,13 +33,14 @@ phina.define("pbr.SceneFlow", {
                 nextLabel: "title",
             },{
                 label: "practice",
-                className: "pbr.PracticeScene",
+                className: "pbr.PracticeMode",
                 nextLabel: "title",
             }],
         }));
     }
 });
 
+//アーケードモードシーンフロー
 phina.define("pbr.ArcadeMode", {
     superClass: "phina.game.ManagerScene",
 
@@ -73,13 +75,38 @@ phina.define("pbr.ArcadeMode", {
     }
 });
 
+//プラクティスモードシーンフロー
 phina.define("pbr.PracticeMode", {
     superClass: "phina.game.ManagerScene",
 
     init: function() {
         this.superInit({
-            startLabel: "stage9load",
+            startLabel: "menu",
             scenes: [{
+                label: "menu",
+                className: "pbr.PracticeScene",
+            },
+
+            //ステージ１
+            {
+                label: "stage1load",
+                className: "pbr.LoadingScene",
+                arguments: {
+                    assetType: "stage1"
+                },
+                nextLabel: "stage1",
+            },{
+                label: "stage1",
+                className: "pbr.MainScene",
+                arguments: {
+                    stageId: 1,
+                    isPractice: true,
+                },
+                nextLabel: "toTitle",
+            },
+
+            //テスト用ステージ
+            {
                 label: "stage9load",
                 className: "pbr.LoadingScene",
                 arguments: {
@@ -93,7 +120,11 @@ phina.define("pbr.PracticeMode", {
                     stageId: 9,
                     isPractice: true,
                 },
-            },{
+                nextLabel: "toTitle",
+            },
+
+            //タイトルに戻る
+            {
                 label: "toTitle",
                 className: "pbr.SceneFlow",
                 arguments: {

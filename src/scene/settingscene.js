@@ -33,7 +33,7 @@ phina.define("pbr.SettingScene", {
         menuParam.item[2] = pbr.Selector();
 
         this.menu = pbr.MenuDialog(menuParam).addChildTo(this);
-        this.menu.on('menuselect', function(e) {
+        this.menu.on('decision', function(e) {
             var sel = e.target.select;
             if (sel == 3) {
                 this.menu.closeMenu();

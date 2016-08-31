@@ -42,19 +42,28 @@ phina.define("pbr.PracticeScene", {
             description: ["1", "2", "3", "4", "5"],
         };
         menuParam.item[0] = pbr.Selector(selectorParam);
+        menuParam.item[0].on('decision', function() {
+            this.menu.flare('decision');
+        }.bind(this));
 
         this.menu = pbr.MenuDialog(menuParam).addChildTo(this);
-        this.menu.on('menuselect', function(e) {
+        this.menu.on('decision', function(e) {
             var sel = e.target.select;
-            if (sel == 2) {
-                this.menu.closeMenu();
-                this.tweener.clear()
-                    .wait(600)
-                    .call(function(){
-                        app.popScene();
-                    });
+            switch (sel) {
+                case 0:
+                    break;
+                case 1:
+                    this.exit("stage9load");
+                    break;
+                case 2:
+                    this.menu.closeMenu();
+                    this.tweener.clear()
+                        .wait(600)
+                        .call(function(){
+                            this.exit("toTitle");
+                        }.bind(this));
+                    break;
             }
         }.bind(this));
     },
 });
-
