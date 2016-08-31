@@ -206,7 +206,10 @@ phina.define("pbr.MenuDialog", {
             this.click[i].$extend({alpha: 0, selY: y, sel: i});
             this.click[i].onpointstart = function() {
                 if (that.cursol.sel == this.sel) {
-                    that.decision(that.cursol.sel);
+                    if (that.item[this.sel] instanceof pbr.Selector) {
+                    } else {
+                        that.decision(that.cursol.sel);
+                    }
                 } else {
                     app.playSE("select");
                     that.cursol.tweener.clear().moveTo(SC_W*0.5, this.selY, 200, "easeOutCubic");
@@ -316,9 +319,9 @@ phina.define("pbr.Selector", {
 
         //選択操作用
         var paramC = {
-            width: this.option.width*0.6,
+            width: this.option.width*0.8,
             height: SC_H*0.05,
-            fill: "rgba(255, 255, 255, 0.0)",
+            fill: "rgba(255, 255, 255, 0.5)",
             stroke: null,
             backgroundColor: 'transparent',
         };
@@ -328,7 +331,7 @@ phina.define("pbr.Selector", {
             .setInteractive(true);
         this.btnC.onpointstart = function() {
             //決定操作時、イベント発火
-            this.flare('decision');
+            that.flare('decision');
         }
 
         //操作ボタン
