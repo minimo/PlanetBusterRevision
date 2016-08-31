@@ -277,8 +277,12 @@ phina.define("pbr.Selector", {
         fontWeight: ''
     },
     defaultOption: {
-        width: 640,
-        title: "SELECT",
+        title: {
+            x: -60,
+            text: "SELECT",
+        },
+        x: 60,
+        width: 100,
         initial: 0,
         item: ["aaaaa", "2", "3", "4", "5"],
         description: ["1", "2", "3", "4", "5"],
@@ -291,10 +295,11 @@ phina.define("pbr.Selector", {
 
         var width = this.option.width;
 
-        //タイトル   
-        this.title = phina.display.Label({text: this.option.title}.$safe(this.labelParam))
-        this.title.addChildTo(this)
-            .setPosition(-width*0.3, 0);
+        //タイトル
+        var titleParam = {text: this.option.title.text}.$safe(this.labelParam);
+        this.title = phina.display.Label(titleParam)
+            .addChildTo(this)
+            .setPosition(this.option.title.x, 0);
 
         //選択初期位置
         this.selectItem = this.option.initial;
@@ -306,7 +311,7 @@ phina.define("pbr.Selector", {
         for (var i = 0; i < this.option.item.length; i++) {
             this.items[i] = phina.display.Label({text: this.option.item[i]}.$safe(this.labelParam))
                 .addChildTo(this.itemBase)
-                .setPosition(width*0.2+i*100, 0);
+                .setPosition(this.option.x+i*100, 0);
             if (i != this.option.initial) this.items[i].alpha = 0;
         }
 
@@ -332,7 +337,7 @@ phina.define("pbr.Selector", {
         };
         this.btnL = phina.display.RectangleShape(paramBT)
             .addChildTo(this)
-            .setPosition(-width*0.05, 0)
+            .setPosition(-width*0.5+this.option.x, 0)
             .setInteractive(true);
         this.btnL.onpointstart = function() {
             that.dec();
@@ -344,7 +349,7 @@ phina.define("pbr.Selector", {
         
         this.btnR = phina.display.RectangleShape(paramBT)
             .addChildTo(this)
-            .setPosition(width*0.45, 0)
+            .setPosition(width*0.5+this.option.x, 0)
             .setInteractive(true);
         this.btnR.onpointstart = function() {
             that.inc();
