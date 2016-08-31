@@ -316,19 +316,19 @@ phina.define("pbr.Selector", {
 
         //選択操作用
         var paramC = {
-            width: this.option.width,
-            height:SC_H*0.05,
+            width: this.option.width*0.6,
+            height: SC_H*0.05,
             fill: "rgba(255, 255, 255, 0.0)",
             stroke: null,
             backgroundColor: 'transparent',
         };
         this.btnC = phina.display.RectangleShape(paramC)
             .addChildTo(this)
-            .setPosition(0, 0)
+            .setPosition(this.option.x, 0)
             .setInteractive(true);
         this.btnC.onpointstart = function() {
             //決定操作時、イベント発火
-            this.flare('desicion');
+            this.flare('decision');
         }
 
         //操作ボタン

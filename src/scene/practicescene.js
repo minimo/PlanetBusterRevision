@@ -51,6 +51,11 @@ phina.define("pbr.PracticeScene", {
             var sel = e.target.select;
             switch (sel) {
                 case 0:
+                    {
+                        var stage = e.target.menu.item[0].selectItem;
+                        var next = "stage"+(stage+1)+"load";
+                        this.exit(next);
+                    }
                     break;
                 case 1:
                     this.exit("stage9load");
