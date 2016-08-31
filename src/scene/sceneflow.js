@@ -32,7 +32,7 @@ phina.define("pbr.SceneFlow", {
                 nextLabel: "title",
             },{
                 label: "practice",
-                className: "pbr.PracticeMode",
+                className: "pbr.PracticeScene",
                 nextLabel: "title",
             }],
         }));

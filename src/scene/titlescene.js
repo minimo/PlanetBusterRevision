@@ -208,7 +208,7 @@ phina.define("pbr.TitleScene", {
     },
 
     arcadeMode: function() {
-        this.exit();
+        this.exit("arcade");
     },
 
     practiceMode: function() {

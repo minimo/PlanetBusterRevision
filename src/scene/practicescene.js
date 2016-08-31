@@ -1,11 +1,11 @@
 /*
- *  settingscene.js
- *  2016/04/06
+ *  practicescene.js
+ *  2016/08/31
  *  @auther minimo  
  *  This Program is MIT license.
  */
 
-phina.define("pbr.SettingScene", {
+phina.define("pbr.PracticeScene", {
     superClass: "phina.display.DisplayScene",
 
     //ラベル用パラメータ
@@ -26,16 +26,27 @@ phina.define("pbr.SettingScene", {
         this.superInit();
 
         var menuParam = {
-            title: "SETTING",
-            item: ["GAME", "SYSTEM", "test", "EXIT"],
-            description: ["menu1", "menu2", "test", "exit"],
+            title: "STAGE SELECT",
+            item: ["", "test", "EXIT"],
+            description: ["STAGE", "test", "EXIT"],
         };
-        menuParam.item[2] = pbr.Selector();
+        var selectorParam = {
+            title: {
+                x: -80,
+                text: "",
+            },
+            x: 0,
+            initial: 0,
+            width: SC_W*0.3,
+            item: ["1", "2", "3", "4", "5"],
+            description: ["1", "2", "3", "4", "5"],
+        };
+        menuParam.item[0] = pbr.Selector(selectorParam);
 
         this.menu = pbr.MenuDialog(menuParam).addChildTo(this);
         this.menu.on('menuselect', function(e) {
             var sel = e.target.select;
-            if (sel == 3) {
+            if (sel == 2) {
                 this.menu.closeMenu();
                 this.tweener.clear()
                     .wait(600)
