@@ -303,7 +303,7 @@ phina.define("pbr.MainScene", {
         this.on("gameover", function() {
             app.stopBGM();
             if (this.isPractice) {
-                this.exit("toTitle");
+                this.exit("menu");
             } else {
                 this.exit("gameover");
             }
@@ -446,13 +446,12 @@ phina.define("pbr.MainScene", {
     },
 
     result: function() {
-    
         var endResult = false;
         var loadcomplete = false;
         var loadprogress = 0;
 
         //次ステージのアセットをバックグラウンドで読み込み
-        if (this.stageId < this.maxStageId) {
+        if (!this.isPractice && this.stageId < this.maxStageId) {
             var assetName = "stage"+(this.stageId+1);
             var assets = pbr.Application.assets[assetName];
             var loader = phina.asset.AssetLoader();
@@ -500,8 +499,18 @@ phina.define("pbr.MainScene", {
             .call(function() {
                 endResult = true;
             }.bind(base));
+        base.ok = false;
         base.update = function() {
+            //入力を待って次ステージに移行
             if (endResult && loadcomplete) {
+                var kb = app.keyboard;
+                if (kb.getKey("Z") || kb.getKey("space")) this.ok = true;
+
+                var p = app.mouse;
+                if (p.getPointing()) this.ok = true;
+            }
+
+            if (this.ok) {
                 that.stageClear();
                 this.remove();
             }
@@ -576,7 +585,9 @@ phina.define("pbr.MainScene", {
         progress.time = 0;
         progress.update = function() {
             this.text = "Loading... "+Math.floor(loadprogress*100)+"%";
-            if (loadprogress == 1) this.remove();
+            if (loadprogress == 1) {
+                this.text = "TAP or TRIGGER to next stage";
+            }
             if (this.time % 30 == 0) this.visible = !this.visible;
             this.time++;
         }
@@ -584,6 +595,10 @@ phina.define("pbr.MainScene", {
 
     //ステージクリア処理
     stageClear: function() {
+        //プラクティス時タイトルへ戻る
+        if (this.isPractice) {
+            this.exit("menu");
+        }
         if (this.stageId < this.maxStageId) {
             //次のステージへ
             this.stageId++;
