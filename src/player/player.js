@@ -305,6 +305,7 @@ phina.define("pbr.Player", {
                 this.isCollision = true;
                 this.timeMuteki = 120;
                 this.parentScene.timeVanish = 60;
+                app.bombStock = app.bombStockMax;
             }.bind(this));
 
         this.isDead = false;
@@ -380,10 +381,12 @@ phina.define("pbr.Player", {
             case ITEM_BOMB:
                 app.playSE("powerup");
                 app.bombStock++;
+                if (app.bombStock > app.bombStockMax) app.bombStockMax = app.bombStock;
                 break;
             case ITEM_1UP:
                 app.playSE("powerup");
                 app.zanki++;
+                if (app.zanki > 9) app.zanki = 9;
                 break;
         }
     },

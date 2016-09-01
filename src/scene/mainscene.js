@@ -210,7 +210,16 @@ phina.define("pbr.MainScene", {
             s.num = i;
             s.visible = false;
             s.update = function() {
-                if (app.bombStock > this.num) this.visible = true; else this.visible = false;
+                if (app.bombStockMax > this.num) {
+                    this.visible = true;
+                    if (app.bombStock > this.num) {
+                        this.alpha = 1.0;
+                    } else {
+                        this.alpha = 0.4;
+                    }
+                } else {
+                    this.visible = false;
+                }
             }
             var lparam = {
                 text: "B",
@@ -283,7 +292,7 @@ phina.define("pbr.MainScene", {
             app.score = 0;
             app.rank = 1;
             app.zanki = app._defaultSetting.zanki;
-            app.bombStock = app._defaultSetting.bombStock;
+            app.bombStock = app.bombStockMax;
 
             this.player.visible = true;
             this.player.startup();
