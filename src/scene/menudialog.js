@@ -406,3 +406,32 @@ phina.define("pbr.Selector", {
         return this;
     },
 });
+
+phina.define("pbr.QueryDialog", {
+    superClass: "phina.display.DisplayElement",
+
+    //選択中アイテム
+    selectItem: 0,
+
+    //ラベル用パラメータ
+    labelParam: {
+        text: "",
+        fill: "white",
+        stroke: false,
+        strokeWidth: 2,
+
+        fontFamily: "Orbitron",
+        align: "center",
+        baseline: "middle",
+        fontSize: 15,
+        fontWeight: ''
+    },
+
+    defaultOption: {
+    },
+
+    init: function(option) {
+        this.superInit();
+        option = (option||{}).$safe(this.defaultOption);
+    },
+});
