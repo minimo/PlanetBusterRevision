@@ -319,7 +319,7 @@ phina.define("pbr.Selector", {
 
         //選択操作用
         var paramC = {
-            width: this.option.width*0.8,
+            width: this.option.width*0.6,
             height: SC_H*0.05,
             fill: "rgba(255, 255, 255, 0.0)",
             stroke: null,
