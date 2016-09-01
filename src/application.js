@@ -105,7 +105,6 @@ phina.define("pbr.Application", {
 
             //エクステンド設定
             extendScore: [50000, 200000, 500000],
-            extendAdvance: 0,
             isExtendEvery: false,
             extendEveryScore: 200000,
         },
@@ -117,12 +116,6 @@ phina.define("pbr.Application", {
             bombStock: 2,
             bombStockMax: 2,
             autoBomb: false,
-
-            //エクステンド設定
-            extendScore: [50000, 200000, 500000],
-            extendAdvance: 0,
-            isExtendEvery: false,
-            extendEveryScore: 200000,
         },
 
         //ＢＧＭ＆効果音
