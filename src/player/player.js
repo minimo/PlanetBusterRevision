@@ -296,6 +296,7 @@ phina.define("pbr.Player", {
             .wait(120)
             .call(function(){
                 this.parentScene.timeVanish = 150;
+                app.bombStock = app.bombStockMax;
             }.bind(this))
             .to({x: SC_W*0.5, y: SC_H*0.8}, 120, "easeOutQuint")
             .call(function(){
@@ -305,7 +306,6 @@ phina.define("pbr.Player", {
                 this.isCollision = true;
                 this.timeMuteki = 120;
                 this.parentScene.timeVanish = 60;
-                app.bombStock = app.bombStockMax;
             }.bind(this));
 
         this.isDead = false;
