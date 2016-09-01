@@ -27,8 +27,8 @@ phina.define("pbr.PracticeScene", {
 
         var menuParam = {
             title: "STAGE SELECT",
-            item: ["", "test", "EXIT"],
-            description: ["STAGE", "test", "EXIT"],
+            item: ["", "START", "TEST", "EXIT"],
+            description: ["ステージ選択", "指定したステージを開始", "TEST MODE","EXIT"],
         };
         var selectorParam = {
             title: {
@@ -51,16 +51,17 @@ phina.define("pbr.PracticeScene", {
             var sel = e.target.select;
             switch (sel) {
                 case 0:
+                case 1:
                     {
                         var stage = e.target.menu.item[0].selectItem;
                         var next = "stage"+(stage+1)+"load";
                         this.exit(next);
                     }
                     break;
-                case 1:
+                case 2:
                     this.exit("stage9load");
                     break;
-                case 2:
+                case 3:
                     this.menu.closeMenu();
                     this.tweener.clear()
                         .wait(600)
