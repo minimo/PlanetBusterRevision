@@ -22,8 +22,13 @@ phina.define("pbr.PracticeScene", {
         fontWeight: ''
     },
 
-    init: function(menu) {
+    init: function(option) {
         this.superInit();
+        option = (option||{}).$safe({
+            selectStage: 1,
+        });
+
+        if (option.selectStage > 5) option.selectStage = 1;
 
         var menuParam = {
             title: "STAGE SELECT",
@@ -36,7 +41,7 @@ phina.define("pbr.PracticeScene", {
                 text: "",
             },
             x: 0,
-            initial: 0,
+            initial: option.selectStage-1,
             width: SC_W*0.3,
             item: ["1", "2", "3", "4", "5"],
             description: ["1", "2", "3", "4", "5"],

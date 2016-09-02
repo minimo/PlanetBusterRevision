@@ -102,7 +102,31 @@ phina.define("pbr.PracticeMode", {
                     stageId: 1,
                     isPractice: true,
                 },
-                nextLabel: "toTitle",
+                nextLabel: "menu",
+                nextArguments: {
+                    selectStage: 1,
+                },
+            },
+
+            //ステージ２
+            {
+                label: "stage2load",
+                className: "pbr.LoadingScene",
+                arguments: {
+                    assetType: "stage2"
+                },
+                nextLabel: "stage2",
+            },{
+                label: "stage2",
+                className: "pbr.MainScene",
+                arguments: {
+                    stageId: 2,
+                    isPractice: true,
+                },
+                nextLabel: "menu",
+                nextArguments: {
+                    selectStage: 2,
+                },
             },
 
             //テスト用ステージ
@@ -120,7 +144,10 @@ phina.define("pbr.PracticeMode", {
                     stageId: 9,
                     isPractice: true,
                 },
-                nextLabel: "toTitle",
+                nextLabel: "menu",
+                nextArguments: {
+                    selectStage: 9,
+                },
             },
 
             //タイトルに戻る
