@@ -538,6 +538,20 @@ pbr.enemyData['GolyatArm'] = {
         this.on('startfire', function() {
             this.resumeDanmaku();
         }.bind(this));
+
+        //誘導弾発射
+        this.on('bulletmissile1', function() {
+            this.parentScene.enterEnemy("Medusa", this.x, this.y-40).setHoming(true).setVelocity(-0.5,  -1.0);
+            this.parentScene.enterEnemy("Medusa", this.x, this.y-40).setHoming(true).setVelocity(-0.25, -1.0);
+            this.parentScene.enterEnemy("Medusa", this.x, this.y-40).setHoming(true).setVelocity( 0.25, -1.0);
+            this.parentScene.enterEnemy("Medusa", this.x, this.y-40).setHoming(true).setVelocity( 0.5,  -1.0);
+        }.bind(this));
+        this.on('bulletmissile2', function() {
+            this.parentScene.enterEnemy("Medusa", this.x, this.y+20).setHoming(true).setVelocity(-0.5,  -1.0);
+            this.parentScene.enterEnemy("Medusa", this.x, this.y+20).setHoming(true).setVelocity(-0.25, -1.0);
+            this.parentScene.enterEnemy("Medusa", this.x, this.y+20).setHoming(true).setVelocity( 0.25, -1.0);
+            this.parentScene.enterEnemy("Medusa", this.x, this.y+20).setHoming(true).setVelocity( 0.5,  -1.0);
+        }.bind(this));
     },
 
     algorithm: function() {

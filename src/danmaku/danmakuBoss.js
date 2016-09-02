@@ -129,21 +129,6 @@ pbr.danmaku.Golyat1_1 = new bulletml.Root({
             interval(30),
             notify("end"),
             interval(120),
-
-            notify("start"),
-            interval(30),
-            fire(DM, spd(0.5), direction(0, "absolute"), offsetY(-8)),
-            repeat("$burst + 1", [
-                fire(BEM, spdSeq(0), direction(0, "sequence"), offsetY(-8)),
-                repeat(30, [
-                    fire(BEM, spdSeq(0.01), direction(-12, "sequence"), offsetY(-8)),
-                    interval(1),
-                ]),
-                fire(DM, spdSeq(0.05), direction(0, "sequence"), offsetY(-8)),
-            ]),
-            interval(30),
-            notify("end"),
-            interval(120),
         ]),
         notify("finish"),
     ]),
@@ -153,15 +138,15 @@ pbr.danmaku.Golyat1_1 = new bulletml.Root({
 pbr.danmaku.Golyat1_2 = new bulletml.Root({
     top0: action([
         notify("start"),
-        interval(120),
-        fire(BEM, spd(0.5), direction(0, "absolute")),
+        interval(30),
         repeat("$burst + 4", [
-            repeat(8, [
-                fire(BEM, spdSeq(0), direction(45, "sequence")),
+            fire(DM, spd(0.5), direction(0, "absolute")),
+            repeat(10, [
+                fire(BEM, spdSeq(0), direction(36, "sequence")),
             ]),
             interval(30),
         ]),
-        interval(60),
+        interval(30),
         notify("end"),
         interval(60),
         notify("finish"),
@@ -171,6 +156,11 @@ pbr.danmaku.Golyat1_2 = new bulletml.Root({
 //１面ボス（パターン３）
 pbr.danmaku.Golyat1_3 = new bulletml.Root({
     top0: action([
+        notify("start"),
+        interval(30),
+
+        interval(30),
+        notify("end"),
         interval(60),
         notify("finish"),
     ]),
@@ -271,9 +261,13 @@ pbr.danmaku.GolyatArm3 = new bulletml.Root({
             notify("start1"),
             interval(30),
             notify("missile1"),
+            interval(60),
+            notify("missile1"),
+            interval(60),
+            notify("missile1"),
             interval(30),
             notify("end1"),
-            interval(120),
+            interval(180),
         ]),
     ]),
     top2: action([
@@ -281,9 +275,13 @@ pbr.danmaku.GolyatArm3 = new bulletml.Root({
             notify("start2"),
             interval(30),
             notify("missile2"),
+            interval(60),
+            notify("missile2"),
+            interval(60),
+            notify("missile2"),
             interval(30),
             notify("end2"),
-            interval(120),
+            interval(180),
         ]),
     ]),
 });
