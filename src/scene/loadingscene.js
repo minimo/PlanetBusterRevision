@@ -9,7 +9,7 @@
 phina.define("pbr.LoadingScene", {
     superClass: "phina.display.DisplayScene",
 
-    init: function(options, assetType) {
+    init: function(options) {
         options.assetType = options.assetType || "common";
         options = (options||{}).$safe({
             asset: pbr.Application.assets[options.assetType],
