@@ -425,19 +425,18 @@ phina.define("pbr.Enemy", {
             .call(function() {
                 this.explode();
                 app.playSE("explodeBoss");
+                if (this.shadow) {
+                    this.shadow.tweener.clear()
+                        .to({alpha: 0}, 15)
+                        .call(function(){
+                            this.remove();
+                        }.bind(this.shadow));
+                }
             }.bind(this))
             .to({alpha: 0}, 15)
             .call(function(){
                 this.remove();
             }.bind(this));
-        if (this.shadow) {
-            this.shadow.tweener.clear()
-                .to({alpha: 0}, 15)
-                .call(function(){
-                    this.remove();
-                }.bind(this.shadow));
-        }
-
         return this;
     },
 
