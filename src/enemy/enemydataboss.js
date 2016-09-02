@@ -273,9 +273,9 @@ pbr.enemyData['Golyat'] = {
 
         this.core = phina.display.Sprite("tex_boss1", 16, 16)
             .addChildTo(this)
-            .setFrameTrimming(382, 80, 64, 16)
+            .setFrameTrimming(384, 96, 64, 16)
             .setFrameIndex(0)
-            .setPosition(0, 200);
+            .setPosition(0, -8);
         this.core.texColor = "";
         this.core.idx = 0;
         this.core.update = function(e) {
