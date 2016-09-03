@@ -18,8 +18,7 @@ phina.define("pbr.Stage2", {
         //初期化処理
         this.add(1, function(app) {
             this.ground.tweener.clear().to({scaleX:0.5, scaleY:0.5, speed:1.0, alpha:1}, 1, "easeInOutQuad");
-            app.playBGM("stage1", true);
-            this.player.isAfterburner = true;
+            app.playBGM("stage2", true);
         });
     },
 });
