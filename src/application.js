@@ -65,12 +65,12 @@ phina.define("pbr.Application", {
             },
             "stage2": {
                 sound: {
-                    "stage2":        "assets/sounds/expsy.mp3",
+                    "stage2":        "assets/sounds/dance_in_the_sky.mp3",
                 },
             },
             "stage9": {
                 sound: {
-                    "stage9":        "assets/sounds/expsy.mp3",
+                    "stage9":        "assets/sounds/departure.mp3",
                 },
             },
         },
