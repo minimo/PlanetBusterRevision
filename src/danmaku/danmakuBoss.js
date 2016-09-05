@@ -180,7 +180,7 @@ pbr.danmaku.GolyatArm1 = new bulletml.Root({
         repeat(Infinity, [
             notify("start1"),
             interval(30),
-            fire(DM, spd(0.6), direction(-20), offsetX(0), offsetY(-40)),
+            fire(DM, spd(0.8), direction(160,"absolute"), offsetX(0), offsetY(-40)),
             repeat("$burst + 1", [
                 fire(RM, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(-40)),
                 fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(-40)),
@@ -198,7 +198,7 @@ pbr.danmaku.GolyatArm1 = new bulletml.Root({
         repeat(Infinity, [
             notify("start2"),
             interval(30),
-            fire(DM, spd(0.8), direction(-20), offsetX(0), offsetY(20)),
+            fire(DM, spd(0.7), direction(160,"absolute"), offsetX(0), offsetY(20)),
             repeat("$burst + 1", [
                 fire(RM, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(20)),
                 fire(RM, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(20)),

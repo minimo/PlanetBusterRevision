@@ -287,6 +287,11 @@ pbr.enemyData['Golyat'] = {
         };
         this.core.tweener.clear().setUpdateType("fps");
 
+        this.on('dead', function() {
+            this.cover.remove();
+            this.core.remove();
+        }.bind(this));
+
         this.on('bulletstart', function(e) {
             this.core.tweener.clear().to({idx: 3}, 15);
         }.bind(this));
@@ -311,6 +316,12 @@ pbr.enemyData['Golyat'] = {
             .setFrameTrimming(192, 0, 66, 184)
             .setFrameIndex(0)
             .setPosition(-64, 0);
+        this.armbaseL.update = function(e) {
+            if (this.texColor !== that.texColor) {
+                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.texColor = that.texColor;
+            }
+        };
 
         //アームベース右
         this.armbaseR = phina.display.Sprite("tex_boss1", 66, 184)
@@ -318,6 +329,12 @@ pbr.enemyData['Golyat'] = {
             .setFrameTrimming(310, 0, 66, 184)
             .setFrameIndex(0)
             .setPosition(64, 0);
+        this.armbaseR.update = function(e) {
+            if (this.texColor !== that.texColor) {
+                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.texColor = that.texColor;
+            }
+        };
 
         //登場パターン
         this.tweener.clear()
