@@ -20,10 +20,7 @@ phina.define("pbr.Stage9", {
             app.playBGM("stage9", true);
         });
 
-        this.add( 120, "Fragarach-left");
-        this.add(  60, "Fragarach-right");
-
-        this.add( 120, "Hornet3-center");
+        this.add( 180, "Golyat");
     },
 });
 
