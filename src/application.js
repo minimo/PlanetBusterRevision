@@ -90,10 +90,10 @@ phina.define("pbr.Application", {
         autoBomb: false,//オートボムフラグ
 
         //エクステンド設定
-        extendScore: [50000, 200000, 500000],
+        extendScore: [500000, 2000000, 5000000],
         extendAdvance: 0,
         isExtendEvery: false,
-        extendEveryScore: 200000,
+        extendEveryScore: 500000,
 
         //デフォルト設定
         _defaultSetting: {
@@ -104,13 +104,13 @@ phina.define("pbr.Application", {
             autoBomb: false,
 
             //エクステンド設定
-            extendScore: [50000, 200000, 500000],
+            extendScore: [500000, 2000000, 5000000],
             isExtendEvery: false,
-            extendEveryScore: 200000,
+            extendEveryScore: 500000,
         },
 
         //現在設定
-        curentrySetting: {
+        currentrySetting: {
             difficulty: 1,
             zanki: 3,
             bombStock: 2,
