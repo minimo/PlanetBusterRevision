@@ -284,6 +284,7 @@ phina.define("pbr.Enemy", {
         if (force) this.def = -1;
         if (this.def < 1) {
             //破壊パターン投入
+            this.flare('dead');
             this.dead();
 
             //親機に破壊を通知
