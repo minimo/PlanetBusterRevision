@@ -425,6 +425,7 @@ phina.define("pbr.Enemy", {
             .moveBy(0, 60, 300)
             .call(function() {
                 this.explode();
+                this.parentScene.maskWhite.tweener.clear().fadeIn(45).fadeOut(45);
                 app.playSE("explodeBoss");
                 if (this.shadow) {
                     this.shadow.tweener.clear()
