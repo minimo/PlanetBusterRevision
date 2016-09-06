@@ -235,12 +235,19 @@ phina.define("pbr.MainScene", {
             phina.display.Label(lparam).addChildTo(s).setScale(2.5);
         }
 
-        //目隠し
+        //目隠し（黒）
         this.mask = phina.display.RectangleShape(param)
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.5);
         this.mask.tweener.setUpdateType('fps');
         this.mask.tweener.clear().fadeOut(20);
+
+        //目隠し（白）
+        this.maskWhite = phina.display.RectangleShape(param.$extend({fill: "white"}))
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.5);
+        this.maskWhite.tweener.setUpdateType('fps');
+        this.maskWhite.alpha = 0.0;
 
         //ステージ初期化
         this.initStage();
