@@ -78,6 +78,7 @@ phina.define("pbr.MenuDialog", {
             .setPosition(SC_W*0.5, SC_H*0.6-3);
 
         this.time = 0;
+        this.cursolTime = 0;
 
         this.openMenu(menu);
     },
@@ -90,7 +91,7 @@ phina.define("pbr.MenuDialog", {
 
         //キーボード操作
         var kb = app.keyboard;
-        if (this.time > 30) {
+        if (this.time > 30 && this.cursolTime > 10) {
             if (kb.getKey("up")) {
                 this.cursol.sel--;
                 if (this.cursol.sel < 0) {
@@ -99,7 +100,7 @@ phina.define("pbr.MenuDialog", {
                     var sel = this.cursol.sel;
                     this.cursol.tweener.clear()
                         .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
-                    this.time = 0;
+                    this.cursolTime = 0;
                     app.playSE("select");
                 }
             }
@@ -111,7 +112,7 @@ phina.define("pbr.MenuDialog", {
                     var sel = this.cursol.sel;
                     this.cursol.tweener.clear()
                         .moveTo(SC_W*0.5, this.item[sel].y, 200, "easeOutCubic");
-                    this.time = 0;
+                    this.cursolTime = 0;
                     app.playSE("select");
                 }
             }
@@ -120,11 +121,11 @@ phina.define("pbr.MenuDialog", {
                 var item = this.item[sel];
                 if (kb.getKey("left")) {
                     item.dec();
-                    this.time = 0;
+                    this.cursolTime = 0;
                 }
                 if (kb.getKey("right")) {
                     item.inc();
-                    this.time = 0;
+                    this.cursolTime = 0;
                 }
             }
         }
@@ -134,6 +135,7 @@ phina.define("pbr.MenuDialog", {
             }
         }
         this.time++;
+        this.cursolTime++;
     },
 
     openMenu: function(menu) {
