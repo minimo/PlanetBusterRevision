@@ -90,7 +90,7 @@ phina.define("pbr.MenuDialog", {
 
         //キーボード操作
         var kb = app.keyboard;
-        if (this.time > 10) {
+        if (this.time > 30) {
             if (kb.getKey("up")) {
                 this.cursol.sel--;
                 if (this.cursol.sel < 0) {
@@ -128,7 +128,7 @@ phina.define("pbr.MenuDialog", {
                 }
             }
         }
-        if (this.time > 10) {
+        if (this.time > 60) {
             if (kb.getKey("Z") || kb.getKey("space")) {
                 this.decision(this.cursol.sel);
             }
