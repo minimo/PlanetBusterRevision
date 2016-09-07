@@ -604,6 +604,7 @@ phina.define("pbr.MainScene", {
     stageClear: function() {
         //プラクティス時タイトルへ戻る
         if (this.isPractice) {
+            app.stopBGM();
             this.exit("menu");
         }
         if (this.stageId < this.maxStageId) {
