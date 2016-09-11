@@ -144,7 +144,7 @@ pbr.danmaku.Golyat1_2 = new bulletml.Root({
             fire(DM, spd(0.4), direction(0, "absolute")),
             repeat("$burst + 5", [
                 repeat(10, [
-                    fire(BEM, spdSeq(0), direction(36, "sequence")),
+                    fire(BEM, spdSeq(0), direction(38, "sequence")),
                 ]),
                 fire(DM, spdSeq(0.05), direction(0, "absolute")),
             ]),
@@ -173,8 +173,30 @@ pbr.danmaku.Golyat1_3 = new bulletml.Root({
 //１面ボス（発狂パターン）
 pbr.danmaku.Golyat2 = new bulletml.Root({
     top0: action([
-        interval(60),
+        notify("start"),
+        interval(30),
+        repeat(Infinity, [
+            interval(60),
+        ]),
         notify("finish"),
+    ]),
+
+    top1: action([
+        interval(30),
+        repeat(Infinity, [
+            interval(30),
+            repeat(5, [
+                fire(DM, spd(0.5), direction(0, "absolute")),
+                repeat("$burst + 5", [
+                    repeat(10, [
+                        fire(REM, spdSeq(0), direction(36, "sequence")),
+                    ]),
+                    fire(DM, spdSeq(0.05), direction(0, "absolute")),
+                ]),
+                interval(120),
+            ]),
+            interval(30),
+        ]),
     ]),
 });
 
