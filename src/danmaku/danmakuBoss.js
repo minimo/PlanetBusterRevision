@@ -141,11 +141,14 @@ pbr.danmaku.Golyat1_2 = new bulletml.Root({
         notify("start"),
         interval(30),
         repeat(5, [
-            fire(DM, spd(0.2), direction(0, "absolute")),
-            repeat(10, [
-                fire(BEM, spdSeq(0), direction(36, "sequence")),
+            fire(DM, spd(0.4), direction(0, "absolute")),
+            repeat("$burst + 5", [
+                repeat(10, [
+                    fire(BEM, spdSeq(0), direction(36, "sequence")),
+                ]),
+                fire(DM, spdSeq(0.05), direction(0, "absolute")),
             ]),
-            interval(180),
+            interval(150),
         ]),
         interval(30),
         notify("end"),
