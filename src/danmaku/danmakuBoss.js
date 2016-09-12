@@ -174,15 +174,25 @@ pbr.danmaku.Golyat1_3 = new bulletml.Root({
 pbr.danmaku.Golyat2 = new bulletml.Root({
     top0: action([
         notify("start"),
-        interval(30),
+        interval(120),
         repeat(Infinity, [
-            interval(60),
+            repeat(3, [
+                fire(THIN, spd(0.6), direction(0)),
+                repeat(3, [
+                    fire(THIN, spdSeq(0.1), direction(0, "sequence")),
+                ]),
+                fire(THIN, spdSeq(0.1), direction(-20, "sequence")),
+                repeat(4, [
+                    fire(THIN, spdSeq(0), direction(10, "sequence")),
+                ]),
+                interval(60),
+            ]),
+            interval(120),
         ]),
-        notify("finish"),
     ]),
 
     top1: action([
-        interval(30),
+        interval(120),
         repeat(Infinity, [
             interval(30),
             repeat(5, [
