@@ -394,15 +394,8 @@ pbr.enemyData['Golyat'] = {
             this.phase++;
         }
 
-        //発狂モード移行
-        if (!this.isStampede && this.armL.def == 0 && this.armR.def == 0) {
-            this.isStampede = true;
-            this.startDanmaku(this.danmakuName[3]);
-            this.phase++;
-        }
-
         //土煙出すよ
-        if (!this.isDead && this.isSmoke) {
+        if (this.isSmoke) {
             var vy = this.parentScene.ground.deltaY;
             var rad = this.rotation*toRad;
             for (var i = 0; i < 5; i++) {
@@ -473,6 +466,47 @@ pbr.enemyData['Golyat'] = {
             .to({speed: -1.0}, 30, "easeInOutCubic")
             .wait(90)
             .to({speed: -7.0}, 60, "easeInOutCubic");
+
+        //両方のアームが破壊された場合、発狂モードへ移行
+        if (!this.isStampede && this.armL.def == 0 && this.armR.def == 0) {
+            this.isStampede = true;
+            this.startDanmaku(this.danmakuName[3]);
+        }
+    },
+
+    dead: function() {
+        this.isCollision = false;
+        this.isDead = true;
+        this.tweener.clear();
+        this.stopDanmaku();
+
+        this.explode();
+        app.playSE("explodeLarge");
+
+        //弾消し
+        this.parentScene.eraseBullet();
+        this.parentScene.timeVanish = 180;
+
+        //破壊時消去インターバル
+        this.tweener.clear()
+            .moveBy(0, -30, 300)
+            .call(function() {
+                this.explode();
+                this.parentScene.maskWhite.tweener.clear().fadeIn(45).fadeOut(45);
+                app.playSE("explodeBoss");
+                if (this.shadow) {
+                    this.shadow.tweener.clear()
+                        .to({alpha: 0}, 15)
+                        .call(function(){
+                            this.remove();
+                        }.bind(this.shadow));
+                }
+            }.bind(this))
+            .to({alpha: 0}, 15)
+            .call(function(){
+                this.remove();
+            }.bind(this));
+        return this;
     },
 };
 
