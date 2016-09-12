@@ -283,6 +283,8 @@ phina.define("pbr.Enemy", {
         this.def -= power;
         if (force) this.def = -1;
         if (this.def < 1) {
+            this.def = 0;
+
             //破壊パターン投入
             this.flare('dead');
             this.dead();
