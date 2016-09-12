@@ -489,7 +489,7 @@ pbr.enemyData['Golyat'] = {
 
         //破壊時消去インターバル
         this.tweener.clear()
-            .moveBy(0, -30, 300)
+            .moveBy(0, -50, 300)
             .call(function() {
                 this.explode();
                 this.parentScene.maskWhite.tweener.clear().fadeIn(45).fadeOut(45);
