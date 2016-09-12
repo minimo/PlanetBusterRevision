@@ -593,7 +593,11 @@ phina.define("pbr.MainScene", {
         progress.update = function() {
             this.text = "Loading... "+Math.floor(loadprogress*100)+"%";
             if (loadprogress == 1) {
-                this.text = "TAP or TRIGGER to next stage";
+                if (endResult) {
+                    this.text = "TAP or TRIGGER to next stage";
+                } else {
+                    this.text = "Please wait...";
+                }
             }
             if (this.time % 30 == 0) this.visible = !this.visible;
             this.time++;
