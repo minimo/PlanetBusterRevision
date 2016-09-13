@@ -444,6 +444,33 @@ pbr.enemyData['Golyat'] = {
                 });
             }
         }
+
+        //アーム破壊時爆発
+        if (this.time % 60 == 0) {
+            var ground = this.parentScene.ground;
+            var vx = this.x-this.beforeX+ground.deltaX;
+            var vy = this.y-this.beforeY+ground.deltaY;
+            if (this.armL.def == 0) {
+                var x = this.x+rand(-33, 33)-64;
+                var y = this.y+rand(-92, 92);
+                var delay = rand(0, 30);
+                pbr.Effect.enterExplode(this.parentScene.effectLayerUpper, {
+                    position: {x: x, y: y},
+                    velocity: {x: vx, y: vy, decay: 0.95},
+                    delay: delay,
+                });
+            }
+            if (this.armR.def == 0) {
+                var x = this.x+rand(-33, 33)+64;
+                var y = this.y+rand(-92, 92);
+                var delay = rand(0, 30);
+                pbr.Effect.enterExplode(this.parentScene.effectLayerUpper, {
+                    position: {x: x, y: y},
+                    velocity: {x: vx, y: vy, decay: 0.95},
+                    delay: delay,
+                });
+            }
+        }
     },
 
     //アーム破壊
