@@ -83,17 +83,19 @@ phina.define("pbr.Application", {
         rank: 1,        //難易度ランク
         numContinue: 0, //コンティニュー回数
 
-        //プレイヤー設定
-        zanki: 3,       //残機
-        bombStock: 2,   //ボム残数
-        bombStockMax: 2,//ボム最大数
-        autoBomb: false,//オートボムフラグ
-
         //エクステンド設定
         extendScore: [500000, 2000000, 5000000],
         extendAdvance: 0,
         isExtendEvery: false,
         extendEveryScore: 500000,
+
+        //プレイヤー設定
+        setting: {
+            zanki: 3,       //残機
+            bombStock: 2,   //ボム残数
+            bombStockMax: 2,//ボム最大数
+            autoBomb: false,//オートボムフラグ
+        },
 
         //デフォルト設定
         _defaultSetting: {

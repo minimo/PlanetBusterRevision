@@ -210,7 +210,7 @@ phina.define("pbr.Player", {
         if (this.timeMuteki > 0 || this.parentScene.bombTime > 0 || this.parentScene.timeVanish > 0) return false;
 
         //オートボム発動
-        if (app.autoBomb && app.bombStock > 0) {
+        if (app.setting.autoBomb && app.setting.bombStock > 0) {
             this.parentScene.enterBomb();
             return true;
         }
@@ -224,8 +224,8 @@ phina.define("pbr.Player", {
         this.parentScene.stageMissCount++;
 
         this.isDead = true;
-        app.zanki--;
-        if (app.zanki > 0) {
+        app.setting.zanki--;
+        if (app.setting.zanki > 0) {
             this.startup();
         } else {
             this.shotON = false;
@@ -296,7 +296,7 @@ phina.define("pbr.Player", {
             .wait(120)
             .call(function(){
                 this.parentScene.timeVanish = 180;
-                app.bombStock = app.bombStockMax;
+                app.setting.bombStock = app.setting.bombStockMax;
             }.bind(this))
             .to({x: SC_W*0.5, y: SC_H*0.8}, 120, "easeOutQuint")
             .call(function(){
@@ -379,13 +379,13 @@ phina.define("pbr.Player", {
                 break;
             case ITEM_BOMB:
                 app.playSE("powerup");
-                app.bombStock++;
-                if (app.bombStock > app.bombStockMax) app.bombStockMax = app.bombStock;
+                app.setting.bombStock++;
+                if (app.setting.bombStock > app.setting.bombStockMax) app.setting.bombStockMax = app.setting.bombStock;
                 break;
             case ITEM_1UP:
                 app.playSE("powerup");
-                app.zanki++;
-                if (app.zanki > 9) app.zanki = 9;
+                app.setting.zanki++;
+                if (app.setting.zanki > 9) app.setting.zanki = 9;
                 break;
         }
     },

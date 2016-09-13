@@ -87,6 +87,9 @@ phina.define("pbr.MainScene", {
         //エフェクトプール
         var effectPool = pbr.EffectPool(2048, this);
 
+        //プレイヤー情報初期化
+        app.setting.$extend(app.currentrySetting);
+
         //レイヤー準備
         this.base = phina.display.DisplayElement().addChildTo(this).setPosition(SC_OFFSET_X, 0);
         this.layers = [];
@@ -196,7 +199,7 @@ phina.define("pbr.MainScene", {
             s.num = i;
             s.visible = false;
             s.update = function() {
-                if (app.zanki-1 > this.num) this.visible = true; else this.visible = false;
+                if (app.setting.zanki-1 > this.num) this.visible = true; else this.visible = false;
             }
         }
 
@@ -210,9 +213,9 @@ phina.define("pbr.MainScene", {
             s.num = i;
             s.visible = false;
             s.update = function() {
-                if (app.bombStockMax > this.num) {
+                if (app.setting.bombStockMax > this.num) {
                     this.visible = true;
-                    if (app.bombStock > this.num) {
+                    if (app.setting.bombStock > this.num) {
                         this.alpha = 1.0;
                     } else {
                         this.alpha = 0.4;
@@ -298,8 +301,8 @@ phina.define("pbr.MainScene", {
             //初期状態へ戻す
             app.score = 0;
             app.rank = 1;
-            app.zanki = app._defaultSetting.zanki;
-            app.bombStock = app.bombStockMax;
+            app.setting.zanki = app.currentrySetting.zanki;
+            app.setting.bombStock = app.setting.bombStockMax;
 
             this.player.visible = true;
             this.player.startup();
@@ -366,7 +369,7 @@ phina.define("pbr.MainScene", {
         if (extendScore != undefined) {
             if (app.score > extendScore) {
                 app.extendAdvance++;
-                app.zanki++;
+                app.setting.zanki++;
             }
         }
 
@@ -657,9 +660,9 @@ phina.define("pbr.MainScene", {
 
     //ボム投入
     enterBomb: function() {
-        if (this.bombTime > 0 || app.bombStock < 1) return;
+        if (this.bombTime > 0 || app.setting.bombStock < 1) return;
         this.bombTime = 90;
-        app.bombStock--;
+        app.setting.bombStock--;
 
         this.eraseBullet();
         var layer = this.effectLayerMiddle;
