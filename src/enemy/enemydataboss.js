@@ -369,6 +369,20 @@ pbr.enemyData['Golyat'] = {
         this.armR.vibX = 0;
         this.armR.vibY = 0;
 
+        //ウィング左
+        this.wingL = ps.enterEnemy("GolyatWing", 0, 0).setParentEnemy(this.armL);
+        this.wingL.$extend({
+            offsetX: -31,
+            offsetY: 13,
+        });
+        //ウィング右
+        this.wingR = ps.enterEnemy("GolyatWing", 0, 0).setParentEnemy(this.armR);
+        this.wingR.texIndex = 1;
+        this.wingR.$extend({
+            offsetX: 31,
+            offsetY: 13,
+        });
+
         this.rad = Math.PI*0.5;
     },
 
@@ -615,6 +629,64 @@ pbr.enemyData['GolyatArm'] = {
         }
         this.x = this.parentEnemy.x+offsetX;
         this.y = this.parentEnemy.y+offsetY;
+
+        //判定有無は親にあわせる
+        this.isCollision = this.parentEnemy.isCollision;
+    },
+};
+
+//ウィング
+pbr.enemyData['GolyatWing'] = {
+    //使用弾幕パターン
+    danmakuName: "",
+
+    //当り判定サイズ
+    width:  16,
+    height: 112,
+
+    //耐久力
+    def: 500,
+
+    //得点
+    point: 100000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT_LOWER,
+
+    //敵タイプ
+    type: ENEMY_BOSS_EQUIP,
+
+    //爆発タイプ
+    explodeType: EXPLODE_LARGE,
+
+    //機体用テクスチャ情報
+    texName: "tex_boss1",
+    texWidth: 16,
+    texHeight: 112,
+    texTrimX: 384,
+    texTrimY: 128,
+    texTrimWidth: 32,
+    texTrimHeight: 112,
+    texIndex: 0,
+
+    setup: function() {
+        this.offsetX = 0;
+        this.offsetY = 0;
+    },
+
+    algorithm: function() {
+        this.rotation = this.parentEnemy.rotation;
+        var offsetX = this.offsetX;
+        var offsetY = this.offsetY;
+        if (this.rotation != 0) {
+            var rad = this.rotation*toRad;
+            offsetX = Math.cos(rad)*this.offsetX-Math.sin(rad)*this.offsetY;
+            offsetY = Math.sin(rad)*this.offsetX+Math.cos(rad)*this.offsetY;
+        }
+        this.x = this.parentEnemy.x+offsetX;
+        this.y = this.parentEnemy.y+offsetY;
+
+        if (this.parentEnemy.def == 0) this.remove();
 
         //判定有無は親にあわせる
         this.isCollision = this.parentEnemy.isCollision;
