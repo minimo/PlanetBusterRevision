@@ -106,7 +106,7 @@ phina.define("pbr.Enemy", {
         //機体用スプライト
         if (d.texName) {
             this.texName = d.texName;
-            this.texIndex = d.texIndex;
+            this.texIndex = d.texIndex || 0;
             this.texWidth = d.texWidth;
             this.texHeight = d.texHeight;
             this.body = phina.display.Sprite(d.texName, d.texWidth, d.texHeight).addChildTo(this);
@@ -267,6 +267,8 @@ phina.define("pbr.Enemy", {
             else
                 this.isAttack = true;
         }
+
+        this.body.frameIndex = this.texIndex;
 
         this.beforeX = this.x;
         this.beforeY = this.y;
