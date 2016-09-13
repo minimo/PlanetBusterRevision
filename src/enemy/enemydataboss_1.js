@@ -1,5 +1,5 @@
 /*
- *  EnemyDataBoss.js
+ *  EnemyDataBoss_1.js
  *  2015/10/10
  *  @auther minimo  
  *  This Program is MIT license.
@@ -271,6 +271,7 @@ pbr.enemyData['Golyat'] = {
             }
         };
 
+        //中心部
         this.core = phina.display.Sprite("tex_boss1", 16, 16)
             .addChildTo(this)
             .setFrameTrimming(384, 96, 64, 16)
@@ -387,6 +388,7 @@ pbr.enemyData['Golyat'] = {
     },
 
     algorithm: function() {
+        //行動開始
         if (this.phase == 1) {
             this.isCollision = true;
 
@@ -397,12 +399,14 @@ pbr.enemyData['Golyat'] = {
             this.armR.flare('startfire');
         }
 
+        //左右に動く
         if (this.phase == 2) {
             this.x = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
 //            this.y = Math.sin(this.rad*2)/2;
             this.rad -= 0.01
         }
 
+        //画面中央に戻る
         if (this.phase == 3) {
             this.tweener.to({x: SC_W*0.5}, 180, "easeInOutSine");
             this.phase++;
@@ -486,6 +490,7 @@ pbr.enemyData['Golyat'] = {
         this.parentScene.eraseBullet();
         this.parentScene.timeVanish = 60;
 
+        //アーム破壊時アクション
         var bx = Math.cos(this.rad)*SC_W*0.2+SC_W*0.5;
         var by = this.y;
         var rot = child == this.armL? 20: -20;
@@ -503,6 +508,7 @@ pbr.enemyData['Golyat'] = {
                 this.armR.resumeDanmaku();
             }.bind(this));
 
+        //背景スクロール制御
         this.parentScene.ground.tweener.clear()
             .to({speed: -1.0}, 30, "easeInOutCubic")
             .wait(90)
@@ -590,6 +596,7 @@ pbr.enemyData['GolyatArm'] = {
         this.isGround = true;
         this.stopDanmaku();
 
+        //砲台１
         this.turret1 = phina.display.Sprite("tex_boss1", 48, 48)
             .addChildTo(this)
             .setFrameTrimming(0, 192, 144, 48)
@@ -601,6 +608,7 @@ pbr.enemyData['GolyatArm'] = {
         };
         this.turret1.tweener.clear().setUpdateType("fps");
 
+        //砲台２
         this.turret2 = phina.display.Sprite("tex_boss1", 48, 48)
             .addChildTo(this)
             .setFrameTrimming(0, 192, 144, 48)
@@ -612,7 +620,7 @@ pbr.enemyData['GolyatArm'] = {
         };
         this.turret2.tweener.clear().setUpdateType("fps");
 
-        //砲台の開閉
+        //砲台１開閉
         this.on('bulletstart1', function(e) {
             this.turret1.tweener.clear().to({idx: 2}, 15);
         }.bind(this));
@@ -620,6 +628,7 @@ pbr.enemyData['GolyatArm'] = {
             this.turret1.tweener.clear().to({idx: 0}, 15);
         }.bind(this));
 
+        //砲台２開閉
         this.on('bulletstart2', function(e) {
             this.turret2.tweener.clear().to({idx: 2}, 15);
         }.bind(this));
@@ -646,6 +655,7 @@ pbr.enemyData['GolyatArm'] = {
     },
 
     algorithm: function() {
+        //親オブジェクトの回転による位置補正
         this.rotation = this.parentEnemy.rotation;
         var offsetX = this.offsetX;
         var offsetY = this.offsetY;
@@ -702,6 +712,7 @@ pbr.enemyData['GolyatWing'] = {
     },
 
     algorithm: function() {
+        //親オブジェクトの回転による位置補正
         this.rotation = this.parentEnemy.rotation;
         var offsetX = this.offsetX;
         var offsetY = this.offsetY;
@@ -713,51 +724,11 @@ pbr.enemyData['GolyatWing'] = {
         this.x = this.parentEnemy.x+offsetX;
         this.y = this.parentEnemy.y+offsetY;
 
+        //親の耐久度が０で除去
         if (this.parentEnemy.def == 0) this.remove();
 
         //判定有無は親にあわせる
         this.isCollision = this.parentEnemy.isCollision;
     },
 };
-
-/*
- *
- *  ２面中ボス
- *  「モーンブレイド」
- *
- */
-
-/*
- *
- *  ２面ボス
- *  空中空母「ストームブリンガー」
- *
- */
-
-
-/*
- *
- *  ３面中ボス  
- *  大型爆撃機「レイブン」
- *
- */
-
-/*
- *
- *  ３面ボス
- *  大型超高高度爆撃機「ガルーダ」
- *
- */
-
-/*
- *
- *  ４面中ボス
- *
- */
-
-/*
- *
- *  ４面ボス
- *
- */
 
