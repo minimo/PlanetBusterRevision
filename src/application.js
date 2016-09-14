@@ -72,6 +72,9 @@ phina.define("pbr.Application", {
                 sound: {
                     "stage9":        "assets/sounds/departure.mp3",
                 },
+                tmx: {
+                    "map1":          "assets/maps/map1.tmx",
+                },
             },
         },
     },
