@@ -37,6 +37,8 @@ phina.define("pbr.Stage9Ground", {
         var h = this.map.height;
         this.mapBase.x = -w*0.5;
         this.mapBase.y = -h*0.5;
+
+        var mapdata = phina.asset.AssetManager.get('tmx', 'map1');
     },
 });
 
