@@ -17,6 +17,14 @@ phina.define("phina.extension.TiledMap", {
             tmx = phina.asset.AssetManager.get('tmx', tmx);
         }
 
+        //ファイル名からパスだけ抜き出し
+        this.path = "";
+        var last = tmx.src.path.lastIndexOf("/");
+        if (last > 0) {
+            this.path = tmx.src.path.substring(0, last+1);
+        }
+
+        //タイル属性情報取得
         var map = tmx.data.getElementsByTagName('map')[0];
         var attr = this._attrToJSON(map);
         this.$extend(attr);
@@ -26,6 +34,39 @@ phina.define("phina.extension.TiledMap", {
 
         //レイヤー取得
         this.leyers = this._parseLayers(tmx.data);
+
+        //イメージデータ準備
+        this._checkImage();
+    },
+
+    //アセットに無いイメージデータを読み込み
+    _checkImage: function() {
+        var imageSource = [];
+        var loadImage = [];
+
+        //一覧作成
+        for (var i = 0; i < this.tilesets.length; i++) {
+            imageSource.push(this.tilesets[i].image);
+        }
+        for (var i = 0; i < this.layers.length; i++) {
+            imageSoruces.push(this.layers[i].image.source);
+        }
+        if (imageSource.length == 0) return;
+
+        //アセットにあるか確認
+        for (var i = 0; i < imageSoruces.length; i++) {
+            var image = phina.asset.AssetManager.get('image', imageSource[i]);
+            if (image) {
+                //アセットにある
+            } else {
+                //なかったのでロードリストに追加
+                loadImage.push(imageSource[i]);
+            }
+        }
+
+        //一括ロード
+        for (var i = 0; i < loadImage.length; i++) {
+        }
     },
 
     //XMLプロパティをJSONに変換
@@ -161,6 +202,7 @@ phina.define("phina.extension.TiledMap", {
     },
 
     /**
+     * BASE64パース
      * http://thekannon-server.appspot.com/herpity-derpity.appspot.com/pastebin.com/75Kks0WH
      * @private
      */
