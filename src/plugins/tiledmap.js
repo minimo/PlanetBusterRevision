@@ -6,10 +6,8 @@
  *
  */
 
-phina.extension = phina.extension || {};
-
-phina.define("phina.extension.TiledMap", {
-    superClass: "phina.display.DisplayElement",
+phina.define("phina.asset.TiledMap", {
+    superClass: "phina.asset.Asset",
 
     init: function(tmx) {
         this.superInit();
@@ -39,6 +37,17 @@ phina.define("phina.extension.TiledMap", {
         this._checkImage();
     },
 
+    _load: function() {
+    },
+
+    //マップイメージ取得
+    getImage: function() {
+    },
+
+    //オブジェクトレイヤーデータ取得
+    getObjectData: function() {
+    },
+
     //アセットに無いイメージデータを読み込み
     _checkImage: function() {
         var imageSource = [];
@@ -65,8 +74,29 @@ phina.define("phina.extension.TiledMap", {
         }
 
         //一括ロード
+        var loadcomplete = false;
+        var loadprogress = 0;
+        //ロードリスト作成
+        var assets = {
+            image: [],
+        };
         for (var i = 0; i < loadImage.length; i++) {
+            assets.image[imageSource[i]] = this.path+imageSource[i];
         }
+        if (loadImage.length) {
+            var loader = phina.asset.AssetLoader();
+            loader.load(assets);
+            loader.on('load', function(e) {
+                loadcomplete = true;
+            }.bind(this));
+            loader.onprogress = function(e) {
+                loadprogress = e.progress;
+            }.bind(this);
+        }
+    },
+
+    //マップイメージ作成
+    _generateMapImage: function() {
     },
 
     //XMLプロパティをJSONに変換
