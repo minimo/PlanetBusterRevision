@@ -107,13 +107,13 @@ phina.define("phina.asset.TiledMap", {
             loader.load(assets);
             loader.on('load', function(e) {
                 that._generateImage();
+                that._resolve(that);
             }.bind(this));
         }
     },
 
     //マップイメージ作成
     _generateImage: function() {
-        this._resolve(this);
     },
 
     //XMLプロパティをJSONに変換
