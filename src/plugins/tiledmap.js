@@ -9,6 +9,8 @@
 phina.define("phina.asset.TiledMap", {
     superClass: "phina.asset.Asset",
 
+    image: null,
+
     init: function() {
         this.superInit();
     },
@@ -45,6 +47,7 @@ phina.define("phina.asset.TiledMap", {
 
     //マップイメージ取得
     getImage: function() {
+        return this.image;
     },
 
     //オブジェクトレイヤーデータ取得
@@ -75,7 +78,8 @@ phina.define("phina.asset.TiledMap", {
 
         //一覧作成
         for (var i = 0; i < this.tilesets.length; i++) {
-            imageSource.push(this.tilesets[i].image);
+            var imageURL = this.tilesets[i].image;
+            imageSource.push(imageURL);
         }
         for (var i = 0; i < this.layers.length; i++) {
             if (this.layers[i].image) imageSource.push(this.layers[i].image.source);
@@ -106,6 +110,10 @@ phina.define("phina.asset.TiledMap", {
             var loader = phina.asset.AssetLoader();
             loader.load(assets);
             loader.on('load', function(e) {
+                loadImage.forEach(function(name) {
+                    var image = phina.asset.AssetManager.get('image', name);
+                    image.transparent(0, 0, 255);
+                });
                 that._generateImage();
                 that._resolve(that);
             }.bind(this));
@@ -114,6 +122,13 @@ phina.define("phina.asset.TiledMap", {
 
     //マップイメージ作成
     _generateImage: function() {
+        var width = this.width * this.tilewidth;
+        var height = this.height * this.tileheight;
+        var canvas = phina.graphics.Canvas().setSize(width, height);
+
+        // canvas全体のイメージデータ配列をゲット
+        var imageData = canvas.context.getImageData(0, 0, canvas.width, canvas.height);
+        var data = imageData.data;
     },
 
     //XMLプロパティをJSONに変換
@@ -156,6 +171,10 @@ phina.define("phina.asset.TiledMap", {
                 t.image = props.src;
             } else {
                 t.image = tileset.getElementsByTagName('image')[0].getAttribute('source');
+                t.trans = tileset.getElementsByTagName('image')[0].getAttribute('trans');
+                t.transR = parseInt(t.trans.substring(0, 2), 16);
+                t.transG = parseInt(t.trans.substring(2, 4), 16);
+                t.transB = parseInt(t.trans.substring(4, 6), 16);
             }
             data.push(t);
         });
@@ -275,4 +294,15 @@ phina.asset.AssetLoader.assetLoadFunctions.tmx = function(key, path) {
     var tmx = phina.asset.TiledMap();
     return tmx.load(path);
 };
+
+//指定したRGBのピクセルを透過させる
+phina.asset.Texture.prototype.transparent = function(r, g, b) {
+    this.filter(function(pixel, index, x, y, bitmap) {
+        var data = bitmap.data;
+        if (pixel[0] == r && pixel[1] == g && pixel[2] == 0) {
+            data[index+3] = 0;
+        }
+    });
+}
+
 
