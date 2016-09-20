@@ -9,35 +9,38 @@
 phina.define("phina.asset.TiledMap", {
     superClass: "phina.asset.Asset",
 
-    init: function(tmx) {
+    init: function() {
         this.superInit();
-        if (typeof tmx === 'string') {
-            tmx = phina.asset.AssetManager.get('tmx', tmx);
-        }
-
-        //ファイル名からパスだけ抜き出し
-        this.path = "";
-        var last = tmx.src.path.lastIndexOf("/");
-        if (last > 0) {
-            this.path = tmx.src.path.substring(0, last+1);
-        }
-
-        //タイル属性情報取得
-        var map = tmx.data.getElementsByTagName('map')[0];
-        var attr = this._attrToJSON(map);
-        this.$extend(attr);
-
-        //タイルセット取得
-        this.tilesets = this._parseTilesets(tmx.data);
-
-        //レイヤー取得
-        this.leyers = this._parseLayers(tmx.data);
-
-        //イメージデータ準備
-        this._checkImage();
     },
 
-    _load: function() {
+    _load: function(resolve) {
+        //パス抜き出し
+        this.path = "";
+        var last = this.src.lastIndexOf("/");
+        if (last > 0) {
+            this.path = this.src.substring(0, last+1);
+        }
+
+        //終了関数保存
+        this._resolve = resolve;
+
+        // load
+        var self = this;
+        var xml = new XMLHttpRequest();
+        xml.open('GET', this.src);
+        xml.onreadystatechange = function() {
+            if (xml.readyState === 4) {
+                if ([200, 201, 0].indexOf(xml.status) !== -1) {
+                    var data = xml.responseText;
+                    data = (new DOMParser()).parseFromString(data, "text/xml");
+                    self.dataType = "xml";
+                    self.data = data;
+                    self._parse(data);
+//                    resolve(self);
+                }
+            }
+        };
+        xml.send(null);
     },
 
     //マップイメージ取得
@@ -48,8 +51,25 @@ phina.define("phina.asset.TiledMap", {
     getObjectData: function() {
     },
 
+    _parse: function(data) {
+        //タイル属性情報取得
+        var map = data.getElementsByTagName('map')[0];
+        var attr = this._attrToJSON(map);
+        this.$extend(attr);
+
+        //タイルセット取得
+        this.tilesets = this._parseTilesets(data);
+
+        //レイヤー取得
+        this.layers = this._parseLayers(data);
+
+        //イメージデータ読み込み
+        this._checkImage();
+    },
+
     //アセットに無いイメージデータを読み込み
     _checkImage: function() {
+        var that = this;
         var imageSource = [];
         var loadImage = [];
 
@@ -58,12 +78,12 @@ phina.define("phina.asset.TiledMap", {
             imageSource.push(this.tilesets[i].image);
         }
         for (var i = 0; i < this.layers.length; i++) {
-            imageSoruces.push(this.layers[i].image.source);
+            if (this.layers[i].image) imageSource.push(this.layers[i].image.source);
         }
         if (imageSource.length == 0) return;
 
         //アセットにあるか確認
-        for (var i = 0; i < imageSoruces.length; i++) {
+        for (var i = 0; i < imageSource.length; i++) {
             var image = phina.asset.AssetManager.get('image', imageSource[i]);
             if (image) {
                 //アセットにある
@@ -74,29 +94,26 @@ phina.define("phina.asset.TiledMap", {
         }
 
         //一括ロード
-        var loadcomplete = false;
-        var loadprogress = 0;
         //ロードリスト作成
         var assets = {
-            image: [],
+            image: []
         };
         for (var i = 0; i < loadImage.length; i++) {
+            //イメージのパスをマップと同じにする
             assets.image[imageSource[i]] = this.path+imageSource[i];
         }
         if (loadImage.length) {
             var loader = phina.asset.AssetLoader();
             loader.load(assets);
             loader.on('load', function(e) {
-                loadcomplete = true;
+                that._generateImage();
             }.bind(this));
-            loader.onprogress = function(e) {
-                loadprogress = e.progress;
-            }.bind(this);
         }
     },
 
     //マップイメージ作成
-    _generateMapImage: function() {
+    _generateImage: function() {
+        this._resolve(this);
     },
 
     //XMLプロパティをJSONに変換
@@ -255,10 +272,7 @@ phina.define("phina.asset.TiledMap", {
 
 //ローダーに追加
 phina.asset.AssetLoader.assetLoadFunctions.tmx = function(key, path) {
-    var text = phina.asset.File();
-    return text.load({
-      path: path,
-      dataType: "xml",
-    });
+    var tmx = phina.asset.TiledMap();
+    return tmx.load(path);
 };
 
