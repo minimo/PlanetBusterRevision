@@ -124,13 +124,22 @@ phina.define("phina.asset.TiledMap", {
             var loader = phina.asset.AssetLoader();
             loader.load(assets);
             loader.on('load', function(e) {
+                //透過色設定反映
                 loadImage.forEach(function(elm) {
                     var image = phina.asset.AssetManager.get('image', elm.image);
                     if (elm.transR !== undefined) {
-                        image.transparent(elm.transR, elm.transG, elm.transB);
+                        var r = elm.transR, g = elm.transG, b = elm.transB;
+                        image.filter(function(pixel, index, x, y, bitmap) {
+                            var data = bitmap.data;
+                            if (pixel[0] == r && pixel[1] == g && pixel[2] == 0) {
+                                data[index+3] = 0;
+                            }
+                        });
                     }
                 });
+                //マップイメージ生成
                 that._generateImage();
+                //読み込み終了
                 that._resolve(that);
             }.bind(this));
         }
@@ -328,15 +337,3 @@ phina.asset.AssetLoader.assetLoadFunctions.tmx = function(key, path) {
     var tmx = phina.asset.TiledMap();
     return tmx.load(path);
 };
-
-//指定したRGBのピクセルを透過させる
-phina.asset.Texture.prototype.transparent = function(r, g, b) {
-    this.filter(function(pixel, index, x, y, bitmap) {
-        var data = bitmap.data;
-        if (pixel[0] == r && pixel[1] == g && pixel[2] == 0) {
-            data[index+3] = 0;
-        }
-    });
-}
-
-
