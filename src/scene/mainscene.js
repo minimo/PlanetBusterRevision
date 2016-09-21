@@ -88,6 +88,9 @@ phina.define("pbr.MainScene", {
         var effectPool = pbr.EffectPool(2048, this);
 
         //プレイヤー情報初期化
+        app.score = 0;
+        app.rank = 1
+        app.numContinue = 0;
         app.setting.$extend(app.currentrySetting);
 
         //レイヤー準備
