@@ -51,7 +51,7 @@ phina.define("phina.asset.TiledMap", {
     },
 
     //オブジェクトレイヤーデータ取得
-    getObjectData: function() {
+    getObjectData: function(index) {
     },
 
     _parse: function(data) {
@@ -62,6 +62,10 @@ phina.define("phina.asset.TiledMap", {
 
         //タイルセット取得
         this.tilesets = this._parseTilesets(data);
+        for (var i = 0; i < this.tilesets.length; i++) {
+            var attr = this._attrToJSON(data.getElementsByTagName('tileset')[i]);
+            this.tilesets[i].$extend(attr);
+        }
 
         //レイヤー取得
         this.layers = this._parseLayers(data);
@@ -78,17 +82,27 @@ phina.define("phina.asset.TiledMap", {
 
         //一覧作成
         for (var i = 0; i < this.tilesets.length; i++) {
-            var imageURL = this.tilesets[i].image;
-            imageSource.push(imageURL);
+            var obj = {
+                image: this.tilesets[i].image,
+                transR: this.tilesets[i].transR,
+                transG: this.tilesets[i].transG,
+                transB: this.tilesets[i].transB,
+            };
+            imageSource.push(obj);
         }
         for (var i = 0; i < this.layers.length; i++) {
-            if (this.layers[i].image) imageSource.push(this.layers[i].image.source);
+            if (this.layers[i].image) {
+                var obj = {
+                    image: this.layers[i].image.source
+                };
+                imageSource.push(obj);
+            }
         }
         if (imageSource.length == 0) return;
 
         //アセットにあるか確認
         for (var i = 0; i < imageSource.length; i++) {
-            var image = phina.asset.AssetManager.get('image', imageSource[i]);
+            var image = phina.asset.AssetManager.get('image', imageSource[i].image);
             if (image) {
                 //アセットにある
             } else {
@@ -104,15 +118,17 @@ phina.define("phina.asset.TiledMap", {
         };
         for (var i = 0; i < loadImage.length; i++) {
             //イメージのパスをマップと同じにする
-            assets.image[imageSource[i]] = this.path+imageSource[i];
+            assets.image[imageSource[i].image] = this.path+imageSource[i].image;
         }
         if (loadImage.length) {
             var loader = phina.asset.AssetLoader();
             loader.load(assets);
             loader.on('load', function(e) {
-                loadImage.forEach(function(name) {
-                    var image = phina.asset.AssetManager.get('image', name);
-                    image.transparent(0, 0, 255);
+                loadImage.forEach(function(elm) {
+                    var image = phina.asset.AssetManager.get('image', elm.image);
+                    if (elm.transR !== undefined) {
+                        image.transparent(elm.transR, elm.transG, elm.transB);
+                    }
                 });
                 that._generateImage();
                 that._resolve(that);
@@ -126,9 +142,25 @@ phina.define("phina.asset.TiledMap", {
         var height = this.height * this.tileheight;
         var canvas = phina.graphics.Canvas().setSize(width, height);
 
-        // canvas全体のイメージデータ配列をゲット
+        // canvas全体のイメージデータ配列取得
         var imageData = canvas.context.getImageData(0, 0, canvas.width, canvas.height);
         var data = imageData.data;
+
+        for (var i = 0; i < this.layers.length; i++) {
+            if (this.layers[i].type == "layer") {
+                var layer = this.layers[i];
+                var mapdata = layer.data;
+                var width = layer.width;
+                var height = layer.height;
+                var count = 0;
+                for (var y = 0; y < height; y++) {
+                    for (var x = 0; x < width; x++) {
+                         var cell = mapdata[count];
+                         count++;
+                    }
+                }
+            }
+        }
     },
 
     //XMLプロパティをJSONに変換
@@ -171,11 +203,13 @@ phina.define("phina.asset.TiledMap", {
                 t.image = props.src;
             } else {
                 t.image = tileset.getElementsByTagName('image')[0].getAttribute('source');
-                t.trans = tileset.getElementsByTagName('image')[0].getAttribute('trans');
-                t.transR = parseInt(t.trans.substring(0, 2), 16);
-                t.transG = parseInt(t.trans.substring(2, 4), 16);
-                t.transB = parseInt(t.trans.substring(4, 6), 16);
             }
+            //透過色設定取得
+            t.trans = tileset.getElementsByTagName('image')[0].getAttribute('trans');
+            t.transR = parseInt(t.trans.substring(0, 2), 16);
+            t.transG = parseInt(t.trans.substring(2, 4), 16);
+            t.transB = parseInt(t.trans.substring(4, 6), 16);
+
             data.push(t);
         });
         return data;
