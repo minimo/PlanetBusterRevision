@@ -64,19 +64,22 @@ phina.define("phina.asset.TiledMap", {
         this.$extend(attr);
 
         //タイルセット取得
+        this.tilesets = this._parseTilesets(data);
+
+        //タイルセット情報補完
         var defaultAttr = {
             tilewidth: 32,
             tileheight: 32,
             spacing: 0,
             margin: 0,
         };
-        this.tilesets = this._parseTilesets(data);
-
-        //タイルセット情報補完
         this.tilesets.chips = [];
         for (var i = 0; i < this.tilesets.length; i++) {
+            //タイルセット属性情報取得
             var attr = this._attrToJSON(data.getElementsByTagName('tileset')[i]);
-            this.tilesets[i].$extend(attr).$safe(defaultAttr);
+            attr.$safe(defaultAttr);
+            this.tilesets[i].$extend(attr);
+
             //マップチップリスト作成
             var t = this.tilesets[i];
             this.tilesets[i].mapChip = [];
@@ -85,7 +88,7 @@ phina.define("phina.asset.TiledMap", {
                     image: t.image,
                     x: ((r - attr.firstgid) % t.columns) * (t.tilewidth + t.spacing) + t.margin,
                     y: Math.floor((r - attr.firstgid) / t.columns) * (t.tileheight + t.spacing) + t.margin,
-                };
+                }.$safe(attr);
                 this.tilesets.chips[r] = chip;
             }
         }
@@ -187,8 +190,10 @@ phina.define("phina.asset.TiledMap", {
                 var count = 0;
                 for (var y = 0; y < height; y++) {
                     for (var x = 0; x < width; x++) {
-                        var cell = mapdata[count];
-                        this._setMapChip(canvas, cell, x, y);
+                        var index = mapdata[count];
+                        if (index !== 0) {
+                            this._setMapChip(canvas, index, x * this.tilewidth, y * this.tileheight);
+                        }
                         count++;
                     }
                 }
@@ -196,15 +201,12 @@ phina.define("phina.asset.TiledMap", {
         }
     },
 
-    //キャンバスにマップチップを配置
+    //キャンバスの指定した座標にマップチップのイメージをコピーする
     _setMapChip: function(canvas, index, x, y) {
-        //どのタイルセットか判別
-        for (var r = 0; r < this.tilesets.length; r++) {
-            var t = this.tilesets[r];
-            if ((t.firstgid+this.tilecount) < index) {
-                canvas.context.drawImage();
-            }
-        }
+        //タイルセットからマップチップを取得
+        var chip = this.tilesets.chips[index];
+        var image = phina.asset.AssetManager.get('image', chip.image);
+        canvas.context.drawImage(image.domElement, chip.margin, chip.margin, chip.tilewidth, chip.tileheight, x, y, chip.tilewidth, chip.tileheight);
     },
 
     //XMLプロパティをJSONに変換
@@ -338,7 +340,7 @@ phina.define("phina.asset.TiledMap", {
         var layer = [];
 
         dataList.each(function(elm, i) {
-            var num = parseInt(elm, 10) - 1;
+            var num = parseInt(elm, 10);
             layer.push(num);
         });
 
