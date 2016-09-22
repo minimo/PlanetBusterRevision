@@ -11,6 +11,9 @@ phina.define("phina.asset.TiledMap", {
 
     image: null,
 
+    tilesets: null,
+    layers: null,
+
     init: function() {
         this.superInit();
     },
@@ -61,10 +64,30 @@ phina.define("phina.asset.TiledMap", {
         this.$extend(attr);
 
         //タイルセット取得
+        var defaultAttr = {
+            tilewidth: 32,
+            tileheight: 32,
+            spacing: 0,
+            margin: 0,
+        };
         this.tilesets = this._parseTilesets(data);
+
+        //タイルセット情報補完
+        this.tilesets.chips = [];
         for (var i = 0; i < this.tilesets.length; i++) {
             var attr = this._attrToJSON(data.getElementsByTagName('tileset')[i]);
-            this.tilesets[i].$extend(attr);
+            this.tilesets[i].$extend(attr).$safe(defaultAttr);
+            //マップチップリスト作成
+            var t = this.tilesets[i];
+            this.tilesets[i].mapChip = [];
+            for (var r = attr.firstgid; r < attr.firstgid+attr.tilecount; r++) {
+                var chip = {
+                    image: t.image,
+                    x: ((r - attr.firstgid) % t.columns) * (t.tilewidth + t.spacing) + t.margin,
+                    y: Math.floor((r - attr.firstgid) / t.columns) * (t.tileheight + t.spacing) + t.margin,
+                };
+                this.tilesets.chips[r] = chip;
+            }
         }
 
         //レイヤー取得
@@ -164,10 +187,22 @@ phina.define("phina.asset.TiledMap", {
                 var count = 0;
                 for (var y = 0; y < height; y++) {
                     for (var x = 0; x < width; x++) {
-                         var cell = mapdata[count];
-                         count++;
+                        var cell = mapdata[count];
+                        this._setMapChip(canvas, cell, x, y);
+                        count++;
                     }
                 }
+            }
+        }
+    },
+
+    //キャンバスにマップチップを配置
+    _setMapChip: function(canvas, index, x, y) {
+        //どのタイルセットか判別
+        for (var r = 0; r < this.tilesets.length; r++) {
+            var t = this.tilesets[r];
+            if ((t.firstgid+this.tilecount) < index) {
+                canvas.context.drawImage();
             }
         }
     },
