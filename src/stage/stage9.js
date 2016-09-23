@@ -30,7 +30,8 @@ phina.define("pbr.Stage9Ground", {
 
     init: function() {
         this.superInit({
-            asset: "map1g",
+            asset: "map1",
+            type: "tmx",
             belt: true
         });
         var w = this.map.width;

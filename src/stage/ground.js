@@ -29,11 +29,13 @@ phina.define("pbr.Ground", {
         this.$safe(this._member);
         option = (option || {}).$safe({
             asset: null,
+            type: "image",
             belt: false,
             x: SC_W*0.5,
             y: SC_H*0.5
         });
         this.asset = option.asset;
+        this.type = option.type;
         this.belt = option.belt;
 
         this.position.x = option.x;
@@ -76,13 +78,23 @@ phina.define("pbr.Ground", {
 
     setupMap: function() {
         if (!this.belt) {
-            this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
+            if (this.type == "image") {
+                this.map = phina.display.Sprite(this.asset).addChildTo(this.mapBase);
+            } else if (this.type == "tmx") {
+                var tmx = phina.asset.AssetManager.get('tmx', this.asset);
+                this.map = phina.display.Sprite(tmx.image).addChildTo(this.mapBase);
+            }
             var w = this.map.width;
             var h = this.map.height;
             this.map.setPosition(0, 0);
             this.map.setOrigin(0, 0);
         } else {
-            var image = phina.asset.AssetManager.get('image', this.asset);
+            if (this.type == "image") {
+                var image = phina.asset.AssetManager.get('image', this.asset);
+            } else if (this.type == "tmx") {
+                var tmx = phina.asset.AssetManager.get('tmx', this.asset);
+                var image = tmx.image;
+            }
             this.map = [];
             this.map.width = image.domElement.width;
             this.map.height = image.domElement.height;
@@ -91,7 +103,7 @@ phina.define("pbr.Ground", {
                 for (var y = 0; y < 3; y++) {
                     var mx = (x-1) * this.map.width;
                     var my = (y-1) * this.map.height;
-                    this.map[x][y] = phina.display.Sprite(this.asset)
+                    this.map[x][y] = phina.display.Sprite(image)
                         .addChildTo(this.mapBase)
                         .setPosition(mx, my)
                         .setOrigin(0, 0);
