@@ -78,6 +78,7 @@ phina.define("phina.asset.TiledMap", {
             //タイルセット属性情報取得
             var attr = this._attrToJSON(data.getElementsByTagName('tileset')[i]);
             attr.$safe(defaultAttr);
+            attr.firstgid--;
             this.tilesets[i].$extend(attr);
 
             //マップチップリスト作成
@@ -157,7 +158,7 @@ phina.define("phina.asset.TiledMap", {
                         var r = elm.transR, g = elm.transG, b = elm.transB;
                         image.filter(function(pixel, index, x, y, bitmap) {
                             var data = bitmap.data;
-                            if (pixel[0] == r && pixel[1] == g && pixel[2] == 0) {
+                            if (pixel[0] == r && pixel[1] == g && pixel[2] == b) {
                                 data[index+3] = 0;
                             }
                         });
@@ -187,7 +188,7 @@ phina.define("phina.asset.TiledMap", {
                 for (var y = 0; y < height; y++) {
                     for (var x = 0; x < width; x++) {
                         var index = mapdata[count];
-                        if (index !== 0) {
+                        if (index !== -1) {
                             this._setMapChip(canvas, index, x * this.tilewidth, y * this.tileheight);
                         }
                         count++;
@@ -206,7 +207,12 @@ phina.define("phina.asset.TiledMap", {
         //タイルセットからマップチップを取得
         var chip = this.tilesets.chips[index];
         var image = phina.asset.AssetManager.get('image', chip.image);
-        canvas.context.drawImage(image.domElement, chip.margin, chip.margin, chip.tilewidth, chip.tileheight, x, y, chip.tilewidth, chip.tileheight);
+        canvas.context.drawImage(
+            image.domElement,
+            chip.x + chip.margin, chip.y + chip.margin,
+            chip.tilewidth, chip.tileheight,
+            x, y,
+            chip.tilewidth, chip.tileheight);
     },
 
     //XMLプロパティをJSONに変換
@@ -340,7 +346,7 @@ phina.define("phina.asset.TiledMap", {
         var layer = [];
 
         dataList.each(function(elm, i) {
-            var num = parseInt(elm, 10);
+            var num = parseInt(elm, 10) - 1;
             layer.push(num);
         });
 
