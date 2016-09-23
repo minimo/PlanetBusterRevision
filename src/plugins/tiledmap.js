@@ -164,7 +164,7 @@ phina.define("phina.asset.TiledMap", {
                     }
                 });
                 //マップイメージ生成
-                that._generateImage();
+                that.image = that._generateImage();
                 //読み込み終了
                 that._resolve(that);
             }.bind(this));
@@ -176,10 +176,6 @@ phina.define("phina.asset.TiledMap", {
         var width = this.width * this.tilewidth;
         var height = this.height * this.tileheight;
         var canvas = phina.graphics.Canvas().setSize(width, height);
-
-        // canvas全体のイメージデータ配列取得
-        var imageData = canvas.context.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imageData.data;
 
         for (var i = 0; i < this.layers.length; i++) {
             if (this.layers[i].type == "layer") {
@@ -199,6 +195,10 @@ phina.define("phina.asset.TiledMap", {
                 }
             }
         }
+
+        var texture = phina.asset.Texture();
+        texture.domElement = canvas.domElement;
+        return texture;
     },
 
     //キャンバスの指定した座標にマップチップのイメージをコピーする
