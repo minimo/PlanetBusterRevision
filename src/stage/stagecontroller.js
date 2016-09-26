@@ -8,20 +8,19 @@
 
 //ステージ制御
 phina.define("pbr.StageController", {
+    superClass: "phina.app.Object2D",
 
-    _member: {
-        parentScene: null,
-        player: null,
-        time: 0,
+    parentScene: null,
+    player: null,
+    time: 0,
 
-        seq: null,
-        index: 0,
+    seq: null,
+    index: 0,
 
-        altitude: 100,
-    },
+    altitude: 100,
 
-    init: function(scene, player) {
-        this.$safe(this._member);
+    init: function(scene, player, tmx, layer) {
+        this.superInit();
 
         this.parentScene = scene;
         this.seq = [];
