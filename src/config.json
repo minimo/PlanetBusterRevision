@@ -1,14 +1,62 @@
 {
   "files": [
-    "plugins/soundset.js",
+    "libs/bulletml.js",
+    "libs/phina.js",
 
-    "benri.js",
     "application.js",
-
+    "benri.js",
+    "collision.js",
+    "dialog.js",
+    "extension.js",
     "main.js",
-    "player.js",
 
+    "scene/continescene.js",
+    "scene/gameoverscene.js",
     "scene/loadingscene.js",
+    "scene/mainscene.js",
+    "scene/menudialog.js",
+    "scene/pausescene.js",
+    "scene/practicescene.js",
+    "scene/sceneflow.js",
+    "scene/settingscene.js",
+    "scene/splashscene.js",
     "scene/titlescene.js",
+
+    "plugins/button.js",
+    "plugins/gauge.js",
+    "plugins/soundset.js",
+    "plugins/tiledmap.js",
+
+    "bullet/bullet.js",
+    "bullet/bulletconfig.js",
+    "bullet/bulletlayer.js",
+
+    "enemy/enemy.js",
+    "enemy/enemydata.js",
+    "enemy/enemydataboss_1.js",
+    "enemy/enemydataboss_2.js",
+    "enemy/enemyunit.js",
+
+    "effect/effect.js",
+    "effect/effectlayer.js",
+    "effect/effectutility.js",
+    "effect/particle.js",
+
+    "stage/ground.js",
+    "stage/stage1.js",
+    "stage/stage2.js",
+    "stage/stage9.js",
+    "stage/stagecontroller.js",
+
+    "player/player.js",
+    "player/playerbit.js",
+    "player/playerpointer.js",
+    "player/shot.js",
+    "player/shotlayer.js",
+
+    "danmaku/danmaku.js",
+    "danmaku/danmak.utility.js",
+    "danmaku/danmakuBasic.js",
+    "danmaku/danmakuBoss.js",
   ]
 }
