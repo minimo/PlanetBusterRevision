@@ -67,6 +67,12 @@ pbr.enemyData['Hornet'] = {
                     .call(function(){this.phase++;}.bind(this));
                 this.startDanmaku(this.danmakuName[2]);
                 break;
+            default:
+                this.tweener.moveBy(0, 100, 120, "easeOutQuart")
+                    .wait(60)
+                    .moveBy(0, -100, 120)
+                    .call(function(){this.remove();}.bind(this));
+                break;
         }
 
         //ミサイル発射
