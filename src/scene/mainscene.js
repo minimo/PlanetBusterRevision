@@ -334,6 +334,31 @@ phina.define("pbr.MainScene", {
             }
         }
 
+        //マップオブジェクト判定
+        if (this.mapObject) {
+            var sx = SC_W*0.1;
+            var sy = SC_H*0.1;
+            var x = this.ground.mapBase.x;
+            var y = this.ground.mapBase.y;
+            var len = this.mapObject.objects.length;
+            for (var i = 0; i < len; i++) {
+                var obj = this.mapObject.objects[i];
+                if (!obj.executed) {
+                    //範囲内にあるか判定
+                    var dx = x + obj.x;
+                    var dy = y + obj.y;
+                    if (-sx < dx && dx < SC_W+sx && -sy < dy && dy < SC_H+sy) {
+                        if (obj.type == "enemy") {
+                            this.enterEnemy(obj.properties.name, dx, dy, obj.properties.parameter);
+                        }
+                        if (obj.type == "event") {
+                        }
+                        obj.executed = true;
+                    }
+                }
+            }
+        }
+
         //ボム効果
         if (this.bombTime > 0) {
             this.bombTime--;
@@ -397,6 +422,7 @@ phina.define("pbr.MainScene", {
             this.ground = null;
         }
         if (this.stage) this.stage = null;
+        if (this.mapObject) this.mapObject = null;
 
         //ステージ進行と背景追加
         switch (this.stageId) {
@@ -415,7 +441,7 @@ phina.define("pbr.MainScene", {
             case 9:
                 //テスト用ステージ
                 this.stage = pbr.Stage9(this, this.player);
-                this.enemygroup = phina.asset.AssetManager.get('tmx', "map1").getObjectGroup();
+                this.mapObject = phina.asset.AssetManager.get('tmx', "map1").getObjectGroup("EnemyLayer")[0];
                 this.ground = pbr.Stage9Ground().addChildTo(this);
                 break;
         }
