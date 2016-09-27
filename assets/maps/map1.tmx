@@ -119,9 +119,6 @@
 1,1,1,15,1,1,15,1,1,1,15,1,66,67,68,69,70,1,1,1
 </data>
  </layer>
- <imagelayer name="ImageLayer" offsetx="300" offsety="300">
-  <image source="mapchip_026.png" width="192" height="232"/>
- </imagelayer>
  <layer name="MapLayer2" width="20" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,10,11,0,0,0,
