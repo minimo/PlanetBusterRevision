@@ -224,9 +224,9 @@
 </data>
  </layer>
  <objectgroup name="EnemyLayer">
-  <object id="1" type="EnemyGenerator" x="113" y="1755">
+  <object id="1" type="enemy" x="320" y="1755">
    <properties>
-    <property name="EnemyName" value="Hornet1"/>
+    <property name="name" value="Hornet1"/>
    </properties>
   </object>
  </objectgroup>
