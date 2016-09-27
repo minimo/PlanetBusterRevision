@@ -70,7 +70,10 @@ phina.define("pbr.Enemy", {
 
         this.name = name;
         var d = this.data = pbr.enemyData[name];
-        if (!d) return false;
+        if (!d) {
+            console.warn("Enemy data not found.: '"+name+"'");
+            return false;
+        }
 
         //弾幕定義
         if (d.danmakuName) {
