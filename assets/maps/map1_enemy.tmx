@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="47">
+ <objectgroup name="EnemyLayer">
+  <object id="32" name="Hornet" type="enemy" x="282" y="62709">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="36" name="Hornet" type="enemy" x="193" y="62645">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="37" name="Hornet" type="enemy" x="236" y="62677">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="38" name="Hornet" type="enemy" x="189" y="62565">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="39" name="Hornet" type="enemy" x="235" y="62597">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="40" name="Hornet" type="enemy" x="146" y="62533">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="41" name="Hornet" type="enemy" x="88" y="62446">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="42" name="Hornet" type="enemy" x="43" y="62481">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="43" name="Hornet" type="enemy" x="135" y="62409">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="44" name="Hornet" type="enemy" x="180" y="62269">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="45" name="Hornet" type="enemy" x="88" y="62341">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="46" name="Hornet" type="enemy" x="133" y="62306">
+   <properties>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

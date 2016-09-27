@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="100" tilewidth="32" tileheight="32" nextobjectid="10">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="100" tilewidth="32" tileheight="32" nextobjectid="12">
  <tileset firstgid="1" name="gr1" tilewidth="32" tileheight="32" spacing="8" tilecount="33" columns="11">
   <image source="mapchip_028.png" trans="0000ff" width="432" height="112"/>
  </tileset>
@@ -119,6 +119,9 @@
 1,1,1,15,1,1,15,1,1,1,15,1,66,67,68,69,70,1,1,1
 </data>
  </layer>
+ <imagelayer name="ImageLayer" offsetx="300" offsety="300">
+  <image source="mapchip_026.png" width="192" height="232"/>
+ </imagelayer>
  <layer name="MapLayer2" width="20" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,10,11,0,0,0,
@@ -224,58 +227,19 @@
 </data>
  </layer>
  <objectgroup name="EnemyLayer">
-  <object id="1" type="enemy" x="507" y="1289">
+  <object id="9" name="Hornet" type="enemy" x="386" y="1232">
    <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="2" type="enemy" x="463" y="1259">
+  <object id="10" name="Hornet" type="enemy" x="432" y="1271">
    <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="3" type="enemy" x="418" y="1224">
+  <object id="11" name="Hornet" type="enemy" x="475" y="1308">
    <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="4" type="enemy" x="361" y="1261">
-   <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="5" type="enemy" x="405" y="1291">
-   <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="6" type="enemy" x="316" y="1226">
-   <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="7" type="enemy" x="255" y="1272">
-   <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="8" type="enemy" x="299" y="1302">
-   <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
-   </properties>
-  </object>
-  <object id="9" type="enemy" x="210" y="1237">
-   <properties>
-    <property name="name" value="Hornet"/>
-    <property name="parameter" type="int" value="1"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
  </objectgroup>
