@@ -147,7 +147,6 @@ phina.define("phina.asset.TiledMap", {
                 imageSource.push(obj);
             }
         }
-        if (imageSource.length == 0) return;
 
         //アセットにあるか確認
         for (var i = 0; i < imageSource.length; i++) {
@@ -201,11 +200,18 @@ phina.define("phina.asset.TiledMap", {
 
     //マップイメージ作成
     _generateImage: function() {
+        var numLayer = 0;
+        for (var i = 0; i < this.layers.length; i++) {
+            if (this.layers[i].type == "layer" || this.layers[i].type == "imagelayer") numLayer++;
+        }
+        if (numLayer == 0) return null;
+
         var width = this.width * this.tilewidth;
         var height = this.height * this.tileheight;
         var canvas = phina.graphics.Canvas().setSize(width, height);
 
         for (var i = 0; i < this.layers.length; i++) {
+            //マップレイヤー
             if (this.layers[i].type == "layer") {
                 var layer = this.layers[i];
                 var mapdata = layer.data;
@@ -216,11 +222,18 @@ phina.define("phina.asset.TiledMap", {
                     for (var x = 0; x < width; x++) {
                         var index = mapdata[count];
                         if (index !== -1) {
+                            //マップチップを配置
                             this._setMapChip(canvas, index, x * this.tilewidth, y * this.tileheight);
                         }
                         count++;
                     }
                 }
+            }
+            //イメージレイヤー
+            if (this.layers[i].type == "imagelayer") {
+                var len = this.layers[i];
+                var image = phina.asset.AssetManager.get('image', this.layers[i].image.source);
+                canvas.context.drawImage(image.domElement, this.layers[i].x, this.layers[i].y);
             }
         }
 
@@ -352,8 +365,8 @@ phina.define("phina.asset.TiledMap", {
                     var l = {
                         type: "imagelayer",
                         name: layer.getAttribute("name"),
-                        x: layer.getAttribute("x") || 0,
-                        y: layer.getAttribute("y") || 0,
+                        x: parseFloat(layer.getAttribute("offsetx")) || 0,
+                        y: parseFloat(layer.getAttribute("offsety")) || 0,
                         alpha: layer.getAttribute("opacity") || 1,
                         visible: (layer.getAttribute("visible") === undefined || layer.getAttribute("visible") != 0),
                     };
