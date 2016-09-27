@@ -54,21 +54,24 @@ phina.define("phina.asset.TiledMap", {
     },
 
     //オブジェクトグループを配列にして取得
-    getObjectGroup: function() {
+    getObjectGroup: function(groupName) {
+        groupName = groupName || null;
         var ls = [];
         var len = this.layers.length;
         for (var i = 0; i < len; i++) {
             if (this.layers[i].type == "objectgroup") {
-                //ディープコピー
-                var obj = {}.$safe(this.layers[i]);
-                obj.objects = [];
-                var len2 = this.layers[i].objects.length;
-                for (var r = 0; r < len2; r++) {
-                    var obj2 = {
-                        properties: {}.$safe(this.layers[i].objects[r].properties),
-                        executed: false,
-                    }.$safe(this.layers[i].objects[r]);
-                    obj.objects[r] = obj2;
+                if (groupName == null || groupName == this.layers[i].name) {
+                    //ディープコピー
+                    var obj = {}.$safe(this.layers[i]);
+                    obj.objects = [];
+                    var len2 = this.layers[i].objects.length;
+                    for (var r = 0; r < len2; r++) {
+                        var obj2 = {
+                            properties: {}.$safe(this.layers[i].objects[r].properties),
+                            executed: false,
+                        }.$safe(this.layers[i].objects[r]);
+                        obj.objects[r] = obj2;
+                    }
                 }
                 ls.push(obj);
             }
