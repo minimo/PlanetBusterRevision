@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="100" tilewidth="32" tileheight="32" nextobjectid="2">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="100" tilewidth="32" tileheight="32" nextobjectid="10">
  <tileset firstgid="1" name="gr1" tilewidth="32" tileheight="32" spacing="8" tilecount="33" columns="11">
   <image source="mapchip_028.png" trans="0000ff" width="432" height="112"/>
  </tileset>
@@ -224,9 +224,58 @@
 </data>
  </layer>
  <objectgroup name="EnemyLayer">
-  <object id="1" type="enemy" x="320" y="1755">
+  <object id="1" type="enemy" x="507" y="1289">
    <properties>
-    <property name="name" value="Hornet1"/>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="2" type="enemy" x="463" y="1259">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="3" type="enemy" x="418" y="1224">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="4" type="enemy" x="361" y="1261">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="5" type="enemy" x="405" y="1291">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="6" type="enemy" x="316" y="1226">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="7" type="enemy" x="255" y="1272">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="8" type="enemy" x="299" y="1302">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="9" type="enemy" x="210" y="1237">
+   <properties>
+    <property name="name" value="Hornet"/>
+    <property name="parameter" type="int" value="1"/>
    </properties>
   </object>
  </objectgroup>
