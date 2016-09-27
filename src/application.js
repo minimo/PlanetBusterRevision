@@ -74,6 +74,7 @@ phina.define("pbr.Application", {
                 },
                 tmx: {
                     "map1":          "assets/maps/map1.tmx",
+                    "map1_enemy":    "assets/maps/map1_enemy.tmx",
                 },
             },
         },

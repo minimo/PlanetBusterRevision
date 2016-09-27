@@ -20,7 +20,7 @@ phina.define("pbr.Stage9", {
             app.playBGM("stage9", true);
         });
 
-        this.add( 180, "Golyat");
+//        this.add( 180, "Golyat");
     },
 });
 

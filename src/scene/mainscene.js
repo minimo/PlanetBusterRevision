@@ -349,7 +349,7 @@ phina.define("pbr.MainScene", {
                     var dy = y + obj.y;
                     if (-sx < dx && dx < SC_W+sx && -sy < dy && dy < SC_H+sy) {
                         if (obj.type == "enemy") {
-                            this.enterEnemy(obj.properties.name, dx, dy, obj.properties.parameter);
+                            this.enterEnemy(obj.name, dx, dy, obj.properties);
                         }
                         if (obj.type == "event") {
                         }
