@@ -1,70 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="47">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="80">
  <objectgroup name="EnemyLayer">
-  <object id="32" name="Hornet" type="enemy" x="282" y="62709">
+  <object id="44" name="Hornet" type="enemy" x="140" y="62992">
    <properties>
+    <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="36" name="Hornet" type="enemy" x="193" y="62645">
+  <object id="45" name="Hornet" type="enemy" x="45" y="62992">
    <properties>
+    <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="37" name="Hornet" type="enemy" x="236" y="62677">
+  <object id="46" name="Hornet" type="enemy" x="93" y="63042">
    <properties>
+    <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="38" name="Hornet" type="enemy" x="189" y="62565">
+  <object id="47" name="Hornet" type="enemy" x="232" y="63140">
    <properties>
+    <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="39" name="Hornet" type="enemy" x="235" y="62597">
+  <object id="48" name="Hornet" type="enemy" x="279" y="63093">
    <properties>
+    <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="40" name="Hornet" type="enemy" x="146" y="62533">
+  <object id="49" name="Hornet" type="enemy" x="184" y="63093">
    <properties>
+    <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="41" name="Hornet" type="enemy" x="88" y="62446">
+  <object id="53" name="Hornet" type="enemy" x="97" y="63231">
    <properties>
+    <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="42" name="Hornet" type="enemy" x="43" y="62481">
+  <object id="54" name="Hornet" type="enemy" x="143" y="63185">
    <properties>
+    <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="43" name="Hornet" type="enemy" x="135" y="62409">
+  <object id="55" name="Hornet" type="enemy" x="48" y="63185">
    <properties>
+    <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="44" name="Hornet" type="enemy" x="180" y="62269">
+  <object id="56" name="Hornet" type="enemy" x="233" y="63320">
    <properties>
+    <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="45" name="Hornet" type="enemy" x="88" y="62341">
+  <object id="57" name="Hornet" type="enemy" x="282" y="63275">
    <properties>
+    <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-   <object id="46" name="Hornet" type="enemy" x="133" y="62306">
-     <properties>
-       <property name="pattern" value="1"/>
-     </properties>
-   </object>
-   <object id="47" name="warning" type="event" x="133" y="62000">
-     <properties>
-       <property name="pattern" value="1"/>
-     </properties>
-   </object>
+  <object id="58" name="Hornet" type="enemy" x="187" y="63275">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="59" name="MudDauber" type="enemy" x="94" y="62879"/>
+  <object id="62" name="MudDauber" type="enemy" x="233" y="62795"/>
+  <object id="63" name="Hornet" type="enemy" x="265" y="62626">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="64" name="Hornet" type="enemy" x="79" y="62575">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="65" name="Hornet" type="enemy" x="126" y="62525">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="66" name="Hornet" type="enemy" x="170" y="62626">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="67" name="Hornet" type="enemy" x="31" y="62525">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="68" name="Hornet" type="enemy" x="218" y="62673">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="69" name="ToyBox" type="enemy" x="236" y="62375">
+   <properties>
+    <property name="drop" value="power"/>
+   </properties>
+  </object>
+  <object id="75" name="Hornet" type="enemy" x="90" y="62341">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="76" name="Hornet" type="enemy" x="42" y="62291">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="77" name="Hornet" type="enemy" x="137" y="62291">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="78" name="MournBlade" type="enemy" x="-19" y="62186">
+   <properties>
+    <property name="line" type="float" value="0.7"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
