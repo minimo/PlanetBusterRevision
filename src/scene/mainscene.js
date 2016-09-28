@@ -337,7 +337,7 @@ phina.define("pbr.MainScene", {
 
         //マップオブジェクト判定
         if (this.mapObject) {
-            var sx = SC_W*0.1;
+            var sx = SC_W*0.2;
             var sy = SC_H*0.1;
             var x = this.ground.mapBase.x;
             var y = this.ground.mapBase.y;
@@ -349,11 +349,19 @@ phina.define("pbr.MainScene", {
                     var dx = x + obj.x;
                     var dy = y + obj.y;
                     if (-sx < dx && dx < SC_W+sx && -sy < dy && dy < SC_H+sy) {
+                        //敵キャラクタ投入
                         if (obj.type == "enemy") {
-                            if (obj.properties.$has(offsetx)) dx += obj.properties.offsetx;
-                            if (obj.properties.$has(offsety)) dy += obj.properties.offsety;
-                            this.enterEnemy(obj.name, dx, dy, obj.properties);
+                            if (pbr.enemyUnit[obj.name]) {
+                                //小隊投入
+                                this.enterEnemyUnit(obj.name, obj.properties);
+                            } else {
+                                //単体投入
+                                if (obj.properties.$has(offsetx)) dx += obj.properties.offsetx;
+                                if (obj.properties.$has(offsety)) dy += obj.properties.offsety;
+                                this.enterEnemy(obj.name, dx, dy, obj.properties);
+                            }
                         }
+                        //イベント処理
                         if (obj.type == "event") {
                             var event = this.stage.getEvent(obj.name);
                             if (typeof(event.value) === 'function') {
@@ -669,11 +677,11 @@ phina.define("pbr.MainScene", {
     },
 
     //敵ユニット単位の投入
-    enterEnemyUnit: function(name) {
+    enterEnemyUnit: function(name, option) {
         var unit = pbr.enemyUnit[name];
         if (unit === undefined){
             console.warn("Undefined unit: "+name);
-            return;
+            return false;
         }
 
         var len = unit.length;
@@ -688,6 +696,7 @@ phina.define("pbr.MainScene", {
             this.enemyID++;
             this.enemyCount++;
         }
+        return true;
     },
 
     //敵単体の投入
