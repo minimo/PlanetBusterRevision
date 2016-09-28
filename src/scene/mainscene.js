@@ -337,8 +337,8 @@ phina.define("pbr.MainScene", {
 
         //マップオブジェクト判定
         if (this.mapObject) {
-            var sx = SC_W*0.2;
-            var sy = SC_H*0.1;
+            var sx = SC_W*0.5;
+            var sy = SC_H*0.2;
             var x = this.ground.mapBase.x;
             var y = this.ground.mapBase.y;
             var len = this.mapObject.objects.length;
