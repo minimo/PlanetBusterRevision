@@ -328,7 +328,7 @@ phina.define("pbr.MainScene", {
         var event = this.stage.get(this.time);
         if (event) {
             if (typeof(event.value) === 'function') {
-                event.value.call(this, app);
+                event.value.call(this, event.option);
             } else {
                 this.enterEnemyUnit(event.value);
             }
@@ -349,12 +349,14 @@ phina.define("pbr.MainScene", {
                     var dy = y + obj.y;
                     if (-sx < dx && dx < SC_W+sx && -sy < dy && dy < SC_H+sy) {
                         if (obj.type == "enemy") {
+                            if (obj.properties.$has(offsetx)) dx += obj.properties.offsetx;
+                            if (obj.properties.$has(offsety)) dy += obj.properties.offsety;
                             this.enterEnemy(obj.name, dx, dy, obj.properties);
                         }
                         if (obj.type == "event") {
                             var event = this.stage.getEvent(obj.name);
                             if (typeof(event.value) === 'function') {
-                                event.value.call(this, app);
+                                event.value.call(this, obj.properties);
                             }
                         }
                         obj.executed = true;
