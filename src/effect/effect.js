@@ -123,6 +123,7 @@ phina.define("pbr.Effect.EffectBase", {
         this.scaleY = option.scale.y;
 
         this.isRemove = false;
+        this.visible = false;
 
         //Tweenerリセット
         this.tweener.clear();
