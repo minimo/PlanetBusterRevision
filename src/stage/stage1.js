@@ -16,11 +16,11 @@ phina.define("pbr.Stage1", {
         this.superInit(parent, player);
 
         //初期化処理
-        this.add(1, function(app) {
+        this.add(1, function() {
             app.playBGM("stage1", true);
             this.player.isAfterburner = true;
         });
-        this.add(60, function(app) {
+        this.add(60, function() {
             this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
             this.player.isAfterburner = false;
         });
@@ -37,7 +37,7 @@ phina.define("pbr.Stage1", {
         this.add( 120, "MudDauber-left");
         this.add(  60, "MudDauber-right");
 
-        this.add(60, function(app) {
+        this.add(60, function() {
             this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:1.0}, 300, "easeInOutCubic");
         });
 
@@ -61,7 +61,7 @@ phina.define("pbr.Stage1", {
         this.add( 120, "Fragarach-left2");
         this.add(   1, "Fragarach-right2");
 
-        this.add(60, function(app) {
+        this.add(60, function() {
             this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
         });
 
@@ -72,12 +72,12 @@ phina.define("pbr.Stage1", {
 
         //中ボス
         this.add( 360, "ThorHammer", {boss: true});
-        this.add( 120, function(app) {
+        this.add( 120, function() {
             this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
             this.player.isAfterburner = true;
         });
         this.add( 1800, function() {});
-        this.add( 120, function(app) {
+        this.add( 120, function() {
             this.ground.tweener.clear().to({speed:5.0}, 180, "easeInOutCubic");
             this.player.isAfterburner = false;
         });
@@ -90,7 +90,7 @@ phina.define("pbr.Stage1", {
         this.add(   1, "Hornet3-right");
         this.add(  60, "Hornet3-center");
 
-        this.add(120, function(app) {
+        this.add(120, function() {
             this.ground.tweener.clear().to({scaleX:0.5, scaleY:0.5, speed:2.0}, 600, "easeInOutSine");
         });
 
@@ -116,11 +116,11 @@ phina.define("pbr.Stage1", {
         });
 
         //ステージボス
-        this.add( 300, function(app) {
+        this.add( 300, function() {
             this.ground.tweener.clear().to({speed:0.0}, 180, "easeInOutCubic");
         });
         this.add( 120, "Golyat", {boss: true});
-        this.add( 120, function(app) {
+        this.add( 120, function() {
             this.ground.tweener.clear().to({speed:-7.0}, 180, "easeInOutCubic");
         });
         this.add( 1800, function() {});

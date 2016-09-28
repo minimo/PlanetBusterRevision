@@ -16,7 +16,7 @@ phina.define("pbr.Stage9", {
         this.superInit(parent, player);
 
         //初期化処理
-        this.add(1, function(app) {
+        this.add(1, function() {
             app.playBGM("stage9", true);
         });
 
