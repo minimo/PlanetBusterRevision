@@ -37,6 +37,7 @@ phina.define("pbr.MainScene", {
         //敵関連        
         enemyCount: 0,  //敵総数
         enemyKill: 0,   //敵破壊数
+        enemyID: 0,     //敵識別子
 
         //ラベル用パラメータ
         labelParam: {
@@ -451,10 +452,12 @@ phina.define("pbr.MainScene", {
                 this.ground = pbr.Stage9Ground().addChildTo(this);
                 break;
         }
+
         this.time = 0;
         this.timeVanish = 0;
         this.enemyCount = 0;
         this.enemyKill = 0;
+        this.enemyID = 0;
         this.stageMissCount = 0;
 
         //地形消去用マスク
