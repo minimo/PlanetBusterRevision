@@ -21,6 +21,11 @@ phina.define("pbr.Stage9", {
         });
 
 //        this.add( 180, "Golyat");
+
+        //WARNING
+        this.addEvent("warning", function() {
+            this.enterWarning();
+        });
     },
 });
 
@@ -36,8 +41,10 @@ phina.define("pbr.Stage9Ground", {
         });
         var w = this.map.width;
         var h = this.map.height;
-        this.mapBase.x = -w*0.5;
-        this.mapBase.y = -h*0.5;
+//        this.mapBase.x = -w*0.5;
+//        this.mapBase.y = -h*0.5;
+        this.mapBase.x = 0;
+        this.mapBase.y = -2000*32+SC_H;
     },
 });
 

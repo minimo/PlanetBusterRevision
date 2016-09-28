@@ -56,10 +56,15 @@
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="46" name="Hornet" type="enemy" x="133" y="62306">
-   <properties>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
+   <object id="46" name="Hornet" type="enemy" x="133" y="62306">
+     <properties>
+       <property name="pattern" value="1"/>
+     </properties>
+   </object>
+   <object id="47" name="warning" type="event" x="133" y="62000">
+     <properties>
+       <property name="pattern" value="1"/>
+     </properties>
+   </object>
  </objectgroup>
 </map>
