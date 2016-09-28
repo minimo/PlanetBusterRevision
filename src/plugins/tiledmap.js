@@ -265,7 +265,16 @@ phina.define("phina.asset.TiledMap", {
         for (var k = 0; k < properties.childNodes.length; k++) {
             var p = properties.childNodes[k];
             if (p.tagName === "property") {
-                obj[p.getAttribute('name')] = p.getAttribute('value');
+                //propertyにtype指定があったら変換
+                var type = p.getAttribute('type');
+                var value = p.getAttribute('value');
+                if (type == "int") {
+                    obj[p.getAttribute('name')] = parseInt(value, 10);
+                } else if (type == "float") {
+                    obj[p.getAttribute('name')] = parseFloat(value);
+                } else {
+                    obj[p.getAttribute('name')] = value;
+                }
             }
         }
         return obj;
