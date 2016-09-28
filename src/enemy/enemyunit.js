@@ -12,64 +12,64 @@ pbr.enemyUnit = {
  * 突撃ヘリ「ホーネット」（パターン１）
  */
 "Hornet1-left": [
-    { "name": "Hornet", "x":SC_W*0.1, "y":-150, param:1 },
-    { "name": "Hornet", "x":SC_W*0.2, "y":-120, param:1 },
-    { "name": "Hornet", "x":SC_W*0.3, "y":-130, param:1 },
-    { "name": "Hornet", "x":SC_W*0.4, "y":-120, param:1 },
+    { "name": "Hornet", "x":SC_W*0.1, "y":-150, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.2, "y":-120, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.3, "y":-130, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.4, "y":-120, param:{pattern:1} },
 ],
 "Hornet1-right": [
-    { "name": "Hornet", "x":SC_W*0.6, "y":-110, param:1 },
-    { "name": "Hornet", "x":SC_W*0.7, "y":-120, param:1 },
-    { "name": "Hornet", "x":SC_W*0.8, "y":-100, param:1 },
-    { "name": "Hornet", "x":SC_W*0.9, "y":-150, param:1 },
+    { "name": "Hornet", "x":SC_W*0.6, "y":-110, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.7, "y":-120, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.8, "y":-100, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.9, "y":-150, param:{pattern:1} },
 ],
 "Hornet1-center": [
-    { "name": "Hornet", "x":SC_W*0.25, "y":-160, param:1 },
-    { "name": "Hornet", "x":SC_W*0.35, "y":-120, param:1 },
-    { "name": "Hornet", "x":SC_W*0.40, "y":-100, param:1 },
-    { "name": "Hornet", "x":SC_W*0.50, "y":-110, param:1 },
-    { "name": "Hornet", "x":SC_W*0.70, "y":-130, param:1 },
-    { "name": "Hornet", "x":SC_W*0.85, "y":-120, param:1 },
+    { "name": "Hornet", "x":SC_W*0.25, "y":-160, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.35, "y":-120, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.40, "y":-100, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.50, "y":-110, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.70, "y":-130, param:{pattern:1} },
+    { "name": "Hornet", "x":SC_W*0.85, "y":-120, param:{pattern:1} },
 ],
 
 /*
  * 突撃ヘリ「ホーネット」（パターン２）
  */
 "Hornet2-left": [
-    { "name": "Hornet", "x":SC_W*0.1, "y":-100, param:2 },
-    { "name": "Hornet", "x":SC_W*0.2, "y":-120, param:2 },
-    { "name": "Hornet", "x":SC_W*0.3, "y":-130, param:2 },
-    { "name": "Hornet", "x":SC_W*0.4, "y":-120, param:2 },
+    { "name": "Hornet", "x":SC_W*0.1, "y":-100, param:{pattern:2} },
+    { "name": "Hornet", "x":SC_W*0.2, "y":-120, param:{pattern:2} },
+    { "name": "Hornet", "x":SC_W*0.3, "y":-130, param:{pattern:2} },
+    { "name": "Hornet", "x":SC_W*0.4, "y":-120, param:{pattern:2} },
 ],
 "Hornet2-right": [
-    { "name": "Hornet", "x":SC_W*0.6, "y":-100, param:2 },
-    { "name": "Hornet", "x":SC_W*0.7, "y":-120, param:2 },
-    { "name": "Hornet", "x":SC_W*0.8, "y":-130, param:2 },
-    { "name": "Hornet", "x":SC_W*0.9, "y":-120, param:2 },
+    { "name": "Hornet", "x":SC_W*0.6, "y":-100, param:{pattern:2} },
+    { "name": "Hornet", "x":SC_W*0.7, "y":-120, param:{pattern:2} },
+    { "name": "Hornet", "x":SC_W*0.8, "y":-130, param:{pattern:2} },
+    { "name": "Hornet", "x":SC_W*0.9, "y":-120, param:{pattern:2} },
 ],
 
 /*
  * 突撃ヘリ「ホーネット」（パターン３）
  */
 "Hornet3-left": [
-    { "name": "Hornet", "x":SC_W*0.1, "y":-100, param:3 },
-    { "name": "Hornet", "x":SC_W*0.2, "y":-120, param:3 },
-    { "name": "Hornet", "x":SC_W*0.3, "y":-130, param:3 },
-    { "name": "Hornet", "x":SC_W*0.4, "y":-120, param:3 },
+    { "name": "Hornet", "x":SC_W*0.1, "y":-100, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.2, "y":-120, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.3, "y":-130, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.4, "y":-120, param:{pattern:3} },
 ],
 "Hornet3-right": [
-    { "name": "Hornet", "x":SC_W*0.6, "y":-100, param:3 },
-    { "name": "Hornet", "x":SC_W*0.7, "y":-120, param:3 },
-    { "name": "Hornet", "x":SC_W*0.8, "y":-130, param:3 },
-    { "name": "Hornet", "x":SC_W*0.9, "y":-120, param:3 },
+    { "name": "Hornet", "x":SC_W*0.6, "y":-100, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.7, "y":-120, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.8, "y":-130, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.9, "y":-120, param:{pattern:3} },
 ],
 "Hornet3-center": [
-    { "name": "Hornet", "x":SC_W*0.25, "y":-160, param:3 },
-    { "name": "Hornet", "x":SC_W*0.35, "y":-120, param:3 },
-    { "name": "Hornet", "x":SC_W*0.40, "y":-100, param:3 },
-    { "name": "Hornet", "x":SC_W*0.50, "y":-110, param:3 },
-    { "name": "Hornet", "x":SC_W*0.70, "y":-130, param:3 },
-    { "name": "Hornet", "x":SC_W*0.85, "y":-120, param:3 },
+    { "name": "Hornet", "x":SC_W*0.25, "y":-160, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.35, "y":-120, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.40, "y":-100, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.50, "y":-110, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.70, "y":-130, param:{pattern:3} },
+    { "name": "Hornet", "x":SC_W*0.85, "y":-120, param:{pattern:3} },
 ],
 
 /*
@@ -128,40 +128,40 @@ pbr.enemyUnit = {
  *  中型戦車「フラガラッハ」
  */
 "Fragarach-center": [
-    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.1, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.2, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.3, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.1, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.2, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.3, param:{pattern:"c"} },
 
-    { "name": "Fragarach", "x": SC_W*0.5, "y":-SC_H*0.35, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.5, "y":-SC_H*0.25, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.5, "y":-SC_H*0.35, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.5, "y":-SC_H*0.25, param:{pattern:"c"} },
 
-    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.1, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.2, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.3, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.1, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.2, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.3, param:{pattern:"c"} },
 ],
 "Fragarach-left": [
-    { "name": "Fragarach", "x":-SC_W*0.05, "y": -SC_H*0.1, param:"l" },
-    { "name": "Fragarach", "x":-SC_W*0.05, "y": -SC_H*0.2, param:"l" },
-    { "name": "Fragarach", "x":-SC_W*0.1, "y": -SC_H*0.3, param:"l" },
-    { "name": "Fragarach", "x":-SC_W*0.1, "y": -SC_H*0.4, param:"l" },
+    { "name": "Fragarach", "x":-SC_W*0.05, "y": -SC_H*0.1, param:{pattern:"l"} },
+    { "name": "Fragarach", "x":-SC_W*0.05, "y": -SC_H*0.2, param:{pattern:"l"} },
+    { "name": "Fragarach", "x":-SC_W*0.1,  "y": -SC_H*0.3, param:{pattern:"l"} },
+    { "name": "Fragarach", "x":-SC_W*0.1,  "y": -SC_H*0.4, param:{pattern:"l"} },
 ],
 "Fragarach-right": [
-    { "name": "Fragarach", "x": SC_W*1.05, "y": -SC_H*0.1, param:"r" },
-    { "name": "Fragarach", "x": SC_W*1.05, "y": -SC_H*0.2, param:"r" },
-    { "name": "Fragarach", "x": SC_W*1.1, "y": -SC_H*0.3, param:"r" },
-    { "name": "Fragarach", "x": SC_W*1.1, "y": -SC_H*0.4, param:"r" },
+    { "name": "Fragarach", "x": SC_W*1.05, "y": -SC_H*0.1, param:{pattern:"r"} },
+    { "name": "Fragarach", "x": SC_W*1.05, "y": -SC_H*0.2, param:{pattern:"r"} },
+    { "name": "Fragarach", "x": SC_W*1.1,  "y": -SC_H*0.3, param:{pattern:"r"} },
+    { "name": "Fragarach", "x": SC_W*1.1,  "y": -SC_H*0.4, param:{pattern:"r"} },
 ],
 "Fragarach-left2": [
-    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.1, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.2, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.3, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.4, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.1, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.2, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.2, "y":-SC_H*0.3, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.3, "y":-SC_H*0.4, param:{pattern:"c"} },
 ],
 "Fragarach-right2": [
-    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.1, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.2, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.3, param:"c" },
-    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.4, param:"c" },
+    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.1, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.2, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.8, "y":-SC_H*0.3, param:{pattern:"c"} },
+    { "name": "Fragarach", "x": SC_W*0.7, "y":-SC_H*0.4, param:{pattern:"c"} },
 ],
 
 
@@ -170,23 +170,23 @@ pbr.enemyUnit = {
  */
 //パワーアップ
 "ToyBox-p-left": [
-    { "name": "ToyBox", "x":SC_W*0.2, "y":-SC_H*0.3, param:"power" },
+    { "name": "ToyBox", "x":SC_W*0.2, "y":-SC_H*0.3, param:{drop:"power"} },
 ],
 "ToyBox-p-center": [
-    { "name": "ToyBox", "x":SC_W*0.5, "y":-SC_H*0.3, param:"power" },
+    { "name": "ToyBox", "x":SC_W*0.5, "y":-SC_H*0.3, param:{drop:"power"} },
 ],
 "ToyBox-p-right": [
-    { "name": "ToyBox", "x":SC_W*0.8, "y":-SC_H*0.3, param:"power" },
+    { "name": "ToyBox", "x":SC_W*0.8, "y":-SC_H*0.3, param:{drop:"power"} },
 ],
 //ボム
 "ToyBox-b-left": [
-    { "name": "ToyBox", "x":SC_W*0.2, "y":-SC_H*0.3, param:"bomb" },
+    { "name": "ToyBox", "x":SC_W*0.2, "y":-SC_H*0.3, param:{drop:"bomb"} },
 ],
 "ToyBox-b-center": [
-    { "name": "ToyBox", "x":SC_W*0.5, "y":-SC_H*0.3, param:"bomb" },
+    { "name": "ToyBox", "x":SC_W*0.5, "y":-SC_H*0.3, param:{drop:"bomb"} },
 ],
 "ToyBox-b-right": [
-    { "name": "ToyBox", "x":SC_W*0.8, "y":-SC_H*0.3, param:"bomb" },
+    { "name": "ToyBox", "x":SC_W*0.8, "y":-SC_H*0.3, param:{drop:"bomb"} },
 ],
 
 /*

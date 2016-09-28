@@ -49,8 +49,8 @@ pbr.enemyData['Hornet'] = {
         this.vy = 0;
 
         //行動パターン分岐
-        this.pattern = enterParam;
-        switch (enterParam) {
+        this.pattern = enterParam.pattern;
+        switch (this.pattern) {
             case 1:
                 this.tweener.moveBy(0, 300, 120, "easeOutQuart")
                     .wait(60)
@@ -68,9 +68,9 @@ pbr.enemyData['Hornet'] = {
                 this.startDanmaku(this.danmakuName[2]);
                 break;
             default:
-                this.tweener.moveBy(0, 100, 120, "easeOutQuart")
+                this.tweener.moveBy(0, 200, 120, "easeOutQuart")
                     .wait(60)
-                    .moveBy(0, -100, 120)
+                    .moveBy(0, -250, 120)
                     .call(function(){this.remove();}.bind(this));
                 break;
         }
@@ -334,10 +334,10 @@ pbr.enemyData['Fragarach'] = {
         this.phase = 0;
 
         //パラメータにより進行方向を決定
-        this.param = param;
+        this.pattern = param.pattern;
         this.speed = 0.5;
         this.direction = 0;
-        switch (param) {
+        switch (this.pattern) {
             case "c":
                 this.direction = 0;
                 break;
@@ -373,10 +373,10 @@ pbr.enemyData['Fragarach'] = {
             this.addSmokeSmall(1);
         }
 
-        if (this.param == "l" && this.x > SC_W*0.4) {
+        if (this.pattern == "l" && this.x > SC_W*0.4) {
             this.direction = 180;
         }
-        if (this.param == "r" && this.x < SC_W*0.6) {
+        if (this.pattern == "r" && this.x < SC_W*0.6) {
             this.direction = 180;
         }
 
@@ -543,9 +543,9 @@ pbr.enemyData['ToyBox'] = {
     kind: 0,
 
     setup: function(enterParam) {
-        if (enterParam == "power") this.kind = ITEM_POWER;
-        if (enterParam == "bomb") this.kind = ITEM_BOMB;
-        if (enterParam == "1UP") this.kind = ITEM_1UP;
+        if (enterParam.drop == "power") this.kind = ITEM_POWER;
+        if (enterParam.drop == "bomb") this.kind = ITEM_BOMB;
+        if (enterParam.drop == "1UP") this.kind = ITEM_1UP;
         this.tweener.clear().moveBy(0, SC_H*0.5, 300).wait(480).moveBy(0, -SC_H, 600);
 
         var that = this;
