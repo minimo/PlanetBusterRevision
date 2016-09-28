@@ -356,8 +356,8 @@ phina.define("pbr.MainScene", {
                                 this.enterEnemyUnit(obj.name, obj.properties);
                             } else {
                                 //単体投入
-                                if (obj.properties.$has(offsetx)) dx += obj.properties.offsetx;
-                                if (obj.properties.$has(offsety)) dy += obj.properties.offsety;
+                                if (obj.properties.$has("offsetx")) dx += obj.properties.offsetx;
+                                if (obj.properties.$has("offsety")) dy += obj.properties.offsety;
                                 this.enterEnemy(obj.name, dx, dy, obj.properties);
                             }
                         }
