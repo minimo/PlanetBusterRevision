@@ -269,11 +269,11 @@ pbr.enemyData['Delta'] = {
 };
 
 /*
- *  飛空挺「モーンブレイド」
+ *  飛空挺「スカイブレード」
  */
-pbr.enemyData['MournBlade'] = {
+pbr.enemyData['SkyBlade'] = {
     //使用弾幕名
-    danmakuName: "MournBlade",
+    danmakuName: "SkyBlade",
 
     //当り判定サイズ
     width:  128,

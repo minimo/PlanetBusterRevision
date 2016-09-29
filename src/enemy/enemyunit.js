@@ -99,14 +99,14 @@ pbr.enemyUnit = {
 ],
 
 /*
- *  飛空艇「モーンブレイド」
+ *  飛空艇「スカイブレード」
  */
-"MournBlade-left": [
-    { "name": "MournBlade", "x":-SC_W*0.2, "y": SC_H*0.4 },
+"SkyBlade-left": [
+    { "name": "SkyBlade", "x":-SC_W*0.2, "y": SC_H*0.4 },
 ],
 
-"MournBlade-right": [
-    { "name": "MournBlade", "x": SC_W*1.2, "y": SC_H*0.4 },
+"SkyBlade-right": [
+    { "name": "SkyBlade", "x": SC_W*1.2, "y": SC_H*0.4 },
 ],
 
 /*

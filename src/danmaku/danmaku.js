@@ -174,8 +174,8 @@ pbr.danmaku.BigWing = new bulletml.Root({
     ]),
 });
 
-//飛空艇「モーンブレイド」
-pbr.danmaku.MournBlade = new bulletml.Root({
+//飛空艇「スカイブレード」
+pbr.danmaku.SkyBlade = new bulletml.Root({
     top0: action([
         interval(60),
         repeat(Infinity, [
