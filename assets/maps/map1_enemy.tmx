@@ -134,10 +134,10 @@
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="78" name="MournBlade" type="enemy" x="-19" y="62186">
-   <properties>
-    <property name="line" type="float" value="0.7"/>
-   </properties>
-  </object>
+   <object id="78" name="MournBlade" type="enemy" x="-19" y="62186">
+     <properties>
+       <property name="offsety" type="int" value="200"/>
+     </properties>
+   </object>
  </objectgroup>
 </map>
