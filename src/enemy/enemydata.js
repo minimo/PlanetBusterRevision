@@ -220,6 +220,55 @@ pbr.enemyData['BigWing'] = {
 };
 
 /*
+ *  中型攻撃機「デルタ」
+ */
+pbr.enemyData['Delta'] = {
+    //使用弾幕名
+    danmakuName: "BigWing",
+
+    //当り判定サイズ
+    width:  80,
+    height: 26,
+
+    //耐久力
+    def: 1000,
+
+    //得点
+    point: 3000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT,
+
+    //敵タイプ
+    type: ENEMY_MIDDLE,
+
+    //爆発タイプ
+    explodeType: EXPLODE_MIDDLE,
+
+    //機体用テクスチャ情報
+    texName: "tex1",
+    texWidth: 48,
+    texHeight: 104,
+    texTrimX: 0,
+    texTrimY: 256,
+    texTrimWidth: 192,
+    texTrimHeight: 96,
+    texIndex: 0,
+
+    setup: function() {
+        this.index = this.texIndex;
+    },
+
+    algorithm: function() {
+        if (this.time % 2 == 0) this.y++;
+        if (this.time % 4 == 0) {
+            this.index = (this.index+1)%2+2;
+            this.body.setFrameIndex(this.index);
+        }
+    },
+};
+
+/*
  *  飛空挺「モーンブレイド」
  */
 pbr.enemyData['MournBlade'] = {
