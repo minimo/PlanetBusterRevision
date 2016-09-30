@@ -169,25 +169,14 @@ pbr.enemyUnit = {
  *  中型輸送機「トイボックス」
  */
 //パワーアップ
-"ToyBox-p-left": [
-    { "name": "ToyBox", "x":SC_W*0.2, "y":-SC_H*0.3, param:{drop:"power"} },
-],
-"ToyBox-p-center": [
-    { "name": "ToyBox", "x":SC_W*0.5, "y":-SC_H*0.3, param:{drop:"power"} },
-],
-"ToyBox-p-right": [
-    { "name": "ToyBox", "x":SC_W*0.8, "y":-SC_H*0.3, param:{drop:"power"} },
-],
+"ToyBox-p-left":    [{ "name": "ToyBox", "x": SC_W*0.2, "y": -SC_H*0.3, param:{drop:"power"} },],
+"ToyBox-p-center":  [{ "name": "ToyBox", "x": SC_W*0.5, "y": -SC_H*0.3, param:{drop:"power"} },],
+"ToyBox-p-right":   [{ "name": "ToyBox", "x": SC_W*0.8, "y": -SC_H*0.3, param:{drop:"power"} },],
+
 //ボム
-"ToyBox-b-left": [
-    { "name": "ToyBox", "x":SC_W*0.2, "y":-SC_H*0.3, param:{drop:"bomb"} },
-],
-"ToyBox-b-center": [
-    { "name": "ToyBox", "x":SC_W*0.5, "y":-SC_H*0.3, param:{drop:"bomb"} },
-],
-"ToyBox-b-right": [
-    { "name": "ToyBox", "x":SC_W*0.8, "y":-SC_H*0.3, param:{drop:"bomb"} },
-],
+"ToyBox-b-left":    [{ "name": "ToyBox", "x": SC_W*0.2, "y": -SC_H*0.3, param:{drop:"bomb"} },],
+"ToyBox-b-center":  [{ "name": "ToyBox", "x": SC_W*0.5, "y": -SC_H*0.3, param:{drop:"bomb"} },],
+"ToyBox-b-right":   [{ "name": "ToyBox", "x": SC_W*0.8, "y": -SC_H*0.3, param:{drop:"bomb"} },],
 
 /*
  *
@@ -209,6 +198,15 @@ pbr.enemyUnit = {
     { "name": "Golyat", "x":SC_W*0.5, "y": SC_H*-0.2 },
 ],
 
+/*
+ *
+ *  ２面中ボス  
+ *  大型爆撃機「レイブン」
+ *
+ */
+"Raven": [
+    { "name": "Raven", "x": SC_W*0.5, "y": -SC_H*0.2 },
+],
 
 }
 
