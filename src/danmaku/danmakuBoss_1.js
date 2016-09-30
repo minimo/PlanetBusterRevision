@@ -1,5 +1,5 @@
 /*
- *  danmaku.js
+ *  danmakuBoss_1.js
  *  2015/10/11
  *  @auther minimo  
  *  This Program is MIT license.

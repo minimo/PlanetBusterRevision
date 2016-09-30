@@ -25,7 +25,7 @@ pbr.enemyData['ThorHammer'] = {
     def: 3000,
 
     //得点
-    point: 10000,
+    point: 100000,
 
     //表示レイヤー番号
     layer: LAYER_OBJECT_LOWER,
