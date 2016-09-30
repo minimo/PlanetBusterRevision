@@ -50,6 +50,9 @@ pbr.enemyData['Raven'] = {
         this.phase = 0;
         this.isCollision = false;
         this.isMuteki = true;
+
+        this.phase = 0;
+        this.tweener.clear().to({x: SC_W*0.5, y: SC_H*0.2}, 120, "easeOutCubic");
     },
 
     epuipment: function() {
