@@ -67,6 +67,9 @@ pbr.enemyData['Hornet'] = {
                     .call(function(){this.phase++;}.bind(this));
                 this.startDanmaku(this.danmakuName[2]);
                 break;
+            case 4:
+                this.tweener.clear().moveBy(0, SC_H*0.5, 300).wait(480).moveBy(0, -SC_H, 600);
+                break;
             default:
                 this.tweener.moveBy(0, 200, 120, "easeOutQuart")
                     .wait(60)
