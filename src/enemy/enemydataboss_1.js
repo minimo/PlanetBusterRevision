@@ -46,7 +46,7 @@ pbr.enemyData['ThorHammer'] = {
     texTrimHeight: 192,
     texIndex: 0,
 
-    setup: function(enterParam) {
+    setup: function() {
         this.phase = 0;
         this.isCollision = false;
         this.isMuteki = true;
@@ -186,7 +186,7 @@ pbr.enemyData['ThorHammerTurret'] = {
     texTrimHeight: 32,
     texIndex: 0,
 
-    setup: function(enterParam) {
+    setup: function() {
         this.isCollision = false;
         this.isMuteki = true;
         this.stopDanmaku();
@@ -243,7 +243,7 @@ pbr.enemyData['Golyat'] = {
     texTrimHeight: 184,
     texIndex: 0,
 
-    setup: function(enterParam) {
+    setup: function() {
         this.phase = 0;
         this.isCollision = false;
         this.isGround = true;
@@ -591,7 +591,7 @@ pbr.enemyData['GolyatArm'] = {
     texTrimHeight: 200,
     texIndex: 0,
 
-    setup: function(enterParam) {
+    setup: function() {
         this.isCollision = false;
         this.isGround = true;
         this.stopDanmaku();

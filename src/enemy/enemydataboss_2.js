@@ -28,7 +28,7 @@ pbr.enemyData['Raven'] = {
     point: 200000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT_LOWER,
+    layer: LAYER_OBJECT,
 
     //敵タイプ
     type: ENEMY_MBOSS,
@@ -46,7 +46,7 @@ pbr.enemyData['Raven'] = {
     texTrimHeight: 64,
     texIndex: 0,
 
-    setup: function(enterParam) {
+    setup: function() {
         this.phase = 0;
         this.isCollision = false;
         this.isMuteki = true;
@@ -56,9 +56,61 @@ pbr.enemyData['Raven'] = {
     },
 
     epuipment: function() {
+        //翼
+        this.wingL = pbr.Enemy("Raven_wing", -48, 0, 0, {frameIndex: 0})
+            .addChildTo(this.parentScene)
+            .setParentEnemy(this);
+        this.wingR = pbr.Enemy("Raven_wing", 48, 0, 0, {frameIndex: 1})
+            .addChildTo(this.parentScene)
+            .setParentEnemy(this);
     },
 
     algorithm: function() {
+    },
+};
+
+pbr.enemyData['Raven_wing'] = {
+    //使用弾幕パターン
+    danmakuName: null,
+
+    //当り判定サイズ
+    width:  70,
+    height: 64,
+
+    //耐久力
+    def: 1000,
+
+    //得点
+    point: 50000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT,
+
+    //敵タイプ
+    type: ENEMY_BOSS_EQUIP,
+
+    //爆発タイプ
+    explodeType: EXPLODE_LARGE,
+
+    //機体用テクスチャ情報
+    texName: "tex_boss1",
+    texWidth: 64,
+    texHeight: 64,
+    texTrimX: 160,
+    texTrimY: 256,
+    texTrimWidth: 128,
+    texTrimHeight: 64,
+    texIndex: 0,
+
+    setup: function(param) {
+        this.texIndex = param.frameIndex;
+        this.offsetX = this.x;
+        this.offsetY = this.y;
+    },
+
+    algorithm: function() {
+        this.x = this.parentEnemy.x + this.offsetX;
+        this.y = this.parentEnemy.y + this.offsetY;
     },
 };
 
