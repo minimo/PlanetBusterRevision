@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="80">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="84">
  <objectgroup name="EnemyLayer">
   <object id="44" name="Hornet" type="enemy" x="140" y="62992">
    <properties>
@@ -111,33 +111,39 @@
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="69" name="ToyBox" type="enemy" x="236" y="62375">
+  <object id="69" name="ToyBox" type="enemy" x="212.815" y="62373">
    <properties>
     <property name="drop" value="power"/>
    </properties>
   </object>
-  <object id="75" name="Hornet" type="enemy" x="90" y="62341">
+  <object id="75" name="Hornet" type="enemy" x="260.363" y="62336">
    <properties>
     <property name="offsety" type="int" value="0"/>
-    <property name="pattern" value="1"/>
+    <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="76" name="Hornet" type="enemy" x="42" y="62291">
+  <object id="77" name="Hornet" type="enemy" x="162.202" y="62335.4">
    <properties>
     <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
+    <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="77" name="Hornet" type="enemy" x="137" y="62291">
+  <object id="78" name="SkyBlade" type="enemy" x="-19" y="62186">
+   <properties>
+    <property name="offsety" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="82" name="Hornet" type="enemy" x="299.774" y="62247.6">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="4"/>
+   </properties>
+  </object>
+  <object id="83" name="Hornet" type="enemy" x="117.944" y="62252">
    <properties>
     <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
+    <property name="pattern" value="4"/>
    </properties>
   </object>
-   <object id="78" name="SkyBlade" type="enemy" x="-19" y="62186">
-     <properties>
-       <property name="offsety" type="int" value="200"/>
-     </properties>
-   </object>
  </objectgroup>
 </map>
