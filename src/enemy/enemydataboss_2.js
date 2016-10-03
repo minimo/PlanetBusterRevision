@@ -52,7 +52,11 @@ pbr.enemyData['Raven'] = {
         this.isMuteki = true;
 
         this.phase = 0;
-        this.tweener.clear().to({x: SC_W*0.5, y: SC_H*0.2}, 120, "easeOutCubic");
+        this.tweener.clear()
+            .to({x: SC_W*0.5, y: SC_H*0.25}, 120, "easeOutCubic")
+            .call(function() {
+                this.phase++;
+            }.bind(this));
     },
 
     epuipment: function() {
@@ -66,6 +70,23 @@ pbr.enemyData['Raven'] = {
     },
 
     algorithm: function() {
+        if (this.phase == 1) {
+            this.isCollision = true;
+            this.isMuteki = false;
+            this.phase++;
+            this.startDanmaku(this.danmakuName);
+
+            //移動パターン
+            this.tweener.clear()
+                .to({x: SC_W*0.8}, 120, "easeInOutSine")
+                .to({x: SC_W*0.2}, 120, "easeInOutSine")
+                .setLoop(true);
+            var tweener = phina.accessory.Tweener().clear().setUpdateType('fps')
+                .to({y: SC_H*0.2}, 90, "easeInOutSine")
+                .to({y: SC_H*0.3}, 90, "easeInOutSine")
+                .setLoop(true)
+                .attachTo(this);
+        }
     },
 };
 
