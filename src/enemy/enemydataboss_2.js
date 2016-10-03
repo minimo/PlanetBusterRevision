@@ -18,8 +18,8 @@ pbr.enemyData['Raven'] = {
     danmakuName: "Raven",
 
     //当り判定サイズ
-    width:  98,
-    height: 196,
+    width:  144,
+    height: 64,
 
     //耐久力
     def: 3000,
@@ -95,7 +95,7 @@ pbr.enemyData['Raven_wing'] = {
     danmakuName: null,
 
     //当り判定サイズ
-    width:  70,
+    width:  64,
     height: 64,
 
     //耐久力
