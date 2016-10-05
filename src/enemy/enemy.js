@@ -100,7 +100,7 @@ phina.define("pbr.Enemy", {
         this.changeColor = d.changeColor || this.changeColor;
 
         //破壊パターン
-        if (this.type == ENEMY_BOSS || this.type == ENEMY_BOSS ){
+        if (this.type == ENEMY_MBOSS || this.type == ENEMY_BOSS ){
             this.dead = d.dead || this.defaultDeadBoss;
         } else {
             this.dead = d.dead || this.defaultDead;
