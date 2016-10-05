@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="84">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="88">
  <objectgroup name="EnemyLayer">
   <object id="44" name="Hornet" type="enemy" x="140" y="62992">
    <properties>
@@ -81,13 +81,13 @@
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="64" name="Hornet" type="enemy" x="79" y="62575">
+  <object id="64" name="Hornet" type="enemy" x="83.0323" y="62523.6">
    <properties>
     <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="65" name="Hornet" type="enemy" x="126" y="62525">
+  <object id="65" name="Hornet" type="enemy" x="130.032" y="62473.6">
    <properties>
     <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
@@ -99,7 +99,7 @@
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="67" name="Hornet" type="enemy" x="31" y="62525">
+  <object id="67" name="Hornet" type="enemy" x="35.0323" y="62473.6">
    <properties>
     <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
@@ -116,32 +116,54 @@
     <property name="drop" value="power"/>
    </properties>
   </object>
-  <object id="75" name="Hornet" type="enemy" x="260.363" y="62336">
+  <object id="75" name="Hornet" type="enemy" x="262.363" y="62336">
    <properties>
-    <property name="offsety" type="int" value="0"/>
+    <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="77" name="Hornet" type="enemy" x="162.202" y="62335.4">
+  <object id="77" name="Hornet" type="enemy" x="164.202" y="62335.4">
    <properties>
-    <property name="offsety" type="int" value="20"/>
+    <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="78" name="SkyBlade" type="enemy" x="-19" y="62186">
+  <object id="78" name="SkyBlade" type="enemy" x="-14.9677" y="62163.8">
    <properties>
     <property name="offsety" type="int" value="200"/>
    </properties>
   </object>
-  <object id="82" name="Hornet" type="enemy" x="299.774" y="62247.6">
+  <object id="82" name="Hornet" type="enemy" x="294.467" y="62287.9">
    <properties>
-    <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="83" name="Hornet" type="enemy" x="117.944" y="62252">
+  <object id="83" name="Hornet" type="enemy" x="136.298" y="62286.3">
    <properties>
-    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="4"/>
+   </properties>
+  </object>
+  <object id="84" name="Hornet" type="enemy" x="261.467" y="62233.6">
+   <properties>
+    <property name="offsety" type="int" value="60"/>
+    <property name="pattern" value="4"/>
+   </properties>
+  </object>
+  <object id="85" name="Hornet" type="enemy" x="163.306" y="62233">
+   <properties>
+    <property name="offsety" type="int" value="60"/>
+    <property name="pattern" value="4"/>
+   </properties>
+  </object>
+  <object id="86" name="Hornet" type="enemy" x="262.476" y="62162.9">
+   <properties>
+    <property name="offsety" type="int" value="60"/>
+    <property name="pattern" value="4"/>
+   </properties>
+  </object>
+  <object id="87" name="Hornet" type="enemy" x="164.315" y="62162.3">
+   <properties>
+    <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
