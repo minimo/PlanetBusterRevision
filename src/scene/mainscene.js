@@ -275,7 +275,7 @@ phina.define("pbr.MainScene", {
             if (this.bossObject.type == ENEMY_MBOSS) {
                 //中ボスの場合早回し
                 var time = this.stage.getNextEventTime(this.time);
-                this.time = time-1;
+                if (time > 0) this.time = time-1;
             } else {
                 //ステージボスの場合ステージクリア
                 this.flare('stageclear');
