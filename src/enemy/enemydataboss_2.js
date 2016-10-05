@@ -81,12 +81,52 @@ pbr.enemyData['Raven'] = {
                 .to({x: SC_W*0.8}, 120, "easeInOutSine")
                 .to({x: SC_W*0.2}, 120, "easeInOutSine")
                 .setLoop(true);
-            var tweener = phina.accessory.Tweener().clear().setUpdateType('fps')
+            this.tweener2 = phina.accessory.Tweener().clear().setUpdateType('fps')
                 .to({y: SC_H*0.2}, 90, "easeInOutSine")
                 .to({y: SC_H*0.3}, 90, "easeInOutSine")
                 .setLoop(true)
                 .attachTo(this);
         }
+
+        if (this.isDead && this.tweener2) {
+            this.tweener2.remove();
+            this.tweener2 = null;
+        }
+    },
+
+    defaultDeadBoss: function() {
+        this.isCollision = false;
+        this.isDead = true;
+        this.tweener.clear();
+        this.stopDanmaku();
+
+        this.explode();
+        app.playSE("explodeLarge");
+
+        //弾消し
+        this.parentScene.eraseBullet();
+        this.parentScene.timeVanish = 180;
+
+        //破壊時消去インターバル
+        this.tweener.clear()
+            .moveBy(0, 80, 300)
+            .call(function() {
+                this.explode();
+                this.parentScene.maskWhite.tweener.clear().fadeIn(45).fadeOut(45);
+                app.playSE("explodeBoss");
+                if (this.shadow) {
+                    this.shadow.tweener.clear()
+                        .to({alpha: 0}, 15)
+                        .call(function(){
+                            this.remove();
+                        }.bind(this.shadow));
+                }
+            }.bind(this))
+            .to({alpha: 0}, 15)
+            .call(function(){
+                this.remove();
+            }.bind(this));
+        return this;
     },
 };
 

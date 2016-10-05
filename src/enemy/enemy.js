@@ -429,7 +429,7 @@ phina.define("pbr.Enemy", {
 
         //破壊時消去インターバル
         this.tweener.clear()
-            .moveBy(0, 60, 300)
+            .moveBy(0, 80, 300)
             .call(function() {
                 this.explode();
                 this.parentScene.maskWhite.tweener.clear().fadeIn(45).fadeOut(45);
