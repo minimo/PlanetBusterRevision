@@ -87,14 +87,9 @@ pbr.enemyData['Raven'] = {
                 .setLoop(true)
                 .attachTo(this);
         }
-
-        if (this.isDead && this.tweener2) {
-            this.tweener2.remove();
-            this.tweener2 = null;
-        }
     },
 
-    defaultDeadBoss: function() {
+    dead: function() {
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
@@ -103,13 +98,23 @@ pbr.enemyData['Raven'] = {
         this.explode();
         app.playSE("explodeLarge");
 
+        this.tweener2.remove();
+        phina.accessory.Tweener().clear().setUpdateType('fps')
+            .to({rotation: 30}, 300)
+            .attachTo(this);
+        phina.accessory.Tweener().clear().setUpdateType('fps')
+            .by({x: 2}, 3)
+            .by({x: -2}, 3)
+            .setLoop(true)
+            .attachTo(this);
+
         //弾消し
         this.parentScene.eraseBullet();
         this.parentScene.timeVanish = 180;
 
         //破壊時消去インターバル
         this.tweener.clear()
-            .moveBy(0, 80, 300)
+            .moveBy(0, 100, 300)
             .call(function() {
                 this.explode();
                 this.parentScene.maskWhite.tweener.clear().fadeIn(45).fadeOut(45);
