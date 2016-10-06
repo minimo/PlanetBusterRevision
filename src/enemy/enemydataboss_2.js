@@ -18,8 +18,8 @@ pbr.enemyData['Raven'] = {
     danmakuName: "Raven",
 
     //当り判定サイズ
-    width:  144,
-    height: 64,
+    width:  96,
+    height: 40,
 
     //耐久力
     def: 3000,
@@ -156,7 +156,7 @@ pbr.enemyData['Raven_wing'] = {
     type: ENEMY_BOSS_EQUIP,
 
     //爆発タイプ
-    explodeType: EXPLODE_LARGE,
+    explodeType: EXPLODE_MIDDLE,
 
     //機体用テクスチャ情報
     texName: "tex_boss1",
