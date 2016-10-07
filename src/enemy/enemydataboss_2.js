@@ -51,6 +51,16 @@ pbr.enemyData['Raven'] = {
         this.isCollision = false;
         this.isMuteki = true;
 
+        //砲台
+        this.turret = phina.display.Sprite("tex_boss1", 32, 32)
+            .addChildTo(this)
+            .setFrameTrimming(192, 160, 32, 32)
+            .setFrameIndex(0)
+            .setPosition(0, 0);
+        this.turret.update = function() {
+            this.lookup();
+        };
+
         this.phase = 0;
         this.tweener.clear()
             .to({x: SC_W*0.5, y: SC_H*0.25}, 120, "easeOutCubic")
