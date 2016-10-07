@@ -58,7 +58,7 @@ pbr.enemyData['Raven'] = {
             .setFrameIndex(0)
             .setPosition(0, 0);
         this.turret.update = function() {
-            this.lookup();
+            this.lookat();
         };
 
         this.phase = 0;
