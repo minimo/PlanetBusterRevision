@@ -51,6 +51,8 @@ pbr.enemyData['Raven'] = {
         this.isCollision = false;
         this.isMuteki = true;
 
+        var that = this;
+
         //砲台
         this.turret = phina.display.Sprite("tex_boss1", 32, 32)
             .addChildTo(this)
@@ -58,7 +60,23 @@ pbr.enemyData['Raven'] = {
             .setFrameIndex(0)
             .setPosition(0, 0);
         this.turret.update = function() {
-            this.lookat();
+            target = that.player;
+
+            //ターゲットの方向を向く
+            var ax = this.x - target.x;
+            var ay = this.y - target.y;
+            var rad = Math.atan2(ay, ax);
+            var deg = ~~(rad * toDeg);
+            this.rotation = deg + 90;
+        };
+
+        //アフターバーナー
+        this.burner = phina.display.Sprite("tex_boss1", 112, 32)
+            .addChildTo(this)
+            .setFrameTrimming(0, 224, 112, 64)
+            .setFrameIndex(0)
+            .setPosition(0, 0);
+        this.burner.update = function() {
         };
 
         this.phase = 0;
