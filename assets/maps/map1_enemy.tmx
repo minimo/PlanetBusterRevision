@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="88">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="112">
  <objectgroup name="EnemyLayer">
   <object id="44" name="Hornet" type="enemy" x="140" y="62992">
    <properties>
@@ -165,6 +165,105 @@
    <properties>
     <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
+   </properties>
+  </object>
+  <object id="88" name="warning" type="event" x="165.323" y="60274.2"/>
+  <object id="91" name="SkyBlade" type="enemy" x="337.702" y="61814.5">
+   <properties>
+    <property name="offsety" type="int" value="200"/>
+   </properties>
+  </object>
+  <object id="92" name="Hornet" type="enemy" x="88.0809" y="61977.4">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="93" name="Hornet" type="enemy" x="40.0809" y="61927.4">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="94" name="Hornet" type="enemy" x="135.081" y="61927.4">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="95" name="Fragarach" type="enemy" x="111.089" y="61630.5">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="98" name="Fragarach" type="enemy" x="111.089" y="61555.5">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="99" name="Fragarach" type="enemy" x="111.089" y="61593.5">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="100" name="Fragarach" type="enemy" x="111.089" y="61518.5">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="101" name="Fragarach" type="enemy" x="111.089" y="61480.5">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="102" name="Fragarach" type="enemy" x="221.774" y="61476.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="103" name="Fragarach" type="enemy" x="221.774" y="61513.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="104" name="Fragarach" type="enemy" x="221.774" y="61363.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="105" name="Fragarach" type="enemy" x="221.774" y="61438.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="106" name="Fragarach" type="enemy" x="221.774" y="61401.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="107" name="Fragarach" type="enemy" x="113.911" y="61356.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="108" name="Fragarach" type="enemy" x="113.911" y="61393.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="109" name="Fragarach" type="enemy" x="113.911" y="61243.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="110" name="Fragarach" type="enemy" x="113.911" y="61318.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="111" name="Fragarach" type="enemy" x="113.911" y="61281.2">
+   <properties>
+    <property name="pattern" value="c"/>
    </properties>
   </object>
  </objectgroup>
