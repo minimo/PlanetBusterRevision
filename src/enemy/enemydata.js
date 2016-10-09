@@ -279,8 +279,8 @@ pbr.enemyData['SkyBlade'] = {
     danmakuName: "SkyBlade",
 
     //当り判定サイズ
-    width:  128,
-    height: 20,
+    width:  40,
+    height: 96,
 
     //耐久力
     def: 800,
