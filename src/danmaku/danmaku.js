@@ -32,15 +32,9 @@ var offsetX = bulletml.dsl.offsetX;
 var offsetY = bulletml.dsl.offsetY;
 var autonomy = bulletml.dsl.autonomy;
 
-var interval = function(v) {
-  return wait("{0} * (0.3 + (1.0 - $densityRank) * 0.7)".format(v));
-};
-var spd = function(v) {
-  return speed("{0} * (1.0 + $speedRank * 2.0) * $speedBase".format(v));
-};
-var spdSeq = function(v) {
-  return speed("{0} * (1.0 + $speedRank * 2.0) * $speedBase".format(v), "sequence");
-};
+var interval = bulletml.dsl.interval;
+var spd = bulletml.dsl.spd;
+var spdSeq = bulletml.dsl.spdSeq;
 
 var RS  = bullet({ type: "RS"  });
 var RM  = bullet({ type: "RM"  });

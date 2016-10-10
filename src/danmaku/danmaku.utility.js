@@ -30,5 +30,18 @@ phina.namespace(function() {
         $offsetY = bulletml.dsl.offsetY;
         $autonomy = bulletml.dsl.autonomy;
     }
+
+    var wait = bulletml.dsl.wait;
+    var speed = bulletml.dsl.speed;
+
+    bulletml.dsl.interval = function(v) {
+        return wait("{0} * (0.3 + (1.0 - $densityRank) * 0.7)".format(v));
+    };
+    bulletml.dsl.spd = function(v) {
+        return speed("{0} * (1.0 + $speedRank * 2.0) * $speedBase".format(v));
+    };
+    bulletml.dsl.spdSeq = function(v) {
+        return speed("{0} * (1.0 + $speedRank * 2.0) * $speedBase".format(v), "sequence");
+    };
 });
 
