@@ -1,269 +1,398 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="112">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="174">
  <objectgroup name="EnemyLayer">
-  <object id="44" name="Hornet" type="enemy" x="140" y="62992">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="45" name="Hornet" type="enemy" x="45" y="62992">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="46" name="Hornet" type="enemy" x="93" y="63042">
+  <object id="56" name="Hornet" type="enemy" x="224" y="63328">
    <properties>
     <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="47" name="Hornet" type="enemy" x="232" y="63140">
-   <properties>
-    <property name="offsety" type="int" value="0"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="48" name="Hornet" type="enemy" x="279" y="63093">
+  <object id="57" name="Hornet" type="enemy" x="264" y="63272">
    <properties>
     <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="49" name="Hornet" type="enemy" x="184" y="63093">
+  <object id="58" name="Hornet" type="enemy" x="184" y="63272">
    <properties>
     <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="53" name="Hornet" type="enemy" x="97" y="63231">
-   <properties>
-    <property name="offsety" type="int" value="0"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="54" name="Hornet" type="enemy" x="143" y="63185">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="55" name="Hornet" type="enemy" x="48" y="63185">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="56" name="Hornet" type="enemy" x="233" y="63320">
-   <properties>
-    <property name="offsety" type="int" value="0"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="57" name="Hornet" type="enemy" x="282" y="63275">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="58" name="Hornet" type="enemy" x="187" y="63275">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="59" name="MudDauber" type="enemy" x="94" y="62879"/>
-  <object id="62" name="MudDauber" type="enemy" x="233" y="62795"/>
-  <object id="63" name="Hornet" type="enemy" x="265" y="62626">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="64" name="Hornet" type="enemy" x="83.0323" y="62523.6">
-   <properties>
-    <property name="offsety" type="int" value="0"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="65" name="Hornet" type="enemy" x="130.032" y="62473.6">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="66" name="Hornet" type="enemy" x="170" y="62626">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="67" name="Hornet" type="enemy" x="35.0323" y="62473.6">
-   <properties>
-    <property name="offsety" type="int" value="20"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="68" name="Hornet" type="enemy" x="218" y="62673">
-   <properties>
-    <property name="offsety" type="int" value="0"/>
-    <property name="pattern" value="1"/>
-   </properties>
-  </object>
-  <object id="69" name="ToyBox" type="enemy" x="212.815" y="62373">
+  <object id="59" name="MudDauber" type="enemy" x="96" y="62816"/>
+  <object id="62" name="MudDauber" type="enemy" x="224" y="62720"/>
+  <object id="69" name="ToyBox" type="enemy" x="224" y="62368">
    <properties>
     <property name="drop" value="power"/>
    </properties>
   </object>
-  <object id="75" name="Hornet" type="enemy" x="262.363" y="62336">
+  <object id="75" name="Hornet" type="enemy" x="264" y="62344">
    <properties>
     <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="77" name="Hornet" type="enemy" x="164.202" y="62335.4">
+  <object id="77" name="Hornet" type="enemy" x="184" y="62344">
    <properties>
     <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="78" name="SkyBlade" type="enemy" x="-14.9677" y="62163.8">
+  <object id="78" name="SkyBlade" type="enemy" x="-16" y="62136">
    <properties>
     <property name="offsety" type="int" value="200"/>
    </properties>
   </object>
-  <object id="82" name="Hornet" type="enemy" x="294.467" y="62287.9">
+  <object id="82" name="Hornet" type="enemy" x="296" y="62296">
    <properties>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="83" name="Hornet" type="enemy" x="136.298" y="62286.3">
+  <object id="83" name="Hornet" type="enemy" x="152" y="62296">
    <properties>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="84" name="Hornet" type="enemy" x="261.467" y="62233.6">
-   <properties>
-    <property name="offsety" type="int" value="60"/>
-    <property name="pattern" value="4"/>
-   </properties>
-  </object>
-  <object id="85" name="Hornet" type="enemy" x="163.306" y="62233">
+  <object id="84" name="Hornet" type="enemy" x="264" y="62240">
    <properties>
     <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="86" name="Hornet" type="enemy" x="262.476" y="62162.9">
+  <object id="85" name="Hornet" type="enemy" x="184" y="62240">
    <properties>
     <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="87" name="Hornet" type="enemy" x="164.315" y="62162.3">
+  <object id="86" name="Hornet" type="enemy" x="264" y="62168">
+   <properties>
+    <property name="offsety" type="int" value="60"/>
+    <property name="pattern" value="4"/>
+   </properties>
+  </object>
+  <object id="87" name="Hornet" type="enemy" x="184" y="62168">
    <properties>
     <property name="offsety" type="int" value="60"/>
     <property name="pattern" value="4"/>
    </properties>
   </object>
   <object id="88" name="warning" type="event" x="165.323" y="60274.2"/>
-  <object id="91" name="SkyBlade" type="enemy" x="337.702" y="61814.5">
+  <object id="91" name="SkyBlade" type="enemy" x="336" y="61816">
    <properties>
     <property name="offsety" type="int" value="200"/>
    </properties>
   </object>
-  <object id="92" name="Hornet" type="enemy" x="88.0809" y="61977.4">
+  <object id="95" name="Fragarach" type="enemy" x="107.944" y="61756.6">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="98" name="Fragarach" type="enemy" x="107.944" y="61653.4">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="99" name="Fragarach" type="enemy" x="107.944" y="61704.5">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="100" name="Fragarach" type="enemy" x="107.944" y="61601.3">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="102" name="Fragarach" type="enemy" x="212.911" y="61708.1">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="103" name="Fragarach" type="enemy" x="212.911" y="61758.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="105" name="Fragarach" type="enemy" x="212.911" y="61656">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="106" name="Fragarach" type="enemy" x="212.911" y="61602.8">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="107" name="Fragarach" type="enemy" x="38.3065" y="61469.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="108" name="Fragarach" type="enemy" x="38.3065" y="61523.3">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="110" name="Fragarach" type="enemy" x="37.2984" y="61411">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="111" name="Fragarach" type="enemy" x="35.2823" y="61354.8">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="112" name="Fragarach" type="enemy" x="267.137" y="61413.4">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="113" name="Fragarach" type="enemy" x="268.145" y="61313.2">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="114" name="Fragarach" type="enemy" x="267.137" y="61364.3">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="116" name="Fragarach" type="enemy" x="264" y="61264">
+   <properties>
+    <property name="pattern" value="c"/>
+   </properties>
+  </object>
+  <object id="132" name="Fragarach" type="enemy" x="-40" y="60851.9">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="133" name="Fragarach" type="enemy" x="-40" y="60750.7">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="134" name="Fragarach" type="enemy" x="-40" y="60907.1">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="135" name="Fragarach" type="enemy" x="-40" y="60800.8">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="137" name="Hornet" type="enemy" x="110.645" y="60778.2">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="138" name="Hornet" type="enemy" x="158.645" y="60828.2">
    <properties>
     <property name="offsety" type="int" value="0"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="93" name="Hornet" type="enemy" x="40.0809" y="61927.4">
+  <object id="139" name="Hornet" type="enemy" x="205.645" y="60778.2">
    <properties>
     <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="94" name="Hornet" type="enemy" x="135.081" y="61927.4">
+  <object id="140" name="Hornet" type="enemy" x="59.2339" y="60726.8">
+   <properties>
+    <property name="offsety" type="int" value="40"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="141" name="Hornet" type="enemy" x="251.008" y="60727.8">
+   <properties>
+    <property name="offsety" type="int" value="40"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="142" name="Fragarach" type="enemy" x="360" y="60744.6">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="143" name="Fragarach" type="enemy" x="360" y="60794.7">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="144" name="Fragarach" type="enemy" x="360" y="60901">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="145" name="Fragarach" type="enemy" x="360" y="60845.8">
+   <properties>
+    <property name="pattern" value="r"/>
+   </properties>
+  </object>
+  <object id="146" name="Hornet" type="enemy" x="96" y="63216">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="147" name="Hornet" type="enemy" x="56" y="63160">
    <properties>
     <property name="offsety" type="int" value="20"/>
     <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="95" name="Fragarach" type="enemy" x="111.089" y="61630.5">
+  <object id="148" name="Hornet" type="enemy" x="136" y="63160">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="98" name="Fragarach" type="enemy" x="111.089" y="61555.5">
+  <object id="149" name="Hornet" type="enemy" x="224" y="63104">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="99" name="Fragarach" type="enemy" x="111.089" y="61593.5">
+  <object id="150" name="Hornet" type="enemy" x="184" y="63048">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="100" name="Fragarach" type="enemy" x="111.089" y="61518.5">
+  <object id="151" name="Hornet" type="enemy" x="264" y="63048">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="101" name="Fragarach" type="enemy" x="111.089" y="61480.5">
+  <object id="152" name="Hornet" type="enemy" x="96" y="62984">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="102" name="Fragarach" type="enemy" x="221.774" y="61476.2">
+  <object id="153" name="Hornet" type="enemy" x="56" y="62928">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="103" name="Fragarach" type="enemy" x="221.774" y="61513.2">
+  <object id="154" name="Hornet" type="enemy" x="136" y="62928">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="104" name="Fragarach" type="enemy" x="221.774" y="61363.2">
+  <object id="155" name="Hornet" type="enemy" x="224" y="62624">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="105" name="Fragarach" type="enemy" x="221.774" y="61438.2">
+  <object id="156" name="Hornet" type="enemy" x="184" y="62568">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="106" name="Fragarach" type="enemy" x="221.774" y="61401.2">
+  <object id="157" name="Hornet" type="enemy" x="264" y="62568">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="107" name="Fragarach" type="enemy" x="113.911" y="61356.2">
+  <object id="158" name="Hornet" type="enemy" x="96" y="62520">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="108" name="Fragarach" type="enemy" x="113.911" y="61393.2">
+  <object id="159" name="Hornet" type="enemy" x="56" y="62464">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="109" name="Fragarach" type="enemy" x="113.911" y="61243.2">
+  <object id="160" name="Hornet" type="enemy" x="136" y="62464">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="110" name="Fragarach" type="enemy" x="113.911" y="61318.2">
+  <object id="161" name="Hornet" type="enemy" x="264" y="62568">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
    </properties>
   </object>
-  <object id="111" name="Fragarach" type="enemy" x="113.911" y="61281.2">
+  <object id="162" name="Hornet" type="enemy" x="224" y="62624">
    <properties>
-    <property name="pattern" value="c"/>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="163" name="Hornet" type="enemy" x="184" y="62568">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="1"/>
+   </properties>
+  </object>
+  <object id="164" name="Hornet" type="enemy" x="160" y="62016">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="165" name="Hornet" type="enemy" x="96" y="62016">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="166" name="Hornet" type="enemy" x="224" y="62016">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="167" name="Hornet" type="enemy" x="288" y="62016">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="168" name="Hornet" type="enemy" x="32" y="62016">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="169" name="Hornet" type="enemy" x="64" y="61888">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="171" name="Hornet" type="enemy" x="192" y="61888">
+   <properties>
+    <property name="offsety" type="int" value="0"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="172" name="Hornet" type="enemy" x="128" y="61888">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="3"/>
+   </properties>
+  </object>
+  <object id="173" name="Hornet" type="enemy" x="256" y="61888">
+   <properties>
+    <property name="offsety" type="int" value="20"/>
+    <property name="pattern" value="3"/>
    </properties>
   </object>
  </objectgroup>
