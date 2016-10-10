@@ -354,7 +354,7 @@ pbr.enemyData['Fragarach'] = {
     height: 48,
 
     //耐久力
-    def: 50,
+    def: 100,
 
     //得点
     point: 500,

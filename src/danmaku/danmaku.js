@@ -180,7 +180,7 @@ pbr.danmaku.SkyBlade = new bulletml.Root({
                 fire(RS, spdSeq(0), direction(10, "sequence"), offsetY(-32)),
                 fire(DM, spdSeq(0.05), direction(-20, "sequence")),
             ]),
-            interval(60),
+            interval(90),
         ]),
     ]),
 });
@@ -196,7 +196,7 @@ pbr.danmaku.Fragarach = new bulletml.Root({
                 fire(RS, spdSeq(0.15), direction(-5, "sequence")),
                 fire(RS, spdSeq(0.15), direction(10, "sequence")),
             ]),
-            interval(60),
+            interval(120),
         ]),
     ]),
 });
