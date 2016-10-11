@@ -110,12 +110,12 @@ pbr.enemyData['Raven'] = {
 
             //移動パターン
             this.tweener.clear()
-                .to({x: SC_W*0.8}, 120, "easeInOutSine")
-                .to({x: SC_W*0.2}, 120, "easeInOutSine")
+                .to({x: SC_W*0.8}, 240, "easeInOutSine")
+                .to({x: SC_W*0.2}, 240, "easeInOutSine")
                 .setLoop(true);
             this.tweener2 = phina.accessory.Tweener().clear().setUpdateType('fps')
-                .to({y: SC_H*0.2}, 90, "easeInOutSine")
-                .to({y: SC_H*0.3}, 90, "easeInOutSine")
+                .to({y: SC_H*0.2}, 180, "easeInOutSine")
+                .to({y: SC_H*0.3}, 180, "easeInOutSine")
                 .setLoop(true)
                 .attachTo(this);
         }

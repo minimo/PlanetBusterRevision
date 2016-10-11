@@ -70,6 +70,55 @@ pbr.danmaku.Raven = new bulletml.Root({
     top1: action([
         repeat(Infinity, [
             repeat("$burst + 1", [
+                fire(DM, spd(0.5), direction(-20, "absolute")),
+                repeat(6, [
+                    fire(RM, spd(0.5), direction(-30, "sequence")),
+                    repeat(5, [
+                        fire(RM, spdSeq(0.08), direction(0, "sequence")),
+                    ]),
+                    interval(10),
+                ]),
+            ]),
+            interval(120),
+        ]),
+    ]),
+    top2: action([
+        repeat(Infinity, [
+            repeat("$burst + 1", [
+                fire(DM, spd(0.5), direction(20, "absolute")),
+                repeat(6, [
+                    fire(RM, spd(0.5), direction(30, "sequence")),
+                    repeat(5, [
+                        fire(RM, spdSeq(0.08), direction(0, "sequence")),
+                    ]),
+                    interval(10),
+                ]),
+            ]),
+            interval(120),
+        ]),
+    ]),
+});
+
+
+//２面ボス
+pbr.danmaku.Garuda = new bulletml.Root({
+    top0: action([
+        interval(30),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(-15)),
+            repeat("$burst + 3", [
+                fire(THIN, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
+                fire(THIN, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
+                fire(THIN, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
+                fire(DM, spdSeq(0.08), direction(-30, "sequence")),
+                interval(5),
+            ]),
+            interval(60),
+        ]),
+    ]),
+    top1: action([
+        repeat(Infinity, [
+            repeat("$burst + 1", [
                 fire(DM, spd(0.5), direction(20, "absolute")),
                 repeat(7, [
                     fire(RM, spd(0.5), direction(-30, "sequence")),
@@ -98,7 +147,6 @@ pbr.danmaku.Raven = new bulletml.Root({
         ]),
     ]),
 });
-
 
 });
 
