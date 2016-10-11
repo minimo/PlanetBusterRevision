@@ -223,8 +223,8 @@ pbr.enemyData['Garuda'] = {
     danmakuName: ["Garuda_1","Garuda_2","Garuda_3"],
 
     //当り判定サイズ
-    width:  98,
-    height: 196,
+    width:  296,
+    height: 80,
 
     //耐久力
     def: 3000,
@@ -233,22 +233,22 @@ pbr.enemyData['Garuda'] = {
     point: 400000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT_LOWER,
+    layer: LAYER_OBJECT,
 
     //敵タイプ
-    type: ENEMY_MBOSS,
+    type: ENEMY_BOSS,
 
     //爆発タイプ
     explodeType: EXPLODE_BOSS,
 
     //機体用テクスチャ情報
     texName: "tex_boss1",
-    texWidth: 144,
-    texHeight: 64,
-    texTrimX: 0,
-    texTrimY: 256,
-    texTrimWidth: 144,
-    texTrimHeight: 64,
+    texWidth: 296,
+    texHeight: 80,
+    texTrimX: 112,
+    texTrimY: 320,
+    texTrimWidth: 296,
+    texTrimHeight: 160,
     texIndex: 0,
 
     setup: function(enterParam) {
@@ -258,8 +258,66 @@ pbr.enemyData['Garuda'] = {
     },
 
     epuipment: function() {
+        //ハッチ
+        this.hatchL = pbr.Enemy("Garuda_hatch", -48, 0, 0)
+            .addChildTo(this.parentScene)
+            .setParentEnemy(this);
     },
 
     algorithm: function() {
+        if (this.phase == 1) {
+            this.phase++;
+
+            //移動パターン
+            this.tweener.clear()
+                .to({y: SC_H*0.2}, 120, "easeInOutSine")
+                .to({y: SC_H*0.3}, 120, "easeInOutSine")
+                .setLoop(true);
+        }
+    },
+};
+
+pbr.enemyData['Garuda_hatch'] = {
+    //使用弾幕パターン
+    danmakuName: null,
+
+    //当り判定サイズ
+    width:  16,
+    height: 16,
+
+    //耐久力
+    def: 1500,
+
+    //得点
+    point: 100000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT,
+
+    //敵タイプ
+    type: ENEMY_BOSS_EQUIP,
+
+    //爆発タイプ
+    explodeType: EXPLODE_SMALL,
+
+    //機体用テクスチャ情報
+    texName: "tex_boss1",
+    texWidth: 16,
+    texHeight: 16,
+    texTrimX: 160,
+    texTrimY: 256,
+    texTrimWidth: 64,
+    texTrimHeight: 16,
+    texIndex: 0,
+
+    setup: function(param) {
+        this.texIndex = param.frameIndex;
+        this.offsetX = this.x;
+        this.offsetY = this.y;
+    },
+
+    algorithm: function() {
+        this.x = this.parentEnemy.x + this.offsetX;
+        this.y = this.parentEnemy.y + this.offsetY;
     },
 };
