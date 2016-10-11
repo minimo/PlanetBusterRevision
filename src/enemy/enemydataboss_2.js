@@ -51,6 +51,8 @@ pbr.enemyData['Raven'] = {
         this.isCollision = false;
         this.isMuteki = true;
 
+        this.stopDanmaku();
+
         var that = this;
 
         //砲台
