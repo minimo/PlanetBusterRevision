@@ -124,6 +124,30 @@ phina.define("pbr.Stage1", {
             this.ground.tweener.clear().to({speed:-7.0}, 180, "easeInOutCubic");
         });
         this.add( 1800, function() {});
+
+
+        //イベント登録
+        this.addEvent("scroll_1", function() {
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:1.0}, 300, "easeInOutCubic");
+        });
+        this.addEvent("scroll_2", function() {
+            this.ground.tweener.clear().to({scaleX:1.0, scaleY:1.0, speed:3.0}, 300, "easeInOutCubic");
+        });
+        this.addEvent("scroll_3", function() {
+            this.ground.tweener.clear().to({speed:10.0}, 180, "easeInOutCubic");
+            this.player.isAfterburner = true;
+        });
+        this.addEvent("scroll_4", function() {
+            this.ground.tweener.clear().to({speed:5.0}, 180, "easeInOutCubic");
+            this.player.isAfterburner = false;
+        });
+        this.addEvent("scroll_5", function() {
+            this.ground.tweener.clear().to({scaleX:0.5, scaleY:0.5, speed:2.0}, 600, "easeInOutSine");
+        });
+        this.addEvent("warning", function() {
+            this.enterWarning();
+        });
+
     },
 });
 
