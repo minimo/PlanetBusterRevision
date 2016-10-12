@@ -54,7 +54,7 @@ var DM = bullet({ dummy: true });
 //２面中ボス
 pbr.danmaku.Raven = new bulletml.Root({
     top0: action([
-        interval(30),
+        interval(100),
         repeat(Infinity, [
             fire(DM, spd(0.8), direction(-15)),
             repeat("$burst + 3", [
@@ -64,7 +64,7 @@ pbr.danmaku.Raven = new bulletml.Root({
                 fire(DM, spdSeq(0.08), direction(-30, "sequence")),
                 interval(5),
             ]),
-            interval(60),
+            interval(170),
         ]),
     ]),
     top1: action([
