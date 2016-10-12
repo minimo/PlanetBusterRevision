@@ -356,7 +356,7 @@ phina.define("pbr.Enemy", {
             if (color === undefined) {
                 this.texColor = "";
             } else {
-                if (color != "Red" && color != "White") color = "Red";
+                if (color != "Red" && color != "White" && color != "Black") color = "Red";
                 this.texColor = color;
             }
         }
