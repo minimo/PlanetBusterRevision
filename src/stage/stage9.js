@@ -22,6 +22,22 @@ phina.define("pbr.Stage9", {
 
         this.add( 180, "Raven");
 
+        //ガルーダ機影
+        this.addEvent("boss_shadow", function() {
+            var shadow = phina.display.Sprite("tex_boss1Black", 296, 80);
+            shadow.layer = LAYER_FOREGROUND;
+            shadow.alpha = 0.5;
+            shadow.addChildTo(app.currentScene)
+                .setFrameTrimming(112, 320, 296, 160)
+                .setFrameIndex(0)
+                .setPosition(SC_W*1.1, SC_H*1.2)
+                .setScale(3.0);
+            shadow.update = function() {
+                this.y -= 1;
+                if (this.y < -80) this.remove();
+            };
+        });
+
         //WARNING
         this.addEvent("warning", function() {
             this.enterWarning();
