@@ -208,5 +208,14 @@ pbr.enemyUnit = {
     { "name": "Raven", "x": SC_W*1.2, "y": SC_H*0.7 },
 ],
 
-}
+/*
+ *
+ *  ２面ボス
+ *  大型超高高度爆撃機「ガルーダ」
+ *
+ */
+"Garuda": [
+    { "name": "Garuda", "x": SC_W*1.2, "y": SC_H*0.7 },
+],
 
+}

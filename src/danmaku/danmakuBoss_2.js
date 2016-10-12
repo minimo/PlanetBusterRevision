@@ -116,36 +116,6 @@ pbr.danmaku.Garuda = new bulletml.Root({
             interval(60),
         ]),
     ]),
-    top1: action([
-        repeat(Infinity, [
-            repeat("$burst + 1", [
-                fire(DM, spd(0.5), direction(20, "absolute")),
-                repeat(7, [
-                    fire(RM, spd(0.5), direction(-30, "sequence")),
-                    repeat(5, [
-                        fire(RM, spdSeq(0.08), direction(0, "sequence")),
-                    ]),
-                    interval(10),
-                ]),
-            ]),
-            interval(120),
-        ]),
-    ]),
-    top2: action([
-        repeat(Infinity, [
-            repeat("$burst + 1", [
-                fire(DM, spd(0.5), direction(-20, "absolute")),
-                repeat(7, [
-                    fire(RM, spd(0.5), direction(30, "sequence")),
-                    repeat(5, [
-                        fire(RM, spdSeq(0.08), direction(0, "sequence")),
-                    ]),
-                    interval(10),
-                ]),
-            ]),
-            interval(120),
-        ]),
-    ]),
 });
 
 });
