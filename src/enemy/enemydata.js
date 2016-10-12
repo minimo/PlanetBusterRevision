@@ -404,8 +404,8 @@ pbr.enemyData['Fragarach'] = {
                 break;
         }
 
-        this.turret = phina.display.Sprite("tex1", 32, 32).addChildTo(this);
-        this.turret.setFrameTrimming(192, 32, 32, 32);
+        this.turret = phina.display.Sprite("tex1", 24, 24).addChildTo(this);
+        this.turret.setFrameTrimming(192, 32, 24, 24);
         this.turret.setFrameIndex(0);
     },
 
