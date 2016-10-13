@@ -156,6 +156,12 @@ phina.define("pbr.MenuDialog", {
             stroke: "rgba(255, 255, 255, 0.7)",
             backgroundColor: 'transparent',
         };
+/*
+        this.frame = phina.extension.Frame({width: SC_W*0.87, height: SC_H*(numMenuItem*0.15)+SC_H*0.1})
+            .addChildTo(this.frameBase)
+            .setPosition(SC_W*0.5, SC_H*0.5)
+            .setScale(1.0, 0);
+*/
         this.frame = phina.display.RectangleShape(paramFR)
             .addChildTo(this.frameBase)
             .setPosition(SC_W*0.5, SC_H*0.5)
