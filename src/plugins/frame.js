@@ -17,9 +17,17 @@ phina.define("phina.extension.Frame", {
         var x = this.width / 2;
         var y = this.height / 2;
 
-        //ƒtƒŒ[ƒ€‚Ì•`‰æƒpƒX
+        //ã‚¿ã‚¤ãƒˆãƒ«è¡¨ç¤º
+        if (options.title) {
+            phina.display.Label(option.title)
+                .addChildTo(this)
+                .setPosition(-x, -y)
+                .setOrigin(0, 0);
+        }
+
+        //ãƒ•ãƒ¬ãƒ¼ãƒ ã®æç”»ãƒ‘ã‚¹
         this.drawPath = [
-            //ã•Ó
+            //ä¸Šè¾º
             {x: -x+ 10, y: -y   , side: 0},
             {x: -x+150, y: -y   , side: 0},
             {x: -x+160, y: -y+20, side: 0},
@@ -30,21 +38,21 @@ phina.define("phina.extension.Frame", {
             {x:  x- 5, y: -y   , side: 0},
             {x:  x   , y: -y+ 5, side: 0},
 */
-            //‰E•Ó
+            //å³è¾º
             {x:  x   , y:  y-10, side: 1},
             {x:  x-10, y:  y   , side: 1},
 
-            //‰º•Ó
+            //ä¸‹è¾º
             {x: -x+35, y:  y   , side: 2},
             {x: -x+30, y:  y- 5, side: 2},
             {x: -x   , y:  y- 5, side: 2},
 
-            //¶•Ó
+            //å·¦è¾º
             {x: -x   , y: -y+10, side: 3},
 
         ];
 
-        //ŠO‘¤ƒtƒŒ[ƒ€‚ÌƒIƒtƒZƒbƒg•
+        //å¤–å´ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆå¹…
         this.drawPathOffset = 3;
     },
 
