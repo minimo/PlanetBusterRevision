@@ -20,10 +20,16 @@ phina.define("phina.extension.Frame", {
         //フレームの描画パス
         this.drawPath = [
             //上辺
+            {x: -x+ 10, y: -y   , side: 0},
+            {x: -x+150, y: -y   , side: 0},
+            {x: -x+160, y: -y+20, side: 0},
+            {x:  x-  5, y: -y+20, side: 0},
+            {x:  x    , y: -y+25, side: 0},
+/*
             {x: -x+10, y: -y   , side: 0},
             {x:  x- 5, y: -y   , side: 0},
             {x:  x   , y: -y+ 5, side: 0},
-
+*/
             //右辺
             {x:  x   , y:  y-10, side: 1},
             {x:  x-10, y:  y   , side: 1},
@@ -57,21 +63,21 @@ phina.define("phina.extension.Frame", {
         c.closePath();
 
         var sg = c.createLinearGradient(y, -x, -y, x);
-        sg.addColorStop(0.00, "hsla(190, 100%, 30%, 0.8)");
-        sg.addColorStop(0.38, "hsla(190, 100%, 30%, 0.8)");
-        sg.addColorStop(0.48, "hsla(190, 100%, 50%, 0.8)");
-        sg.addColorStop(0.52, "hsla(190, 100%, 50%, 0.8)");
-        sg.addColorStop(0.62, "hsla(190, 100%, 30%, 0.8)");
-        sg.addColorStop(1.00, "hsla(190, 100%, 30%, 0.8)");
+        sg.addColorStop(0.00, "hsla(230, 100%, 40%, 0.8)");
+        sg.addColorStop(0.38, "hsla(230, 100%, 40%, 0.8)");
+        sg.addColorStop(0.48, "hsla(230, 100%, 60%, 0.8)");
+        sg.addColorStop(0.52, "hsla(230, 100%, 60%, 0.8)");
+        sg.addColorStop(0.62, "hsla(230, 100%, 40%, 0.8)");
+        sg.addColorStop(1.00, "hsla(230, 100%, 40%, 0.8)");
         this.stroke = sg;
 
         var fg = c.createLinearGradient(y, -x, -y, x);
-        fg.addColorStop(0.00, "hsla(210, 100%, 30%, 0.2)");
-        fg.addColorStop(0.38, "hsla(210, 100%, 30%, 0.2)");
-        fg.addColorStop(0.48, "hsla(210, 100%, 50%, 0.2)");
-        fg.addColorStop(0.52, "hsla(210, 100%, 50%, 0.2)");
-        fg.addColorStop(0.62, "hsla(210, 100%, 30%, 0.2)");
-        fg.addColorStop(1.00, "hsla(210, 100%, 30%, 0.2)");
+        fg.addColorStop(0.00, "hsla(250, 100%, 40%, 0.2)");
+        fg.addColorStop(0.38, "hsla(250, 100%, 40%, 0.2)");
+        fg.addColorStop(0.48, "hsla(250, 100%, 60%, 0.2)");
+        fg.addColorStop(0.52, "hsla(250, 100%, 60%, 0.2)");
+        fg.addColorStop(0.62, "hsla(250, 100%, 40%, 0.2)");
+        fg.addColorStop(1.00, "hsla(250, 100%, 40%, 0.2)");
         this.fill = fg;
     },
 
