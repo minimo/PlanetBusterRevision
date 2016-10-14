@@ -13,6 +13,33 @@ phina.define("phina.extension.Frame", {
         this.superInit(options);
         this.backgroundColor = "transparent";
         this.strokeWidth = 2;
+
+        var x = this.width / 2;
+        var y = this.height / 2;
+
+        //フレームの描画パス
+        this.drawPath = [
+            //上辺
+            {x: -x+10, y: -y   , side: 0},
+            {x:  x- 5, y: -y   , side: 0},
+            {x:  x   , y: -y+ 5, side: 0},
+
+            //右辺
+            {x:  x   , y:  y-10, side: 1},
+            {x:  x-10, y:  y   , side: 1},
+
+            //下辺
+            {x: -x+35, y:  y   , side: 2},
+            {x: -x+30, y:  y- 5, side: 2},
+            {x: -x   , y:  y- 5, side: 2},
+
+            //左辺
+            {x: -x   , y: -y+10, side: 3},
+
+        ];
+
+        //外側フレームのオフセット幅
+        this.drawPathOffset = 3;
     },
 
     prerender: function(canvas) {
@@ -21,16 +48,12 @@ phina.define("phina.extension.Frame", {
         var x = this.width / 2;
         var y = this.height / 2;
 
+        var p = this.drawPath;
         c.beginPath();
-        c.moveTo(-x+10, -y   );
-        c.lineTo( x- 5, -y   );
-        c.lineTo( x   , -y+ 5);
-        c.lineTo( x   ,  y-10);
-        c.lineTo( x-10,  y   );
-        c.lineTo(-x+35, y);
-        c.lineTo(-x+30, y- 5);
-        c.lineTo(-x   , y- 5);
-        c.lineTo(-x   , 10-y);
+        c.moveTo(p[0].x, p[0].y);
+        for (var i = 1; i < p.length; i++) {
+            c.lineTo(p[i].x, p[i].y);
+        }
         c.closePath();
 
         var sg = c.createLinearGradient(y, -x, -y, x);
@@ -58,16 +81,30 @@ phina.define("phina.extension.Frame", {
         var x = this.width / 2;
         var y = this.height / 2;
 
+        var p = this.drawPath;
+        var off = this.drawPathOffset;
+
         c.beginPath();
-        c.moveTo(-this.width / 2 + 10 - 3, -this.height / 2 - 3);
-        c.lineTo(this.width / 2 - 5 + 3, -this.height / 2 - 3);
-        c.lineTo(this.width / 2 + 3, -this.height / 2 + 5 - 3);
-        c.lineTo(this.width / 2 + 3, this.height / 2 - 10 + 3);
-        c.lineTo(this.width / 2 - 10 + 3, this.height / 2 + 3);
-        c.lineTo(-this.width / 2 + 35 - 3, this.height / 2 + 3);
-        c.lineTo(-this.width / 2 + 30 - 3, this.height / 2 - 5 + 3);
-        c.lineTo(-this.width / 2 - 3, this.height / 2 - 5 + 3);
-        c.lineTo(-this.width / 2 - 3, -this.height / 2 + 10 - 3);
+        c.moveTo(p[0].x-off, p[0].y-off);
+        for (var i = 1; i < p.length; i++) {
+            var px = p[i].x;
+            var py = p[i].y;
+            switch (p[i].side) {
+                case 0:
+                    px += off; py -= off;
+                    break;
+                case 1:
+                    px += off; py += off;
+                    break;
+                case 2:
+                    px -= off; py += off;
+                    break;
+                case 3:
+                    px -= off; py -= off;
+                    break;
+            }
+            c.lineTo(px, py);
+        }
         c.closePath();
 
         c.lineWidth = 1;
