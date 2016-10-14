@@ -19,7 +19,7 @@ phina.define("phina.extension.Frame", {
 
         //タイトル表示
         if (options.title) {
-            phina.display.Label(option.title)
+            phina.display.Label(options.title)
                 .addChildTo(this)
                 .setPosition(-x, -y)
                 .setOrigin(0, 0);
