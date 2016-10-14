@@ -366,7 +366,11 @@ phina.define("pbr.Selector", {
             .setPosition(-width*0.5+this.option.x, 0)
             .setInteractive(true);
         this.btnL.onpointstart = function() {
+            this.tweener.clear().scaleTo(1.2, 100);
             that.dec();
+        }
+        this.btnL.onpointend = function() {
+            this.tweener.clear().scaleTo(1.0, 100);
         }
         this.btnL2 = phina.display.TriangleShape(paramShp)
             .addChildTo(this.btnL)
@@ -378,7 +382,11 @@ phina.define("pbr.Selector", {
             .setPosition(width*0.5+this.option.x, 0)
             .setInteractive(true);
         this.btnR.onpointstart = function() {
+            this.tweener.clear().scaleTo(1.2, 100);
             that.inc();
+        }
+        this.btnR.onpointend = function() {
+            this.tweener.clear().scaleTo(1.0, 100);
         }
         this.btnR2 = phina.display.TriangleShape(paramShp)
             .addChildTo(this.btnR)
