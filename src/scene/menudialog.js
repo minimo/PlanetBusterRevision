@@ -161,12 +161,6 @@ phina.define("pbr.MenuDialog", {
             .addChildTo(this.frameBase)
             .setPosition(SC_W*0.5, SC_H*0.5)
             .setScale(1.0, 0);
-/*
-        this.frame = phina.display.RectangleShape(paramFR)
-            .addChildTo(this.frameBase)
-            .setPosition(SC_W*0.5, SC_H*0.5)
-            .setScale(1.0, 0);
-*/
         this.frame.tweener.to({scaleY: 1}, 250, "easeOutCubic");
         this.base.tweener.wait(150).fadeIn(100);
 

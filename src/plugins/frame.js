@@ -28,7 +28,7 @@ phina.define("phina.extension.Frame", {
         //フレームの描画パス
         this.drawPath = [
             //上辺
-            {x: -x+ 10, y: -y   , side: 0},
+            {x: -x+ 20, y: -y   , side: 0},
             {x: -x+150, y: -y   , side: 0},
             {x: -x+160, y: -y+20, side: 0},
             {x:  x-  5, y: -y+20, side: 0},
@@ -48,8 +48,7 @@ phina.define("phina.extension.Frame", {
             {x: -x   , y:  y- 5, side: 2},
 
             //左辺
-            {x: -x   , y: -y+10, side: 3},
-
+            {x: -x   , y: -y+20, side: 3},
         ];
 
         //外側フレームのオフセット幅
@@ -78,6 +77,7 @@ phina.define("phina.extension.Frame", {
         sg.addColorStop(0.62, "hsla(230, 100%, 40%, 0.8)");
         sg.addColorStop(1.00, "hsla(230, 100%, 40%, 0.8)");
         this.stroke = sg;
+        this.strokeWidth = 5;
 
         var fg = c.createLinearGradient(y, -x, -y, x);
         fg.addColorStop(0.00, "hsla(250, 100%, 40%, 0.2)");
@@ -121,7 +121,7 @@ phina.define("phina.extension.Frame", {
         }
         c.closePath();
 
-        c.lineWidth = 1;
+        c.lineWidth = 2;
         c.stroke();
     },
 });
@@ -136,46 +136,127 @@ phina.define("phina.extension.CursolFrame", {
     },
 
     prerender: function(canvas) {
+        var x = this.width / 2;
+        var y = this.height / 2;
+
         var c = canvas.context;
 
         c.beginPath();
-        c.moveTo(-this.width / 2 + 10, -this.height / 2);
-        c.lineTo(this.width / 2, -this.height / 2);
-        c.lineTo(this.width / 2, this.height / 2 - 10);
-        c.lineTo(this.width / 2 - 10, this.height / 2);
-        c.lineTo(-this.width / 2, this.height / 2);
-        c.lineTo(-this.width / 2, 10 - this.height / 2);
+        c.moveTo(-x + 10, -y     );
+        c.lineTo( x     , -y     );
+        c.lineTo( x     ,  y - 10);
+        c.lineTo( x - 10,  y     );
+        c.lineTo(-x     ,  y     );
+        c.lineTo(-x     , -y + 10);
         c.closePath();
 
-        var sg = c.createLinearGradient(this.height / 2, -this.width / 2, -this.height / 2, this.width / 2);
-        sg.addColorStop(0.00, "hsla(190, 100%, 60%, 0.8)");
-        sg.addColorStop(0.38, "hsla(190, 100%, 60%, 0.8)");
-        sg.addColorStop(0.48, "hsla(190, 100%, 95%, 0.8)");
-        sg.addColorStop(0.52, "hsla(190, 100%, 95%, 0.8)");
-        sg.addColorStop(0.62, "hsla(190, 100%, 60%, 0.8)");
-        sg.addColorStop(1.00, "hsla(190, 100%, 60%, 0.8)");
+        var sg = c.createLinearGradient(y, -x, -y, x);
+        sg.addColorStop(0.00, "hsla(230, 100%, 60%, 0.8)");
+        sg.addColorStop(0.38, "hsla(230, 100%, 60%, 0.8)");
+        sg.addColorStop(0.48, "hsla(230, 100%, 95%, 0.8)");
+        sg.addColorStop(0.52, "hsla(230, 100%, 95%, 0.8)");
+        sg.addColorStop(0.62, "hsla(230, 100%, 60%, 0.8)");
+        sg.addColorStop(1.00, "hsla(230, 100%, 60%, 0.8)");
         this.stroke = sg;
         this.strokeWidth = 2;
 
-        var fg = c.createLinearGradient(0, -this.height / 2, 0, this.height / 2);
-        fg.addColorStop(0.00, "hsla(190, 100%, 50%, 0.5)");
-        fg.addColorStop(0.40, "hsla(190, 100%, 30%, 0.5)");
-        fg.addColorStop(0.60, "hsla(190, 100%, 30%, 0.5)");
-        fg.addColorStop(1.00, "hsla(190, 100%, 50%, 0.5)");
+        var fg = c.createLinearGradient(0, -y, 0, y);
+        fg.addColorStop(0.00, "hsla(230, 100%, 50%, 0.5)");
+        fg.addColorStop(0.40, "hsla(230, 100%, 30%, 0.5)");
+        fg.addColorStop(0.60, "hsla(230, 100%, 30%, 0.5)");
+        fg.addColorStop(1.00, "hsla(230, 100%, 50%, 0.5)");
         this.fill = fg;
+    },
+
+    postrender: function(canvas) {
+        var x = this.width / 2;
+        var y = this.height / 2;
+
+        var c = canvas.context;
+        c.lineWidth = 3;
+
+        c.moveTo(-x      - 3, -y + 10 - 5);
+        c.lineTo(-x + 10 - 3, -y      - 5);
+        c.lineTo(-x + 25 - 3, -y      - 5);
+
+        c.moveTo( x      + 3, y - 10 + 5);
+        c.lineTo( x - 10 + 3, y      + 5);
+        c.lineTo( x - 25 + 3, y      + 5);
+
+        this.renderStroke(canvas);
+    },
+});
+
+phina.define("phina.extension.CircleButton", {
+    superClass: "phina.display.Shape",
+
+    init: function(options) {
+        this.superInit({}.$extend(options, {
+            width: options.radius * 2,
+            height: options.radius * 2,
+        }));
+
+        this.interactive = true;
+        this.boundingType = "circle";
+        this.radius = options.radius;
+        this.backgroundColor = "transparent";
+        this.fill = "hsla(230, 100%, 60%, 0.4)";
+        this.stroke = "hsla(230, 100%, 60%, 0.9)";
+        this.strokeWidth = 2;
+
+        this.on('enterframe', function() {
+        });
     },
 
     postrender: function(canvas) {
         var c = canvas.context;
 
-        c.moveTo(-this.width / 2 - 2, -this.height / 2 + 10 - 3);
-        c.lineTo(-this.width / 2 + 10 - 2, -this.height / 2 - 3);
-        c.lineTo(-this.width / 2 - 2 + 25, -this.height / 2 - 3);
+        c.strokeStyle = "hsla(230, 100%, 60%, 0.8)";
 
-        c.moveTo(this.width / 2 + 2, this.height / 2 - 10 + 3);
-        c.lineTo(this.width / 2 - 10 + 2, this.height / 2 + 3);
-        c.lineTo(this.width / 2 + 2 - 25, this.height / 2 + 3);
+        //ボタン本体
+        c.beginPath();
+        c.arc(0, 0, this.radius * 0.65, 0, Math.PI * 2, false);
+        c.lineWidth = 1;
+        c.fill();
+        c.stroke();
 
-        this.renderStroke(canvas);
+        //ボタン外縁
+        c.beginPath();
+        c.arc(0, 0, this.radius * 0.75, 0, Math.PI * 2, false);
+        c.lineWidth = 3;
+        c.stroke();
+
+        c.strokeStyle = "hsla(230, 100%, 60%, 0.8)";
+        for (var a = 0, b; a < Math.PI * 2;) {
+            b = Math.randfloat(1.0, 2.0);
+            c.beginPath();
+            c.arc(0, 0, this.radius * 0.90, a, a + b, false);
+            c.lineWidth = 1;
+            c.stroke();
+            a += b * 1.5;
+        }
+
+        c.strokeStyle = "hsla(230, 100%, 60%, 0.8)";
+        for (var a = 0, b; a < Math.PI * 2;) {
+            b = Math.randfloat(1.0, 2.0);
+            c.beginPath();
+            c.arc(0, 0, this.radius * 1.00, a, a + b, false);
+            c.lineWidth = 1;
+            c.stroke();
+            a += b * 1.5;
+        }
+    },
+
+    onpointstart: function(e) {
+        this.scaleX = 1.2;
+        this.scaleY = 1.2;
+    },
+
+    onpointend: function(e) {
+        this.scaleX = 1.0;
+        this.scaleY = 1.0;
+        if (this.hitTest(e.pointer.x, e.pointer.y)) {
+            this.flare("clicked");
+        }
     },
 });
