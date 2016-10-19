@@ -205,7 +205,45 @@ phina.define("phina.extension.CircleButton", {
         this.strokeWidth = 2;
 
         this.on('enterframe', function() {
+            this.inner.rotation+=0.5;
+            this.outer.rotation-=0.5;
         });
+
+        var that = this;
+        var options = {
+            width: options.radius * 2,
+            height: options.radius * 2,
+            backgroundColor: "transparent",
+            fill: "hsla(230, 100%, 60%, 0.4)",
+            stroke: "hsla(230, 100%, 60%, 0.9)",
+            strokeWidth: 2
+        };
+        this.inner = phina.display.Shape(options).addChildTo(this);
+        this.inner.postrender = function(canvas) {
+            var c = canvas.context;
+            c.strokeStyle = "hsla(230, 100%, 60%, 0.8)";
+            for (var a = 0, b; a < Math.PI * 2;) {
+                b = Math.randfloat(1.0, 2.0);
+                c.beginPath();
+                c.arc(0, 0, that.radius * 0.90, a, a + b, false);
+                c.lineWidth = Math.floor(that.radius*0.2);
+                c.stroke();
+                a += b * 1.5;
+            }
+        }
+        this.outer = phina.display.Shape(options).addChildTo(this);
+        this.outer.postrender = function(canvas) {
+            var c = canvas.context;
+            c.strokeStyle = "hsla(230, 100%, 60%, 0.8)";
+            for (var a = 0, b; a < Math.PI * 2;) {
+                b = Math.randfloat(1.0, 2.0);
+                c.beginPath();
+                c.arc(0, 0, that.radius * 1.00, a, a + b, false);
+                c.lineWidth = Math.floor(that.radius*0.2);
+                c.stroke();
+                a += b * 1.5;
+            }
+        }
     },
 
     postrender: function(canvas) {
@@ -225,26 +263,6 @@ phina.define("phina.extension.CircleButton", {
         c.arc(0, 0, this.radius * 0.75, 0, Math.PI * 2, false);
         c.lineWidth = 3;
         c.stroke();
-
-        c.strokeStyle = "hsla(230, 100%, 60%, 0.8)";
-        for (var a = 0, b; a < Math.PI * 2;) {
-            b = Math.randfloat(1.0, 2.0);
-            c.beginPath();
-            c.arc(0, 0, this.radius * 0.90, a, a + b, false);
-            c.lineWidth = 1;
-            c.stroke();
-            a += b * 1.5;
-        }
-
-        c.strokeStyle = "hsla(230, 100%, 60%, 0.8)";
-        for (var a = 0, b; a < Math.PI * 2;) {
-            b = Math.randfloat(1.0, 2.0);
-            c.beginPath();
-            c.arc(0, 0, this.radius * 1.00, a, a + b, false);
-            c.lineWidth = 1;
-            c.stroke();
-            a += b * 1.5;
-        }
     },
 
     onpointstart: function(e) {
