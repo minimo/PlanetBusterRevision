@@ -54,6 +54,12 @@ phina.define("pbr.TitleScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.bg.tweener.setUpdateType('fps');
 
+        //かっこよさげなオブジェ
+        this.acc = phina.extension.CircleButton({radius: 64})
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.325);
+        this.acc.interactive = false;
+
         //タイトル
         phina.display.Label({text: "Planet"}.$safe(this.titleParam))
             .addChildTo(this)
