@@ -80,7 +80,12 @@ phina.define("pbr.TitleScene", {
             stroke: "rgba(0,100,200,0.5)",
             backgroundColor: 'transparent',
         };
+/*
         this.cursol = phina.display.RectangleShape(param2)
+            .addChildTo(this)
+            .setPosition(SC_W*0.5, SC_H*0.6-3)
+*/
+        this.cursol = phina.extension.CursolFrame({width: SC_W*0.7, height: SC_H*0.08})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6-3)
 
