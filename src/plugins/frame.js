@@ -261,7 +261,7 @@ phina.define("phina.extension.CircleButton", {
         //ボタン外縁
         c.beginPath();
         c.arc(0, 0, this.radius * 0.75, 0, Math.PI * 2, false);
-        c.lineWidth = 3;
+        c.lineWidth = Math.floor(this.radius*0.1);
         c.stroke();
     },
 
