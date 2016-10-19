@@ -142,29 +142,40 @@ phina.define("phina.extension.CursolFrame", {
         var c = canvas.context;
 
         c.beginPath();
+
+        //上辺
         c.moveTo(-x + 10, -y     );
-        c.lineTo( x     , -y     );
+        c.lineTo( x - 10, -y     );
+
+        //右辺
+        c.lineTo( x     , -y + 10);
         c.lineTo( x     ,  y - 10);
+
+        //下辺
         c.lineTo( x - 10,  y     );
-        c.lineTo(-x     ,  y     );
+        c.lineTo(-x + 10,  y     );
+
+        //右辺
+        c.lineTo(-x     ,  y - 10);
         c.lineTo(-x     , -y + 10);
+
         c.closePath();
 
-        var sg = c.createLinearGradient(y, -x, -y, x);
+        var sg = c.createLinearGradient(0, -y,  0, y);
         sg.addColorStop(0.00, "hsla(230, 100%, 60%, 0.8)");
-        sg.addColorStop(0.38, "hsla(230, 100%, 60%, 0.8)");
+        sg.addColorStop(0.38, "hsla(230, 100%, 90%, 0.8)");
         sg.addColorStop(0.48, "hsla(230, 100%, 95%, 0.8)");
-        sg.addColorStop(0.52, "hsla(230, 100%, 95%, 0.8)");
+        sg.addColorStop(0.52, "hsla(230, 100%, 90%, 0.8)");
         sg.addColorStop(0.62, "hsla(230, 100%, 60%, 0.8)");
         sg.addColorStop(1.00, "hsla(230, 100%, 60%, 0.8)");
         this.stroke = sg;
-        this.strokeWidth = 2;
+        this.strokeWidth = 3;
 
         var fg = c.createLinearGradient(0, -y, 0, y);
-        fg.addColorStop(0.00, "hsla(230, 100%, 50%, 0.5)");
-        fg.addColorStop(0.40, "hsla(230, 100%, 30%, 0.5)");
-        fg.addColorStop(0.60, "hsla(230, 100%, 30%, 0.5)");
-        fg.addColorStop(1.00, "hsla(230, 100%, 50%, 0.5)");
+        fg.addColorStop(0.00, "hsla(230, 100%, 50%, 0.8)");
+        fg.addColorStop(0.40, "hsla(230, 100%, 30%, 0.8)");
+        fg.addColorStop(0.60, "hsla(230, 100%, 30%, 0.8)");
+        fg.addColorStop(1.00, "hsla(230, 100%, 50%, 0.8)");
         this.fill = fg;
     },
 
@@ -175,13 +186,15 @@ phina.define("phina.extension.CursolFrame", {
         var c = canvas.context;
         c.lineWidth = 3;
 
-        c.moveTo(-x      - 3, -y + 10 - 5);
-        c.lineTo(-x + 10 - 3, -y      - 5);
-        c.lineTo(-x + 25 - 3, -y      - 5);
+        c.moveTo(-x + 10 - 5, -y     );
+        c.lineTo(-x      - 5, -y + 10);
+        c.lineTo(-x      - 5,  y - 10);
+        c.lineTo(-x + 10 - 5,  y     );
 
-        c.moveTo( x      + 3, y - 10 + 5);
-        c.lineTo( x - 10 + 3, y      + 5);
-        c.lineTo( x - 25 + 3, y      + 5);
+        c.moveTo( x - 10 + 5, -y     );
+        c.lineTo( x      + 5, -y + 10);
+        c.lineTo( x      + 5,  y - 10);
+        c.lineTo( x - 10 + 5,  y     );
 
         this.renderStroke(canvas);
     },
