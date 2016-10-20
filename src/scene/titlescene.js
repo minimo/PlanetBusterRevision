@@ -26,7 +26,7 @@ phina.define("pbr.TitleScene", {
         msgParam: {
             text: "",
             fill: "white",
-            stroke: false,
+            stroke: "black",
             strokeWidth: 2,
 
             fontFamily: "Orbitron",
@@ -57,8 +57,10 @@ phina.define("pbr.TitleScene", {
         //かっこよさげなオブジェ
         this.acc = phina.extension.CircleButton({radius: 64})
             .addChildTo(this)
-            .setPosition(SC_W*0.5, SC_H*0.325);
+            .setPosition(SC_W*0.5, SC_H*0.3)
+            .setScale(0.0, 0.0);
         this.acc.interactive = false;
+        this.acc.tweener.clear().to({ scaleX: 2.0, scaleY: 1 }, 150);
 
         //タイトル
         phina.display.Label({text: "Planet"}.$safe(this.titleParam))
@@ -85,7 +87,7 @@ phina.define("pbr.TitleScene", {
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6-3)
 */
-        this.cursol = phina.extension.CursolFrame({width: SC_W*0.7, height: SC_H*0.08})
+        this.cursol = phina.extension.CursolFrame({width: SC_W*0.7, height: SC_H*0.06})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.6-3)
 
