@@ -23,7 +23,7 @@ phina.define("pbr.Stage9", {
 //        this.add( 180, "Raven");
         this.add( 180, function() {
 //            this.event["boss_shadow"].value.call();
-           this.event["boss_enter"].value.call();
+//           this.event["Garuda"].value.call();
         }.bind(this));
 
 
@@ -44,7 +44,7 @@ phina.define("pbr.Stage9", {
         });
 
         //ボス登場演出
-        this.addEvent("boss_enter", function() {
+        this.addEvent("Garuda", function() {
             var shadow = phina.display.Sprite("tex_boss1Black", 296, 80)
                 .setFrameTrimming(112, 320, 296, 160)
                 .setFrameIndex(0)

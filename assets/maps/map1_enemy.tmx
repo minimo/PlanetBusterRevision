@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="174">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="2000" tilewidth="32" tileheight="32" nextobjectid="176">
  <objectgroup name="EnemyLayer">
   <object id="56" name="Hornet" type="enemy" x="224" y="63328">
    <properties>
@@ -77,7 +77,7 @@
     <property name="pattern" value="4"/>
    </properties>
   </object>
-  <object id="88" name="warning" type="event" x="165.323" y="60274.2"/>
+  <object id="88" name="warning" type="event" x="160" y="60896"/>
   <object id="91" name="SkyBlade" type="enemy" x="336" y="61816">
    <properties>
     <property name="offsety" type="int" value="200"/>
@@ -165,22 +165,22 @@
   </object>
   <object id="132" name="Fragarach" type="enemy" x="-32" y="61189.1">
    <properties>
-    <property name="pattern" value="r"/>
+    <property name="pattern" value="l"/>
    </properties>
   </object>
   <object id="133" name="Fragarach" type="enemy" x="-32" y="61087.9">
    <properties>
-    <property name="pattern" value="r"/>
+    <property name="pattern" value="l"/>
    </properties>
   </object>
   <object id="134" name="Fragarach" type="enemy" x="-32" y="61244.2">
    <properties>
-    <property name="pattern" value="r"/>
+    <property name="pattern" value="l"/>
    </properties>
   </object>
   <object id="135" name="Fragarach" type="enemy" x="-32" y="61138">
    <properties>
-    <property name="pattern" value="r"/>
+    <property name="pattern" value="l"/>
    </properties>
   </object>
   <object id="137" name="Hornet" type="enemy" x="118.645" y="61115.4">
@@ -395,5 +395,6 @@
     <property name="pattern" value="3"/>
    </properties>
   </object>
+  <object id="174" name="Garuda" type="event" x="160" y="60512"/>
  </objectgroup>
 </map>
