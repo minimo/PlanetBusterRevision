@@ -220,7 +220,7 @@ pbr.enemyData['Raven_wing'] = {
  */
 pbr.enemyData['Garuda'] = {
     //使用弾幕パターン
-    danmakuName: ["Garuda_1","Garuda_2","Garuda_3"],
+    danmakuName: null,//["Garuda_1","Garuda_2","Garuda_3"],
 
     //当り判定サイズ
     width:  296,
@@ -255,6 +255,12 @@ pbr.enemyData['Garuda'] = {
         this.phase = 0;
         this.isCollision = false;
         this.isMuteki = true;
+        this.alpha = 0;
+        this.tweener.clear()
+            .fadeIn(60)
+            .call(function(){
+                this.phase++;
+            }.bind(this));
     },
 
     epuipment: function() {
@@ -311,7 +317,7 @@ pbr.enemyData['Garuda_hatch'] = {
     texIndex: 0,
 
     setup: function(param) {
-        this.texIndex = param.frameIndex;
+        this.texIndex = 0;
         this.offsetX = this.x;
         this.offsetY = this.y;
     },

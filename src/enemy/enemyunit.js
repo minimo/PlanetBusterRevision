@@ -215,7 +215,7 @@ pbr.enemyUnit = {
  *
  */
 "Garuda": [
-    { "name": "Garuda", "x": SC_W*1.2, "y": SC_H*0.7 },
+    { "name": "Garuda", "x": SC_W*0.5, "y": SC_H*0.2 },
 ],
 
 }
