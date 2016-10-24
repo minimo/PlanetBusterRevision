@@ -220,9 +220,13 @@ phina.define("phina.extension.CircleButton", {
         this.stroke = "hsla(230, 100%, 60%, 0.9)";
         this.strokeWidth = 2;
 
+        this.active = true;
+
         this.on('enterframe', function() {
-            this.inner.rotation+=0.5;
-            this.outer.rotation-=0.5;
+            if (this.active) {
+                this.inner.rotation+=0.5;
+                this.outer.rotation-=0.5;
+            }
         });
 
         var that = this;
