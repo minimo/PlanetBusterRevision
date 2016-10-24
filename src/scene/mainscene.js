@@ -242,6 +242,11 @@ phina.define("pbr.MainScene", {
             phina.display.Label(lparam).addChildTo(s).setScale(2.5);
         }
 
+        //ボムボタン
+        this.buttonBomb = phina.extension.CircleButton({radius: 16})
+            .addChildTo(this.systemBase)
+            .setPosition(20, SC_H*0.9);
+
         //目隠し（黒）
         this.mask = phina.display.RectangleShape(param)
             .addChildTo(this)
