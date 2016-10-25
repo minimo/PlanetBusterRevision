@@ -258,9 +258,15 @@ pbr.enemyData['Garuda'] = {
         this.alpha = 0;
         this.tweener.clear()
             .fadeIn(60)
-            .call(function(){
+            .call(function() {
                 this.phase++;
+            }.bind(this))
+            .wait(120)
+            .call(function() {
+                this.startDanmaku(this.danmakuName[this.danmakuNumber]);
             }.bind(this));
+
+        this.stopDanmaku();
 
         //弾幕１セット終了
         this.danmakuNumber = 0;
@@ -330,10 +336,22 @@ pbr.enemyData['Garuda_hatch'] = {
         this.texIndex = 0;
         this.offsetX = this.x;
         this.offsetY = this.y;
+
+        this.stopDanmaku();
+
+        //開閉
+        this.idx = 0;
+        this.on('bulletstart2', function(e) {
+            this.tweener.clear().to({idx: 4}, 15);
+        }.bind(this));
+        this.on('bulletend2', function(e) {
+            this.tweener.clear().to({idx: 0}, 15);
+        }.bind(this));
     },
 
     algorithm: function() {
         this.x = this.parentEnemy.x + this.offsetX;
         this.y = this.parentEnemy.y + this.offsetY;
+        this.texIndex = this.idx;
     },
 };
