@@ -278,10 +278,10 @@ pbr.enemyData['Garuda'] = {
 
     epuipment: function() {
         //ハッチ
-        this.hatchL = pbr.Enemy("Garuda_hatch", -64, 0, 0)
+        this.hatchL = pbr.Enemy("Garuda_hatch", -61, 2, 0)
             .addChildTo(this.parentScene)
             .setParentEnemy(this);
-        this.hatchR = pbr.Enemy("Garuda_hatch",  64, 0, 0)
+        this.hatchR = pbr.Enemy("Garuda_hatch",  62, 2, 0)
             .addChildTo(this.parentScene)
             .setParentEnemy(this);
     },
