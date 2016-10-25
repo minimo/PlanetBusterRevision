@@ -461,7 +461,7 @@ phina.define("pbr.MainScene", {
             case 9:
                 //テスト用ステージ
                 this.stage = pbr.Stage9(this, this.player);
-                this.mapObject = phina.asset.AssetManager.get('tmx', "map1_enemy").getObjectGroup("EnemyLayer")[0];
+//                this.mapObject = phina.asset.AssetManager.get('tmx', "map1_enemy").getObjectGroup("EnemyLayer")[0];
                 this.ground = pbr.Stage9Ground().addChildTo(this);
                 break;
         }

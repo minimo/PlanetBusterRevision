@@ -23,7 +23,7 @@ phina.define("pbr.Stage9", {
 //        this.add( 180, "Raven");
         this.add( 180, function() {
 //            this.event["boss_shadow"].value.call();
-//           this.event["Garuda"].value.call();
+           this.event["Garuda"].value.call();
         }.bind(this));
 
 
