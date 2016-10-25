@@ -100,21 +100,55 @@ pbr.danmaku.Raven = new bulletml.Root({
 });
 
 
-//２面ボス
-pbr.danmaku.Garuda = new bulletml.Root({
+//２面ボス　パターン１
+pbr.danmaku.Garuda_1 = new bulletml.Root({
     top0: action([
         interval(30),
         repeat(Infinity, [
-            fire(DM, spd(0.8), direction(-15)),
-            repeat("$burst + 3", [
-                fire(THIN, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
-                fire(THIN, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-                fire(THIN, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-                fire(DM, spdSeq(0.08), direction(-30, "sequence")),
-                interval(5),
+            fire(DM, spd(0.8), direction(-20)),
+            repeat(3, [
+                fire(RL, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
+                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
+                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
+                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
+                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
+                fire(DM, spdSeq(0), direction(-40, "sequence")),
+                interval(2),
             ]),
             interval(60),
         ]),
+    ]),
+});
+
+//２面ボス　パターン２
+pbr.danmaku.Garuda_2 = new bulletml.Root({
+    top0: action([
+    ]),
+});
+
+//２面ボス　パターン３
+pbr.danmaku.Garuda_3 = new bulletml.Root({
+    top0: action([
+    ]),
+});
+
+//２面ボス　パターン４（発狂）
+pbr.danmaku.Garuda_4 = new bulletml.Root({
+    top0: action([
+    ]),
+});
+
+//２面ボス砲台
+pbr.danmaku.Garuda_hatch_1 = new bulletml.Root({
+    top0: action([
+    ]),
+});
+pbr.danmaku.Garuda_hatch_2 = new bulletml.Root({
+    top0: action([
+    ]),
+});
+pbr.danmaku.Garuda_hatch_3 = new bulletml.Root({
+    top0: action([
     ]),
 });
 
