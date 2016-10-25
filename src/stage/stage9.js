@@ -33,7 +33,7 @@ phina.define("pbr.Stage9", {
             shadow.layer = LAYER_FOREGROUND;
             shadow.alpha = 0.5;
             shadow.addChildTo(app.currentScene)
-                .setFrameTrimming(112, 320, 296, 160)
+                .setFrameTrimming(128, 320, 296, 160)
                 .setFrameIndex(0)
                 .setPosition(SC_W*1.1, SC_H*1.2)
                 .setScale(2.0);
@@ -46,7 +46,7 @@ phina.define("pbr.Stage9", {
         //ボス登場演出
         this.addEvent("Garuda", function() {
             var shadow = phina.display.Sprite("tex_boss1Black", 296, 80)
-                .setFrameTrimming(112, 320, 296, 160)
+                .setFrameTrimming(128, 320, 296, 160)
                 .setFrameIndex(0)
                 .setPosition(SC_W*0.5, SC_H*0.4);
             shadow.layer = LAYER_SHADOW;
@@ -72,15 +72,15 @@ phina.define("pbr.Stage9", {
 
                 //煙もくもくー
                 var x1 = this.x;
-                var y1 = this.y;
-                var x2 = this.x+140;
+                var y1 = this.y-10;
+                var x2 = this.x+148;
                 var y2 = this.y+40;
                 var vy = this.parentScene.ground.deltaY;
                 for (var r = 0; r < 2; r++) {
-                    if (r == 1) x2 = this.x-140;
+                    if (r == 1) x2 = this.x-148;
                     for (var i = 0; i < 3; i++) {
                         var p = Math.randfloat(0, 1.0);
-                        var px = Math.floor(x1*p+x2*(1-p))+16;
+                        var px = Math.floor(x1*p+x2*(1-p));
                         var py = Math.floor(y1*p+y2*(1-p))-32;
                         var layer = this.parentScene.effectLayerUpper;
                         layer.enterSmokeLarge({

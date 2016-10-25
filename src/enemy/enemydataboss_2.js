@@ -220,7 +220,7 @@ pbr.enemyData['Raven_wing'] = {
  */
 pbr.enemyData['Garuda'] = {
     //使用弾幕パターン
-    danmakuName: null,//["Garuda_1","Garuda_2","Garuda_3"],
+    danmakuName: ["Garuda_1", "Garuda_2", "Garuda_3", "Garuda_4"],
 
     //当り判定サイズ
     width:  296,
@@ -245,7 +245,7 @@ pbr.enemyData['Garuda'] = {
     texName: "tex_boss1",
     texWidth: 296,
     texHeight: 80,
-    texTrimX: 112,
+    texTrimX: 128,
     texTrimY: 320,
     texTrimWidth: 296,
     texTrimHeight: 160,
@@ -261,11 +261,21 @@ pbr.enemyData['Garuda'] = {
             .call(function(){
                 this.phase++;
             }.bind(this));
+
+        //弾幕１セット終了
+        this.danmakuNumber = 0;
+        this.on('bulletfinish', function(e) {
+            this.danmakuNumber = (this.danmakuNumber+1)%3;
+            this.startDanmaku(this.danmakuName[this.danmakuNumber]);
+        });
     },
 
     epuipment: function() {
         //ハッチ
-        this.hatchL = pbr.Enemy("Garuda_hatch", -48, 0, 0)
+        this.hatchL = pbr.Enemy("Garuda_hatch", -64, 0, 0)
+            .addChildTo(this.parentScene)
+            .setParentEnemy(this);
+        this.hatchR = pbr.Enemy("Garuda_hatch",  64, 0, 0)
             .addChildTo(this.parentScene)
             .setParentEnemy(this);
     },
@@ -285,7 +295,7 @@ pbr.enemyData['Garuda'] = {
 
 pbr.enemyData['Garuda_hatch'] = {
     //使用弾幕パターン
-    danmakuName: null,
+    danmakuName: ["Garuda_hatch_1", "Garuda_hatch_2", "Garuda_hatch_3"],
 
     //当り判定サイズ
     width:  16,
@@ -310,8 +320,8 @@ pbr.enemyData['Garuda_hatch'] = {
     texName: "tex_boss1",
     texWidth: 16,
     texHeight: 16,
-    texTrimX: 160,
-    texTrimY: 256,
+    texTrimX: 0,
+    texTrimY: 384,
     texTrimWidth: 64,
     texTrimHeight: 16,
     texIndex: 0,
