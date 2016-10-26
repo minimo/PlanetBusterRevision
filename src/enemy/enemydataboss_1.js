@@ -310,7 +310,7 @@ pbr.enemyData['Golyat'] = {
             //アーム側弾幕設定切替
             this.armL.startDanmaku(this.armL.danmakuName[this.danmakuNumber]);
             this.armR.startDanmaku(this.armR.danmakuName[this.danmakuNumber]);
-        });
+        }.bind(this));
 
         //アームベース左
         this.armbaseL = phina.display.Sprite("tex_boss1", 66, 184)
