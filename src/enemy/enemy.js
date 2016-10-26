@@ -366,13 +366,16 @@ phina.define("pbr.Enemy", {
     },
 
     //通常破壊パターン
-    defaultDead: function() {
+    defaultDead: function(width, height) {
+        width = width || this.width;
+        height = height || this.height;
+
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
         this.stopDanmaku();
 
-        this.explode();        
+        this.explode(width, height);        
 
         //弾消し
         if (this.data.type == ENEMY_MIDDLE) {
@@ -414,13 +417,16 @@ phina.define("pbr.Enemy", {
         return this;
     },
 
-    defaultDeadBoss: function() {
+    defaultDeadBoss: function(width, height) {
+        width = width || this.width;
+        height = height || this.height;
+
         this.isCollision = false;
         this.isDead = true;
         this.tweener.clear();
         this.stopDanmaku();
 
-        this.explode();
+        this.explode(width, height);
         app.playSE("explodeLarge");
 
         //弾消し
@@ -431,7 +437,7 @@ phina.define("pbr.Enemy", {
         this.tweener.clear()
             .moveBy(0, 80, 300)
             .call(function() {
-                this.explode();
+                this.explode(width, height);
                 this.parentScene.maskWhite.tweener.clear().fadeIn(45).fadeOut(45);
                 app.playSE("explodeBoss");
                 if (this.shadow) {
@@ -449,7 +455,10 @@ phina.define("pbr.Enemy", {
         return this;
     },
 
-    explode: function() {
+    explode: function(width, height) {
+        width = width || this.width;
+        height = height || this.height;
+
         //爆発無し
         if (this.data.explodeType == EXPLODE_NOTHING) return;
 
@@ -472,8 +481,8 @@ phina.define("pbr.Enemy", {
             case EXPLODE_LARGE:
                 var num = rand(20, 30)*this.data.explodeType;
                 for (var i = 0; i < num; i++) {
-                    var x = this.x+rand(-this.width, this.width);
-                    var y = this.y+rand(-this.height, this.height);
+                    var x = this.x+rand(-width, width);
+                    var y = this.y+rand(-height, height);
                     var delay = rand(0, 30);
                     pbr.Effect.enterExplode(upper, {
                         position: {x: x, y: y},
@@ -494,8 +503,8 @@ phina.define("pbr.Enemy", {
             case EXPLODE_BOSS:
                 var num = rand(100, 150);
                 for (var i = 0; i < num; i++) {
-                    var x = this.x+rand(-this.width*0.7, this.width*0.7);
-                    var y = this.y+rand(-this.height*0.7, this.height*0.7);
+                    var x = this.x+rand(-width*0.7, width*0.7);
+                    var y = this.y+rand(-height*0.7, height*0.7);
                     var delay = rand(0, 15);
                     pbr.Effect.enterExplode(upper, {
                         position: {x: x, y: y},
