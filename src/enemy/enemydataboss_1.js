@@ -301,6 +301,12 @@ pbr.enemyData['Golyat'] = {
             this.core.tweener.clear().to({idx: 0}, 15);
         }.bind(this));
 
+        //発狂モード
+        this.on('stampede', function(e) {
+            this.isStampede = true;
+            this.startDanmaku(this.danmakuName[3]);
+        }.bind(this));
+
         //弾幕１セット終了
         this.danmakuNumber = 0;
         this.on('bulletfinish', function(e) {
@@ -516,8 +522,7 @@ pbr.enemyData['Golyat'] = {
 
         //両方のアームが破壊された場合、発狂モードへ移行
         if (!this.isStampede && this.armL.def == 0 && this.armR.def == 0) {
-            this.isStampede = true;
-            this.startDanmaku(this.danmakuName[3]);
+            this.flare('stampede');
         }
     },
 

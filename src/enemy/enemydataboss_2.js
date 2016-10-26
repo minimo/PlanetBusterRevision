@@ -223,8 +223,8 @@ pbr.enemyData['Garuda'] = {
     danmakuName: ["Garuda_1", "Garuda_2", "Garuda_3", "Garuda_4"],
 
     //当り判定サイズ
-    width:  296,
-    height: 80,
+    width:  64,
+    height: 70,
 
     //耐久力
     def: 3000,
@@ -258,13 +258,13 @@ pbr.enemyData['Garuda'] = {
         this.alpha = 0;
         this.tweener.clear()
             .fadeIn(60)
-            .call(function() {
-                this.phase++;
-            }.bind(this))
             .wait(120)
             .call(function() {
-                this.startDanmaku(this.danmakuName[this.danmakuNumber]);
+                this.phase++;
             }.bind(this));
+
+        //発狂モードフラグ
+        this.isStampede = false;
 
         this.stopDanmaku();
 
@@ -273,7 +273,13 @@ pbr.enemyData['Garuda'] = {
         this.on('bulletfinish', function(e) {
             this.danmakuNumber = (this.danmakuNumber+1)%3;
             this.startDanmaku(this.danmakuName[this.danmakuNumber]);
-        });
+        }.bind(this));
+
+        //発狂モード
+        this.on('stampede', function(e) {
+            this.isStampede = true;
+            this.startDanmaku(this.danmakuName[3]);
+        }.bind(this));
     },
 
     epuipment: function() {
@@ -288,14 +294,38 @@ pbr.enemyData['Garuda'] = {
 
     algorithm: function() {
         if (this.phase == 1) {
-            this.phase++;
+            this.isCollision = true;
+            this.isMuteki = false;
+            this.startDanmaku(this.danmakuName[this.danmakuNumber]);
+
+            this.hatchL.isCollision = true;
+            this.hatchR.isCollision = true;
 
             //移動パターン
             this.tweener.clear()
                 .to({y: SC_H*0.2}, 120, "easeInOutSine")
                 .to({y: SC_H*0.3}, 120, "easeInOutSine")
                 .setLoop(true);
+
+            this.phase++;
         }
+
+        //耐久力残り２割切ったらテクスチャを切替
+        if (this.texIndex == 0 && this.def < this.defMax*0.2) {
+            this.texIndex = 1;
+            this.shadow.frameIndex = 1;
+            this.explode(296, 80);
+        }
+    },
+
+    deadChild: function(child) {
+        //砲台両方とも死んだら発狂モード移行
+        if (this.hatchL.def == 0 && this.hatchR.def == 0) {
+        }
+    },
+
+    dead: function() {
+        this.defaultDeadBoss(296, 80);
     },
 };
 
@@ -336,6 +366,8 @@ pbr.enemyData['Garuda_hatch'] = {
         this.texIndex = 0;
         this.offsetX = this.x;
         this.offsetY = this.y;
+
+        this.isCollision = false;
 
         this.stopDanmaku();
 
