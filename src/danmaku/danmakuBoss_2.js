@@ -115,7 +115,37 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
                 fire(DM, spdSeq(0), direction(-40, "sequence")),
                 interval(2),
             ]),
-            interval(60),
+            interval(180),
+        ]),
+    ]),
+    top1: action([
+        interval(30),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(-20), offsetX(-148), offsetY(0)),
+            repeat(1, [
+                fire(BEM, spdSeq(0), direction( 0, "sequence"), offsetX(-148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
+                fire(DM, spdSeq(0), direction(-40, "sequence"), offsetX(-148), offsetY(0)),
+            ]),
+            interval(186),
+        ]),
+    ]),
+    top2: action([
+        interval(30),
+        repeat(Infinity, [
+            fire(DM, spd(0.8), direction(-20), offsetX(148), offsetY(0)),
+            repeat(1, [
+                fire(BEM, spdSeq(0), direction( 0, "sequence"), offsetX(148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
+                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
+                fire(DM, spdSeq(0), direction(-40, "sequence"), offsetX(148), offsetY(0)),
+            ]),
+            interval(186),
         ]),
     ]),
 });
