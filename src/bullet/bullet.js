@@ -50,7 +50,7 @@ phina.define("pbr.Bullet", {
         this.on("enterframe", function(app){
             if (this.rolling) this.rotation += this.rollAngle;
             var runner = this.runner;
-            if (runner) {
+            if (runner && this.go) {
                 var bx = this.x;
                 var by = this.y;
                 runner.x = bx;
@@ -94,7 +94,7 @@ phina.define("pbr.Bullet", {
 
         this.rolling = true;
 
-        this.setOrigin(0.5, 0.5);
+        this.sprite.setOrigin(0.5, 0.5);
 
         if (spec.dummy) {
             this.dummy = true;
@@ -114,18 +114,23 @@ phina.define("pbr.Bullet", {
                 case "REM": size = 1.0; index = 8; break;
                 case "BEM": size = 1.0; index =24; break;
                 case "THIN":
-                    size = 1.0; index = 3; 
+                    size = 1.0; index = 3;
                     this.rolling = false;
                     this.rotation = this.runner.direction*toDeg-90;
-                    this.setOrigin(0.5, 0.0);
+                    this.sprite.setOrigin(0.5, 0.0);
                     break;
             }
             this.sprite.setFrameIndex(index).setScale(size);
             this.dummy = false;
             this.sprite.visible = true;
     
+            this.go = false;
             this.setScale(0.01);
-            this.tweener.clear().to({scaleX: 1.0, scaleY:1.0}, 20, "easeInOutSine");
+            this.tweener.clear()
+                .to({scaleX: 1.0, scaleY:1.0}, 15, "easeInOutSine")
+                .call(function() {
+                    this.go = true;
+                }.bind(this));
         }
         return this;
     },
