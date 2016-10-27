@@ -118,6 +118,7 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
             ]),
             interval(180),
         ]),
+        notify("finish"),
     ]),
     top1: action([
         interval(30),
