@@ -51,17 +51,24 @@ var THIN = bullet({ type: "THIN" });
 
 var DM = bullet({ dummy: true });
 
+//マクロ
+var fireAim0 = bulletml.dsl.fireAim0;
+var fireAim1 = bulletml.dsl.fireAim1;
+var fireAim2 = bulletml.dsl.fireAim2;
+var nway = bulletml.dsl.nway;
+var absoluteNway = bulletml.dsl.absoluteNway;
+var circle = bulletml.dsl.circle;
+var absoluteCircle = bulletml.dsl.absoluteCircle;
+var whip = bulletml.dsl.whip;
+
 //２面中ボス
 pbr.danmaku.Raven = new bulletml.Root({
     top0: action([
         interval(120),
         repeat(Infinity, [
-            fire(DM, spd(0.8), direction(-15)),
+            fire(DM, spd(0.8)),
             repeat(3, [
-                fire(THIN, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
-                fire(THIN, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-                fire(THIN, spdSeq(0), direction(15, "sequence"), offsetX(0), offsetY(0)),
-                fire(DM, spdSeq(0.08), direction(-30, "sequence")),
+                nway(3, -15, 15, THIN, spd(0.08)),
                 interval(5),
             ]),
             interval(165),
@@ -105,14 +112,8 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
     top0: action([
         interval(30),
         repeat(Infinity, [
-            fire(DM, spd(0.8), direction(-20)),
             repeat(3, [
-                fire(RL, spdSeq(0), direction( 0, "sequence"), offsetX(0), offsetY(0)),
-                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
-                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
-                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
-                fire(RL, spdSeq(0), direction(10, "sequence"), offsetX(0), offsetY(0)),
-                fire(DM, spdSeq(0), direction(-40, "sequence")),
+                nway(5, -20, 20, RL, spd(0.8)),
                 interval(2),
             ]),
             interval(180),
@@ -121,31 +122,21 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
     top1: action([
         interval(30),
         repeat(Infinity, [
-            fire(DM, spd(0.8), direction(-20), offsetX(-148), offsetY(0)),
             repeat(1, [
-                fire(BEM, spdSeq(0), direction( 0, "sequence"), offsetX(-148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(-148), offsetY(0)),
-                fire(DM, spdSeq(0), direction(-40, "sequence"), offsetX(-148), offsetY(0)),
+                nway(5, -20, 20, BEM, spd(0.8), offsetX(-148), offsetY(0)),
+                interval(6),
             ]),
-            interval(186),
+            interval(180),
         ]),
     ]),
     top2: action([
         interval(30),
         repeat(Infinity, [
-            fire(DM, spd(0.8), direction(-20), offsetX(148), offsetY(0)),
             repeat(1, [
-                fire(BEM, spdSeq(0), direction( 0, "sequence"), offsetX(148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
-                fire(BEM, spdSeq(0), direction(10, "sequence"), offsetX(148), offsetY(0)),
-                fire(DM, spdSeq(0), direction(-40, "sequence"), offsetX(148), offsetY(0)),
+                nway(5, -20, 20, BEM, spd(0.8), offsetX(148), offsetY(0)),
+                interval(6),
             ]),
-            interval(186),
+            interval(180),
         ]),
     ]),
 });

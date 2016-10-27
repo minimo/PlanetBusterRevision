@@ -51,6 +51,16 @@ var THIN = bullet({ type: "THIN" });
 
 var DM = bullet({ dummy: true });
 
+//マクロ
+var fireAim0 = bulletml.dsl.fireAim0;
+var fireAim1 = bulletml.dsl.fireAim1;
+var fireAim2 = bulletml.dsl.fireAim2;
+var nway = bulletml.dsl.nway;
+var absoluteNway = bulletml.dsl.absoluteNway;
+var circle = bulletml.dsl.circle;
+var absoluteCircle = bulletml.dsl.absoluteCircle;
+var whip = bulletml.dsl.whip;
+
 //１面中ボス
 pbr.danmaku.ThorHammer = new bulletml.Root({
     top0: action([

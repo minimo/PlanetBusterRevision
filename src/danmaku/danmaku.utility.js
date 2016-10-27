@@ -61,25 +61,25 @@ phina.namespace(function() {
      * @param {bulletml.Speed} speed 弾速
      * @param {bulletml.bullet} bullet 弾種
      */
-    bulletml.dsl.fireAim0 = function(bullet, speed) { return fire(bullet || RS, direction(0), speed || spd(0.8)) };
-    bulletml.dsl.fireAim1 = function(bullet, speed) { return fire(bullet || RS, direction(Math.randf(-2, 2)), speed || spd(0.8)) };
-    bulletml.dsl.fireAim2 = function(bullet, speed) { return fire(bullet || RS, direction(Math.randf(-3, 3)), speed || spd(0.8)) };
+    bulletml.dsl.fireAim0 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(0)) };
+    bulletml.dsl.fireAim1 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(Math.randf(-2, 2))) };
+    bulletml.dsl.fireAim2 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(Math.randf(-4, 4))) };
 
     /*自機狙いNway弾
      * @param {number} way 一度に射出する弾数
-     * @param {number} rangeFrom 上を０とした開始角度
-     * @param {number} rangeTo 上を０とした終了角度
-     * @param {bulletml.Speed} speed 弾速
+     * @param {number} rangeFrom 自機を０とした開始角度
+     * @param {number} rangeTo 自機を０とした終了角度
      * @param {bulletml.bullet} bullet 弾種
+     * @param {bulletml.Speed} speed 弾速
      * @param {bulletml.offsetX} offsetX 射出X座標
      * @param {bulletml.offsetY} offsetY 射出Y座標
      */
-    bulletml.dsl.nway = function(way, rangeFrom, rangeTo, speed, bullet, offsetX, offsetY, autonomy) {
+    bulletml.dsl.nway = function(way, rangeFrom, rangeTo, bullet, speed, offsetX, offsetY, autonomy) {
         return action([
-            fire(bullet || RS, direction(rangeFrom), speed, offsetX, offsetY, autonomy),
+            fire(bullet || RS, speed, direction(rangeFrom), offsetX, offsetY, autonomy),
             bindVar("way", "Math.max(2, " + way + ")"),
             repeat("$way-1", [
-                fire(bullet || RS, direction("((" + rangeTo + ")-(" + rangeFrom + "))/($way-1)", "sequence"), speed, offsetX, offsetY, autonomy),
+                fire(bullet || RS, speed, direction("((" + rangeTo + ")-(" + rangeFrom + "))/($way-1)", "sequence"), offsetX, offsetY, autonomy),
             ]),
         ]);
     };
@@ -87,19 +87,58 @@ phina.namespace(function() {
     /**
      * 絶対Nway弾
      * @param {number} way 一度に射出する弾数
-     * @param {number} rangeFrom 自機を０とした開始角度
-     * @param {number} rangeTo 自機を０とした終了角度
-     * @param {bulletml.Speed} speed 弾速
+     * @param {number} rangeFrom 真上を０とした開始角度
+     * @param {number} rangeTo 真上を０とした終了角度
      * @param {bulletml.bullet} bullet 弾種
+     * @param {bulletml.Speed} speed 弾速
      * @param {bulletml.offsetX} offsetX 射出X座標
      * @param {bulletml.offsetY} offsetY 射出Y座標
      */
-    bulletml.dsl.absoluteNway = function(way, rangeFrom, rangeTo, speed, bullet, offsetX, offsetY) {
+    bulletml.dsl.absoluteNway = function(way, rangeFrom, rangeTo, bullet, speed, offsetX, offsetY) {
         return action([
-            fire(bullet || RS, $direction(rangeFrom, "absolute"), speed, offsetX, offsetY),
+            fire(bullet || RS, speed, $direction(rangeFrom, "absolute"), offsetX, offsetY),
             bindVar("way", "Math.max(2, " + way + ")"),
             repeat("$way-1", [
-                fire(bullet || RS, direction("((" + rangeTo + ")-(" + rangeFrom + "))/($way-1)", "sequence"), speed, offsetX, offsetY),
+                fire(bullet || RS, speed, direction("((" + rangeTo + ")-(" + rangeFrom + "))/($way-1)", "sequence"), offsetX, offsetY),
+            ]),
+        ]);
+    };
+
+    /**
+     * 自機狙いサークル弾
+     * @param {number} way 一度に射出する弾数
+     * @param {bulletml.bullet} bullet 弾種
+     * @param {bulletml.Speed} speed 弾速
+     * @param {bulletml.offsetX} offsetX 射出X座標
+     * @param {bulletml.offsetY} offsetY 射出Y座標
+     */
+    bulletml.dsl.circle = function(way, bullet, speed, offsetX, offsetY, autonomy) {
+        return action([
+            fire(bullet || RS, speed, direction(0), offsetX, offsetY, autonomy),
+            bindVar("way", "Math.max(2, " + way + ")"),
+            bindVar("dir", "Math.floor(360/$way)"),
+            repeat("$way-1", [
+                fire(bullet || RS, speed, direction("$dir", "sequence"), offsetX, offsetY, autonomy),
+            ]),
+        ]);
+    };
+
+    /**
+     * 絶対サークル弾
+     * @param {number} way 一度に射出する弾数
+     * @param {number} direction 真上を０とした基準角度
+     * @param {bulletml.bullet} bullet 弾種
+     * @param {bulletml.Speed} speed 弾速
+     * @param {bulletml.offsetX} offsetX 射出X座標
+     * @param {bulletml.offsetY} offsetY 射出Y座標
+     */
+    bulletml.dsl.absoluteCircle = function(way, bullet, speed, offsetX, offsetY, autonomy) {
+        return action([
+            fire(bullet || RS, speed, direction(0, "absolute"), offsetX, offsetY, autonomy),
+            bindVar("way", "Math.max(2, " + way + ")"),
+            bindVar("dir", "Math.floor(360/$way)"),
+            repeat("$way-1", [
+                fire(bullet || RS, speed, direction("$dir", "sequence"), offsetX, offsetY, autonomy),
             ]),
         ]);
     };
