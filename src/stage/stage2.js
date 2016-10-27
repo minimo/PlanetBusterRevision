@@ -16,7 +16,7 @@ phina.define("pbr.Stage2", {
         this.superInit(parent, player);
 
         //初期化処理
-        this.add(1, function(app) {
+        this.add(1, function() {
             this.ground.tweener.clear().to({scaleX:0.5, scaleY:0.5, speed:1.0, alpha:1}, 1, "easeInOutQuad");
             app.playBGM("stage2", true);
         });
