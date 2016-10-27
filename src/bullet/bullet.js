@@ -123,11 +123,14 @@ phina.define("pbr.Bullet", {
             this.sprite.setFrameIndex(index).setScale(size);
             this.dummy = false;
             this.sprite.visible = true;
-    
+
+            //弾が動く迄の待機フレーム数    
+            var wait = 10;
+
             this.go = false;
             this.setScale(0.01);
             this.tweener.clear()
-                .to({scaleX: 1.0, scaleY:1.0}, 15, "easeInOutSine")
+                .to({scaleX: 1.0, scaleY:1.0}, wait, "easeInOutSine")
                 .call(function() {
                     this.go = true;
                 }.bind(this));
