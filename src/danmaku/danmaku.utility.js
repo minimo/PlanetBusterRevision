@@ -64,6 +64,21 @@ phina.namespace(function() {
     bulletml.dsl.fireAim0 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(0)) };
     bulletml.dsl.fireAim1 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(Math.randf(-2, 2))) };
     bulletml.dsl.fireAim2 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(Math.randf(-4, 4))) };
+    bulletml.dsl.fireAim0Vs = function(bullet) {
+        return function(speed) {
+            return bulletml.dsl.fireAim0(bullet, speed);
+        };
+    };
+    bulletml.dsl.fireAim1Vs = function(bullet) {
+        return function(speed) {
+            return bulletml.dsl.fireAim1(bullet, speed);
+        };
+    };
+    bulletml.dsl.fireAim2Vs = function(bullet) {
+        return function(speed) {
+            return bulletml.dsl.fireAim2(bullet, speed);
+        };
+    };
 
     /*自機狙いNway弾
      * @param {number} way 一度に射出する弾数
@@ -132,6 +147,11 @@ phina.namespace(function() {
             ]),
         ]);
     };
+    bulletml.dsl.circleVs = function(way, bullet, offsetX, offsetY, autonomy) {
+        return function(speed) {
+            return bulletml.dsl.circle(way, bullet, speed, offsetX, offsetY, autonomy);
+        }
+    };
 
     /**
      * 絶対サークル弾
@@ -151,6 +171,11 @@ phina.namespace(function() {
                 fire(bullet || RS, speed, direction("$dir", "sequence"), offsetX, offsetY, autonomy),
             ]),
         ]);
+    };
+    bulletml.dsl.absoluteCircleVs = function(way, bullet, offsetX, offsetY, autonomy) {
+        return function(speed) {
+            return bulletml.dsl.circle(way, bullet, speed, offsetX, offsetY, autonomy);
+        }
     };
 
     /**
