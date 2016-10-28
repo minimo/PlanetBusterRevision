@@ -83,6 +83,11 @@ phina.namespace(function() {
             ]),
         ]);
     };
+    bulletml.dsl.nwayVs = function(way, rangeFrom, rangeTo, bullet, offsetX, offsetY, autonomy) {
+        return function(speed) {
+            return bulletml.dsl.nway(way, rangeFrom, rangeTo, bullet, speed, offsetX, offsetY, autonomy);
+        };
+    };
 
     /**
      * 絶対Nway弾
@@ -102,6 +107,11 @@ phina.namespace(function() {
                 fire(bullet || RS, speed, direction("((" + rangeTo + ")-(" + rangeFrom + "))/($way-1)", "sequence"), offsetX, offsetY),
             ]),
         ]);
+    };
+    bulletml.dsl.absoluteNwayVs = function(way, rangeFrom, rangeTo, bullet, offsetX, offsetY) {
+        return function(speed) {
+            return bulletml.dsl.nway(way, rangeFrom, rangeTo, bullet, speed, offsetX, offsetY);
+        };
     };
 
     /**
@@ -154,7 +164,7 @@ phina.namespace(function() {
         return action([
             actionFunc(baseSpeed),
             repeat(count + "-1", [
-                actionFunc(spdSeq(delta)),
+                actionFunc(bulletml.dsl.spdSeq(delta)),
             ]),
         ]);
     };

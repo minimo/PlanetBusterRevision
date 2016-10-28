@@ -9,6 +9,7 @@ phina.namespace(function() {
 
 pbr.danmaku = pbr.danmaku || {};
 
+//ショートハンド
 var action = bulletml.dsl.action;
 var actionRef = bulletml.dsl.actionRef;
 var bullet = bulletml.dsl.bullet;
@@ -32,10 +33,22 @@ var offsetX = bulletml.dsl.offsetX;
 var offsetY = bulletml.dsl.offsetY;
 var autonomy = bulletml.dsl.autonomy;
 
+//マクロ
 var interval = bulletml.dsl.interval;
 var spd = bulletml.dsl.spd;
 var spdSeq = bulletml.dsl.spdSeq;
+var fireAim0 = bulletml.dsl.fireAim0;
+var fireAim1 = bulletml.dsl.fireAim1;
+var fireAim2 = bulletml.dsl.fireAim2;
+var nway = bulletml.dsl.nway;
+var nwayVs = bulletml.dsl.nwayVs;
+var absoluteNway = bulletml.dsl.absoluteNway;
+var absoluteNwayVs = bulletml.dsl.absoluteNwayVs;
+var circle = bulletml.dsl.circle;
+var absoluteCircle = bulletml.dsl.absoluteCircle;
+var whip = bulletml.dsl.whip;
 
+//弾種
 var RS  = bullet({ type: "RS"  });
 var RM  = bullet({ type: "RM"  });
 var RL  = bullet({ type: "RL"  });
@@ -50,16 +63,6 @@ var BEM = bullet({ type: "BEM" });
 var THIN = bullet({ type: "THIN" });
 
 var DM = bullet({ dummy: true });
-
-//マクロ
-var fireAim0 = bulletml.dsl.fireAim0;
-var fireAim1 = bulletml.dsl.fireAim1;
-var fireAim2 = bulletml.dsl.fireAim2;
-var nway = bulletml.dsl.nway;
-var absoluteNway = bulletml.dsl.absoluteNway;
-var circle = bulletml.dsl.circle;
-var absoluteCircle = bulletml.dsl.absoluteCircle;
-var whip = bulletml.dsl.whip;
 
 //２面中ボス
 pbr.danmaku.Raven = new bulletml.Root({
