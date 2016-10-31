@@ -2045,13 +2045,10 @@ bulletml.runner.DEFAULT_CONFIG = {
 
 /**
  * @constructor
- * @param {boolean} fireable
  */
 bulletml.runner.Runner = function() {
     this.x = 0;
     this.y = 0;
-    this.fireable = true;
-    this.stop = false;
 };
 bulletml.runner.Runner.prototype = {
     constructor: bulletml.runner.Runner,
@@ -2175,11 +2172,6 @@ bulletml.runner.SubRunner.prototype = Object.create(bulletml.runner.SimpleSubRun
  */
 bulletml.runner.SubRunner.prototype.update = function() {
     if (this.stop) return;
-    if (this.parentRunner !== null) {
-        if (this.parentRunner.stop) return;
-    }
-    
-
 
     this.age += 1;
 
@@ -2257,7 +2249,6 @@ bulletml.runner.SubRunner.prototype.update = function() {
  * @param {bulletml.Fire} cmd
  */
 bulletml.runner.SubRunner.prototype.fire = function(cmd) {
-    if (!this.fireable) return;
 
     var bulletRunner;
     if (cmd.bullet.actions.length === 0) {
@@ -2433,9 +2424,6 @@ bulletml.runner.SubRunner.prototype.accel = function(cmd) {
  */
 bulletml.runner.SubRunner.prototype.notify = function(cmd) {
     this.onNotify(cmd.eventName, cmd.params);
-    if (this.parentRunner !== null) {
-        this.parentRunner.onNotify(cmd.eventName, cmd.params);
-    }
 };
 
 /**
