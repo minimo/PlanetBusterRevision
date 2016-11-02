@@ -523,6 +523,7 @@ phina.define("pbr.Enemy", {
             this.runner = null;
         }
         this.runner = pbr.danmaku[danmakuName].createRunner(pbr.BulletConfig);
+        this.runner.host = this;
         this.runner.onNotify = function(eventType, event) {
             this.flare("bullet" + eventType, event);
         }.bind(this);
