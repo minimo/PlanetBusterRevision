@@ -2256,11 +2256,11 @@ bulletml.runner.SubRunner.prototype.fire = function(cmd) {
     } else {
         bulletRunner = new bulletml.runner.SubRunner(this.config, cmd.bullet.getWalker());
     }
-    bulletRunner.host = this.ParentRunner.host;
-    if (!this.host) {
+    if (this.host) {
         bulletRunner.host = this.host;
+    } else {
+        bulletRunner.host = this.parentRunner.host;
     }
-
     var gunPosition = {
         x: this.x + /**@type{number}*/(cmd.option.offsetX),
         y: this.y + /**@type{number}*/(cmd.option.offsetY)

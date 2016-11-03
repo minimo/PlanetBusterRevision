@@ -29,13 +29,11 @@ phina.define("pbr.BulletLayer", {
     //弾投入
     enterBullet: function(runner, spec) {
         //ボス以外の地上物の場合、プレイヤーに近接してたら弾を撃たない
-/*
         var host = runner.host;
-        if (host.isGround && host.isboss) {
-            var dis = distanceSq(host, app.player);
-            if (dis < 1024) return;
+        if (host.isGround && !host.isBoss) {
+            var dis = distanceSq(runner, this.parentScene.player);
+            if (dis < 4096) return;
         }
-*/
         var b = this.pool.shift();
         if (!b) {
             console.warn("Bullet empty!!");
