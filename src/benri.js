@@ -17,7 +17,7 @@ var distance = function(from, to) {
 
 //距離計算（ルート無し版）
 var distanceSq = function(from, to) {
-    var x = from.x-to.x;
+    var x = from.x - to.x;
     var y = from.y - to.y;
     return x*x+y*y;
 }
