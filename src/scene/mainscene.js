@@ -141,6 +141,7 @@ phina.define("pbr.MainScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
             .stageStartup();
         player.shotLayer = this.shotLayer;
+        app.player = this.player;
 
 //        this.pointer = pbr.PlayerPointer().addChildTo(this);
 //        this.pointer.player = this.player;
