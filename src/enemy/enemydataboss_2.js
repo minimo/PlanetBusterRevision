@@ -315,12 +315,17 @@ pbr.enemyData['Garuda'] = {
             this.texIndex = 1;
             this.shadow.frameIndex = 1;
             this.explode(296, 80);
+            //発狂モード移行
+            if (!this.stampede) {
+                this.flare("stampede");
+            }
         }
     },
 
     deadChild: function(child) {
         //砲台両方とも死んだら発狂モード移行
-        if (this.hatchL.def == 0 && this.hatchR.def == 0) {
+        if (!this.stampede && this.hatchL.def == 0 && this.hatchR.def == 0) {
+            this.flare("stampede");
         }
     },
 
