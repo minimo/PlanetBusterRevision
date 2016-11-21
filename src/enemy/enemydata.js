@@ -795,3 +795,47 @@ pbr.enemyData['Medusa'] = {
         return this;
     },
 }
+
+/*
+ *  爆弾「仮」
+ */
+pbr.enemyData['bomb-x'] = {
+    //使用弾幕名
+    danmakuName: null,
+
+    //当り判定サイズ
+    width:  8,
+    height: 8,
+
+    //耐久力
+    def: 50,
+
+    //得点
+    point: 1000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT,
+
+    //敵タイプ
+    type: ENEMY_SMALL,
+
+    //爆発タイプ
+    explodeType: EXPLODE_MIDDLE,
+
+    //機体用テクスチャ情報
+    texName: "tex1",
+    texWidth: 8,
+    texHeight: 24,
+    texIndex: 0,
+    texTrimX: 192,
+    texTrimY: 64,
+    texTrimWidth: 8,
+    texTrimHeight: 24,
+
+    setup: function(enterParam) {
+    },
+
+    algorithm: function() {
+        
+    },
+}
