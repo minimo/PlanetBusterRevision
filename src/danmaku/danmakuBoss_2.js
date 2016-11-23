@@ -114,7 +114,7 @@ pbr.danmaku.Raven = new bulletml.Root({
 pbr.danmaku.Garuda_1 = new bulletml.Root({
     top0: action([
         interval(30),
-        repeat(Infinity, [
+        repeat(5, [
             repeat(3, [
                 nway(5, -20, 20, RL, spd(0.8)),
                 interval(2),
@@ -148,18 +148,26 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
 //２面ボス　パターン２
 pbr.danmaku.Garuda_2 = new bulletml.Root({
     top0: action([
+        repeat(10, [
+            notify('down'),
+            interval(60),
+        ]),
+        notify("finish"),
     ]),
 });
 
 //２面ボス　パターン３
 pbr.danmaku.Garuda_3 = new bulletml.Root({
     top0: action([
+        notify("finish"),
     ]),
 });
 
 //２面ボス　パターン４（発狂）
 pbr.danmaku.Garuda_4 = new bulletml.Root({
     top0: action([
+        repeat(Infinity, [
+        ]),
     ]),
 });
 
@@ -173,6 +181,10 @@ pbr.danmaku.Garuda_hatch_2 = new bulletml.Root({
     ]),
 });
 pbr.danmaku.Garuda_hatch_3 = new bulletml.Root({
+    top0: action([
+    ]),
+});
+pbr.danmaku.Garuda_hatch_4 = new bulletml.Root({
     top0: action([
     ]),
 });

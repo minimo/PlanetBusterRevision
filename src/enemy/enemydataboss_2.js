@@ -279,6 +279,26 @@ pbr.enemyData['Garuda'] = {
         this.on('stampede', function(e) {
             this.isStampede = true;
             this.startDanmaku(this.danmakuName[3]);
+            //ハッチ側弾幕設定切替
+            this.hatchL.startDanmaku(this.hatchL.danmakuName[this.danmakuNumber]);
+            this.hatchR.startDanmaku(this.hatchR.danmakuName[this.danmakuNumber]);
+        }.bind(this));
+
+        //オプション武器投下
+        this.on('bulletdown', function(e) {
+            this.parentScene.enterEnemy("GarudaDown", this.x+116, this.y+32);
+            this.parentScene.enterEnemy("GarudaDown", this.x-116, this.y+32);
+        }.bind(this));
+
+        //弾幕１セット終了
+        this.danmakuNumber = 0;
+        this.on('bulletfinish', function(e) {
+            this.danmakuNumber = (this.danmakuNumber+1)%3;
+            this.startDanmaku(this.danmakuName[this.danmakuNumber]);
+
+            //ハッチ側弾幕設定切替
+            this.hatchL.startDanmaku(this.hatchL.danmakuName[this.danmakuNumber]);
+            this.hatchR.startDanmaku(this.hatchR.danmakuName[this.danmakuNumber]);
         }.bind(this));
     },
 
@@ -336,7 +356,7 @@ pbr.enemyData['Garuda'] = {
 
 pbr.enemyData['Garuda_hatch'] = {
     //使用弾幕パターン
-    danmakuName: ["Garuda_hatch_1", "Garuda_hatch_2", "Garuda_hatch_3"],
+    danmakuName: ["Garuda_hatch_1", "Garuda_hatch_2", "Garuda_hatch_3", "Garuda_hatch_4"],
 
     //当り判定サイズ
     width:  16,
@@ -390,5 +410,51 @@ pbr.enemyData['Garuda_hatch'] = {
         this.x = this.parentEnemy.x + this.offsetX;
         this.y = this.parentEnemy.y + this.offsetY;
         this.texIndex = this.idx;
+    },
+};
+
+/*
+ *  ボスオプション「GarudaDown」
+ */
+pbr.enemyData['GarudaDown'] = {
+    //使用弾幕名
+    danmakuName: null,
+
+    //当り判定サイズ
+    width:  20,
+    height: 30,
+
+    //耐久力
+    def: 100,
+
+    //得点
+    point: 2000,
+
+    //表示レイヤー番号
+    layer: LAYER_OBJECT,
+
+    //敵タイプ
+    type: ENEMY_SMALL,
+
+    //爆発タイプ
+    explodeType: EXPLODE_MIDDLE,
+
+    //機体用テクスチャ情報
+    texName: "tex1",
+    texWidth: 32,
+    texHeight: 48,
+    texIndex: 0,
+    texTrimX: 192,
+    texTrimY: 256,
+    texTrimWidth: 64,
+    texTrimHeight: 48,
+
+    setup: function(enterParam) {
+        this.vy = 0;
+        this.tweener.clear().to({vy: 2}, 120, "easeOutQuart");
+    },
+
+    algorithm: function(e) {
+        this.y += this.vy;
     },
 };
