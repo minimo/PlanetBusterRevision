@@ -794,4 +794,10 @@ pbr.enemyData['Medusa'] = {
         this.vy = y;
         return this;
     },
+
+    setAngle: function(degree, speed) {
+        var rad = degree * toRad;
+        this.vx = Math.cos(rad) * speed;
+        this.vy = Math.sin(rad) * speed;
+    },
 }

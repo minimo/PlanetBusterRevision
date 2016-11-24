@@ -285,9 +285,9 @@ pbr.enemyData['Garuda'] = {
         }.bind(this));
 
         //オプション武器投下
-        this.on('bulletdown', function(e) {
-            this.parentScene.enterEnemy("GarudaDown", this.x+116, this.y+32);
-            this.parentScene.enterEnemy("GarudaDown", this.x-116, this.y+32);
+        this.on('bulletbomb', function(e) {
+            this.parentScene.enterEnemy("GarudaBomb", this.x+100, this.y+32);
+            this.parentScene.enterEnemy("GarudaBomb", this.x-100, this.y+32);
         }.bind(this));
 
         //弾幕１セット終了
@@ -398,10 +398,10 @@ pbr.enemyData['Garuda_hatch'] = {
 
         //開閉
         this.idx = 0;
-        this.on('bulletstart2', function(e) {
+        this.on('bulletstart', function(e) {
             this.tweener.clear().to({idx: 4}, 15);
         }.bind(this));
-        this.on('bulletend2', function(e) {
+        this.on('bulletend', function(e) {
             this.tweener.clear().to({idx: 0}, 15);
         }.bind(this));
     },
@@ -414,11 +414,11 @@ pbr.enemyData['Garuda_hatch'] = {
 };
 
 /*
- *  ボスオプション「GarudaDown」
+ *  ボスオプション「GarudaBomb」
  */
-pbr.enemyData['GarudaDown'] = {
+pbr.enemyData['GarudaBomb'] = {
     //使用弾幕名
-    danmakuName: null,
+    danmakuName: "GarudaBomb",
 
     //当り判定サイズ
     width:  20,
@@ -451,7 +451,7 @@ pbr.enemyData['GarudaDown'] = {
 
     setup: function(enterParam) {
         this.vy = 0;
-        this.tweener.clear().to({vy: 2}, 120, "easeOutQuart");
+        this.tweener.clear().to({vy: 3}, 180, "easeOutSine");
     },
 
     algorithm: function(e) {
