@@ -202,6 +202,7 @@ pbr.danmaku.Garuda_hatch_4 = new bulletml.Root({
         notify("start"),
         interval(120),
         repeat(Infinity, [
+            interval(120),
         ]),
     ]),
 });

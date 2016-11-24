@@ -22,7 +22,7 @@ pbr.enemyData['Raven'] = {
     height: 40,
 
     //耐久力
-    def: 3000,
+    def: 5000,
 
     //得点
     point: 200000,
@@ -227,7 +227,7 @@ pbr.enemyData['Garuda'] = {
     height: 70,
 
     //耐久力
-    def: 3000,
+    def: 8000,
 
     //得点
     point: 400000,
@@ -399,7 +399,7 @@ pbr.enemyData['Garuda_hatch'] = {
         //開閉
         this.idx = 0;
         this.on('bulletstart', function(e) {
-            this.tweener.clear().to({idx: 4}, 15);
+            this.tweener.clear().to({idx: 3}, 15);
         }.bind(this));
         this.on('bulletend', function(e) {
             this.tweener.clear().to({idx: 0}, 15);
@@ -409,7 +409,7 @@ pbr.enemyData['Garuda_hatch'] = {
     algorithm: function() {
         this.x = this.parentEnemy.x + this.offsetX;
         this.y = this.parentEnemy.y + this.offsetY;
-        this.texIndex = this.idx;
+        this.texIndex = Math.floor(this.idx);
     },
 };
 
@@ -425,7 +425,7 @@ pbr.enemyData['GarudaBomb'] = {
     height: 30,
 
     //耐久力
-    def: 100,
+    def: 300,
 
     //得点
     point: 2000,
