@@ -9,7 +9,7 @@ phina.define("pbr.Enemy", {
     superClass: "phina.display.DisplayElement",
 
     _member: {
-        layer: LAYER_OBJECT,    //所属レイヤー
+        layer: LAYER_OBJECT_MIDDLE,    //所属レイヤー
         parentEnemy: null,      //親となる敵キャラ
 
         //各種フラグ
@@ -90,7 +90,7 @@ phina.define("pbr.Enemy", {
         this.def = this.defMax = d.def;
         this.width = d.width || 32;
         this.height = d.height || 32;
-        this.layer = d.layer || LAYER_OBJECT;
+        this.layer = d.layer || LAYER_OBJECT_MIDDLE;
         this.point = d.point || 0;
 
         this.setup = d.setup || this.setup;

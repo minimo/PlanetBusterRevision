@@ -730,7 +730,7 @@ phina.define("pbr.MainScene", {
 
     //敵に一律ダメージ付加
     addEnemyDamage: function(power) {
-        var checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT, LAYER_OBJECT_LOWER];
+        var checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT_MIDDLE, LAYER_OBJECT_LOWER];
 
         //敵との当り判定チェック
         for (var i = 0; i < 3; i++) {

@@ -28,7 +28,7 @@ pbr.enemyData['Raven'] = {
     point: 200000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_MBOSS,
@@ -182,7 +182,7 @@ pbr.enemyData['Raven_wing'] = {
     point: 50000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_BOSS_EQUIP,
@@ -233,7 +233,7 @@ pbr.enemyData['Garuda'] = {
     point: 400000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_BOSS,
@@ -369,7 +369,7 @@ pbr.enemyData['Garuda_hatch'] = {
     point: 100000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_BOSS_EQUIP,
@@ -431,7 +431,7 @@ pbr.enemyData['GarudaBomb'] = {
     point: 2000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_SMALL,

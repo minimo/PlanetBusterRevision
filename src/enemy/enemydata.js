@@ -25,7 +25,7 @@ pbr.enemyData['Hornet'] = {
     point: 300,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_SMALL,
@@ -132,7 +132,7 @@ pbr.enemyData['MudDauber'] = {
     point: 3000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_MIDDLE,
@@ -194,7 +194,7 @@ pbr.enemyData['BigWing'] = {
     point: 3000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_MIDDLE,
@@ -240,7 +240,7 @@ pbr.enemyData['Delta'] = {
     point: 3000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_MIDDLE,
@@ -289,7 +289,7 @@ pbr.enemyData['SkyBlade'] = {
     point: 3000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_MIDDLE,
@@ -531,7 +531,7 @@ pbr.enemyData['Mistilteinn'] = {
     point: 3000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_MIDDLE,
@@ -577,7 +577,7 @@ pbr.enemyData['ToyBox'] = {
     point: 5000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_SMALL,
@@ -647,7 +647,7 @@ pbr.enemyData['Item'] = {
     point: 10000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_ITEM,
@@ -720,7 +720,7 @@ pbr.enemyData['Medusa'] = {
     point: 500,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT,
+    layer: LAYER_OBJECT_MIDDLE,
 
     //敵タイプ
     type: ENEMY_SMALL,

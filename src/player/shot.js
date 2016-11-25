@@ -7,7 +7,7 @@
 
 phina.namespace(function() {
 
-var checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT, LAYER_OBJECT_LOWER];
+var checkLayers = [LAYER_OBJECT_UPPER, LAYER_OBJECT_MIDDLE, LAYER_OBJECT_LOWER];
 
 phina.define("pbr.Shot", {
     superClass: "phina.display.DisplayElement",
