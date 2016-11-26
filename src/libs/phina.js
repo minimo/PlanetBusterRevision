@@ -1885,13 +1885,10 @@
   /**
    * @method from
    * @static
-   * ES6 準拠の from 関数です。array-like オブジェクトかiterable オブジェクトから新しい配列を生成します。
+   * ES6 準拠の from 関数です。array-like オブジェクトから新しい配列を生成します。
    *
-   * array-like オブジェクトとは、length プロパティを持ち、数字の添字でアクセス可能なオブジェクトのことです。
+   * array-like オブジェクトとは、length プロパティを持ち、数字の添字でアクセス可能なオブジェクトのことです。  
    * 通常の配列のほか、String、arguments、NodeList なども array-like オブジェクトです。
-   *
-   * iterable オブジェクトとは、Symbol.iterator プロパティを持つオブジェクトのことです。
-   * 通常の配列のほか、String、arguments、NodeList なども iterable オブジェクトです。
    *
    * ### Example
    *     Array.from([1, 2, 3], function(elm){ return elm * elm} ); // => [1, 4, 9]
@@ -1906,23 +1903,7 @@
   Array.$method("from", function(arrayLike, callback, context) {
     if (!Object(arrayLike).length) return [];
 
-    var result = [];
-    if (Symbol && Symbol.iterator && arrayLike[Symbol.iterator]) {
-        var iterator = arrayLike[Symbol.iterator]();
-        while (true) {
-            var iteratorResult = iterator.next();
-            if (iteratorResult.done) break;
-
-            var value = typeof callback === 'function' ? callback.bind(context || this)(iteratorResult.value) : iteratorResult.value;
-            result.push(value);
-        }
-        return result;
-    }
-
-    for (var i = 0, len = arrayLike.length; i < len; i++) {
-        result.push(arrayLike[i]);
-    }
-    return result.map(typeof callback == 'function' ? callback : function(item) {
+    return Array.prototype.map.call(arrayLike, typeof callback == 'function' ? callback : function(item) {
       return item;
     }, context);
   });
@@ -2282,22 +2263,19 @@
   Math.$method("randfloat", function(min, max) {
     return Math.random()*(max-min)+min;
   });
-
+  
   /**
    * @static
    * @method randbool
    * ランダムに真偽値を生成します。
-   * 引数で百分率を指定する事もできます。
    *
    * ### Example
-   *     Math.randbool();   // => true または false
-   *     Math.randbool(80); // => 80% の確率で true
+   *     Math.randbool(); // => true または false
    *
-   * @param {Number} percent  真になる百分率
    * @return {Boolean} ランダムな真偽値
    */
-  Math.$method("randbool", function(perecent) {
-    return Math.randint(0, 100) < (perecent || 50);
+  Math.$method("randbool", function() {
+    return Math.randint(0, 1) === 1;
   });
     
 })();
@@ -3324,30 +3302,7 @@ phina.namespace(function() {
         
         return phina.geom.Vector2.sub(v, temp);
       },
-      
-      /**
-       * @method wall
-       * @static
-       * 2次元ベクトル v を壁への入射ベクトルとして、壁に沿ったベクトル（壁ずりクトル）を返します。
-       *
-       * 壁の向きは法線ベクトル normal によって表します。
-       *
-       * ### Example
-       *     v1 = phina.geom.Vector2(4, 3);
-       *     normal = phina.geom.Vector2(-1, 1);
-       *     phina.geom.Vector2.wall(v1, normal); // => phina.geom.Vector2(3, 4)
-       *
-       * @param {phina.geom.Vector2} v 入射ベクトル
-       * @param {phina.geom.Vector2} normal 壁の法線ベクトル
-       * @return {phina.geom.Vector2} 壁ずりベクトル
-       */
-      wall: function(v, normal) {
-        var len = phina.geom.Vector2.dot(v, normal);
-        var temp= phina.geom.Vector2.mul(normal, len);
-        
-        return phina.geom.Vector2.sub(v, temp);
-      },
-      
+
       /**
        * @method lerp
        * @static
@@ -6417,8 +6372,8 @@ phina.namespace(function() {
         console.error("[phina.js] not found `{0}`!".format(this.src));
 
         var key = self.src.split('/').last.replace('.png', '').split('?').first.split('#').first;
-        e.target.onerror = null;
         e.target.src = "http://dummyimage.com/128x128/444444/eeeeee&text=" + key;
+        e.target.onerror = null;
       };
 
       this.domElement.src = this.src;
@@ -6510,8 +6465,7 @@ phina.namespace(function() {
     _loop: false,
     _loopStart: 0,
     _loopEnd: 0,
-    _playbackRate: 1,
-    
+
     /**
      * @constructor
      */
@@ -6521,28 +6475,30 @@ phina.namespace(function() {
       this.gainNode = this.context.createGain();
     },
 
-    play: function(when, offset, duration) {
+    play: function() {
       if (this.source) {
         // TODO: キャッシュする？
       }
 
-      var source = this.source = this.context.createBufferSource();
-      var buffer = source.buffer = this.buffer;
-      source.loop = this._loop;
-      source.loopStart = this._loopStart;
-      source.loopEnd = this._loopEnd;
-      source.playbackRate.value = this._playbackRate;
+      this.source = this.context.createBufferSource();
+      this.source.buffer = this.buffer;
+      this.source.loop = this._loop;
+      this.source.loopStart = this._loopStart;
+      this.source.loopEnd = this._loopEnd;
 
       // connect
-      source.connect(this.gainNode);
-      this.gainNode.connect(phina.asset.Sound.getMasterGain());
+      this.source.connect(this.gainNode);
+      this.gainNode.connect(this.context.destination);
       // play
-      source.start(when ? when + this.context.currentTime : 0, offset || 0, duration);
+      this.source.start(0);
       
       // check play end
-      source.addEventListener('ended', function(){
-        this.flare('ended');
-      }.bind(this));
+      if (this.source.buffer) {
+        var time = (this.source.buffer.duration/this.source.playbackRate.value)*1000;
+        window.setTimeout(function(self) {
+          self.flare('ended');
+        }, time, this);
+      }
 
       return this;
     },
@@ -6550,24 +6506,20 @@ phina.namespace(function() {
     stop: function() {
       // stop
       if (this.source) {
-        // stop すると source.endedも発火する
         this.source.stop && this.source.stop(0);
         this.source = null;
-        this.flare('stop');
       }
 
       return this;
     },
 
     pause: function() {
-      this.source.playbackRate.value = 0;
-      this.flare('pause');
+      this.source.disconnect();
       return this;
     },
 
     resume: function() {
-      this.source.playbackRate.value = this._playbackRate;
-      this.flare('resume');
+      this.source.connect(this.gainNode);
       return this;
     },
 
@@ -6617,11 +6569,6 @@ phina.namespace(function() {
     },
     setLoopEnd: function(loopEnd) {
       this.loopEnd = loopEnd;
-      return this;
-    },
-    
-    setPlaybackRate: function(playbackRate) {
-      this.playbackRate = playbackRate;
       return this;
     },
 
@@ -6740,40 +6687,9 @@ phina.namespace(function() {
           if (this.source) this.source._loopEnd = v;
         },
       },
-      playbackRate: {
-        get: function() { return this._playbackRate; },
-        set: function(v) {
-          this._playbackRate = v;
-          if(this.source && this.source.playbackRate.value !== 0){
-            this.source.playbackRate.value = v;
-          }
-        },
-      }
     },
 
-    _defined: function() {
-      this.accessor('volume', {
-        get: function() {
-          return this.getMasterGain().gain.value;
-        },
-        set: function(v) {
-          this.getMasterGain().gain.value = v;
-        },
-      });
-      
-    },
-    
     _static: {
-      
-      getMasterGain: function() {
-        if(!this._masterGain) {
-          var context = this.getAudioContext();
-          this._masterGain = context.createGain();
-          this._masterGain.connect(context.destination);
-        }
-        return this._masterGain;
-      },
-      
       getAudioContext: function() {
         if (!phina.util.Support.webAudio) return null;
 
@@ -6818,11 +6734,11 @@ phina.namespace(function() {
       muteFlag: false,
       currentMusic: null,
 
-      play: function(name, when, offset, duration) {
+      play: function(name) {
         var sound = phina.asset.AssetManager.get('sound', name);
 
         sound.volume = this.getVolume();
-        sound.play(when, offset, duration);
+        sound.play();
 
         return sound;
       },
@@ -6867,7 +6783,7 @@ phina.namespace(function() {
         return this.muteFlag;
       },
 
-      playMusic: function(name, fadeTime, loop, when, offset, duration) {
+      playMusic: function(name, fadeTime, loop) {
         loop = (loop !== undefined) ? loop : true;
 
         if (this.currentMusic) {
@@ -6877,7 +6793,7 @@ phina.namespace(function() {
         var music = phina.asset.AssetManager.get('sound', name);
 
         music.setLoop(loop);
-        music.play(when, offset, duration);
+        music.play();
 
         if (fadeTime > 0) {
           var count = 32;
@@ -7055,6 +6971,7 @@ phina.namespace(function() {
 
       // デフォルトアニメーション
       this.animations["default"] = {
+          name: "default",
           frames: [].range(0, this.frame),
           next: "default",
           frequency: 1,
@@ -7065,6 +6982,7 @@ phina.namespace(function() {
 
         if (anim instanceof Array) {
           this.animations[key] = {
+            name: key,
             frames: [].range(anim[0], anim[1]),
             next: anim[2],
             frequency: anim[3] || 1,
@@ -7072,6 +6990,7 @@ phina.namespace(function() {
         }
         else {
           this.animations[key] = {
+            name: key,
             frames: anim.frames,
             next: anim.next,
             frequency: anim.frequency || 1
@@ -10542,6 +10461,19 @@ phina.namespace(function() {
         this.target.height = frame.height;
       }
     },
+    
+    _accessor: {
+      currentAnimationName: {
+        get: function() {
+          if (this.currentAnimation) {
+            return this.currentAnimation.name;
+          } else {
+            return nul;
+          }
+        },
+        set: function(name) {return this;}
+      },
+    },
   });
 });
 /*
@@ -12303,12 +12235,31 @@ phina.namespace(function() {
     init: function(image, width, height) {
       this.superInit();
 
-      this.srcRect = phina.geom.Rect();
-      this.setImage(image, width, height);
+      if (typeof image === 'string') {
+        image = phina.asset.AssetManager.get('image', image);
+      }
+      
+      this.image = image;
+      this.width = width || this.image.domElement.width;
+      this.height = height || this.image.domElement.height;
+      this._frameIndex = 0;
+
+      this._frameTrimX = 0;
+      this._frameTrimY = 0;
+      this._frameTrimW = this.image.domElement.width;
+      this._frameTrimH = this.image.domElement.height;
+
+      this.srcRect = {
+        x: 0,
+        y: 0,
+        width: this.width,
+        height: this.height,
+      };
     },
 
     draw: function(canvas) {
       var image = this.image.domElement;
+
 
       // canvas.context.drawImage(image,
       //   0, 0, image.width, image.height,
@@ -12318,38 +12269,27 @@ phina.namespace(function() {
       var srcRect = this.srcRect;
       canvas.context.drawImage(image,
         srcRect.x, srcRect.y, srcRect.width, srcRect.height,
-        -this._width*this.originX, -this._height*this.originY, this._width, this._height
+        -this.width*this.originX, -this.height*this.originY, this.width, this.height
         );
     },
 
-    setImage: function(image, width, height) {
-      if (typeof image === 'string') {
-        image = phina.asset.AssetManager.get('image', image);
-      }
-      this._image = image;
-      this.width = this._image.domElement.width;
-      this.height = this._image.domElement.height;
-
-      if (width) { this.width = width; }
-      if (height) { this.height = height; }
-
-      this.frameIndex = 0;
-
-      return this;
-    },
-
     setFrameIndex: function(index, width, height) {
-      var tw  = width || this._width;      // tw
-      var th  = height || this._height;    // th
-      var row = ~~(this.image.domElement.width / tw);
-      var col = ~~(this.image.domElement.height / th);
+      var sx = this._frameTrimX || 0;
+      var sy = this._frameTrimY || 0;
+      var sw = this._frameTrimW || (this.image.domElement.width-sx);
+      var sh = this._frameTrimH || (this.image.domElement.height-sy);
+
+      var tw  = width || this.width;      // tw
+      var th  = height || this.height;    // th
+      var row = ~~(sw / tw);
+      var col = ~~(sh / th);
       var maxIndex = row*col;
       index = index%maxIndex;
       
-      var x = index%row;
-      var y = ~~(index/row);
-      this.srcRect.x = x*tw;
-      this.srcRect.y = y*th;
+      var x   = index%row;
+      var y   = ~~(index/row);
+      this.srcRect.x = sx+x*tw;
+      this.srcRect.y = sy+y*th;
       this.srcRect.width  = tw;
       this.srcRect.height = th;
 
@@ -12358,18 +12298,47 @@ phina.namespace(function() {
       return this;
     },
 
+    setFrameTrimming: function(x, y, width, height) {
+      this._frameTrimX = x || 0;
+      this._frameTrimY = y || 0;
+      this._frameTrimW = width || this.image.domElement.width - this._frameTrimX;
+      this._frameTrimH = height || this.image.domElement.height - this._frameTrimY;
+      return this;
+    },
+
     _accessor: {
-      image: {
-        get: function() {return this._image;},
-        set: function(v) {
-          this.setImage(v);
-          return this;
-        }
-      },
       frameIndex: {
         get: function() {return this._frameIndex;},
         set: function(idx) {
           this.setFrameIndex(idx);
+          return this;
+        }
+      },
+      frameTrimX: {
+        get: function() {return this._frameTrimY;},
+        set: function(x) {
+          this._frameTrimX = x;
+          return this;
+        }
+      },
+      frameTrimY: {
+        get: function() {return this._frameTrimY;},
+        set: function(y) {
+          this._frameTrimY = y;
+          return this;
+        }
+      },
+      frameTrimW: {
+        get: function() {return this._frameTrimW;},
+        set: function(w) {
+          this._frameTrimW = w;
+          return this;
+        }
+      },
+      frameTrimH: {
+        get: function() {return this._frameTrimH;},
+        set: function(h) {
+          this._frameTrimH = h;
           return this;
         }
       },
@@ -12395,6 +12364,9 @@ phina.namespace(function() {
     init: function(options) {
       if (typeof arguments[0] !== 'object') {
         options = { text: arguments[0], };
+        if (arguments[1] === 'object') {
+            options.$safe(arguments[1]);
+        }
       }
       else {
         options = arguments[0];
