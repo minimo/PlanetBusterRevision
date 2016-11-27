@@ -233,7 +233,7 @@ pbr.enemyData['Garuda'] = {
     point: 400000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT_MIDDLE,
+    layer: LAYER_OBJECT_UPPER,
 
     //敵タイプ
     type: ENEMY_BOSS,
@@ -369,7 +369,7 @@ pbr.enemyData['Garuda_hatch'] = {
     point: 100000,
 
     //表示レイヤー番号
-    layer: LAYER_OBJECT_MIDDLE,
+    layer: LAYER_OBJECT_UPPER,
 
     //敵タイプ
     type: ENEMY_BOSS_EQUIP,

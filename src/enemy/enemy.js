@@ -361,7 +361,9 @@ phina.define("pbr.Enemy", {
             }
         }
 
-        this.body.image = phina.asset.AssetManager.get("image", this.texName+this.texColor);
+//        this.body.image = phina.asset.AssetManager.get("image", this.texName+this.texColor);
+        this.body.setImage(this.texName+this.texColor, this.texWidth, this.texHeight);
+        this.body.setFrameTrimming(this.texTrimX, this.texTrimY, this.texTrimWidth, this.texTrimHeight);
         this.body.setFrameIndex(this.texIndex);
     },
 
