@@ -350,6 +350,8 @@ phina.define("pbr.Enemy", {
     //色を赤or白くする
     changeColor: function(color, reverse) {
         if (!this.texName) return;
+ 
+        //指定色によって画像名が変わる
         if (reverse && this.texColor != "") {
             this.texColor = "";
         } else {
@@ -361,7 +363,7 @@ phina.define("pbr.Enemy", {
             }
         }
 
-//        this.body.image = phina.asset.AssetManager.get("image", this.texName+this.texColor);
+        //画像の再設定
         this.body.setImage(this.texName+this.texColor, this.texWidth, this.texHeight);
         this.body.setFrameTrimming(this.texTrimX, this.texTrimY, this.texTrimWidth, this.texTrimHeight);
         this.body.setFrameIndex(this.texIndex);
