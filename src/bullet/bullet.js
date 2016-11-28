@@ -10,13 +10,20 @@ phina.define("pbr.Bullet", {
     layer: LAYER_BULLET,
 
     _member: {
+        //射出した敵のID
         id: -1,
 
+        //BulletML Runnner
         runner: null,
 
+        //移動係数
         vx: 0,
         vy: 1,
 
+        //加速度
+        accel: 1.0,
+
+        //回転
         rollAngle: 5,
         rolling: true,
     },
@@ -56,8 +63,9 @@ phina.define("pbr.Bullet", {
                 runner.x = bx;
                 runner.y = by;
                 runner.update();
-                this.vx = (runner.x - bx) * pbr.Bullet.globalSpeedRate;
-                this.vy = (runner.y - by) * pbr.Bullet.globalSpeedRate;
+                var acc = pbr.Bullet.globalSpeedRate * this.accel;
+                this.vx = (runner.x - bx) * acc;
+                this.vy = (runner.y - by) * acc;
                 this.x += this.vx;
                 this.y += this.vy;
 
@@ -123,6 +131,9 @@ phina.define("pbr.Bullet", {
             this.sprite.setFrameIndex(index).setScale(size);
             this.dummy = false;
             this.sprite.visible = true;
+
+            //弾加速度
+            if (spec.accel !== undefined) this.accel = spec.accel;
 
             //弾が動く迄の待機フレーム数    
             var wait = 10;
