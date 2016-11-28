@@ -115,8 +115,8 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
     top0: action([
         interval(90),
         repeat(4, [
-            repeat(3, [
-                nway(5, -20, 20, RL, spd(0.8)),
+            repeat("$rank/10+3", [
+                nway(5, -20, 20, RL, spd(0.8), offsetX(0), offsetY(0), autonomy(true)),
                 interval(2),
             ]),
             interval(180),
@@ -126,8 +126,8 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
     top1: action([
         interval(120),
         repeat(4, [
-            repeat(1, [
-                nway(5, -20, 20, BEM, spd(0.8), offsetX(-148), offsetY(0)),
+            repeat("$rank/10", [
+                nway(5, -20, 20, BEM, spd(0.8), offsetX(-148), offsetY(0), autonomy(true)),
                 interval(6),
             ]),
             interval(180),
@@ -136,8 +136,8 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
     top2: action([
         interval(120),
         repeat(4, [
-            repeat(1, [
-                nway(5, -20, 20, BEM, spd(0.8), offsetX(148), offsetY(0)),
+            repeat("$rank/10", [
+                nway(5, -20, 20, BEM, spd(0.8), offsetX(148), offsetY(0), autonomy(true)),
                 interval(6),
             ]),
             interval(180),

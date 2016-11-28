@@ -30,6 +30,9 @@ phina.namespace(function() {
 
                 //弾数増加数(int)
                 this.put("burst", 0);
+
+                //ゲーム難易度ランク(int)
+                this.put("rank", 1);
             },
 
             createNewBullet: function(runner, spec) {
