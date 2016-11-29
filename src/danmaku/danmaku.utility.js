@@ -64,6 +64,7 @@ phina.namespace(function() {
     bulletml.dsl.fireAim0 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(0)) };
     bulletml.dsl.fireAim1 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(Math.randf(-2, 2))) };
     bulletml.dsl.fireAim2 = function(bullet, speed) { return fire(bullet || RS, speed || spd(0.8), direction(Math.randf(-4, 4))) };
+    //ウィップ用
     bulletml.dsl.fireAim0Vs = function(bullet) {
         return function(speed) {
             return bulletml.dsl.fireAim0(bullet, speed);
@@ -98,6 +99,7 @@ phina.namespace(function() {
             ]),
         ]);
     };
+    //ウィップ用
     bulletml.dsl.nwayVs = function(way, rangeFrom, rangeTo, bullet, offsetX, offsetY, autonomy) {
         return function(speed) {
             return bulletml.dsl.nway(way, rangeFrom, rangeTo, bullet, speed, offsetX, offsetY, autonomy);
@@ -123,6 +125,7 @@ phina.namespace(function() {
             ]),
         ]);
     };
+    //ウィップ用
     bulletml.dsl.absoluteNwayVs = function(way, rangeFrom, rangeTo, bullet, offsetX, offsetY) {
         return function(speed) {
             return bulletml.dsl.nway(way, rangeFrom, rangeTo, bullet, speed, offsetX, offsetY);
@@ -147,6 +150,7 @@ phina.namespace(function() {
             ]),
         ]);
     };
+    //ウィップ用
     bulletml.dsl.circleVs = function(way, bullet, offsetX, offsetY, autonomy) {
         return function(speed) {
             return bulletml.dsl.circle(way, bullet, speed, offsetX, offsetY, autonomy);
@@ -156,15 +160,15 @@ phina.namespace(function() {
     /**
      * 絶対サークル弾
      * @param {number} way 一度に射出する弾数
-     * @param {number} direction 真上を０とした基準角度
+     * @param {number} dir 真上を０とした基準角度
      * @param {bulletml.bullet} bullet 弾種
      * @param {bulletml.Speed} speed 弾速
      * @param {bulletml.offsetX} offsetX 射出X座標
      * @param {bulletml.offsetY} offsetY 射出Y座標
      */
-    bulletml.dsl.absoluteCircle = function(way, bullet, speed, offsetX, offsetY, autonomy) {
+    bulletml.dsl.absoluteCircle = function(way, dir, bullet, speed, offsetX, offsetY, autonomy) {
         return action([
-            fire(bullet || RS, speed, direction(0, "absolute"), offsetX, offsetY, autonomy),
+            fire(bullet || RS, speed, direction(dir, "absolute"), offsetX, offsetY, autonomy),
             bindVar("way", "Math.max(2, " + way + ")"),
             bindVar("dir", "Math.floor(360/$way)"),
             repeat("$way-1", [
@@ -172,6 +176,7 @@ phina.namespace(function() {
             ]),
         ]);
     };
+    //ウィップ用
     bulletml.dsl.absoluteCircleVs = function(way, bullet, offsetX, offsetY, autonomy) {
         return function(speed) {
             return bulletml.dsl.circle(way, bullet, speed, offsetX, offsetY, autonomy);
