@@ -168,10 +168,18 @@ pbr.danmaku.Garuda_3 = new bulletml.Root({
 //２面ボス　パターン４（発狂）
 pbr.danmaku.Garuda_4 = new bulletml.Root({
     top0: action([
-        interval(90),
         repeat(Infinity, [
-            interval(120),
+            fire(direction("$loop.index * 5", "absolute"), speed(10), bullet(DM, actionRef("inv"))),
+            repeat(16, [
+                fire(direction(360 / 16, "sequence"), speed(0, "sequence"), bullet(DM, actionRef("inv"))),
+            ]),
+            interval(25),
         ]),
+    ]),
+    inv: action([
+        wait(1),
+        fire(direction(90, "relative"), speed(1.2), bullet({ color: "red" })),
+        vanish(),
     ]),
 });
 
@@ -180,6 +188,16 @@ pbr.danmaku.Garuda_hatch_1 = new bulletml.Root({
     top0: action([
         notify("start"),
         interval(120),
+        repeat(5, [
+            fire(DM, spd(0.4), direction(0, "absolute")),
+            repeat("$burst + 5", [
+                repeat(10, [
+                    fire(BEM, spdSeq(0), direction(38, "sequence")),
+                ]),
+                fire(DM, spdSeq(0.05), direction(0, "absolute")),
+            ]),
+            interval(150),
+        ]),
         notify("end"),
     ]),
 });
