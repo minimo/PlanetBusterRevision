@@ -26,6 +26,9 @@ phina.define("pbr.Bullet", {
         //回転
         rollAngle: 5,
         rolling: true,
+
+        //経過時間
+        time: 0,
     },
 
     DEFAULT_PARAM: {
@@ -57,17 +60,17 @@ phina.define("pbr.Bullet", {
         this.on("enterframe", function(app){
             if (this.rolling) this.rotation += this.rollAngle;
             var runner = this.runner;
-            if (runner && this.go) {
+            if (runner) {
                 var bx = this.x;
                 var by = this.y;
                 runner.x = bx;
                 runner.y = by;
                 runner.update();
-                var acc = pbr.Bullet.globalSpeedRate * this.accel;
-                this.vx = (runner.x - bx) * acc;
-                this.vy = (runner.y - by) * acc;
-                this.x += this.vx;
-                this.y += this.vy;
+                var acc = pbr.Bullet.globalSpeedRate * this.scaleX;
+                this.vx = (runner.x - bx);
+                this.vy = (runner.y - by);
+                this.x += this.vx * acc;
+                this.y += this.vy * acc;
 
                 //画面範囲外
                 if (this.x<-16 || this.x>SC_W+16 || this.y<-16 || this.y>SC_H+16) {
@@ -85,6 +88,7 @@ phina.define("pbr.Bullet", {
                         }
                     }
                 }
+                this.time++;
             }
         }.bind(this));
 
@@ -132,19 +136,12 @@ phina.define("pbr.Bullet", {
             this.dummy = false;
             this.sprite.visible = true;
 
-            //弾加速度
-            if (spec.accel !== undefined) this.accel = spec.accel;
-
             //弾が動く迄の待機フレーム数    
-            var wait = 10;
+            var wait = 30;
+            this.setScale(0.05);
+            this.tweener.clear().to({scaleX: 1.0, scaleY:1.0}, wait, "easeInOutSine");
 
-            this.go = false;
-            this.setScale(0.01);
-            this.tweener.clear()
-                .to({scaleX: 1.0, scaleY:1.0}, wait, "easeInOutSine")
-                .call(function() {
-                    this.go = true;
-                }.bind(this));
+            this.time = 0;
         }
         return this;
     },

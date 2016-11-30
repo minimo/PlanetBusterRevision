@@ -21,6 +21,9 @@ phina.namespace(function() {
                 //難易度(int)(0:easy 1:normal 2:hard 3:death)
                 this.put("difficulty", 1);
 
+                //ゲーム難易度ランク(int)
+                this.put("rank", 1);
+
                 //弾速(float)
                 this.put("speedBase", 1.00);
                 this.put("speedRank", 0.00);
@@ -30,9 +33,6 @@ phina.namespace(function() {
 
                 //弾数増加数(int)
                 this.put("burst", 0);
-
-                //ゲーム難易度ランク(int)
-                this.put("rank", 1);
             },
 
             createNewBullet: function(runner, spec) {
