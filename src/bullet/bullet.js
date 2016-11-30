@@ -66,7 +66,7 @@ phina.define("pbr.Bullet", {
                 runner.x = bx;
                 runner.y = by;
                 runner.update();
-                var acc = pbr.Bullet.globalSpeedRate * this.scaleX;
+                var acc = pbr.Bullet.globalSpeedRate * this.wait;
                 this.vx = (runner.x - bx);
                 this.vy = (runner.y - by);
                 this.x += this.vx * acc;
@@ -136,10 +136,11 @@ phina.define("pbr.Bullet", {
             this.dummy = false;
             this.sprite.visible = true;
 
-            //弾が動く迄の待機フレーム数    
-            var wait = 30;
+            //弾に発射時ウェイトが掛るフレーム数
+            var pauseFrame = 45;
+            this.wait = 0.0;
             this.setScale(0.05);
-            this.tweener.clear().to({scaleX: 1.0, scaleY:1.0}, wait, "easeInOutSine");
+            this.tweener.clear().to({scaleX: 1.0, scaleY:1.0, wait: 1.0}, pauseFrame, "easeInOutSine");
 
             this.time = 0;
         }
