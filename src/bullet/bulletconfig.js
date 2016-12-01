@@ -28,7 +28,7 @@ phina.namespace(function() {
                 this.put("speedBase", 1.00);
                 this.put("speedRank", 0.00);
 
-                //弾密度(float)
+                //弾密度(float 0.00-1.00)
                 this.put("densityRank", 0.00);
 
                 //弾数増加数(int)

@@ -57,6 +57,10 @@ phina.namespace(function() {
         return speed("{0} * (1.0 + $speedRank * 2.0) * $speedBase".format(v), "sequence");
     };
 
+    bulletml.dsl.rank = function() {
+        return "$difficulty + ($rank*0.01)-1";
+    };
+
     /*自機弾
      * @param {bulletml.Speed} speed 弾速
      * @param {bulletml.bullet} bullet 弾種
