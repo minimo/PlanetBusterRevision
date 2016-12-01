@@ -67,7 +67,7 @@ var DM = bullet({ dummy: true });
 //２面中ボス
 pbr.danmaku.Raven = new bulletml.Root({
     top0: action([
-        interval(120),
+        wait(120),
         repeat(Infinity, [
             fire(DM, spd(0.8)),
             repeat(3, [
@@ -124,7 +124,7 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
         notify("finish"),
     ]),
     top1: action([
-        interval(120),
+        wait(120),
         repeat(4, [
             repeat("$rank/10", [
                 nway(5, -20, 20, BEM, spd(0.8), offsetX(-148), offsetY(0), autonomy(true)),
@@ -134,7 +134,7 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
         ]),
     ]),
     top2: action([
-        interval(120),
+        wait(120),
         repeat(4, [
             repeat("$rank/10", [
                 nway(5, -20, 20, BEM, spd(0.8), offsetX(148), offsetY(0), autonomy(true)),
@@ -148,7 +148,7 @@ pbr.danmaku.Garuda_1 = new bulletml.Root({
 //２面ボス　パターン２
 pbr.danmaku.Garuda_2 = new bulletml.Root({
     top0: action([
-        interval(90),
+        wait(90),
         repeat(10, [
             notify('bomb'),
             interval(60),
@@ -169,16 +169,26 @@ pbr.danmaku.Garuda_3 = new bulletml.Root({
 pbr.danmaku.Garuda_4 = new bulletml.Root({
     top0: action([
         repeat(Infinity, [
-            fire(direction("$loop.index * 5", "absolute"), speed(10), bullet(DM, actionRef("inv"))),
+            fire(bullet(DM, actionRef("inv1")), spd(10), direction("$loop.index * 5", "absolute")),
             repeat(16, [
-                fire(direction(360 / 16, "sequence"), speed(0, "sequence"), bullet(DM, actionRef("inv"))),
+                fire(bullet(DM, actionRef("inv1")), spdSeq(0), direction(360 / 16, "sequence")),
             ]),
-            interval(25),
+            interval(60),
+            fire(bullet(DM, actionRef("inv2")), spd(10), direction("$loop.index * -5", "absolute")),
+            repeat(16, [
+                fire(bullet(DM, actionRef("inv2")), spdSeq(0), direction(-360 / 16, "sequence")),
+            ]),
+            interval(120),
         ]),
     ]),
-    inv: action([
+    inv1: action([
         wait(1),
-        fire(direction(90, "relative"), speed(1.2), bullet({ color: "red" })),
+        fire(RL, spd(1.2), direction(90, "relative")),
+        vanish(),
+    ]),
+    inv2: action([
+        wait(1),
+        fire(RL, spd(1.2), direction(-90, "relative")),
         vanish(),
     ]),
 });
@@ -187,12 +197,12 @@ pbr.danmaku.Garuda_4 = new bulletml.Root({
 pbr.danmaku.Garuda_hatch_1 = new bulletml.Root({
     top0: action([
         notify("start"),
-        interval(120),
+        wait(120),
         repeat(5, [
             fire(DM, spd(0.4), direction(0, "absolute")),
             repeat("$burst + 5", [
-                repeat(10, [
-                    fire(BEM, spdSeq(0), direction(38, "sequence")),
+                repeat(5, [
+                    fire(REM, spdSeq(0), direction(38, "sequence")),
                 ]),
                 fire(DM, spdSeq(0.05), direction(0, "absolute")),
             ]),
@@ -204,14 +214,14 @@ pbr.danmaku.Garuda_hatch_1 = new bulletml.Root({
 pbr.danmaku.Garuda_hatch_2 = new bulletml.Root({
     top0: action([
         notify("start"),
-        interval(120),
+        wait(120),
         notify("end"),
     ]),
 });
 pbr.danmaku.Garuda_hatch_3 = new bulletml.Root({
     top0: action([
         notify("start"),
-        interval(120),
+        wait(120),
         notify("end"),
     ]),
 });
