@@ -201,7 +201,7 @@ pbr.danmaku.Garuda_hatch_1 = new bulletml.Root({
         repeat(5, [
             fire(DM, spd(0.4), direction(0, "absolute")),
             repeat("$burst + 5", [
-                repeat(5, [
+                repeat(10, [
                     fire(REM, spdSeq(0), direction(38, "sequence")),
                 ]),
                 fire(DM, spdSeq(0.05), direction(0, "absolute")),
