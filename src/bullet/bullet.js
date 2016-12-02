@@ -104,8 +104,6 @@ phina.define("pbr.Bullet", {
         this.y = runner.y;
         this.runner = runner;
 
-        this.rolling = true;
-
         this.sprite.setOrigin(0.5, 0.5);
 
         if (spec.dummy) {
@@ -113,21 +111,21 @@ phina.define("pbr.Bullet", {
             this.sprite.visible = false;
         } else {
             //弾種別グラフィック
-            var size = 1, index = 0;
+            var size = spec.size || 1.0, index = 0;
             switch (spec.type) {
-                case "RS":  size = 0.6; index = 0; break;
-                case "BS":  size = 0.6; index = 1; break;
-                case "RM":  size = 0.8; index = 0; break;
-                case "BM":  size = 0.8; index = 1; break;
-                case "RL":  size = 1.0; index = 0; break;
-                case "BL":  size = 1.0; index = 1; break;
-                case "RES": size = 0.6; index = 8; break;
-                case "BES": size = 0.6; index =24; break;
-                case "REM": size = 1.0; index = 8; break;
-                case "BEM": size = 1.0; index =24; break;
+                case "normal":
+                    this.rolling = true;
+                    index = 0;
+                    if (spec.color == "blue") index = 1;
+                    break;
+                case "roll":
+                    this.rolling = true;
+                    index = 8;
+                    if (spec.color == "blue") index = 24;
+                    break;
                 case "THIN":
-                    size = 1.0; index = 3;
                     this.rolling = false;
+                    index = 3;
                     this.rotation = this.runner.direction*toDeg-90;
                     this.sprite.setOrigin(0.5, 0.0);
                     break;
@@ -138,8 +136,8 @@ phina.define("pbr.Bullet", {
 
             //弾に発射時ウェイトが掛るフレーム数
             var pauseFrame = 45;
-            this.wait = 0.0;
-            this.setScale(0.05);
+            this.wait = 0.3;
+            this.setScale(0.1);
             this.tweener.clear().to({scaleX: 1.0, scaleY:1.0, wait: 1.0}, pauseFrame, "easeInOutSine");
 
             this.time = 0;

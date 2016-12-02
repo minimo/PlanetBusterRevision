@@ -36,17 +36,19 @@ var interval = bulletml.dsl.interval;
 var spd = bulletml.dsl.spd;
 var spdSeq = bulletml.dsl.spdSeq;
 
-var RS  = bullet({ type: "RS"  });
-var RM  = bullet({ type: "RM"  });
-var RL  = bullet({ type: "RL"  });
-var RES = bullet({ type: "RES" });
-var REM = bullet({ type: "REM" });
+//弾種
+var RS  = bullet({type: "normal", color: "red", size: 0.6});
+var RM  = bullet({type: "normal", color: "red", size: 0.8});
+var RL  = bullet({type: "normal", color: "red", size: 1.0});
+var RES = bullet({type: "roll", color: "red", size: 0.6});
+var REM = bullet({type: "roll", color: "red", size: 1.0});
 
-var BS  = bullet({ type: "BS"  });
-var BM  = bullet({ type: "BM"  });
-var BL  = bullet({ type: "BL"  });
-var BES = bullet({ type: "BES" });
-var BEM = bullet({ type: "BEM" });
+var BS  = bullet({type: "normal", color: "blue", size: 0.6});
+var BM  = bullet({type: "normal", color: "blue", size: 0.8});
+var BL  = bullet({type: "normal", color: "blue", size: 1.0});
+var BES = bullet({type: "roll", color: "blue", size: 0.6});
+var BEM = bullet({type: "roll", color: "blue", size: 1.0});
+
 var THIN = bullet({ type: "THIN" });
 
 var DM  = bullet({ dummy: true });
