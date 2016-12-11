@@ -95,15 +95,14 @@ phina.define("pbr.Player", {
                 this.shotON = false;
             }
 
-            //キーボード操作
-            var kb = app.keyboard;
-            var angle = kb.getKeyAngle();
-            if (angle !== null) {
-                var m = KEYBOARD_MOVE[angle];
+            //コントローラー操作
+            var ct = app.controller;
+            if (ct.angle !== null) {
+                var m = KEYBOARD_MOVE[ct.angle];
                 this.x += m.x*this.speed;
                 this.y += m.y*this.speed;
             }
-            if (!this.mouseON) this.shotON = app.keyboard.getKey("Z");
+            if (!this.mouseON) this.shotON = app.controller.shot;
 
             //コントロール不可状態
             if (!this.isControl || !this.isShotOK || this.isDead) {
@@ -113,12 +112,12 @@ phina.define("pbr.Player", {
             //コントロール可能状態
             if (this.isControl && this.isShotOK && !this.isDead) {
                 //ボム投下
-                if (app.keyboard.getKey("B")) {
+                if (ct.bomb) {
                     this.parentScene.enterBomb();
                 }
 
                 //ショットタイプ変更（テスト用）
-                if (app.keyboard.getKey("X") && this.time > this.changeInterval) {
+                if (ct.special1 && this.time > this.changeInterval) {
                     this.type = (this.type+1)%3;
                     this.openBit(this.type);
                     this.changeInterval = this.time+30;

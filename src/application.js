@@ -150,7 +150,30 @@ phina.define("pbr.Application", {
         //ＢＧＭ＆ＳＥ
         this.soundset = phina.extension.SoundSet();
 
+        //ゲームパッドを使用する
+        this.gamepadManager = phina.input.GamepadManager();
+        this.gamepad = this.gamepadManager.get(0);
+        this.on('enterframe', function() {
+            this.gamepadManager.update();
+            this.updateController();
+        });
+
         this.replaceScene(pbr.SceneFlow());
+    },
+
+    //コントローラー情報の更新
+    updateController: function() {
+        var gp = this.gamepad;
+        var kb = this.keyboard;
+        var angle1 = gp.getKeyAngle();
+        var angle2 = kb.getKeyAngle();
+        this.controller = {
+            angle: angle1 !== null? angle1: angle2,
+            shot: gp.getKey("A") || kb.getKey("Z"),
+            bomb: gp.getKey("B") || kb.getKey("B"),
+            special1: gp.getKey("X") || kb.getKey("X"),
+            special2: gp.getKey("Y") || kb.getKey("C"),
+        };
     },
 
     _onLoadAssets: function() {
