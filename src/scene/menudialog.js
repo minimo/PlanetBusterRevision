@@ -90,9 +90,9 @@ phina.define("pbr.MenuDialog", {
         }
 
         //キーボード操作
-        var kb = app.keyboard;
+        var ct = app.controller;
         if (this.time > 30 && this.cursolTime > 10) {
-            if (kb.getKey("up")) {
+            if (ct.up) {
                 this.cursol.sel--;
                 if (this.cursol.sel < 0) {
                     this.cursol.sel = 0;
@@ -104,7 +104,7 @@ phina.define("pbr.MenuDialog", {
                     app.playSE("select");
                 }
             }
-            if (kb.getKey("down")) {
+            if (ct.down) {
                 this.cursol.sel++;
                 if (this.cursol.sel > this.menu.item.length-1) {
                     this.cursol.sel = this.menu.item.length-1;
@@ -119,19 +119,22 @@ phina.define("pbr.MenuDialog", {
             var sel = this.cursol.sel;
             if (this.item[sel] instanceof pbr.Selector) {
                 var item = this.item[sel];
-                if (kb.getKey("left")) {
+                if (ct.left) {
                     item.dec();
                     this.cursolTime = 0;
                 }
-                if (kb.getKey("right")) {
+                if (ct.right) {
                     item.inc();
                     this.cursolTime = 0;
                 }
             }
         }
         if (this.time > 60) {
-            if (kb.getKey("Z") || kb.getKey("space")) {
+            if (ct.ok) {
                 this.decision(this.cursol.sel);
+            }
+            if (ct.cancel) {
+                this.cancel();
             }
         }
         this.time++;
@@ -257,6 +260,10 @@ phina.define("pbr.MenuDialog", {
     decision: function(sel) {
         this.select = sel;
         this.flare('decision');
+    },
+    //メニューキャンセル
+    cancel: function(sel) {
+        this.flare('cancel');
     },
 });
 

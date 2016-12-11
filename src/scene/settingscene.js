@@ -44,6 +44,14 @@ phina.define("pbr.SettingScene", {
                     });
             }
         }.bind(this));
+        this.menu.on('cancel', function(e) {
+            this.menu.closeMenu();
+            this.tweener.clear()
+                .wait(600)
+                .call(function(){
+                    app.popScene();
+                });
+        }.bind(this));
     },
 });
 

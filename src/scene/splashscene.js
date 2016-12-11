@@ -54,8 +54,8 @@ phina.namespace(function() {
         },
 
         update: function() {
-            var kb = app.keyboard;
-            if (kb.getKey("Z") || kb.getKey("space")) {
+            var ct = app.controller;
+            if (ct.ok || ct.cancel) {
                 if (this.unlock && this.loadcomplete) this.exit();
             }
         },

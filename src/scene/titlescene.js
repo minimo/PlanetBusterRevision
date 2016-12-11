@@ -137,8 +137,8 @@ phina.define("pbr.TitleScene", {
     update: function(app) {
         //キーボード操作
         if (this.time > 10 && !this.isSelected) {
-            var kb = app.keyboard;
-            if (kb.getKey("up")) {
+            var ct = app.controller;
+            if (ct.up) {
                 this.select--;
                 if (this.select < 0) {
                     this.select = 0;
@@ -148,7 +148,7 @@ phina.define("pbr.TitleScene", {
                 }
                 this.time = 0;
             }
-            if (kb.getKey("down")) {
+            if (ct.down) {
                 this.select++;
                 if (this.select > 2) {
                     this.select = 2;
@@ -158,7 +158,7 @@ phina.define("pbr.TitleScene", {
                 }
                 this.time = 0;
             }
-            if (kb.getKey("Z") || kb.getKey("space")) {
+            if (ct.ok) {
                 this.menuSelect();
             }
         }
@@ -168,6 +168,7 @@ phina.define("pbr.TitleScene", {
     menuSelect: function() {
         switch (this.select) {
             case 0:
+            //ARCADE MODE
                 app.playSE("start");
                 app.score = 0;
                 this.isSelected = true;
@@ -184,6 +185,7 @@ phina.define("pbr.TitleScene", {
                     .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
             case 1:
+            //PRACTICE MODE
                 app.playSE("start");
                 app.score = 0;
                 this.isSelected = true;
@@ -201,6 +203,7 @@ phina.define("pbr.TitleScene", {
                     .tweener.clear().wait(100).to({scaleX:1.5, scaleY: 1.5, alpha: 0}, 2000, "easeOutCubic");
                 break;
             case 2:
+            //SETTING
                 app.playSE("setting");
                 this.isSelected = true;
                 this.tweener.clear().wait(700)

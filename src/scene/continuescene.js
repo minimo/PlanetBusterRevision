@@ -127,8 +127,8 @@ phina.define("pbr.ContinueScene", {
         if (this.isSelected) return;
 
         //キーボード操作
-        var kb = app.keyboard;
-        if (kb.getKey("left")) {
+        var ct = app.controller;
+        if (ct.left) {
             if (!this.yes) {
                 this.cursol.tweener.clear()
                     .moveTo(SC_W*0.4, SC_H*0.55, 200, "easeOutCubic");
@@ -136,7 +136,7 @@ phina.define("pbr.ContinueScene", {
                 app.playSE("select");
             }
         }
-        if (kb.getKey("right")) {
+        if (ct.right) {
             if (this.yes) {
                 this.cursol.tweener.clear()
                     .moveTo(SC_W*0.6, SC_H*0.55, 200, "easeOutCubic");
@@ -145,7 +145,7 @@ phina.define("pbr.ContinueScene", {
             }
         }
         if (this.time > 30) {
-            if (kb.getKey("Z") || kb.getKey("space")) {
+            if (ct.ok) {
                 this.isSelected = true;
                 app.playSE("click");
                 if (this.yes) { 

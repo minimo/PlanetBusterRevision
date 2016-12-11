@@ -169,10 +169,17 @@ phina.define("pbr.Application", {
         var angle2 = kb.getKeyAngle();
         this.controller = {
             angle: angle1 !== null? angle1: angle2,
+            up: gp.getKey("up") || kb.getKey("up"),
+            down: gp.getKey("down") || kb.getKey("down"),
+            left: gp.getKey("left") || kb.getKey("left"),
+            right: gp.getKey("right") || kb.getKey("right"),
             shot: gp.getKey("A") || kb.getKey("Z"),
             bomb: gp.getKey("B") || kb.getKey("B"),
             special1: gp.getKey("X") || kb.getKey("X"),
             special2: gp.getKey("Y") || kb.getKey("C"),
+
+            ok: gp.getKey("A") || kb.getKey("Z") || kb.getKey("space"),
+            cancel: gp.getKey("B") || kb.getKey("X"),
         };
     },
 

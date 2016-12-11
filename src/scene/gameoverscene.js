@@ -70,13 +70,15 @@ phina.define("pbr.GameOverScene", {
 
         this.time = 0;
     },
-    
+
     update: function(app) {
         //キーボード操作
-        var kb = this.app.keyboard;
-        if (this.time > 30 && app.keyboard.getKey("Z")) {
-            app.stopBGM();
-            this.exit();
+        var ct = aoo.controller;
+        if (this.time > 30) {
+            if (ct.ok || ct.cancel) {
+                app.stopBGM();
+                this.exit();
+            }
         }
         this.time++;
     },
