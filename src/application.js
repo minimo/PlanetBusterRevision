@@ -186,8 +186,8 @@ phina.define("pbr.Application", {
             start: gp.getKey("start"),
             select: gp.getKey("select"),
 
-            analog1: gp.getStickDirection(0);
-            analog2: gp.getStickDirection(1);
+            analog1: gp.getStickDirection(0),
+            analog2: gp.getStickDirection(1),
         };
     },
 

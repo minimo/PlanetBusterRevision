@@ -73,7 +73,7 @@ phina.define("pbr.GameOverScene", {
 
     update: function(app) {
         //キーボード操作
-        var ct = aoo.controller;
+        var ct = app.controller;
         if (this.time > 30) {
             if (ct.ok || ct.cancel) {
                 app.stopBGM();

@@ -568,8 +568,8 @@ phina.define("pbr.MainScene", {
         base.update = function() {
             //入力を待って次ステージに移行
             if (endResult && loadcomplete) {
-                var kb = app.keyboard;
-                if (kb.getKey("Z") || kb.getKey("space")) this.ok = true;
+                var ct = app.controller;
+                if (ct.ok || ct.cancel) this.ok = true;
 
                 var p = app.mouse;
                 if (p.getPointing()) this.ok = true;
