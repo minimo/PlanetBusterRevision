@@ -10,19 +10,23 @@ phina.extension = phina.extension || {};
 
 //サウンド管理
 phina.define("phina.extension.SoundSet", {
-    _member: {
-        elements: null,
-        bgm: null,
-        bgmIsPlay: false,
-        volumeBGM: 0.5,
-        volumeSE: 0.5,
-    },
+
+    //サウンドが格納される配列
+    elements: null,
+
+    //再生中ＢＧＭ
+    bgm: null,
+    bgmIsPlay: false,
+
+    //マスターボリューム
+    volumeBGM: 0.5,
+    volumeSE: 0.5,
 
     init: function() {
-        this.$extend(this._member);
         this.elements = [];
     },
 
+    //登録済みアセット読み込み
     readAsset: function() {
         for (var key in phina.asset.AssetManager.assets.sound) {
             var obj = phina.asset.AssetManager.get("sound", key);
@@ -30,6 +34,7 @@ phina.define("phina.extension.SoundSet", {
         }
     },
 
+    //サウンド追加
     add: function(name, url) {
         if (name === undefined) return null;
         url = url || null;
@@ -41,6 +46,7 @@ phina.define("phina.extension.SoundSet", {
         return true;
     },
 
+    //サウンド検索
     find: function(name) {
         if (!this.elements) return null;
         for (var i = 0; i < this.elements.length; i++) {
@@ -49,6 +55,7 @@ phina.define("phina.extension.SoundSet", {
         return null;
     },
 
+    //サウンドをＢＧＭとして再生
     playBGM: function(name, loop, callback) {
         if (loop === undefined) loop = true;
         if (this.bgm) {
@@ -68,6 +75,7 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //ＢＧＭ停止
     stopBGM: function() {
         if (this.bgm) {
             if (this.bgmIsPlay) {
@@ -79,6 +87,7 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //ＢＧＭ一時停止
     pauseBGM: function() {
         if (this.bgm) {
             if (this.bgmIsPlay) {
@@ -89,6 +98,7 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //ＢＧＭ再開
     resumeBGM: function() {
         if (this.bgm) {
             if (!this.bgmIsPlay) {
@@ -100,6 +110,7 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //ＢＧＭマスターボリューム設定
     setVolumeBGM: function(vol) {
         this.volumeBGM = vol;
         if (this.bgm) {
@@ -110,6 +121,7 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //サウンドをサウンドエフェクトとして再生
     playSE: function(name) {
         var media = this.find(name);
         if (media) {
@@ -122,6 +134,7 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //ＳＥマスターボリューム設定
     setVolumeSE: function(vol) {
         this.volumeSE = vol;
         return this;
@@ -130,23 +143,31 @@ phina.define("phina.extension.SoundSet", {
 
 //SoundElement Basic
 phina.define("phina.extension.SoundElement", {
-    _member: {
-        name: null,
-        url: null,
-        media: null,
-        _volume: 1,
-        status: null,
-        message: null,
-        callback: null,
-    },
+    //サウンド名
+    name: null,
+
+    //ＵＲＬ
+    url: null,
+
+    //サウンド本体
+    media: null,
+
+    //ボリューム
+    _volume: 1,
+
+    //再生終了時のコールバック関数
+    callback: null,
+
+    //再生中フラグ
+    playing: false,
 
     init: function(name) {
-        this.$extend(this._member);
         this.name = name;
         this.media = phina.asset.AssetManager.get("sound", name);
         if (this.media) {
             this.media.volume = 1;
             this.media.on('ended', function() {
+                if (this.media.loop) this.playing = false;
                 if (this.callback) this.callback();
             }.bind(this))
         } else {
@@ -154,35 +175,41 @@ phina.define("phina.extension.SoundElement", {
         }
     },
 
+    //サウンドの再生
     play: function(loop, callback) {
         if (loop === undefined) loop = false
         if (!this.media) return this;
         this.media.loop = loop;
         this.media.play();
         this.callback = callback;
+        this.playing = true;
         return this;
     },
 
+    //サウンド再生再開
     resume: function() {
         if (!this.media) return this;
         this.media.resume();
+        this.playing = true;
         return this;
     },
 
+    //サウンド一時停止
     pause: function () {
         if (!this.media) return this;
         this.media.pause();
+        this.playing = false;
     },
 
+    //サウンド停止
     stop: function() {
         if (!this.media) return this;
         this.media.stop();
+        this.playing = false;
         return this;
     },
-    
-    setMasterVolume: function(vol) {
-    },
 
+    //ボリューム設定
     setVolume: function(vol) {
         if (!this.media) return this;
         if (vol === undefined) vol = 0;
@@ -195,6 +222,10 @@ phina.define("phina.extension.SoundElement", {
         volume: {
             "get": function() { return this._volume; },
             "set": function(vol) { this.setVolume(vol); }
+        },
+        loop: {
+            "get": function() { return this.media.loop; },
+            "set": function(f) { this.media.loop = f; }
         },
     }
 });
