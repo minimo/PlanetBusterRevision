@@ -102,6 +102,8 @@ phina.define("pbr.Player", {
                 this.x += m.x*this.speed;
                 this.y += m.y*this.speed;
             }
+            if (ct.analog1.x > 0.3 || -0.3 > ct.analog1.x) this.x += ct.analog1.x * this.speed;
+            if (ct.analog1.y > 0.3 || -0.3 > ct.analog1.y) this.y += ct.analog1.y * this.speed;
             if (!this.mouseON) this.shotON = app.controller.shot;
 
             //コントロール不可状態
