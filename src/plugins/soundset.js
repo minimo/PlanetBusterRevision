@@ -122,12 +122,12 @@ phina.define("phina.extension.SoundSet", {
     },
 
     //サウンドをサウンドエフェクトとして再生
-    playSE: function(name) {
+    playSE: function(name, loop, callback) {
         var media = this.find(name);
         if (media) {
             var vol = this.volumeSE;
             media.setVolume(vol);
-            media.play(false);
+            media.play(loop, callback);
         } else {
             if (this.add(name)) this.playSE(name);
         }
