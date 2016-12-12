@@ -179,6 +179,10 @@ phina.define("phina.extension.SoundElement", {
     play: function(loop, callback) {
         if (loop === undefined) loop = false
         if (!this.media) return this;
+
+        //ループ再生の場合多重再生を禁止
+        if (loop && this.playing) return;
+
         this.media.loop = loop;
         this.media.play();
         this.callback = callback;
