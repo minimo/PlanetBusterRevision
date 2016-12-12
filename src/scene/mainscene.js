@@ -422,6 +422,7 @@ phina.define("pbr.MainScene", {
             }
         }
 
+        var ct = app.controller;
         var kb = app.keyboard;
         if (app.keyboard.getKey("C")) {
             this.eraseBullet();
@@ -429,7 +430,8 @@ phina.define("pbr.MainScene", {
         if (app.keyboard.getKey("D")) {
             this.bulletDomination();
         }
-        if (app.keyboard.getKeyUp("P") || app.keyboard.getKey("escape")) {
+
+        if (app.keyboard.getKeyUp("P") || app.keyboard.getKey("escape") || ct.start) {
             app.pushScene(pbr.PauseScene());
         }
 

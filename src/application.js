@@ -180,6 +180,9 @@ phina.define("pbr.Application", {
 
             ok: gp.getKey("A") || kb.getKey("Z") || kb.getKey("space"),
             cancel: gp.getKey("B") || kb.getKey("X"),
+
+            start: gp.getKey("start"),
+            select: gp.getKey("select"),
         };
     },
 

@@ -8,23 +8,20 @@
 phina.define("pbr.PauseScene", {
     superClass: "phina.display.DisplayScene",
 
-    _member: {
-        labelParam: {
-            fill: "white",
-            stroke: "black",
-            strokeWidth: 1,
+    labelParam: {
+        fill: "white",
+        stroke: "black",
+        strokeWidth: 1,
 
-            fontFamily: "Orbitron",
-            align: "center",
-            baseline: "middle",
-            fontSize: 35,
-            fontWeight: ''
-        },
+        fontFamily: "Orbitron",
+        align: "center",
+        baseline: "middle",
+        fontSize: 35,
+        fontWeight: ''
     },
 
     init: function(currentScene) {
         this.superInit();
-        this.$extend(this._member);
 
         this.currentScene = currentScene;
         this.yes = true;
@@ -56,8 +53,9 @@ phina.define("pbr.PauseScene", {
 
     update: function() {
         if (this.time > 30 && !this.isExit) {
+            var ct = app.controller;
             var kb = app.keyboard;
-            if (kb.getKey("escape") || kb.getKey("space")) {
+            if (kb.getKey("escape") || kb.getKey("space") || ct.start) {
                 this.pause1.tweener.clear()
                     .fadeOut(100)
                     .call(function() {
