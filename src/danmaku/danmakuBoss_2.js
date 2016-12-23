@@ -61,10 +61,10 @@ var BL  = bullet({type: "normal", color: "blue", size: 1.0});
 var BES = bullet({type: "roll", color: "blue", size: 0.6});
 var BEM = bullet({type: "roll", color: "blue", size: 1.0});
 
-var THIN   = bullet({ type: "THIN" });
-var THIN_L = bullet({ type: "THIN", size: 1.5});
+var THIN   = bullet({type: "THIN", size: 1.0});
+var THIN_L = bullet({type: "THIN", size: 1.5});
 
-var DM = bullet({ dummy: true });
+var DM = bullet({dummy: true});
 
 //２面中ボス
 pbr.danmaku.Raven = new bulletml.Root({
@@ -171,12 +171,12 @@ pbr.danmaku.Garuda_3 = new bulletml.Root({
 pbr.danmaku.Garuda_4 = new bulletml.Root({
     top0: action([
         repeat(Infinity, [
-            fire(bullet(DM, actionRef("inv1")), spd(10), direction("$loop.index * 5", "absolute")),
+            fire(bullet(DM, actionRef("inv1")), spd(3), direction("$loop.index * 5", "absolute")),
             repeat(16, [
                 fire(bullet(DM, actionRef("inv1")), spdSeq(0), direction(360 / 16, "sequence")),
             ]),
             interval(60),
-            fire(bullet(DM, actionRef("inv2")), spd(10), direction("$loop.index * -5", "absolute")),
+            fire(bullet(DM, actionRef("inv2")), spd(3), direction("$loop.index * -5", "absolute")),
             repeat(16, [
                 fire(bullet(DM, actionRef("inv2")), spdSeq(0), direction(-360 / 16, "sequence")),
             ]),

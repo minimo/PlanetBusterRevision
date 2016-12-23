@@ -9,27 +9,25 @@ phina.define("pbr.Bullet", {
     superClass: "phina.display.DisplayElement",
     layer: LAYER_BULLET,
 
-    _member: {
-        //射出した敵のID
-        id: -1,
+    //射出した敵のID
+    id: -1,
 
-        //BulletML Runnner
-        runner: null,
+    //BulletML Runnner
+    runner: null,
 
-        //移動係数
-        vx: 0,
-        vy: 1,
+    //移動係数
+    vx: 0,
+    vy: 1,
 
-        //加速度
-        accel: 1.0,
+    //加速度
+    accel: 1.0,
 
-        //回転
-        rollAngle: 5,
-        rolling: true,
+    //回転
+    rollAngle: 5,
+    rolling: true,
 
-        //経過時間
-        time: 0,
-    },
+    //経過時間
+    time: 0,
 
     DEFAULT_PARAM: {
         id: -1,
@@ -46,7 +44,6 @@ phina.define("pbr.Bullet", {
 
     init: function() {
         this.superInit();
-        this.$extend(this._member);
 
         this.boundingType = "circle";
         this.radius = 2;
