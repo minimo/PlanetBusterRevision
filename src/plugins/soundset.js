@@ -134,6 +134,15 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //ループ再生しているSEを停止
+    stopSE: function(name) {
+        var media = this.find(name);
+        if (media) {
+            media.stop();
+        }
+        return this;
+    },
+
     //ＳＥマスターボリューム設定
     setVolumeSE: function(vol) {
         this.volumeSE = vol;

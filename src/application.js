@@ -263,8 +263,8 @@ phina.define("pbr.Application", {
         this.soundset.setVolumeBGM(vol);
     },
 
-    playSE: function(asset) {
-        this.soundset.playSE(asset);
+    playSE: function(asset, loop) {
+        this.soundset.playSE(asset, loop);
     },
 
     setVolumeSE: function(vol) {
