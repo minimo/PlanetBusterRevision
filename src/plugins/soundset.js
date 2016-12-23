@@ -143,6 +143,17 @@ phina.define("phina.extension.SoundSet", {
         return this;
     },
 
+    //ＢＧＭ一時停止
+    pauseBGM: function() {
+        if (this.bgm) {
+            if (this.bgmIsPlay) {
+                this.bgm.pause();
+                this.bgmIsPlay = false;
+            }
+        }
+        return this;
+    },
+
     //ＳＥマスターボリューム設定
     setVolumeSE: function(vol) {
         this.volumeSE = vol;
