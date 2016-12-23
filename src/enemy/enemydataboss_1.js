@@ -266,7 +266,8 @@ pbr.enemyData['Golyat'] = {
         this.cover.texColor = "";
         this.cover.update = function(e) {
             if (this.texColor !== that.texColor) {
-                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.setImage("tex_boss1"+that.texColor, 64, 80);
+                this.setFrameTrimming(382, 0, 64, 80).setFrameIndex(0);
                 this.texColor = that.texColor;
             }
         };
@@ -281,7 +282,8 @@ pbr.enemyData['Golyat'] = {
         this.core.idx = 0;
         this.core.update = function(e) {
             if (this.texColor !== that.texColor) {
-                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.setImage("tex_boss1"+that.texColor, 16, 16);
+                this.setFrameTrimming(384, 96, 64, 16).setFrameIndex(0);
                 this.texColor = that.texColor;
             }
             this.frameIndex = this.idx | 0;
@@ -323,23 +325,24 @@ pbr.enemyData['Golyat'] = {
             .addChildTo(this)
             .setFrameTrimming(192, 0, 66, 184)
             .setFrameIndex(0)
-            .setPosition(-64, 0);
+            .setPosition(-59, 0);
         this.armbaseL.update = function(e) {
             if (this.texColor !== that.texColor) {
-                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.setImage("tex_boss1"+that.texColor, 66, 184);
+                this.setFrameTrimming(192, 0, 66, 184).setFrameIndex(0);
                 this.texColor = that.texColor;
             }
         };
-
         //アームベース右
         this.armbaseR = phina.display.Sprite("tex_boss1", 66, 184)
             .addChildTo(this)
             .setFrameTrimming(310, 0, 66, 184)
             .setFrameIndex(0)
-            .setPosition(64, 0);
+            .setPosition(59, 0);
         this.armbaseR.update = function(e) {
             if (this.texColor !== that.texColor) {
-                this.image = phina.asset.AssetManager.get("image", "tex_boss1"+that.texColor);
+                this.setImage("tex_boss1"+that.texColor, 66, 184);
+                this.setFrameTrimming(310, 0, 66, 184).setFrameIndex(0);
                 this.texColor = that.texColor;
             }
         };
@@ -358,21 +361,19 @@ pbr.enemyData['Golyat'] = {
         //アーム左
         this.armL = ps.enterEnemy("GolyatArm", 0, 0).setParentEnemy(this);
         this.armL.$extend({
-            base: this.armbaseL,
-            offsetX: -57,
-            offsetY: 0,
+            offsetX: -52,
+            offsetY: 8,
         });
         //アーム右
         this.armR = ps.enterEnemy("GolyatArm", 0, 0).setParentEnemy(this);
         this.armR.$extend({
-            base: this.armbaseR,
-            offsetX: 57,
-            offsetY: 0,
+            offsetX: 52,
+            offsetY: 8,
         });
 
         //アーム差動用
         this.armL.vibX = 0;
-        this.armL.vibY = 0;
+        this.armL.vibY = 0
         this.armR.vibX = 0;
         this.armR.vibY = 0;
 
@@ -380,14 +381,14 @@ pbr.enemyData['Golyat'] = {
         this.wingL = ps.enterEnemy("GolyatWing", 0, 0).setParentEnemy(this.armL);
         this.wingL.$extend({
             offsetX: -31,
-            offsetY: 13,
+            offsetY: 3,
         });
         //ウィング右
         this.wingR = ps.enterEnemy("GolyatWing", 0, 0).setParentEnemy(this.armR);
         this.wingR.texIndex = 1;
         this.wingR.$extend({
             offsetX: 31,
-            offsetY: 13,
+            offsetY: 3,
         });
 
         this.rad = Math.PI*0.5;
@@ -673,7 +674,7 @@ pbr.enemyData['GolyatArm'] = {
         this.y = this.parentEnemy.y+offsetY;
 
         //判定有無は親にあわせる
-        this.isCollision = this.parentEnemy.isCollision;
+        if (this.def > 0) this.isCollision = this.parentEnemy.isCollision;
     },
 };
 
