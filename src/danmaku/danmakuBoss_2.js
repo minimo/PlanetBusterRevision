@@ -174,11 +174,13 @@ pbr.danmaku.Garuda_4 = new bulletml.Root({
             fire(bullet(DM, actionRef("inv1")), spd(3), direction("$loop.index * 5", "absolute")),
             repeat(16, [
                 fire(bullet(DM, actionRef("inv1")), spdSeq(0), direction(360 / 16, "sequence")),
+                interval(1),
             ]),
-            interval(60),
+            interval(10),
             fire(bullet(DM, actionRef("inv2")), spd(3), direction("$loop.index * -5", "absolute")),
             repeat(16, [
                 fire(bullet(DM, actionRef("inv2")), spdSeq(0), direction(-360 / 16, "sequence")),
+                interval(1),
             ]),
             interval(120),
         ]),

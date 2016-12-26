@@ -36,7 +36,11 @@ phina.namespace(function() {
             },
 
             createNewBullet: function(runner, spec) {
-                this.bulletLayer.enterBullet(runner, spec);
+                if (spec.option) {
+                    this.bulletLayer.enterBullet(runner, spec.option);
+                } else {
+                    this.bulletLayer.enterBullet(runner, spec);
+                }
             },
 
             put: function(name, value) {
