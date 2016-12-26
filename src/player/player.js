@@ -173,11 +173,12 @@ phina.define("pbr.Player", {
             }
             if (!this.isDead) {
                 var e = layer.enterAfterburner({
-                    position: {x: this.x, y: this.y+16},
+                    position: {x: this.x, y: this.y+30},
                     velocity: {x: 0, y: ground.deltaY, decay: 0.99},
                     alpha: 0.7,
                     blendMode: "lighter",
                 });
+                e.setScale(1.0, 3.0);
             }
         } else {
             //消火
