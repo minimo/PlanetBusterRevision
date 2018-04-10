@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/minimo/PlanetBusterRevision/issues"
   },
-  "homepage": "https://github.com/minimo/PlanetBusterRevision"
+  "homepage": "https://github.com/minimo/PlanetBusterRevision",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
 }
