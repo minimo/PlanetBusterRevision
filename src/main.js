@@ -8,6 +8,9 @@
 //phina.globalize();
 
 //定数
+//バージョンナンバー
+_VERSION_ = "0.1.0";
+
 //デバッグフラグ
 DEBUG = false;
 MUTEKI = false;

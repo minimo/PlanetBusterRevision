@@ -54,7 +54,17 @@ phina.define("pbr.TitleScene", {
             .setPosition(SC_W*0.5, SC_H*0.5)
         this.bg.tweener.setUpdateType('fps');
 
-        //かっこよさげなオブジェ
+        //バージョン番号
+        phina.display.Label({
+            text: "ver "+_VERSION_,
+            align: "left",
+            baseline: "top",
+            fontSize: 8,
+            stroke: "black",
+            fill: "white",
+        }.$safe(this.titleParam)).addChildTo(this).setPosition(2, 2);
+
+            //かっこよさげなオブジェ
         this.acc = phina.extension.CircleButton({radius: 64})
             .addChildTo(this)
             .setPosition(SC_W*0.5, SC_H*0.3)
