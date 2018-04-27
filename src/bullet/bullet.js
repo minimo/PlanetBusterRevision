@@ -76,7 +76,7 @@ phina.define("pbr.Bullet", {
                 }
 
                 //自機との当り判定チェック
-                if (!this.dummy) {
+                if (!this.dummy && this.time % 2) {
                     var player = this.bulletLayer.parentScene.player;
                     if (player.isCollision) {
                         if (this.isHitElement(player) ) {

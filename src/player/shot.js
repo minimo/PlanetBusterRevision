@@ -19,6 +19,8 @@ phina.define("pbr.Shot", {
         velocity: 15,
     },
 
+    time: 0,
+
     init: function() {
         this.superInit();
         this.boundingType = "circle";
@@ -39,19 +41,22 @@ phina.define("pbr.Shot", {
             }
 
             //敵との当り判定チェック
-            var parentScene = this.shotLayer.parentScene;
-            for (var i = 0; i < 3; i++) {
-                var layer = parentScene.layers[checkLayers[i]];
-                layer.children.each(function(a) {
-                    if (a === app.player) return;
-                    if (this.parent && a.isCollision && a.isHitElement(this)) {
-                        a.damage(this.power);
-                        this.vanish();
-                        this.remove();
-                        return;
-                    }
-                }.bind(this));
+            if (this.time % 2) {
+                var parentScene = this.shotLayer.parentScene;
+                for (var i = 0; i < 3; i++) {
+                    var layer = parentScene.layers[checkLayers[i]];
+                    layer.children.each(function(a) {
+                        if (a === app.player) return;
+                        if (this.parent && a.isCollision && a.isHitElement(this)) {
+                            a.damage(this.power);
+                            this.vanish();
+                            this.remove();
+                            return;
+                        }
+                    }.bind(this));
+                }
             }
+            this.time++;
         });
 
         //リムーブ時
