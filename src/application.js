@@ -176,9 +176,9 @@ phina.define("pbr.Application", {
             right: gp.getKey("right") || kb.getKey("right"),
 
             shot: gp.getKey("A") || kb.getKey("Z"),
-            bomb: gp.getKey("B") || kb.getKey("B"),
-            special1: gp.getKey("X") || kb.getKey("X"),
-            special2: gp.getKey("Y") || kb.getKey("C"),
+            bomb: gp.getKey("B") || kb.getKey("X"),
+            special1: gp.getKey("X") || kb.getKey("C"),
+            special2: gp.getKey("Y") || kb.getKey("V"),
 
             ok: gp.getKey("A") || kb.getKey("Z") || kb.getKey("space"),
             cancel: gp.getKey("B") || kb.getKey("X"),
