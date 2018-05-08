@@ -78,6 +78,10 @@ var app;
 
 window.onload = function() {
     app = pbr.Application();
+    app.domElement.addEventListener('click', function dummy() {
+        var context = phina.asset.Sound.getAudioContext();
+        context.resume();
+    });
     app.run();
     app.enableStats();
 };
