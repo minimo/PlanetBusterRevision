@@ -424,7 +424,7 @@ phina.define("pbr.MainScene", {
 
         var ct = app.controller;
         var kb = app.keyboard;
-        if (app.keyboard.getKey("C")) {
+        if (app.keyboard.getKey("V")) {
             this.eraseBullet();
         }
         if (app.keyboard.getKey("D")) {
