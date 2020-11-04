@@ -860,6 +860,10 @@ if (typeof module === 'object') {
          */
         this._localScope = {};
     };
+    /**
+     * return random number[0.0 - 1.0]
+     */
+    bulletml.Walker.random = Math.random;
 
     /**
      * @return {bulletml.Command}
@@ -1014,7 +1018,7 @@ if (typeof module === 'object') {
         } else if (n = bulletml.Walker.globalScope[exp]) {
             return n;
         } else if (exp === "$rand") {
-            return Math.random();
+            return bulletml.Walker.random();
         }
 
         var scope = {};
@@ -1028,7 +1032,7 @@ if (typeof module === 'object') {
                 scope[prop] = this._localScope[prop];
             }
         }
-        scope["$rand"] = Math.random();
+        scope["$rand"] = bulletml.Walker.random();
         var upperScope = this._stack[this._stack.length - 1];
         if (upperScope) {
             scope["$loop"] = {
@@ -1247,6 +1251,9 @@ if (typeof module === 'object') {
                 result.actions[result.actions.length] = parseActionRef(root,
                         action);
             }
+        });
+        attr(element, "option", function(value) {
+           result.option = JSON.parse(value); 
         });
         result.root = root;
 
@@ -2045,13 +2052,10 @@ bulletml.runner.DEFAULT_CONFIG = {
 
 /**
  * @constructor
- * @param {boolean} fireable
  */
 bulletml.runner.Runner = function() {
     this.x = 0;
     this.y = 0;
-    this.fireable = true;
-    this.stop = false;
 };
 bulletml.runner.Runner.prototype = {
     constructor: bulletml.runner.Runner,
@@ -2175,11 +2179,6 @@ bulletml.runner.SubRunner.prototype = Object.create(bulletml.runner.SimpleSubRun
  */
 bulletml.runner.SubRunner.prototype.update = function() {
     if (this.stop) return;
-    if (this.parentRunner !== null) {
-        if (this.parentRunner.stop) return;
-    }
-    
-
 
     this.age += 1;
 
@@ -2257,18 +2256,12 @@ bulletml.runner.SubRunner.prototype.update = function() {
  * @param {bulletml.Fire} cmd
  */
 bulletml.runner.SubRunner.prototype.fire = function(cmd) {
-    if (!this.fireable) return;
 
     var bulletRunner;
     if (cmd.bullet.actions.length === 0) {
         bulletRunner = new bulletml.runner.SimpleSubRunner(this.config);
     } else {
         bulletRunner = new bulletml.runner.SubRunner(this.config, cmd.bullet.getWalker());
-    }
-    if (this.host) {
-        bulletRunner.host = this.host;
-    } else {
-        bulletRunner.host = this.parentRunner.host;
     }
 
     var gunPosition = {
@@ -2438,9 +2431,6 @@ bulletml.runner.SubRunner.prototype.accel = function(cmd) {
  */
 bulletml.runner.SubRunner.prototype.notify = function(cmd) {
     this.onNotify(cmd.eventName, cmd.params);
-    if (this.parentRunner !== null) {
-        this.parentRunner.onNotify(cmd.eventName, cmd.params);
-    }
 };
 
 /**
