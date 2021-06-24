@@ -1,6 +1,6 @@
 {
-  "name": "PlanetBusterRevision",
-  "version": "0.0.0",
+  "name": "planetbusterrevision",
+  "version": "1.0.0",
   "description": "Planet Buseter Revisiton. 2D Bullet shooting game for webbrowser",
   "main": "gulpfile.js",
   "scripts": {
@@ -8,23 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/minimo/PlanetBusterRevision.git"
+    "url": "git+https://github.com/minimo/PlanetBusterRevision.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/minimo/PlanetBusterRevision/issues"
   },
-  "homepage": "https://github.com/minimo/PlanetBusterRevision",
-  "dependencies": {},
+  "homepage": "https://github.com/minimo/PlanetBusterRevision#readme",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-helper": "^1.0.3",
-    "gulp-plumber": "^1.2.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.0",
-    "http-server": "^0.11.1"
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2"
   }
 }

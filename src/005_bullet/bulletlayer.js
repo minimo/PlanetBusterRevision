@@ -30,6 +30,7 @@ phina.define("BulletLayer", {
     enterBullet: function(runner, spec) {
         //ボス以外の地上物の場合、プレイヤーに近接してたら弾を撃たない
         var host = runner.host;
+        if (!host) return;
         if (host.isGround && !host.isBoss) {
             var dis = distanceSq(runner, this.parentScene.player);
             if (dis < 4096) return;
